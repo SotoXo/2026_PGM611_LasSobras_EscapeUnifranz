@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d8662c497d15c49be3192411c10f5d, type: 3}
+  m_Name: CampusMapData
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Map.CampusMapData
+  nodes:
+  - zoneId: entrada
+    displayName: ENTRADA
+    visitedFlag: 1
+    unlockFlag: 0
+    revealFlag: 0
+  - zoneId: hall
+    displayName: HALL
+    visitedFlag: 2
+    unlockFlag: 0
+    revealFlag: 0
+  - zoneId: arca
+    displayName: ARCA
+    visitedFlag: 3
+    unlockFlag: 0
+    revealFlag: 0
+  - zoneId: piso2
+    displayName: PISO 2
+    visitedFlag: 6
+    unlockFlag: 5
+    revealFlag: 2
+  - zoneId: piso3
+    displayName: PISO 3
+    visitedFlag: 9
+    unlockFlag: 8
+    revealFlag: 6
+  - zoneId: lab_software
+    displayName: LAB SOFTWARE
+    visitedFlag: 12
+    unlockFlag: 11
+    revealFlag: 9
+  - zoneId: nucleo_ia
+    displayName: "N\xDACLEO IA"
+    visitedFlag: 15
+    unlockFlag: 14
+    revealFlag: 12
+  connections:
+  - fromZoneId: entrada
+    toZoneId: hall
+  - fromZoneId: hall
+    toZoneId: arca
+  - fromZoneId: hall
+    toZoneId: piso2
+  - fromZoneId: piso2
+    toZoneId: piso3
+  - fromZoneId: piso3
+    toZoneId: lab_software
+  - fromZoneId: lab_software
+    toZoneId: nucleo_ia

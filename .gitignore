@@ -1,0 +1,99 @@
+# ==============================
+# Unity generated
+# ==============================
+
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+
+# Unity recovery / temporary assets
+Assets/_Recovery/
+Assets/_Recovery.meta
+
+# ==============================
+# Builds
+# ==============================
+
+[Bb]uild/
+[Bb]uilds/
+
+# ==============================
+# Visual Studio / Rider / VS Code
+# ==============================
+
+.vs/
+.idea/
+.vscode/
+
+# ==============================
+# Generated solution/project files
+# ==============================
+
+*.csproj
+*.sln
+*.slnx
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# ==============================
+# JetBrains Rider
+# ==============================
+
+.idea/
+*.sln.iml
+
+# ==============================
+# OS generated
+# ==============================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==============================
+# Unity crash reports
+# ==============================
+
+sysinfo.txt
+
+# ==============================
+# Temporary / backup files
+# ==============================
+
+*.tmp
+*.bak
+*.swp
+*.old
+*~
+
+# ==============================
+# Unity package cache / local cache
+# ==============================
+
+Library/PackageCache/
+
+# ==============================
+# Test results / generated reports
+# ==============================
+
+TestResults/
+TestResults.xml
+
+# ==============================
+# Local development artifacts
+# ==============================
+
+*.log
+

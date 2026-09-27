@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907e983e2ce354f4ea4468cc5f5c2cdb, type: 3}
+  m_Name: ZoneCatalog
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.World.ZoneCatalog
+  zones:
+  - zoneId: entrada
+    scenePath: Assets/_Project/Scenes/Zones/Z00_Entrada.unity
+  - zoneId: hall
+    scenePath: Assets/_Project/Scenes/Zones/Z01_Hall.unity
+  - zoneId: arca
+    scenePath: Assets/_Project/Scenes/Zones/Z02_ARCA.unity
+  - zoneId: piso2
+    scenePath: Assets/_Project/Scenes/Zones/Z03_Piso2.unity
+  - zoneId: piso3
+    scenePath: Assets/_Project/Scenes/Zones/Z04_Piso3.unity
+  - zoneId: lab_software
+    scenePath: Assets/_Project/Scenes/Zones/Z05_LabSoftware.unity
+  - zoneId: nucleo_ia
+    scenePath: Assets/_Project/Scenes/Zones/Z06_NucleoIA.unity
