@@ -79,6 +79,7 @@ namespace EscapeUNIFRANZ.EditorTools
                 ScanReferencePath);
             BuildBootstrap(mapData, toggleMapReference, scanReference);
             VerticalSlicePresentationBuilder.ApplyAll();
+            PlayerAndMainMenuBuilder.ApplyDefinitiveMenuAndVision();
             UpdateBuildSettings();
 
             AssetDatabase.SaveAssets();

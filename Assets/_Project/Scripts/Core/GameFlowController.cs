@@ -4,6 +4,7 @@ using EscapeUNIFRANZ.Map;
 using EscapeUNIFRANZ.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace EscapeUNIFRANZ.Core
 {
@@ -20,12 +21,15 @@ namespace EscapeUNIFRANZ.Core
         [SerializeField] private FadeView fadeView;
         [SerializeField] private string initialZoneId = "entrada";
         [SerializeField] private string initialSpawnId = "entrada_inicio";
+        [SerializeField] private string mainMenuScenePath =
+            "Assets/_Project/Scenes/UI/MainMenu.unity";
 
         private readonly PresentationFlowState flow = new PresentationFlowState(3);
         private GameState boundState;
         private EncounterContext pendingEncounter;
         private GameplayMode resumeMode = GameplayMode.Explore;
         private Coroutine outcomeTransition;
+        private bool returningToMainMenu;
 
         public PresentationScreen CurrentScreen => flow.Current;
         public bool ShowsGameplayHud => flow.ShowsGameplayHud;
@@ -246,15 +250,25 @@ namespace EscapeUNIFRANZ.Core
 
         public void ReturnToMainMenu()
         {
-            if (sceneFlow != null && sceneFlow.IsTransitioning)
+            if (returningToMainMenu || (sceneFlow != null && sceneFlow.IsTransitioning))
             {
                 return;
             }
 
+            returningToMainMenu = true;
             campusMap?.CloseIfOpen();
             pendingEncounter = null;
             DefeatReason = string.Empty;
-            flow.ReturnToMainMenu();
+            Time.timeScale = 1f;
+
+            GameRuntimeRoot runtime = GameRuntimeRoot.Instance;
+            if (runtime != null && runtime.TeardownAndLoadScene(mainMenuScenePath))
+            {
+                return;
+            }
+
+            // Defensive fallback for an isolated controller used outside Bootstrap.
+            SceneManager.LoadScene(mainMenuScenePath, LoadSceneMode.Single);
         }
 
         public void QuitGame()

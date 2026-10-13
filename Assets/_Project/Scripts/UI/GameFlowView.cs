@@ -28,7 +28,6 @@ namespace EscapeUNIFRANZ.UI
 
         [Header("Layers")]
         [SerializeField] private GameObject gameplayHudRoot;
-        [SerializeField] private GameObject mainMenuRoot;
         [SerializeField] private GameObject introRoot;
         [SerializeField] private GameObject loadingRoot;
         [SerializeField] private GameObject pauseRoot;
@@ -42,13 +41,6 @@ namespace EscapeUNIFRANZ.UI
         [SerializeField] private TMP_Text introBody;
         [SerializeField] private TMP_Text introCounter;
         [SerializeField] private TMP_Text defeatReason;
-
-        [Header("Main menu")]
-        [SerializeField] private Button newGameButton;
-        [SerializeField] private Button continueButton;
-        [SerializeField] private Button mainControlsButton;
-        [SerializeField] private Button mainCreditsButton;
-        [SerializeField] private Button quitButton;
 
         [Header("Intro")]
         [SerializeField] private Button introNextButton;
@@ -95,10 +87,6 @@ namespace EscapeUNIFRANZ.UI
                 return;
             }
 
-            Add(newGameButton, controller.NewGame);
-            Add(mainControlsButton, controller.OpenControls);
-            Add(mainCreditsButton, controller.OpenCredits);
-            Add(quitButton, controller.QuitGame);
             Add(introNextButton, controller.ContinueIntro);
             Add(introSkipButton, controller.SkipIntro);
             Add(resumeButton, controller.ResumeGame);
@@ -112,10 +100,6 @@ namespace EscapeUNIFRANZ.UI
             Add(victoryMenuButton, controller.ReturnToMainMenu);
             Add(creditsMenuButton, controller.ReturnToMainMenu);
 
-            if (continueButton != null)
-            {
-                continueButton.interactable = false;
-            }
         }
 
         public void Unbind(GameFlowController target)
@@ -125,10 +109,6 @@ namespace EscapeUNIFRANZ.UI
                 return;
             }
 
-            Remove(newGameButton, controller.NewGame);
-            Remove(mainControlsButton, controller.OpenControls);
-            Remove(mainCreditsButton, controller.OpenCredits);
-            Remove(quitButton, controller.QuitGame);
             Remove(introNextButton, controller.ContinueIntro);
             Remove(introSkipButton, controller.SkipIntro);
             Remove(resumeButton, controller.ResumeGame);
@@ -150,7 +130,6 @@ namespace EscapeUNIFRANZ.UI
             int introPanelCount,
             string reason)
         {
-            SetActive(mainMenuRoot, screen == PresentationScreen.MainMenu);
             SetActive(introRoot, screen == PresentationScreen.Intro);
             SetActive(loadingRoot, screen == PresentationScreen.Loading);
             SetActive(pauseRoot, screen == PresentationScreen.Pause);
@@ -204,9 +183,6 @@ namespace EscapeUNIFRANZ.UI
             Button target = null;
             switch (screen)
             {
-                case PresentationScreen.MainMenu:
-                    target = newGameButton;
-                    break;
                 case PresentationScreen.Intro:
                     target = introNextButton;
                     break;
