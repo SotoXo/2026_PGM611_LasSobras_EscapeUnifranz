@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0600a188e427c4397e57306660e1bf, type: 3}
+  m_Name: entrance_code
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Puzzles.PuzzleData
+  id: entrance_code
+  title: "Lector de autorizaci\xF3n"
+  objective: ABRIR EL ACCESO
+  inspectionText: 'Revisa la nota junto al equipo y el objeto requerido. Registro
+    de pistas: J; objetos: I.'
+  environmentalClue: {fileID: 0}
+  instructions: "Introduce los cuatro d\xEDgitos observados en CCTV. Un error reinicia
+    solo la entrada de c\xF3digo."
+  kind: 1
+  ports:
+  - id: 0
+    label: 0
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: 1
+    label: 1
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: 2
+    label: 2
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: 3
+    label: 3
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: 4
+    label: 4
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: 5
+    label: 5
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: 6
+    label: 6
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: 7
+    label: 7
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: 8
+    label: 8
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: 9
+    label: 9
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  connections: []
+  diagramConnections: []
+  commandOrder:
+  - 3
+  - 1
+  - 7
+  - 4
+  connectInOrder: 1
+  matchingColumns: 0
+  preserveCommandProgress: 0
+  requiredClueId: cctv_codigo
+  requiredItem: 
+  prerequisiteClues: []
+  consumeItem: 0
+  requiredFlags: 1d000000
+  completionFlags: 1a000000
+  rewardItems: []
+  successMessage: "AUTORIZACI\xD3N OK. Acceso al Hall recuperado; checkpoint conservado."

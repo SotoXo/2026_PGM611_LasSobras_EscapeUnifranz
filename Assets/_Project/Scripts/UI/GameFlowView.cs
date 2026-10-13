@@ -14,16 +14,16 @@ namespace EscapeUNIFRANZ.UI
     {
         private static readonly string[] IntroTitles =
         {
-            "ALERTA DE SISTEMA",
-            "CAMPUS BLOQUEADO",
-            "TU MISIÓN"
+            "PRIMER DÍA",
+            "CORTE DE ENERGÍA",
+            "UN ACCESO CERRADO"
         };
 
         private static readonly string[] IntroBodies =
         {
-            "UNIFRANZ ha sido tomada por una inteligencia artificial.",
-            "Los accesos y sistemas de seguridad están fuera de control. Cada piso protege una parte del núcleo.",
-            "Explora el campus, recupera los sistemas y ejecuta un apagado seguro antes de que Francis destruya el núcleo."
+            "Primer día. Ingeniería de Sistemas. El edificio está casi vacío. Tú también estás empezando a aprender.",
+            "Un apagón. La terminal intenta reiniciarse: SISTEMA DE EMERGENCIA ACTIVO. Después: ERROR DE COMUNICACIÓN.",
+            "El acceso no responde. Examina el panel con E. J guarda tus pistas; I muestra los objetos que llevas."
         };
 
         [Header("Layers")]

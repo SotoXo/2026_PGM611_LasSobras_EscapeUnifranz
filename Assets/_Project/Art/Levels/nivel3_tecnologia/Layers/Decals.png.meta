@@ -1,0 +1,845 @@
+fileFormatVersion: 2
+guid: 4faf392ac37339c4f833117089dfccce
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9018111846463007574
+    second: Decals_0
+  - first:
+      213: -5300756708933983464
+    second: Decals_1
+  - first:
+      213: -3312338835949399008
+    second: Decals_2
+  - first:
+      213: 1536828842825008735
+    second: Decals_3
+  - first:
+      213: -3586384748753191135
+    second: Decals_4
+  - first:
+      213: -2193985801107402268
+    second: Decals_5
+  - first:
+      213: 7371104610969219585
+    second: Decals_6
+  - first:
+      213: -616988471123618190
+    second: Decals_7
+  - first:
+      213: -966895149905917454
+    second: Decals_8
+  - first:
+      213: 9055302376602960747
+    second: Decals_9
+  - first:
+      213: 1994110949709121417
+    second: Decals_10
+  - first:
+      213: 2058431180233136973
+    second: Decals_11
+  - first:
+      213: -3291042482496555426
+    second: Decals_12
+  - first:
+      213: 8795840974609333600
+    second: Decals_13
+  - first:
+      213: 1012385016976483211
+    second: Decals_14
+  - first:
+      213: -7591793526653178101
+    second: Decals_15
+  - first:
+      213: -7035029965887770116
+    second: Decals_16
+  - first:
+      213: 2287404183481714947
+    second: Decals_17
+  - first:
+      213: -5612876611644932779
+    second: Decals_18
+  - first:
+      213: -1366323557797755377
+    second: Decals_19
+  - first:
+      213: -673842534674070041
+    second: Decals_20
+  - first:
+      213: 8901515543770084337
+    second: Decals_21
+  - first:
+      213: -4464574325762370009
+    second: Decals_22
+  - first:
+      213: -3006320033264782339
+    second: Decals_23
+  - first:
+      213: -73174928531488371
+    second: Decals_24
+  - first:
+      213: 5489918014808918155
+    second: Decals_25
+  - first:
+      213: 7555005518628785299
+    second: Decals_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Decals_0
+      rect:
+        serializedVersion: 2
+        x: 1413
+        y: 221
+        width: 14
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa494de3e0b39d280800000000000000
+      internalID: -9018111846463007574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_1
+      rect:
+        serializedVersion: 2
+        x: 1427
+        y: 205
+        width: 34
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 813a83b9bddef66b0800000000000000
+      internalID: -5300756708933983464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_2
+      rect:
+        serializedVersion: 2
+        x: 1437
+        y: 195
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0245183d0653802d0800000000000000
+      internalID: -3312338835949399008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_3
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 131
+        width: 50
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f56c829a0b9e35510800000000000000
+      internalID: 1536828842825008735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_4
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 171
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12fffae821a9a3ec0800000000000000
+      internalID: -3586384748753191135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_5
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 181
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e11eb2c9856d81e0800000000000000
+      internalID: -2193985801107402268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_6
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 169
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1027013079c6b4660800000000000000
+      internalID: 7371104610969219585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_7
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 139
+        width: 48
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2765a2421440077f0800000000000000
+      internalID: -616988471123618190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_8
+      rect:
+        serializedVersion: 2
+        x: 1353
+        y: 181
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f94fc6ebf5e492f0800000000000000
+      internalID: -966895149905917454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_9
+      rect:
+        serializedVersion: 2
+        x: 1359
+        y: 177
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b638b23d885eaad70800000000000000
+      internalID: 9055302376602960747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_10
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 143
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9870120f7518cab10800000000000000
+      internalID: 1994110949709121417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_11
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 157
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4b526c9044019c10800000000000000
+      internalID: 2058431180233136973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_12
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 143
+        width: 42
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e56b2128c4ed352d0800000000000000
+      internalID: -3291042482496555426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_13
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 147
+        width: 42
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06d3a6893ca111a70800000000000000
+      internalID: 8795840974609333600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_14
+      rect:
+        serializedVersion: 2
+        x: 1395
+        y: 159
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b83afc02fc6bc0e00800000000000000
+      internalID: 1012385016976483211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_15
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 129
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0f2ab3b20884a690800000000000000
+      internalID: -7591793526653178101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_16
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 115
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf1f70be48d8e5e90800000000000000
+      internalID: -7035029965887770116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_17
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 117
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3098b265cfd7ebf10800000000000000
+      internalID: 2287404183481714947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_18
+      rect:
+        serializedVersion: 2
+        x: 1095
+        y: 81
+        width: 50
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55d3ec2c57e0b12b0800000000000000
+      internalID: -5612876611644932779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_19
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 117
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f06873996f7d90de0800000000000000
+      internalID: -1366323557797755377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_20
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 75
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e5043ee8c706a6f0800000000000000
+      internalID: -673842534674070041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_21
+      rect:
+        serializedVersion: 2
+        x: 1095
+        y: 95
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f3b80d8939888b70800000000000000
+      internalID: 8901515543770084337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_22
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 71
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 726da971e45aa02c0800000000000000
+      internalID: -4464574325762370009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_23
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 71
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df3bc10abd76746d0800000000000000
+      internalID: -3006320033264782339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_24
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 73
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d818a6a4ac70cfef0800000000000000
+      internalID: -73174928531488371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_25
+      rect:
+        serializedVersion: 2
+        x: 1107
+        y: 69
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8804bef85b103c40800000000000000
+      internalID: 5489918014808918155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decals_26
+      rect:
+        serializedVersion: 2
+        x: 1119
+        y: 77
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39c0cf5bd75c8d860800000000000000
+      internalID: 7555005518628785299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Decals_0: -9018111846463007574
+      Decals_1: -5300756708933983464
+      Decals_10: 1994110949709121417
+      Decals_11: 2058431180233136973
+      Decals_12: -3291042482496555426
+      Decals_13: 8795840974609333600
+      Decals_14: 1012385016976483211
+      Decals_15: -7591793526653178101
+      Decals_16: -7035029965887770116
+      Decals_17: 2287404183481714947
+      Decals_18: -5612876611644932779
+      Decals_19: -1366323557797755377
+      Decals_2: -3312338835949399008
+      Decals_20: -673842534674070041
+      Decals_21: 8901515543770084337
+      Decals_22: -4464574325762370009
+      Decals_23: -3006320033264782339
+      Decals_24: -73174928531488371
+      Decals_25: 5489918014808918155
+      Decals_26: 7555005518628785299
+      Decals_3: 1536828842825008735
+      Decals_4: -3586384748753191135
+      Decals_5: -2193985801107402268
+      Decals_6: 7371104610969219585
+      Decals_7: -616988471123618190
+      Decals_8: -966895149905917454
+      Decals_9: 9055302376602960747
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

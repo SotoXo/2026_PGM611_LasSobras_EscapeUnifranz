@@ -24,6 +24,8 @@ namespace EscapeUNIFRANZ.Encounters
         private int armIndex;
         private bool strikeActive;
         private float nextChangeAt;
+        public bool emergencyStop;
+        public ThreatFeedback2D feedback;
 
         public RobotArmsEncounterState State => machine.Current;
 
@@ -39,7 +41,7 @@ namespace EscapeUNIFRANZ.Encounters
             {
                 machine.RestoreDisabled();
                 DisableAllHazards();
-                gameObject.SetActive(false);
+                feedback?.Show(ThreatVisualState.Disabled);
             }
         }
 
@@ -67,7 +69,7 @@ namespace EscapeUNIFRANZ.Encounters
 
         public bool TryDisableFromPanel()
         {
-            if (!machine.Disable())
+            if (!(emergencyStop ? machine.EmergencyStop() : machine.Disable()))
             {
                 session?.ShowMessage("Panel fuera de la ventana segura.");
                 return false;
@@ -78,7 +80,7 @@ namespace EscapeUNIFRANZ.Encounters
             session.State.SetFlag(GameFlagId.NucleoUnlocked);
             session.ShowMessage("Brazos robóticos desactivados. Núcleo IA habilitado.");
             encounter?.CompleteEncounter();
-            gameObject.SetActive(false);
+            feedback?.Show(ThreatVisualState.Disabled);
             return true;
         }
 

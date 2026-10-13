@@ -1,0 +1,8 @@
+Z00_Entrada: 2 puzzles; 2 world clues; 13617 reachable cells; refs/checkpoint OK.
+Z01_Hall: 1 puzzles; 2 world clues; 13617 reachable cells; refs/checkpoint OK.
+Z02_ARCA: 1 puzzles; 2 world clues; 13617 reachable cells; refs/checkpoint OK.
+Z03_Piso2: 3 puzzles; 3 world clues; 10552 reachable cells; refs/checkpoint OK.
+Z04_Piso3: 1 puzzles; 4 world clues; 11118 reachable cells; refs/checkpoint OK.
+Z05_LabSoftware: 1 puzzles; 3 world clues; 11118 reachable cells; refs/checkpoint OK.
+Z06_NucleoIA: 2 puzzles; 3 world clues; 13157 reachable cells; refs/checkpoint OK.
+Geometry reachability issues: 0

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872de609eef158748acef7da0ab2e217, type: 3}
+  m_Name: hardware_circuito
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
+  id: hardware_circuito
+  title: "Ficha de simulaci\xF3n"
+  category: Hardware / sistemas embebidos
+  text: "Primero reemplaza el <b>fusible da\xF1ado</b>: deja pasar energ\xEDa de
+    forma segura. Arranca <b>ENERG\xCDA \u2192 PROCESADOR \u2192 RED \u2192 ACTUADOR</b>,
+    como indican los n\xFAmeros. Despu\xE9s une las cuatro etiquetas iguales. El
+    actuador es la pieza que mueve el equipo."
+  associatedFlag: 0

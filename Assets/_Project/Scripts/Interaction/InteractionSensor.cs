@@ -130,7 +130,7 @@ namespace EscapeUNIFRANZ.Interaction
 
             for (int index = 0; index < behaviours.Length; index++)
             {
-                if (behaviours[index] is IInteractable candidate)
+                if (behaviours[index]!=null && behaviours[index].isActiveAndEnabled && behaviours[index] is IInteractable candidate)
                 {
                     owner = behaviours[index];
                     interactable = candidate;

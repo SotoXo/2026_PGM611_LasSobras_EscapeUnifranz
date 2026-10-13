@@ -10,7 +10,7 @@ namespace EscapeUNIFRANZ.Encounters
         public string ScanStateText => controller != null &&
             controller.State == RobotArmsEncounterState.Disabled
                 ? "[SIN ENERGÍA]"
-                : "[ENERGIZADO]";
+                : "[PARADA DE EMERGENCIA]";
 
         public override bool CanInteract => base.CanInteract && controller != null &&
             controller.State != RobotArmsEncounterState.Disabled;

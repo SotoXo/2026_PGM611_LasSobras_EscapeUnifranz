@@ -69,6 +69,8 @@ namespace EscapeUNIFRANZ.Core
 
         private void Update()
         {
+            if (flow.Current == PresentationScreen.Gameplay && gameplayMode != null &&
+                (gameplayMode.CurrentMode == GameplayMode.Puzzle || gameplayMode.CurrentMode == GameplayMode.Dialogue)) return;
             Keyboard keyboard = Keyboard.current;
             if (keyboard == null)
             {

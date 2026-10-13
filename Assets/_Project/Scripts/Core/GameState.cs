@@ -19,6 +19,7 @@ namespace EscapeUNIFRANZ.Core
         [SerializeField] private string checkpointSpawnId = string.Empty;
         [SerializeField] private List<GameFlagId> completedFlags = new List<GameFlagId>();
         [SerializeField] private List<string> discoveredWorldItems = new List<string>();
+        [SerializeField] private List<string> carriedItems = new List<string>();
 
         public string CurrentZoneId => currentZoneId;
         public string CurrentSpawnId => currentSpawnId;
@@ -37,6 +38,25 @@ namespace EscapeUNIFRANZ.Core
         public event Action ObjectiveChanged;
         public event Action<string, string> CheckpointChanged;
         public event Action MapKnowledgeChanged;
+        public event Action InventoryChanged;
+        public IReadOnlyList<string> CarriedItems => carriedItems;
+
+        public bool HasItem(string id) => !string.IsNullOrWhiteSpace(id) && carriedItems.Contains(id.Trim());
+        public bool AddItem(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id)) return false;
+            carriedItems.Add(id.Trim()); InventoryChanged?.Invoke(); return true;
+        }
+        public bool TryUseItem(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id) || !carriedItems.Remove(id.Trim())) return false;
+            InventoryChanged?.Invoke(); return true;
+        }
+        public bool TryCollectPickup(string pickupId, string itemId)
+        {
+            if (string.IsNullOrWhiteSpace(itemId) || !DiscoverWorldItem("pickup",pickupId)) return false;
+            return AddItem(itemId);
+        }
 
         public bool HasFlag(GameFlagId flag)
         {

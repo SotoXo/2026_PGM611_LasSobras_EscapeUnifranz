@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0600a188e427c4397e57306660e1bf, type: 3}
+  m_Name: technology_network
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Puzzles.PuzzleData
+  id: technology_network
+  title: "Distribuidor de red de Tecnolog\xEDa"
+  objective: CONECTAR SERVIDOR CON LAB
+  inspectionText: "Falta el m\xF3dulo de red. La tarjeta de mantenimiento abre el
+    gabinete del Hall; la etiqueta SWITCH-02 se\xF1ala el LAB."
+  environmentalClue: {fileID: 11400000, guid: 4acfb3713ad7a55459b60f8cde4f86c4, type: 2}
+  instructions: "Lleva la conexi\xF3n del SERVIDOR al LAB. El nodo rojo est\xE1 comprometido:
+    busca la otra ruta. La nota destaca el switch \xFAtil."
+  kind: 0
+  ports:
+  - id: SW-01
+    label: 'RUTA A
+
+      COMPROMETIDA'
+    output: 0
+    blocked: 1
+    row: 0
+    icon: {fileID: 0}
+  - id: LAB
+    label: LAB
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: BACKBONE
+    label: SERVIDOR
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: ADMIN
+    label: HALL
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: SW-02
+    label: SWITCH-02
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  connections:
+  - from: BACKBONE
+    to: SW-02
+  - from: SW-02
+    to: LAB
+  diagramConnections:
+  - from: BACKBONE
+    to: SW-01
+  - from: SW-01
+    to: ADMIN
+  - from: BACKBONE
+    to: SW-02
+  - from: SW-02
+    to: LAB
+  commandOrder: []
+  connectInOrder: 1
+  matchingColumns: 0
+  preserveCommandProgress: 0
+  requiredClueId: red_topologia
+  requiredItem: network_module
+  prerequisiteClues:
+  - network_confirm
+  consumeItem: 1
+  requiredFlags: 
+  completionFlags: 18000000
+  rewardItems: []
+  successMessage: "Ruta recuperada. Dispositivo m\xF3vil aislado; laboratorio habilitado."

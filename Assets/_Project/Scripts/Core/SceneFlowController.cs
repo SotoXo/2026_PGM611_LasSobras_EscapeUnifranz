@@ -220,9 +220,10 @@ namespace EscapeUNIFRANZ.Core
             playerBody.position = spawnPoint.Position;
             playerBody.linearVelocity = Vector2.zero;
             session.State.SetLocation(zoneId, spawnId);
-            string checkpointId = string.IsNullOrWhiteSpace(zoneContext.DefaultCheckpointSpawnId)
+            string resolvedCheckpoint=zoneContext.ResolveCheckpointSpawnId(session.State);
+            string checkpointId = string.IsNullOrWhiteSpace(resolvedCheckpoint)
                 ? spawnId
-                : zoneContext.DefaultCheckpointSpawnId;
+                : resolvedCheckpoint;
             session.State.SetCheckpoint(zoneId, checkpointId);
 
             Debug.Log($"Loaded zone: {zoneId} | Spawn: {spawnId}", zoneContext);

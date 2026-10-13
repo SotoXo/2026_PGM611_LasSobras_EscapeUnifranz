@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0600a188e427c4397e57306660e1bf, type: 3}
+  m_Name: fuse_simulation
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Puzzles.PuzzleData
+  id: fuse_simulation
+  title: Caja de fusibles
+  objective: REEMPLAZAR EL FUSIBLE
+  inspectionText: "FUSIBLE DA\xD1ADO. Busca el fusible de respaldo en Simulaci\xF3n
+    y col\xF3calo en el hueco vac\xEDo."
+  environmentalClue: {fileID: 11400000, guid: a56fbf9ffd2f6ac42a8a14657195b6f6, type: 2}
+  instructions: "Arrastra el fusible nuevo hasta el hueco vac\xEDo."
+  kind: 3
+  ports:
+  - id: IN_FUSE
+    label: FUSIBLE NUEVO
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: -8131423462172128821, guid: 1eb3204f997c9404ab37e29dba8b8777, type: 3}
+  - id: OUT_SLOT
+    label: "HUECO VAC\xCDO"
+    output: 1
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  connections:
+  - from: IN_FUSE
+    to: OUT_SLOT
+  diagramConnections: []
+  commandOrder: []
+  connectInOrder: 1
+  matchingColumns: 1
+  preserveCommandProgress: 0
+  requiredClueId: hardware_circuito
+  requiredItem: fuse
+  prerequisiteClues:
+  - hardware_confirm
+  consumeItem: 1
+  requiredFlags: 
+  completionFlags: 1e000000
+  rewardItems: []
+  successMessage: "FUSIBLE REEMPLAZADO. Una l\xE1mpara vuelve a encenderse."

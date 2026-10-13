@@ -21,7 +21,7 @@ namespace EscapeUNIFRANZ.Interaction
         private float visibleUntil;
 
         public ScanCategory Category => category;
-        public bool CanScan => ScanLogic.CanReveal(state, secret, revealFlag);
+        public bool CanScan => isActiveAndEnabled && ScanLogic.CanReveal(state, secret, revealFlag);
 
         public void Initialize(ZoneRuntimeContext context)
         {
@@ -79,7 +79,7 @@ namespace EscapeUNIFRANZ.Interaction
             MonoBehaviour[] behaviours = GetComponents<MonoBehaviour>();
             for (int index = 0; index < behaviours.Length; index++)
             {
-                if (behaviours[index] != this && behaviours[index] is IScanStateProvider provider)
+                if (behaviours[index] != this && behaviours[index].isActiveAndEnabled && behaviours[index] is IScanStateProvider provider)
                 {
                     return provider.ScanStateText;
                 }

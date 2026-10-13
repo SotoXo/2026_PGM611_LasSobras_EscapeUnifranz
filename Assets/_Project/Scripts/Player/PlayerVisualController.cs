@@ -6,6 +6,7 @@ namespace EscapeUNIFRANZ.Player
     /// Maps top-down movement to the four directional animation states.
     /// The renderer can live on a scaled child so physics remain on the Player root.
     /// </summary>
+    [DefaultExecutionOrder(-150)]
     [DisallowMultipleComponent]
     public sealed class PlayerVisualController : MonoBehaviour
     {
@@ -97,6 +98,16 @@ namespace EscapeUNIFRANZ.Player
             if (movementInput.sqrMagnitude <= DirectionThresholdSqr)
             {
                 return previousDirection;
+            }
+
+            // With equally strong diagonal axes, keep the last compatible direction.
+            if (Mathf.Approximately(Mathf.Abs(movementInput.x), Mathf.Abs(movementInput.y)))
+            {
+                if ((previousDirection == FacingDirection.Left && movementInput.x < 0f) ||
+                    (previousDirection == FacingDirection.Right && movementInput.x > 0f) ||
+                    (previousDirection == FacingDirection.Back && movementInput.y > 0f) ||
+                    (previousDirection == FacingDirection.Front && movementInput.y < 0f))
+                    return previousDirection;
             }
 
             if (Mathf.Abs(movementInput.x) > Mathf.Abs(movementInput.y))

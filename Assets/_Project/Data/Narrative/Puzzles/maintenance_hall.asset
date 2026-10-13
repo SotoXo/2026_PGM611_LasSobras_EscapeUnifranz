@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0600a188e427c4397e57306660e1bf, type: 3}
+  m_Name: maintenance_hall
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Puzzles.PuzzleData
+  id: maintenance_hall
+  title: Gabinete del Hall
+  objective: GABINETE DEL HALL
+  inspectionText: "GABINETE DE COMUNICACIONES. Requiere tarjeta de mantenimiento:
+    se obtiene en Simulaci\xF3n."
+  environmentalClue: {fileID: 0}
+  instructions: "Autoriza la tarjeta y extrae el m\xF3dulo despu\xE9s del diagn\xF3stico."
+  kind: 1
+  ports:
+  - id: EXTRACT
+    label: "RETIRAR M\xD3DULO"
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: AUTH
+    label: USAR TARJETA
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: DIAGNOSE
+    label: REVISAR GABINETE
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: FORCE
+    label: FORZAR CIERRE
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  connections: []
+  diagramConnections: []
+  commandOrder:
+  - AUTH
+  - DIAGNOSE
+  - EXTRACT
+  connectInOrder: 1
+  matchingColumns: 0
+  preserveCommandProgress: 0
+  requiredClueId: hall_mantenimiento
+  requiredItem: maintenance_card
+  prerequisiteClues: []
+  consumeItem: 0
+  requiredFlags: 
+  completionFlags: 1c000000
+  rewardItems:
+  - network_module
+  successMessage: "Gabinete abierto. M\xF3dulo de red recuperado; regresa a Tecnolog\xEDa."

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872de609eef158748acef7da0ab2e217, type: 3}
+  m_Name: software_confirm
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
+  id: software_confirm
+  title: Monitor de procesos
+  category: "Inspecci\xF3n ambiental"
+  text: "El monitor muestra: <b>SEGURIDAD \u2014 \xF3rdenes hostiles</b>; N\xDACLEO
+    \u2014 coordinaci\xF3n; PUERTAS \u2014 accesos. Esto confirma que debes detener
+    solo <b>SEGURIDAD</b>."
+  associatedFlag: 0

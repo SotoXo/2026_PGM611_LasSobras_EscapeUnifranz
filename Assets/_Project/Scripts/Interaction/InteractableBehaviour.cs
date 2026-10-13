@@ -1,4 +1,6 @@
 using UnityEngine;
+using EscapeUNIFRANZ.Core;
+using EscapeUNIFRANZ.World;
 
 namespace EscapeUNIFRANZ.Interaction
 {
@@ -10,6 +12,12 @@ namespace EscapeUNIFRANZ.Interaction
         [SerializeField] private string prompt = "[E] Interactuar";
         [SerializeField] private int priority;
         [SerializeField] private bool interactionAvailable = true;
+        [SerializeField] private GameFlagId[] requiredFlags;
+        [SerializeField] private string requiredItem;
+        [SerializeField] private string requirementMessage = "El dispositivo todavía no está habilitado.";
+        protected GameSessionController BoundSession { get; private set; }
+        public bool RequirementsMet => DoorAccessRules.CanOpen(BoundSession?.State, requiredFlags, requiredItem);
+        public void BindSession(GameSessionController session) { BoundSession = session; }
 
         public string Prompt => prompt;
         public int Priority => priority;
@@ -20,10 +28,13 @@ namespace EscapeUNIFRANZ.Interaction
         {
             if (CanInteract)
             {
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.Interaction);
+                if (!RequirementsMet) { OnRequirementsBlocked(requirementMessage); return; }
                 PerformInteraction();
             }
         }
 
         protected abstract void PerformInteraction();
+        protected virtual void OnRequirementsBlocked(string message) { BoundSession?.ShowMessage(message); }
     }
 }

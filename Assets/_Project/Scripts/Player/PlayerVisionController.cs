@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using System.Collections.Generic;
 
 namespace EscapeUNIFRANZ.Player
 {
@@ -7,6 +8,7 @@ namespace EscapeUNIFRANZ.Player
     /// Keeps a soft near light and a shadow-aware forward light aligned with the
     /// player's last valid visual direction. It has no encounter-specific logic.
     /// </summary>
+    [DefaultExecutionOrder(-100)]
     [DisallowMultipleComponent]
     [RequireComponent(typeof(PlayerVisualController))]
     public sealed class PlayerVisionController : MonoBehaviour
@@ -16,15 +18,23 @@ namespace EscapeUNIFRANZ.Player
         [SerializeField] private Light2D forwardLight;
 
         [Header("Immediate visibility")]
-        [SerializeField, Min(0.1f)] private float immediateRadius = 1.25f;
+        [SerializeField, Min(0.1f)] private float immediateRadius = 1.45f;
         [SerializeField, Min(0f)] private float immediateIntensity = 0.72f;
+        [SerializeField, Range(0f, 1f)] private float immediateFalloff = 0.72f;
 
         [Header("Forward visibility")]
-        [SerializeField, Min(0.5f)] private float forwardRange = 4.4f;
-        [SerializeField, Range(1f, 179f)] private float forwardAngle = 84f;
-        [SerializeField, Range(0f, 179f)] private float innerAngle = 56f;
-        [SerializeField, Min(0f)] private float forwardIntensity = 1.05f;
+        [SerializeField, Min(0.5f)] private float forwardRange = 6.8f;
+        [SerializeField, Range(1f, 179f)] private float forwardAngle = 88f;
+        [SerializeField, Range(0f, 179f)] private float innerAngle = 60f;
+        [SerializeField, Min(0f)] private float forwardIntensity = 1.15f;
+        [SerializeField, Range(0f, 1f)] private float forwardFalloff = 0.55f;
+        [Header("Emitter relative to the player's feet")]
+        [SerializeField] private Vector3 emitterOrigin = new Vector3(0f, 0.3f, 0f);
+        [SerializeField, Min(0f)] private float forwardOffset = 0.18f;
         [SerializeField] private Color lightColor = new Color(0.72f, 0.84f, 1f, 1f);
+        private bool flashlightEquipped;
+        private readonly List<RaycastHit2D> emitterHits=new List<RaycastHit2D>();
+        public void SetFlashlightEquipped(bool equipped) { flashlightEquipped=equipped; ApplyLightSettings(); }
 
         public PlayerVisualController.FacingDirection CurrentDirection =>
             visualController != null
@@ -38,13 +48,12 @@ namespace EscapeUNIFRANZ.Player
                 visualController = GetComponent<PlayerVisualController>();
             }
 
-            EnsureLights();
-            ApplyLightSettings();
-            ApplyDirection(CurrentDirection);
+            ApplyLightConfiguration();
         }
 
         private void LateUpdate()
         {
+            if (immediateLight!=null) immediateLight.transform.localPosition=SafeEmitterPosition(emitterOrigin);
             ApplyDirection(CurrentDirection);
         }
 
@@ -54,9 +63,11 @@ namespace EscapeUNIFRANZ.Player
             forwardRange = Mathf.Max(0.5f, forwardRange);
             forwardAngle = Mathf.Clamp(forwardAngle, 1f, 179f);
             innerAngle = Mathf.Clamp(innerAngle, 0f, forwardAngle);
+            forwardOffset = Mathf.Max(0f, forwardOffset);
 
             if (Application.isPlaying)
             {
+                if (immediateLight != null) immediateLight.transform.localPosition = emitterOrigin;
                 ApplyLightSettings();
                 ApplyDirection(CurrentDirection);
             }
@@ -65,17 +76,20 @@ namespace EscapeUNIFRANZ.Player
         public static float ResolveRotationDegrees(
             PlayerVisualController.FacingDirection direction)
         {
-            switch (direction)
-            {
-                case PlayerVisualController.FacingDirection.Back:
-                    return 180f;
-                case PlayerVisualController.FacingDirection.Left:
-                    return -90f;
-                case PlayerVisualController.FacingDirection.Right:
-                    return 90f;
-                default:
-                    return 0f;
-            }
+            // URP's point-light shader emits a narrow cone along local +Y.
+            // Rotate that axis onto the same facing used by the sprite and emitter offset.
+            return Vector2.SignedAngle(Vector2.up, DirectionVector(direction));
+        }
+
+        /// <summary>Shared setup for Awake and editor builders; never simulates gameplay.</summary>
+        public void ApplyLightConfiguration()
+        {
+            if (visualController == null) visualController = GetComponent<PlayerVisualController>();
+            EnsureLights();
+            immediateLight.transform.localPosition = emitterOrigin;
+            immediateLight.transform.localRotation = Quaternion.identity;
+            ApplyLightSettings();
+            ApplyDirection(CurrentDirection);
         }
 
         private void ApplyDirection(PlayerVisualController.FacingDirection direction)
@@ -87,7 +101,18 @@ namespace EscapeUNIFRANZ.Player
 
             float rotation = ResolveRotationDegrees(direction);
             forwardLight.transform.localRotation = Quaternion.Euler(0f, 0f, rotation);
-            forwardLight.transform.localPosition = DirectionVector(direction) * 0.16f;
+            forwardLight.transform.localPosition = SafeEmitterPosition(emitterOrigin + DirectionVector(direction) * forwardOffset);
+        }
+        private Vector3 SafeEmitterPosition(Vector3 localPosition)
+        {
+            Vector2 origin=transform.TransformPoint(new Vector3(0f,0.13f,0f));
+            Vector2 desired=transform.TransformPoint(localPosition), delta=desired-origin;
+            var filter=ContactFilter2D.noFilter; filter.useTriggers=false;
+            emitterHits.Clear(); Physics2D.Raycast(origin,delta.normalized,filter,emitterHits,delta.magnitude);
+            float distance=delta.magnitude;
+            foreach(var hit in emitterHits)
+                if (hit.collider!=null && !hit.collider.transform.IsChildOf(transform)) distance=Mathf.Min(distance,Mathf.Max(0f,hit.distance-0.025f));
+            return transform.InverseTransformPoint(origin+delta.normalized*distance);
         }
 
         private void ApplyLightSettings()
@@ -98,13 +123,15 @@ namespace EscapeUNIFRANZ.Player
                 360f,
                 360f,
                 immediateIntensity,
-                false);
+                immediateFalloff,
+                true);
             ConfigurePointLight(
                 forwardLight,
                 forwardRange,
                 forwardAngle,
-                innerAngle,
-                forwardIntensity,
+                Mathf.Min(forwardAngle,innerAngle+(flashlightEquipped ? 4f : 0f)),
+                forwardIntensity+(flashlightEquipped ? 0.12f : 0f),
+                forwardFalloff,
                 true);
         }
 
@@ -140,6 +167,7 @@ namespace EscapeUNIFRANZ.Player
             float outerAngle,
             float lightInnerAngle,
             float lightIntensity,
+            float falloff,
             bool shadows)
         {
             if (light == null)
@@ -150,8 +178,8 @@ namespace EscapeUNIFRANZ.Player
             light.lightType = Light2D.LightType.Point;
             light.color = lightColor;
             light.intensity = lightIntensity;
-            light.falloffIntensity = 0.72f;
-            light.pointLightInnerRadius = shadows ? 0.15f : radius * 0.45f;
+            light.falloffIntensity = falloff;
+            light.pointLightInnerRadius = outerAngle < 360f ? 0.4f : radius * 0.45f;
             light.pointLightOuterRadius = radius;
             light.pointLightOuterAngle = outerAngle;
             light.pointLightInnerAngle = Mathf.Min(lightInnerAngle, outerAngle);

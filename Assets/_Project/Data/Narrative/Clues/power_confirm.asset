@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872de609eef158748acef7da0ab2e217, type: 3}
+  m_Name: power_confirm
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
+  id: power_confirm
+  title: Bornes del acceso
+  category: "Inspecci\xF3n ambiental"
+  text: "El hueco de la <b>bater\xEDa est\xE1 vac\xEDo</b>. Dos etiquetas siguen
+    visibles: <b>ENERG\xCDA</b> y <b>DATOS</b>. El cierre necesita ambas l\xEDneas
+    para responder."
+  associatedFlag: 0

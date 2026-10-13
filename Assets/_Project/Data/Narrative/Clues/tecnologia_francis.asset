@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872de609eef158748acef7da0ab2e217, type: 3}
+  m_Name: tecnologia_francis
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
+  id: tecnologia_francis
+  title: Registro de laboratorio 03
+  category: Hardware
+  text: "Francis pidi\xF3 acceso al equipo para demostrar que pod\xEDa detener la
+    IA. Software advirti\xF3 que deb\xEDan coordinar el apagado. Francis decidi\xF3
+    intervenir f\xEDsicamente. Su siguiente registro dice: \xAB<b>Yo pod\xEDa detenerlo</b>\xBB."
+  associatedFlag: 0

@@ -12,6 +12,7 @@ namespace EscapeUNIFRANZ.Hazards
     {
         [SerializeField] private SpriteRenderer indicator;
         [SerializeField] private TMP_Text stateLabel;
+        public LineRenderer dangerHalo;
 
         private Collider2D trigger;
         private float activeStartsAt;
@@ -116,6 +117,8 @@ namespace EscapeUNIFRANZ.Hazards
             }
 
             StateChanged?.Invoke(state);
+            if (dangerHalo!=null)
+            { dangerHalo.enabled=state!=HazardWindowState.Safe; dangerHalo.startColor=dangerHalo.endColor=state==HazardWindowState.Active ? new Color(1f,0.08f,0.03f,0.9f) : new Color(1f,0.8f,0.1f,0.75f); }
         }
 
         private void EnsureStateLabel()

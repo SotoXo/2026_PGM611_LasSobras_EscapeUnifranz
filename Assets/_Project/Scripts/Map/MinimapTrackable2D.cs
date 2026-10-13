@@ -31,7 +31,9 @@ namespace EscapeUNIFRANZ.Map
             state.CurrentObjectiveId == objectiveId;
         public bool IsCurrentCheckpoint => MinimapLogic.IsCurrentCheckpoint(
             state, zoneId, checkpointId);
-        public MinimapExitState ExitState => MinimapLogic.ResolveExitState(
+        public MinimapExitState ExitState => zoneExit != null && IsDiscovered && !secret
+            ? (zoneExit.IsUnlocked ? MinimapExitState.Available : MinimapExitState.Blocked)
+            : MinimapLogic.ResolveExitState(
             state,
             zoneExit != null ? zoneExit.RequiredFlag : GameFlagId.None,
             IsDiscovered,

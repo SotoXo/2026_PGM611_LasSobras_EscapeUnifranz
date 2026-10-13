@@ -25,6 +25,15 @@ namespace EscapeUNIFRANZ.World
         public string ZoneId => zoneId;
         public string DisplayName => string.IsNullOrWhiteSpace(displayName) ? zoneId : displayName;
         public string DefaultCheckpointSpawnId => defaultCheckpointSpawnId;
+        public string ResolveCheckpointSpawnId(GameState state)
+        {
+            if (zoneId=="nucleo_ia" && state!=null)
+            {
+                if (state.HasFlag(GameFlagId.FrancisHardwarePhaseComplete)) return "francis_fase3";
+                if (state.HasFlag(GameFlagId.FrancisNetworkPhaseComplete)) return "francis_fase2";
+            }
+            return defaultCheckpointSpawnId;
+        }
         public Rect MinimapBounds => new Rect(minimapCenter - minimapSize * 0.5f, minimapSize);
 
         public bool Initialize(
@@ -58,8 +67,11 @@ namespace EscapeUNIFRANZ.World
                 sceneFlow.ModeController,
                 this);
             MonoBehaviour[] behaviours = GetComponentsInChildren<MonoBehaviour>(true);
+            objectiveController?.SetCurrent(objectiveId, objectiveText, 0, objectiveTotal);
             for (int index = 0; index < behaviours.Length; index++)
             {
+                if (behaviours[index] is EscapeUNIFRANZ.Interaction.InteractableBehaviour interactive)
+                    interactive.BindSession(session);
                 if (behaviours[index] is IZoneRuntimeInitializable initializable)
                 {
                     initializable.Initialize(runtime);
@@ -73,7 +85,6 @@ namespace EscapeUNIFRANZ.World
                 Debug.Log($"Flag set: {visitedFlag}", this);
             }
 
-            objectiveController?.SetCurrent(objectiveId, objectiveText, 0, objectiveTotal);
             session.BindZonePresentation(this);
             error = null;
             return true;

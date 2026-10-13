@@ -3,6 +3,7 @@ using EscapeUNIFRANZ.Hazards;
 using EscapeUNIFRANZ.Player;
 using EscapeUNIFRANZ.World;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace EscapeUNIFRANZ.Encounters
 {
@@ -25,6 +26,9 @@ namespace EscapeUNIFRANZ.Encounters
         private float nextChangeAt;
         private int hazardIndex;
         private bool hazardOn;
+        public ThreatFeedback2D feedback;
+        private readonly HashSet<int> disconnected=new HashSet<int>();
+        public bool CanUseNode(int index) => AcceptsOverloadPoint && !disconnected.Contains(index) && (index<2 || disconnected.Contains(0) && disconnected.Contains(1));
 
         public ExolegEncounterState State => machine?.Current ?? ExolegEncounterState.Dormant;
         public bool AcceptsOverloadPoint => State == ExolegEncounterState.Active;
@@ -42,7 +46,7 @@ namespace EscapeUNIFRANZ.Encounters
             {
                 machine.RestoreDisabled();
                 DisableAllHazards();
-                gameObject.SetActive(false);
+                feedback?.Show(ThreatVisualState.Disabled);
             }
         }
 
@@ -55,7 +59,7 @@ namespace EscapeUNIFRANZ.Encounters
 
             encounter?.BeginEncounter();
             nextChangeAt = Time.time + warningSeconds;
-            session?.ShowMessage("EXOLEG: sistema mecánico inestable.");
+            feedback?.Show(ThreatVisualState.Alert); session?.ShowMessage("EXOLEG: desconecta los dos actuadores y después CONTROL. Evita el halo rojo.");
         }
 
         private void Update()
@@ -80,15 +84,17 @@ namespace EscapeUNIFRANZ.Encounters
             }
         }
 
-        public bool ActivateOverloadPoint()
+        public bool ActivateOverloadPoint(int nodeIndex=0)
         {
-            if (!machine.ActivateOverloadPoint())
+            if (!CanUseNode(nodeIndex) || !machine.ActivateOverloadPoint())
             {
                 return false;
             }
 
+            disconnected.Add(nodeIndex);
+            if (nodeIndex<2 && nodeIndex<hazardAreas.Length) hazardAreas[nodeIndex]?.SetHazardActive(false);
             session?.Objectives?.SetProgress(machine.ActivatedPoints, requiredOverloadPoints);
-            session?.ShowMessage($"Punto de sobrecarga {machine.ActivatedPoints}/{requiredOverloadPoints}.");
+            session?.ShowMessage(nodeIndex<2 ? "ACTUADOR DESCONECTADO. El Exoleg pierde un movimiento. Falta el otro actuador y CONTROL." : "CONTROL OFFLINE.");
             if (machine.Current == ExolegEncounterState.Overloaded)
             {
                 DisableAllHazards();
@@ -111,10 +117,14 @@ namespace EscapeUNIFRANZ.Encounters
                 hazardAreas[hazardIndex]?.SetHazardActive(false);
                 hazardIndex = (hazardIndex + 1) % hazardAreas.Length;
                 hazardOn = false;
-                nextChangeAt = Time.time + pauseSeconds;
+                nextChangeAt = Time.time + pauseSeconds+disconnected.Count*0.45f;
             }
             else
             {
+                int attempts=0;
+                while(disconnected.Contains(hazardIndex) && attempts++<hazardAreas.Length) hazardIndex=(hazardIndex+1)%hazardAreas.Length;
+                if (attempts>=hazardAreas.Length) { nextChangeAt=Time.time+pauseSeconds; return; }
+                feedback?.Show(ThreatVisualState.Alert);
                 hazardAreas[hazardIndex]?.BeginTelegraph(telegraphSeconds, hazardSeconds);
                 hazardOn = true;
                 nextChangeAt = Time.time + telegraphSeconds + hazardSeconds;
@@ -128,7 +138,7 @@ namespace EscapeUNIFRANZ.Encounters
             session.State.SetFlag(GameFlagId.Piso3Unlocked);
             session.ShowMessage("EXOLEG desactivado. Acceso al tercer piso habilitado.");
             encounter?.CompleteEncounter();
-            gameObject.SetActive(false);
+            feedback?.Show(ThreatVisualState.Disabled);
         }
 
         private void DisableAllHazards()
@@ -150,6 +160,7 @@ namespace EscapeUNIFRANZ.Encounters
             {
                 DisableAllHazards();
                 hazardIndex = 0;
+                disconnected.Clear(); feedback?.Show(ThreatVisualState.Patrol);
                 hazardOn = false;
                 session?.Objectives?.SetProgress(0, requiredOverloadPoints);
             }

@@ -415,27 +415,7 @@ namespace EscapeUNIFRANZ.EditorTools
             GameObject player,
             PlayerVisualController visualController)
         {
-            PlayerVisionController vision = player.GetComponent<PlayerVisionController>();
-            if (vision == null)
-            {
-                vision = player.AddComponent<PlayerVisionController>();
-            }
-
-            Light2D immediate = FindOrCreatePointLight(player.transform, "ImmediateVisionLight");
-            immediate.transform.localPosition = Vector3.zero;
-            immediate.transform.localRotation = Quaternion.identity;
-            ConfigurePointLight(immediate, 1.25f, 360f, 360f, 0.72f, false);
-
-            Light2D forward = FindOrCreatePointLight(player.transform, "ForwardVisionLight");
-            forward.transform.localPosition = new Vector3(0f, -0.16f, 0f);
-            forward.transform.localRotation = Quaternion.identity;
-            ConfigurePointLight(forward, 4.4f, 84f, 56f, 1.05f, true);
-
-            SerializedObject serializedVision = new SerializedObject(vision);
-            SetObject(serializedVision, "visualController", visualController);
-            SetObject(serializedVision, "immediateLight", immediate);
-            SetObject(serializedVision, "forwardLight", forward);
-            serializedVision.ApplyModifiedPropertiesWithoutUndo();
+            GroupArtIntegrationBuilder.ConfigureHorrorVision(player);
         }
 
         private static Light2D FindOrCreatePointLight(Transform parent, string name)
