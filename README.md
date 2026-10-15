@@ -6,17 +6,19 @@ Videojuego 2D de aventura y suspenso desarrollado en **Unity 6000.3.16f1**. El j
 
 | Integrante | Función |
 |---|---|
-| **Limber Soto Cazu** ([@SotoXo](https://github.com/SotoXo)) | Programación, estructura del juego, interfaces y navegación entre escenas. |
-| **[@abrilmichelle460-jpg](https://github.com/abrilmichelle460-jpg)** *(nombre por confirmar)* | Recursos gráficos: escenarios, objetos, iluminación y elementos de niveles. |
-| **[@MarcariusHD](https://github.com/MarcariusHD)** *(nombre por confirmar)* | Arte y sprites del personaje principal. |
+| **Limber Soto Cazu** ([@SotoXo](https://github.com/SotoXo)) | Programación, arquitectura del juego, mecánicas y navegación entre escenas. |
+| **Abril Michelle Cayllagua Marca** ([@abrilmichelle460-jpg](https://github.com/abrilmichelle460-jpg)) | Diseño e implementación del menú principal; recursos gráficos de escenarios y objetos. |
+| **Marco Antonio Calderon Rojas** ([@MarcariusHD](https://github.com/MarcariusHD)) | Diseño de las pantallas de **Game Over** y **Victoria (Ganaste)**; arte del personaje principal. |
+| **Edson Teddy Tito Chuquimia** ([@edsontitochuquimia-coder](https://github.com/edsontitochuquimia-coder)) | Diseño e implementación del **menú de pausa** y sus opciones de navegación. |
 
-## Estado del proyecto
+## Interfaz y funcionalidades
 
-- **Interfaz:** menú principal con Jugar, Controles, Créditos y Salir; pantallas de pausa, derrota y victoria.
-- **Escenas:** `MainMenu` → `Bootstrap` → zonas del campus (`Z00_Entrada` a `Z06_NucleoIA`).
-- **Jugabilidad:** movimiento, interacción, objetivos, peligros y transiciones entre zonas.
-- **En progreso:** integración de recursos visuales y revisión de funcionamiento en Unity.
+- **Menú principal:** título del juego, Jugar, Controles, Créditos y Salir.
+- **Navegación:** inicio de partida y transición entre `MainMenu`, `Bootstrap` y las zonas del campus (`Z00_Entrada` a `Z06_NucleoIA`).
+- **Menú de pausa:** opciones para reanudar, reiniciar desde el punto de control, consultar controles y volver al menú principal.
+- **Pantallas de Game Over y Victoria:** opciones para reintentar, acceder a créditos o regresar al menú.
+- **Jugabilidad:** movimiento, interacción con objetos, objetivos, peligros y transiciones entre zonas.
 
 ## Cómo abrirlo
 
-Abrir la carpeta del proyecto desde **Unity Hub**, usando **Unity 6000.3.16f1**. La primera escena de la compilación es `Assets/_Project/Scenes/UI/MainMenu.unity`.
+Abrir la carpeta del proyecto desde **Unity Hub** con **Unity 6000.3.16f1**. La escena de inicio es `Assets/_Project/Scenes/UI/MainMenu.unity`.
