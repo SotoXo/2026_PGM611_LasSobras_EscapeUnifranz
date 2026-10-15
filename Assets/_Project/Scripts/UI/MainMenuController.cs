@@ -117,7 +117,7 @@ namespace EscapeUNIFRANZ.UI
         public void QuitGame()
         {
 #if UNITY_EDITOR
-            Debug.Log("Salir solicitado desde el menú. Application.Quit solo cierra una build.", this);
+            UnityEditor.EditorApplication.isPlaying = false;
 #else
             Application.Quit();
 #endif
