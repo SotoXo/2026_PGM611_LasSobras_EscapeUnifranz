@@ -16,7 +16,7 @@ using Object = UnityEngine.Object;
 namespace EscapeUNIFRANZ.EditorTools
 {
     /// <summary>Applies the team's UI artwork to existing views, preserving their button bindings.</summary>
-    public static class Hito3UiIntegration
+    public static partial class Hito3UiIntegration
     {
         private const string Ui = "Assets/_Project/Art/UI/";
         private const string Menu = Ui + "MainMenu/";
@@ -138,6 +138,7 @@ namespace EscapeUNIFRANZ.EditorTools
             Position((RectTransform)controlsBack.transform, Vector2.one * 0.5f, new Vector2(0, -330), new Vector2(320, 66));
             Transform creditsCard = Ref<GameObject>(fields, "creditsPanel").transform.Find("CreditsCard");
             ApplyCredits(creditsCard, Ref<Button>(fields, "creditsBackButton"), font);
+            if (!string.IsNullOrEmpty(AssetDatabase.AssetPathToGUID(GraphicTitle))) ApplyGraphicTitle(scene);
         }
 
         private static void ApplyOutcomes(Scene scene, TMP_FontAsset font)
@@ -183,6 +184,7 @@ namespace EscapeUNIFRANZ.EditorTools
 
             Transform credits = Ref<GameObject>(fields, "creditsRoot").transform.Find("CreditsCard");
             ApplyCredits(credits, Ref<Button>(fields, "creditsMenuButton"), font);
+            if (!string.IsNullOrEmpty(AssetDatabase.AssetPathToGUID(PauseArtwork))) ApplyPauseAndControls(scene, font);
         }
 
         private static Transform OutcomeLayout(Transform screen, Transform card, string path)

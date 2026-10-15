@@ -72,6 +72,7 @@ namespace EscapeUNIFRANZ.UI
 
         private GameFlowController controller;
         private Coroutine selectionRoutine;
+        private GameObject pauseSelection;
 
         private void LateUpdate()
         {
@@ -180,8 +181,7 @@ namespace EscapeUNIFRANZ.UI
             SetActive(victoryRoot, screen == PresentationScreen.Victory);
             SetActive(creditsRoot, screen == PresentationScreen.Credits);
             SetActive(gameplayHudRoot, screen == PresentationScreen.Gameplay);
-            if(screen==PresentationScreen.Pause && pauseMapButton!=null)
-            { pauseMapButton.interactable=controller!=null && controller.HasMapAccess; var label=pauseMapButton.GetComponentInChildren<TMP_Text>(true); if(label!=null) label.text=pauseMapButton.interactable ? "MAPA" : "MAPA NO DISPONIBLE"; }
+            if (screen == PresentationScreen.Pause) RefreshPauseActions();
 
             if (screen == PresentationScreen.Intro)
             {
@@ -202,6 +202,68 @@ namespace EscapeUNIFRANZ.UI
             }
 
             SelectDefaultButton(screen);
+        }
+
+        public void SetPauseContentVisible(bool visible)
+        {
+            if (pauseRoot == null) return;
+            EventSystem events = EventSystem.current;
+            if (!visible)
+            {
+                GameObject selected = events != null ? events.currentSelectedGameObject : null;
+                pauseSelection = selected != null && selected.transform.IsChildOf(pauseRoot.transform)
+                    ? selected : null;
+                if (selectionRoutine != null)
+                {
+                    StopCoroutine(selectionRoutine);
+                    selectionRoutine = null;
+                }
+                SetActive(pauseRoot, false);
+                if (pauseSelection != null) events.SetSelectedGameObject(null);
+                return;
+            }
+
+            SetActive(pauseRoot, true);
+            RefreshPauseActions();
+            Button target = pauseSelection != null ? pauseSelection.GetComponent<Button>() : resumeButton;
+            if (target == null || !target.isActiveAndEnabled || !target.interactable) target = resumeButton;
+            if (events != null) events.SetSelectedGameObject(target != null ? target.gameObject : null);
+        }
+
+        private void RefreshPauseActions()
+        {
+            if (pauseMapButton != null)
+            {
+                pauseMapButton.interactable = controller != null && controller.HasMapAccess;
+                TMP_Text label = pauseMapButton.GetComponentInChildren<TMP_Text>(true);
+                if (label != null) label.text = pauseMapButton.interactable ? "MAPA" : "MAPA NO DISPONIBLE";
+            }
+            if (pauseRestartButton != null)
+            {
+                pauseRestartButton.interactable = controller != null && controller.HasCheckpoint;
+                TMP_Text label = pauseRestartButton.GetComponentInChildren<TMP_Text>(true);
+                if (label != null) label.text = pauseRestartButton.interactable ? "REINICIAR CHECKPOINT" : "SIN CHECKPOINT";
+            }
+
+            // Explicit navigation must skip actions disabled by progression/checkpoint availability.
+            Button[] actions = { resumeButton, pauseRestartButton, pauseControlsButton,
+                pauseInventoryButton, pauseMapButton, pauseJournalButton, pauseMenuButton };
+            for (int index = 0; index < actions.Length; index++)
+            {
+                Button button = actions[index];
+                if (button == null) continue;
+                Button previous = null;
+                Button next = null;
+                for (int offset = 1; offset < actions.Length; offset++)
+                {
+                    Button candidate = actions[(index + offset) % actions.Length];
+                    if (next == null && candidate != null && candidate.interactable) next = candidate;
+                    candidate = actions[(index + actions.Length - offset) % actions.Length];
+                    if (previous == null && candidate != null && candidate.interactable) previous = candidate;
+                }
+                button.navigation = new Navigation { mode = Navigation.Mode.Explicit,
+                    selectOnUp = previous, selectOnDown = next, selectOnLeft = previous, selectOnRight = next };
+            }
         }
 
         private void SelectDefaultButton(PresentationScreen screen)

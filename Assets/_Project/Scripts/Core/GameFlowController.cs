@@ -35,6 +35,7 @@ namespace EscapeUNIFRANZ.Core
         public bool ShowsGameplayHud => flow.ShowsGameplayHud;
         public bool IsTimeFrozen => flow.ShouldFreezeTime;
         public bool HasMapAccess => session?.State?.HasFlag(GameFlagId.CampusPlanRecovered)==true;
+        public bool HasCheckpoint => session?.State?.HasCheckpoint == true;
         public string DefeatReason { get; private set; } = string.Empty;
 
         private void Awake()
@@ -45,6 +46,11 @@ namespace EscapeUNIFRANZ.Core
 
         private void OnEnable()
         {
+            if (gameplayMode != null)
+            {
+                gameplayMode.ModeChanged += OnGameplayModeChanged;
+            }
+
             if (session != null)
             {
                 session.StateChanged += BindState;
@@ -108,6 +114,11 @@ namespace EscapeUNIFRANZ.Core
 
         private void OnDisable()
         {
+            if (gameplayMode != null)
+            {
+                gameplayMode.ModeChanged -= OnGameplayModeChanged;
+            }
+
             if (session != null)
             {
                 session.StateChanged -= BindState;
@@ -404,6 +415,16 @@ namespace EscapeUNIFRANZ.Core
         private void OnScreenChanged(PresentationScreen _)
         {
             ApplyScreen();
+        }
+
+        private void OnGameplayModeChanged(GameplayMode mode)
+        {
+            // Inventory, journal and map already remember Pause as their return mode.
+            // Keep the presentation state paused while giving the modal exclusive UI focus.
+            if (flow.Current == PresentationScreen.Pause)
+            {
+                view?.SetPauseContentVisible(mode == GameplayMode.Pause);
+            }
         }
 
         private void ApplyScreen()
