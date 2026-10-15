@@ -30,7 +30,7 @@ namespace EscapeUNIFRANZ.Map
                 return CampusMapNodeState.Current;
             }
 
-            if (node.RevealFlag != GameFlagId.None && !state.HasFlag(node.RevealFlag))
+            if (!state.IsZoneKnown(node.ZoneId) && !state.HasFlag(node.VisitedFlag))
             {
                 return CampusMapNodeState.Unknown;
             }

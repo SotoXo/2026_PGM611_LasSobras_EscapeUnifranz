@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872de609eef158748acef7da0ab2e217, type: 3}
+  m_Name: hall_admision
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
+  id: hall_admision
+  title: "Mostrador sin atenci\xF3n"
+  category: Accesos
+  text: "La <b>llave</b> del gabinete ARCA qued\xF3 en una mesa de la <b>cafeter\xEDa</b>.
+    All\xED podr\xE1s recuperar el control local del edificio."
+  associatedFlag: 0

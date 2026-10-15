@@ -34,6 +34,11 @@ namespace EscapeUNIFRANZ.Encounters
             return true;
         }
 
+        public bool EmergencyStop()
+        {
+            if (Current!=RobotArmsEncounterState.Sequence && Current!=RobotArmsEncounterState.Vulnerable) return false;
+            Current=RobotArmsEncounterState.Disabled; return true;
+        }
         public bool Disable()
         {
             if (Current != RobotArmsEncounterState.Vulnerable)

@@ -35,6 +35,8 @@ namespace EscapeUNIFRANZ.Interaction
         private readonly List<int> removalBuffer = new List<int>();
 
         private long nextStableOrder;
+        [SerializeField, Min(0.2f)] private float maximumDistance=1.15f;
+        private readonly List<RaycastHit2D> sightHits=new List<RaycastHit2D>();
 
         public IInteractable ResolveCurrent(Vector2 origin)
         {
@@ -43,6 +45,7 @@ namespace EscapeUNIFRANZ.Interaction
 
             foreach (TrackedCandidate tracked in trackedCandidates.Values)
             {
+                if (Vector2.Distance(origin,tracked.Owner.transform.position)>maximumDistance || !EscapeUNIFRANZ.Hazards.DetectionSensor2D.HasLineOfSight(origin,tracked.Owner.transform.position,~0,transform.parent,tracked.Owner.transform,sightHits)) continue;
                 candidateBuffer.Add(new InteractionCandidate(
                     tracked.Interactable,
                     tracked.Owner.transform.position,
@@ -130,7 +133,7 @@ namespace EscapeUNIFRANZ.Interaction
 
             for (int index = 0; index < behaviours.Length; index++)
             {
-                if (behaviours[index] is IInteractable candidate)
+                if (behaviours[index]!=null && behaviours[index].isActiveAndEnabled && behaviours[index] is IInteractable candidate)
                 {
                     owner = behaviours[index];
                     interactable = candidate;

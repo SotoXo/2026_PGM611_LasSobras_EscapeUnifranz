@@ -672,7 +672,6 @@ namespace EscapeUNIFRANZ.EditorTools
             DestroyChildren(root);
 
             FlowUi result = new FlowUi { Root = root, HudRoot = hudRoot };
-            BuildMainMenu(root, result);
             BuildIntro(root, result);
             BuildLoading(root, result);
             BuildPause(root, result);
@@ -681,41 +680,6 @@ namespace EscapeUNIFRANZ.EditorTools
             BuildVictory(root, result);
             BuildCredits(root, result);
             return result;
-        }
-
-        private static void BuildMainMenu(Transform root, FlowUi ui)
-        {
-            RectTransform screen = CreateScreen(root, "MainMenuScreen", Background);
-            ui.MainMenuRoot = screen.gameObject;
-            AddTechDecor(screen, Cyan);
-
-            TMP_Text kicker = CreateText(screen, "Kicker", "PROTOCOLO DE EMERGENCIA // UNIFRANZ", 15f,
-                TextAlignmentOptions.Left, Cyan);
-            SetRect(kicker.rectTransform, new Vector2(0f, 1f), new Vector2(0f, 1f),
-                new Vector2(110f, -130f), new Vector2(760f, 28f), new Vector2(0f, 1f));
-            TMP_Text title = CreateText(screen, "Title", "EscapeUNIFRANZ", 68f,
-                TextAlignmentOptions.Left, TextPrimary);
-            SetRect(title.rectTransform, new Vector2(0f, 1f), new Vector2(0f, 1f),
-                new Vector2(110f, -175f), new Vector2(920f, 92f), new Vector2(0f, 1f));
-            TMP_Text subtitle = CreateText(screen, "Subtitle", "La universidad tomada por la IA", 22f,
-                TextAlignmentOptions.Left, TextMuted);
-            SetRect(subtitle.rectTransform, new Vector2(0f, 1f), new Vector2(0f, 1f),
-                new Vector2(114f, -273f), new Vector2(720f, 42f), new Vector2(0f, 1f));
-
-            RectTransform rail = CreateImage(screen, "MenuRail", new Color(Cyan.r, Cyan.g, Cyan.b, 0.75f));
-            SetRect(rail, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f),
-                new Vector2(82f, -75f), new Vector2(4f, 430f), new Vector2(0f, 0.5f));
-            ui.NewGame = CreateButton(screen, "NewGame", "NUEVA PARTIDA", new Vector2(320f, -42f), Cyan);
-            ui.Continue = CreateButton(screen, "Continue", "CONTINUAR   // SIN DATOS", new Vector2(320f, -108f), Disabled);
-            ui.Continue.interactable = false;
-            ui.MainControls = CreateButton(screen, "Controls", "CONTROLES", new Vector2(320f, -174f), Border);
-            ui.MainCredits = CreateButton(screen, "Credits", "CRÉDITOS", new Vector2(320f, -240f), Border);
-            ui.Quit = CreateButton(screen, "Quit", "SALIR", new Vector2(320f, -306f), Danger);
-
-            TMP_Text footer = CreateText(screen, "Footer", "VERTICAL SLICE  •  SISTEMAS / REDES / SOFTWARE", 13f,
-                TextAlignmentOptions.Left, TextMuted);
-            SetRect(footer.rectTransform, new Vector2(0f, 0f), new Vector2(0f, 0f),
-                new Vector2(110f, 48f), new Vector2(720f, 26f), Vector2.zero);
         }
 
         private static void BuildIntro(Transform root, FlowUi ui)
@@ -885,7 +849,6 @@ namespace EscapeUNIFRANZ.EditorTools
 
             GameFlowView view = GetOrAdd<GameFlowView>(ui.Root.gameObject);
             SetObject(view, "gameplayHudRoot", ui.HudRoot);
-            SetObject(view, "mainMenuRoot", ui.MainMenuRoot);
             SetObject(view, "introRoot", ui.IntroRoot);
             SetObject(view, "loadingRoot", ui.LoadingRoot);
             SetObject(view, "pauseRoot", ui.PauseRoot);
@@ -897,11 +860,6 @@ namespace EscapeUNIFRANZ.EditorTools
             SetObject(view, "introBody", ui.IntroBody);
             SetObject(view, "introCounter", ui.IntroCounter);
             SetObject(view, "defeatReason", ui.DefeatReason);
-            SetObject(view, "newGameButton", ui.NewGame);
-            SetObject(view, "continueButton", ui.Continue);
-            SetObject(view, "mainControlsButton", ui.MainControls);
-            SetObject(view, "mainCreditsButton", ui.MainCredits);
-            SetObject(view, "quitButton", ui.Quit);
             SetObject(view, "introNextButton", ui.IntroNext);
             SetObject(view, "introSkipButton", ui.IntroSkip);
             SetObject(view, "resumeButton", ui.Resume);
@@ -924,10 +882,11 @@ namespace EscapeUNIFRANZ.EditorTools
             SetObject(controller, "fadeView", fade);
             SetString(controller, "initialZoneId", "entrada");
             SetString(controller, "initialSpawnId", "entrada_inicio");
+            SetString(controller, "mainMenuScenePath",
+                "Assets/_Project/Scenes/UI/MainMenu.unity");
             SetObject(session, "gameFlow", controller);
             SetBool(session, "startNewGameOnStart", false);
 
-            ui.MainMenuRoot.SetActive(true);
             ui.IntroRoot.SetActive(false);
             ui.LoadingRoot.SetActive(false);
             ui.PauseRoot.SetActive(false);
@@ -1367,7 +1326,6 @@ namespace EscapeUNIFRANZ.EditorTools
         {
             public RectTransform Root;
             public GameObject HudRoot;
-            public GameObject MainMenuRoot;
             public GameObject IntroRoot;
             public GameObject LoadingRoot;
             public GameObject PauseRoot;
@@ -1379,11 +1337,6 @@ namespace EscapeUNIFRANZ.EditorTools
             public TMP_Text IntroBody;
             public TMP_Text IntroCounter;
             public TMP_Text DefeatReason;
-            public Button NewGame;
-            public Button Continue;
-            public Button MainControls;
-            public Button MainCredits;
-            public Button Quit;
             public Button IntroNext;
             public Button IntroSkip;
             public Button Resume;

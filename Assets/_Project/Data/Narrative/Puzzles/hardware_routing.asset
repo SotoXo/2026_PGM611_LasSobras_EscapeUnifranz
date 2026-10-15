@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0600a188e427c4397e57306660e1bf, type: 3}
+  m_Name: hardware_routing
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Puzzles.PuzzleData
+  id: hardware_routing
+  title: "Control del dispositivo de simulaci\xF3n"
+  objective: CONECTAR EL EQUIPO
+  inspectionText: Revisa la nota junto al equipo y el objeto requerido. Consulta
+    la ficha del equipo y el objeto compatible.
+  environmentalClue: {fileID: 11400000, guid: a56fbf9ffd2f6ac42a8a14657195b6f6, type: 2}
+  instructions: "Ahora hay cuatro se\xF1ales. Cada abreviatura aparece junto a su
+    nombre completo. Une las etiquetas iguales; el orden no importa."
+  kind: 0
+  ports:
+  - id: IN_PWR
+    label: "PWR\nENERG\xCDA"
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: IN_DATA
+    label: 'DATA
+
+      DATOS'
+    output: 0
+    blocked: 0
+    row: 1
+    icon: {fileID: 0}
+  - id: IN_CTRL
+    label: 'CTRL
+
+      CONTROL'
+    output: 0
+    blocked: 0
+    row: 2
+    icon: {fileID: 0}
+  - id: IN_GND
+    label: 'GND
+
+      TIERRA'
+    output: 0
+    blocked: 0
+    row: 3
+    icon: {fileID: 0}
+  - id: OUT_CTRL
+    label: 'CTRL
+
+      CONTROL'
+    output: 1
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: OUT_GND
+    label: 'GND
+
+      TIERRA'
+    output: 1
+    blocked: 0
+    row: 1
+    icon: {fileID: 0}
+  - id: OUT_PWR
+    label: "PWR\nENERG\xCDA"
+    output: 1
+    blocked: 0
+    row: 2
+    icon: {fileID: 0}
+  - id: OUT_DATA
+    label: 'DATA
+
+      DATOS'
+    output: 1
+    blocked: 0
+    row: 3
+    icon: {fileID: 0}
+  connections:
+  - from: IN_GND
+    to: OUT_GND
+  - from: IN_PWR
+    to: OUT_PWR
+  - from: IN_DATA
+    to: OUT_DATA
+  - from: IN_CTRL
+    to: OUT_CTRL
+  diagramConnections: []
+  commandOrder: []
+  connectInOrder: 0
+  matchingColumns: 1
+  preserveCommandProgress: 0
+  requiredClueId: hardware_circuito
+  requiredItem: 
+  prerequisiteClues:
+  - hardware_confirm
+  consumeItem: 0
+  installBeforePuzzle: 0
+  installedFlag: 0
+  requiredFlags: 1b000000
+  completionFlags: 17000000
+  rewardItems: []
+  successMessage: "Cadena validada. Los tres puntos de sobrecarga est\xE1n habilitados."

@@ -123,9 +123,9 @@ namespace EscapeUNIFRANZ.Map
         {
             if (kind == MinimapMarkerKind.Exit)
             {
-                return exitState == MinimapExitState.Blocked
+                return exitState==MinimapExitState.Conditional ? new Color(1f,.78f,.28f) : exitState == MinimapExitState.Blocked
                     ? new Color(1f, 0.32f, 0.39f, 1f)
-                    : new Color(0.22f, 0.84f, 0.95f, 1f);
+                    : new Color(0.3f, 0.89f, 0.54f, 1f);
             }
 
             switch (kind)
@@ -133,6 +133,7 @@ namespace EscapeUNIFRANZ.Map
                 case MinimapMarkerKind.Objective: return new Color(1f, 0.72f, 0.29f, 1f);
                 case MinimapMarkerKind.Checkpoint: return new Color(0.3f, 0.89f, 0.54f, 1f);
                 case MinimapMarkerKind.Threat: return new Color(1f, 0.32f, 0.39f, 1f);
+                case MinimapMarkerKind.Point: return new Color(.55f,.8f,.95f,1f);
                 default: return new Color(0.15f, 0.18f, 0.24f, 0.95f);
             }
         }

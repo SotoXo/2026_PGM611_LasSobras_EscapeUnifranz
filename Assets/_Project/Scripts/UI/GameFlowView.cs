@@ -14,21 +14,20 @@ namespace EscapeUNIFRANZ.UI
     {
         private static readonly string[] IntroTitles =
         {
-            "ALERTA DE SISTEMA",
-            "CAMPUS BLOQUEADO",
-            "TU MISIÓN"
+            "PRIMER DÍA",
+            "CORTE DE ENERGÍA",
+            "UN ACCESO CERRADO"
         };
 
         private static readonly string[] IntroBodies =
         {
-            "UNIFRANZ ha sido tomada por una inteligencia artificial.",
-            "Los accesos y sistemas de seguridad están fuera de control. Cada piso protege una parte del núcleo.",
-            "Explora el campus, recupera los sistemas y ejecuta un apagado seguro antes de que Francis destruya el núcleo."
+            "Primer día. Ingeniería de Sistemas. El edificio está casi vacío. Tú también estás empezando a aprender.",
+            "Un apagón. La terminal intenta reiniciarse: SISTEMA DE EMERGENCIA ACTIVO. Después: ERROR DE COMUNICACIÓN.",
+            "El acceso no responde. Una terminal permanece apagada junto a recepción. Busca una forma de devolverle energía."
         };
 
         [Header("Layers")]
         [SerializeField] private GameObject gameplayHudRoot;
-        [SerializeField] private GameObject mainMenuRoot;
         [SerializeField] private GameObject introRoot;
         [SerializeField] private GameObject loadingRoot;
         [SerializeField] private GameObject pauseRoot;
@@ -43,13 +42,6 @@ namespace EscapeUNIFRANZ.UI
         [SerializeField] private TMP_Text introCounter;
         [SerializeField] private TMP_Text defeatReason;
 
-        [Header("Main menu")]
-        [SerializeField] private Button newGameButton;
-        [SerializeField] private Button continueButton;
-        [SerializeField] private Button mainControlsButton;
-        [SerializeField] private Button mainCreditsButton;
-        [SerializeField] private Button quitButton;
-
         [Header("Intro")]
         [SerializeField] private Button introNextButton;
         [SerializeField] private Button introSkipButton;
@@ -59,6 +51,7 @@ namespace EscapeUNIFRANZ.UI
         [SerializeField] private Button pauseRestartButton;
         [SerializeField] private Button pauseControlsButton;
         [SerializeField] private Button pauseMenuButton;
+        [SerializeField] private Button pauseInventoryButton, pauseMapButton, pauseJournalButton;
 
         [Header("Controls")]
         [SerializeField] private Button controlsBackButton;
@@ -95,16 +88,15 @@ namespace EscapeUNIFRANZ.UI
                 return;
             }
 
-            Add(newGameButton, controller.NewGame);
-            Add(mainControlsButton, controller.OpenControls);
-            Add(mainCreditsButton, controller.OpenCredits);
-            Add(quitButton, controller.QuitGame);
             Add(introNextButton, controller.ContinueIntro);
             Add(introSkipButton, controller.SkipIntro);
             Add(resumeButton, controller.ResumeGame);
             Add(pauseRestartButton, controller.RestartCheckpointFromPause);
             Add(pauseControlsButton, controller.OpenControls);
             Add(pauseMenuButton, controller.ReturnToMainMenu);
+            Add(pauseInventoryButton, controller.OpenInventory);
+            Add(pauseMapButton, controller.OpenMap);
+            Add(pauseJournalButton, controller.OpenJournal);
             Add(controlsBackButton, controller.CloseControls);
             Add(retryButton, controller.RetryCheckpoint);
             Add(defeatMenuButton, controller.ReturnToMainMenu);
@@ -112,10 +104,6 @@ namespace EscapeUNIFRANZ.UI
             Add(victoryMenuButton, controller.ReturnToMainMenu);
             Add(creditsMenuButton, controller.ReturnToMainMenu);
 
-            if (continueButton != null)
-            {
-                continueButton.interactable = false;
-            }
         }
 
         public void Unbind(GameFlowController target)
@@ -125,16 +113,15 @@ namespace EscapeUNIFRANZ.UI
                 return;
             }
 
-            Remove(newGameButton, controller.NewGame);
-            Remove(mainControlsButton, controller.OpenControls);
-            Remove(mainCreditsButton, controller.OpenCredits);
-            Remove(quitButton, controller.QuitGame);
             Remove(introNextButton, controller.ContinueIntro);
             Remove(introSkipButton, controller.SkipIntro);
             Remove(resumeButton, controller.ResumeGame);
             Remove(pauseRestartButton, controller.RestartCheckpointFromPause);
             Remove(pauseControlsButton, controller.OpenControls);
             Remove(pauseMenuButton, controller.ReturnToMainMenu);
+            Remove(pauseInventoryButton, controller.OpenInventory);
+            Remove(pauseMapButton, controller.OpenMap);
+            Remove(pauseJournalButton, controller.OpenJournal);
             Remove(controlsBackButton, controller.CloseControls);
             Remove(retryButton, controller.RetryCheckpoint);
             Remove(defeatMenuButton, controller.ReturnToMainMenu);
@@ -150,7 +137,6 @@ namespace EscapeUNIFRANZ.UI
             int introPanelCount,
             string reason)
         {
-            SetActive(mainMenuRoot, screen == PresentationScreen.MainMenu);
             SetActive(introRoot, screen == PresentationScreen.Intro);
             SetActive(loadingRoot, screen == PresentationScreen.Loading);
             SetActive(pauseRoot, screen == PresentationScreen.Pause);
@@ -159,6 +145,8 @@ namespace EscapeUNIFRANZ.UI
             SetActive(victoryRoot, screen == PresentationScreen.Victory);
             SetActive(creditsRoot, screen == PresentationScreen.Credits);
             SetActive(gameplayHudRoot, screen == PresentationScreen.Gameplay);
+            if(screen==PresentationScreen.Pause && pauseMapButton!=null)
+            { pauseMapButton.interactable=controller!=null && controller.HasMapAccess; var label=pauseMapButton.GetComponentInChildren<TMP_Text>(true); if(label!=null) label.text=pauseMapButton.interactable ? "MAPA" : "MAPA NO DISPONIBLE"; }
 
             if (screen == PresentationScreen.Intro)
             {
@@ -204,9 +192,6 @@ namespace EscapeUNIFRANZ.UI
             Button target = null;
             switch (screen)
             {
-                case PresentationScreen.MainMenu:
-                    target = newGameButton;
-                    break;
                 case PresentationScreen.Intro:
                     target = introNextButton;
                     break;

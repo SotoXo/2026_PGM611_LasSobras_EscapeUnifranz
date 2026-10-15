@@ -13,7 +13,7 @@ namespace EscapeUNIFRANZ.Core
         public bool AllowsInteraction =>
             Current == GameplayMode.Explore || Current == GameplayMode.Encounter;
         public bool AllowsMapToggle =>
-            Current == GameplayMode.Explore || Current == GameplayMode.Map;
+            Current == GameplayMode.Explore || Current == GameplayMode.Encounter || Current == GameplayMode.Map;
         public bool AllowsGameplay => AllowsMovement && AllowsInteraction;
 
         public event Action<GameplayMode> Changed;

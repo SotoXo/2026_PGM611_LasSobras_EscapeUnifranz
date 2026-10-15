@@ -23,6 +23,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         {
             var state = new GameState();
             state.SetFlag(GameFlagId.HallVisited);
+            state.DiscoverWorldItem("sector","piso2");
             var node = new CampusMapNodeDefinition(
                 "piso2", "PISO 2", GameFlagId.Piso2Visited,
                 GameFlagId.Piso2Unlocked, GameFlagId.HallVisited);
@@ -37,6 +38,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
             var state = new GameState();
             state.SetFlag(GameFlagId.HallVisited);
             state.SetFlag(GameFlagId.Piso2Unlocked);
+            state.DiscoverWorldItem("sector","piso2");
             var node = new CampusMapNodeDefinition(
                 "piso2", "PISO 2", GameFlagId.Piso2Visited,
                 GameFlagId.Piso2Unlocked, GameFlagId.HallVisited);

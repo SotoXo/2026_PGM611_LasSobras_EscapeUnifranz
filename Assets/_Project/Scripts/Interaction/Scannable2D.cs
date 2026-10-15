@@ -19,9 +19,10 @@ namespace EscapeUNIFRANZ.Interaction
         private GameObject feedbackRoot;
         private TMP_Text feedbackLabel;
         private float visibleUntil;
+        private Transform observer;
 
         public ScanCategory Category => category;
-        public bool CanScan => ScanLogic.CanReveal(state, secret, revealFlag);
+        public bool CanScan => isActiveAndEnabled && ScanLogic.CanReveal(state, secret, revealFlag);
 
         public void Initialize(ZoneRuntimeContext context)
         {
@@ -32,7 +33,7 @@ namespace EscapeUNIFRANZ.Interaction
 
         private void Update()
         {
-            if (feedbackRoot != null && feedbackRoot.activeSelf && Time.unscaledTime >= visibleUntil)
+            if (feedbackRoot != null && feedbackRoot.activeSelf && (Time.unscaledTime >= visibleUntil || observer!=null && !EscapeUNIFRANZ.Hazards.DetectionSensor2D.HasLineOfSight(observer.position,transform.position,~0,observer,transform)))
             {
                 Hide();
             }
@@ -43,7 +44,7 @@ namespace EscapeUNIFRANZ.Interaction
             Hide();
         }
 
-        public bool RevealUntil(float until)
+        public bool RevealUntil(float until,Transform source=null)
         {
             if (!CanScan)
             {
@@ -57,6 +58,7 @@ namespace EscapeUNIFRANZ.Interaction
             }
 
             visibleUntil = until;
+            observer=source;
             feedbackLabel.text = BuildLabel();
             feedbackRoot.SetActive(true);
             GetComponent<MinimapTrackable2D>()?.Discover();
@@ -79,7 +81,7 @@ namespace EscapeUNIFRANZ.Interaction
             MonoBehaviour[] behaviours = GetComponents<MonoBehaviour>();
             for (int index = 0; index < behaviours.Length; index++)
             {
-                if (behaviours[index] != this && behaviours[index] is IScanStateProvider provider)
+                if (behaviours[index] != this && behaviours[index].isActiveAndEnabled && behaviours[index] is IScanStateProvider provider)
                 {
                     return provider.ScanStateText;
                 }

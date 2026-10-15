@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872de609eef158748acef7da0ab2e217, type: 3}
+  m_Name: software_servicios
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
+  id: software_servicios
+  title: Servicios del laboratorio
+  category: "Diagn\xF3stico de software"
+  text: "<b>No apagues el n\xFAcleo.</b> Necesitamos que puertas y luces sigan respondiendo.
+    A\xEDsla \xFAnicamente <b>SEGURIDAD</b>, el servicio que env\xEDa \xF3rdenes
+    hostiles. Despu\xE9s cruza el patr\xF3n de los brazos y alcanza <b>EMERGENCY
+    STOP</b>."
+  associatedFlag: 0

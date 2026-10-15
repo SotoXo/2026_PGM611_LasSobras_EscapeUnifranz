@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0600a188e427c4397e57306660e1bf, type: 3}
+  m_Name: arca_access
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Puzzles.PuzzleData
+  id: arca_access
+  title: Terminal de control ARCA
+  objective: RECUPERAR CONTROL LOCAL
+  inspectionText: Revisa la nota junto al equipo y el objeto requerido. Consulta
+    la ficha del equipo y el objeto compatible.
+  environmentalClue: {fileID: 11400000, guid: 39e45b4b1ea91174290f7838c4936378, type: 2}
+  instructions: Reinicia los tres interruptores de izquierda a derecha, como indica
+    la etiqueta.
+  kind: 1
+  ports:
+  - id: PRINCIPAL
+    label: 1  PRINCIPAL
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: CONTROL
+    label: 2  CONTROL
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: SEGURIDAD
+    label: 3  SEGURIDAD
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  connections: []
+  diagramConnections: []
+  commandOrder:
+  - PRINCIPAL
+  - CONTROL
+  - SEGURIDAD
+  connectInOrder: 1
+  matchingColumns: 0
+  preserveCommandProgress: 1
+  requiredClueId: arca_protocolo
+  requiredItem: 
+  prerequisiteClues:
+  - arca_confirm
+  consumeItem: 0
+  installBeforePuzzle: 0
+  installedFlag: 0
+  requiredFlags: 
+  completionFlags: 0400000005000000
+  rewardItems:
+  - lab_card
+  successMessage: Acceso local recuperado. Tarjeta de laboratorio emitida.

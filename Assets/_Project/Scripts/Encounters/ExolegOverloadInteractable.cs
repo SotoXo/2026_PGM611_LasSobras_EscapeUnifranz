@@ -7,15 +7,16 @@ namespace EscapeUNIFRANZ.Encounters
     {
         [SerializeField] private ExolegEncounterController controller;
         private bool activated;
+        public int nodeIndex;
 
         public string ScanStateText => activated ? "[DESCARGADO]" : "[ENERGIZADO]";
 
         public override bool CanInteract =>
-            base.CanInteract && !activated && controller != null && controller.AcceptsOverloadPoint;
+            base.CanInteract && !activated && controller != null && controller.CanUseNode(nodeIndex);
 
         protected override void PerformInteraction()
         {
-            if (controller.ActivateOverloadPoint())
+            if (controller.ActivateOverloadPoint(nodeIndex))
             {
                 activated = true;
             }

@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0600a188e427c4397e57306660e1bf, type: 3}
+  m_Name: francis_shutdown
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Puzzles.PuzzleData
+  id: francis_shutdown
+  title: "Apagado seguro \u2014 Software"
+  objective: "APAGADO SEGURO \u2014 SOFTWARE"
+  inspectionText: Revisa la nota junto al equipo y el objeto requerido. Consulta
+    la ficha del equipo y el objeto compatible.
+  environmentalClue: {fileID: 11400000, guid: 30fa61109b268294c8d4ca9e80cb5d7d, type: 2}
+  instructions: "Ejecuta el protocolo despu\xE9s de aislar red y hardware."
+  kind: 1
+  ports:
+  - id: VERIFY
+    label: VERIFICAR
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: FORCE_OFF
+    label: FORZAR CORTE
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: SHUTDOWN
+    label: APAGAR
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: ISOLATE
+    label: AISLAR
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  connections: []
+  diagramConnections: []
+  commandOrder:
+  - ISOLATE
+  - VERIFY
+  - SHUTDOWN
+  connectInOrder: 1
+  matchingColumns: 0
+  preserveCommandProgress: 0
+  requiredClueId: core_protocolo
+  requiredItem: 
+  prerequisiteClues:
+  - core_confirm
+  consumeItem: 0
+  installBeforePuzzle: 0
+  installedFlag: 0
+  requiredFlags: 
+  completionFlags: 
+  rewardItems: []
+  successMessage: "Apagado seguro completado: Hardware + Software + Redes + L\xF3gica."

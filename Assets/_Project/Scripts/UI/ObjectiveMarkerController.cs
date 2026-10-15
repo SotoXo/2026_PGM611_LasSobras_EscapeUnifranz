@@ -82,7 +82,7 @@ namespace EscapeUNIFRANZ.UI
 
         private void LateUpdate()
         {
-            if (!CanShow() || target == null || worldCamera == null || canvasRect == null)
+            if (!CanShow() || target == null || !target.gameObject.activeInHierarchy || target.GetComponent<MinimapTrackable2D>()?.IsDiscovered!=true || worldCamera == null || canvasRect == null)
             {
                 view?.Hide();
                 return;
@@ -91,6 +91,8 @@ namespace EscapeUNIFRANZ.UI
             ObjectiveMarkerPlacement placement = ObjectiveMarkerPlacement.Resolve(
                 worldCamera.WorldToViewportPoint(target.position),
                 viewportMargin);
+            var vision=GetComponentInParent<GameRuntimeRoot>()?.GetComponentInChildren<EscapeUNIFRANZ.Player.PlayerVisionController>(true);
+            if(placement.OffScreen || vision==null || !vision.CanSeePoint(target.position,target)) { view?.Hide(); return; }
             Vector2 anchored = new Vector2(
                 (placement.ViewportPosition.x - 0.5f) * canvasRect.rect.width,
                 (placement.ViewportPosition.y - 0.5f) * canvasRect.rect.height);

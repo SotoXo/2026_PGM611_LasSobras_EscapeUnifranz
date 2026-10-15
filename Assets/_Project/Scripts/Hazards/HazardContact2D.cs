@@ -17,6 +17,9 @@ namespace EscapeUNIFRANZ.Hazards
         private readonly Collider2D[] overlapResults = new Collider2D[8];
         private Collider2D hitbox;
         private bool armed = true;
+        private bool contactAllowed=true;
+        public void SetContactAllowed(bool value) { contactAllowed=value; }
+        public bool CanDealContactDamage => isActiveAndEnabled && armed && contactAllowed && IsDangerous;
 
         public bool IsDangerous => activationSource == null || activationSource.IsActive;
 
@@ -28,7 +31,7 @@ namespace EscapeUNIFRANZ.Hazards
 
         private void FixedUpdate()
         {
-            if (!armed || !IsDangerous || hitbox == null)
+            if (!CanDealContactDamage || hitbox == null)
             {
                 return;
             }
@@ -58,7 +61,7 @@ namespace EscapeUNIFRANZ.Hazards
 
         private void TryHandleContact(Collider2D other)
         {
-            if (!armed || !ShouldRequestRespawn(
+            if (!CanDealContactDamage || !ShouldRequestRespawn(
                 IsDangerous,
                 PlayerPhysicsContact2D.IsPlayerBody(other)))
             {

@@ -9,20 +9,22 @@ namespace EscapeUNIFRANZ.Map
         [SerializeField] private string zoneId;
         [SerializeField] private Image background;
         [SerializeField] private TMP_Text label;
+        public void Bind(System.Action selected) { var button=GetComponent<Button>(); if (button!=null) { button.onClick.RemoveAllListeners(); button.onClick.AddListener(()=>selected()); } }
 
         public string ZoneId => zoneId;
 
-        public void Render(string displayName, CampusMapNodeState state)
+        public void Render(string displayName, CampusMapNodeState state,bool objective=false)
         {
             if (label != null)
             {
-                label.text = $"{PrefixFor(state)} {displayName}";
+                label.text = state==CampusMapNodeState.Unknown ? "? — SIN EXPLORAR" : (objective ? "◇ " : "")+$"{PrefixFor(state)} {displayName}";
             }
 
             if (background != null)
             {
                 background.color = ColorFor(state);
             }
+            var button=GetComponent<Button>(); if (button!=null) button.interactable=state!=CampusMapNodeState.Unknown;
         }
 
         private static string PrefixFor(CampusMapNodeState state)

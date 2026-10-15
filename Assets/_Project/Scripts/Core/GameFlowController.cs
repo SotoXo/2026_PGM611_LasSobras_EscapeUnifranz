@@ -4,6 +4,7 @@ using EscapeUNIFRANZ.Map;
 using EscapeUNIFRANZ.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace EscapeUNIFRANZ.Core
 {
@@ -20,16 +21,20 @@ namespace EscapeUNIFRANZ.Core
         [SerializeField] private FadeView fadeView;
         [SerializeField] private string initialZoneId = "entrada";
         [SerializeField] private string initialSpawnId = "entrada_inicio";
+        [SerializeField] private string mainMenuScenePath =
+            "Assets/_Project/Scenes/UI/MainMenu.unity";
 
         private readonly PresentationFlowState flow = new PresentationFlowState(3);
         private GameState boundState;
         private EncounterContext pendingEncounter;
         private GameplayMode resumeMode = GameplayMode.Explore;
         private Coroutine outcomeTransition;
+        private bool returningToMainMenu;
 
         public PresentationScreen CurrentScreen => flow.Current;
         public bool ShowsGameplayHud => flow.ShowsGameplayHud;
         public bool IsTimeFrozen => flow.ShouldFreezeTime;
+        public bool HasMapAccess => session?.State?.HasFlag(GameFlagId.CampusPlanRecovered)==true;
         public string DefeatReason { get; private set; } = string.Empty;
 
         private void Awake()
@@ -65,6 +70,8 @@ namespace EscapeUNIFRANZ.Core
 
         private void Update()
         {
+            if (gameplayMode != null &&
+                (gameplayMode.CurrentMode == GameplayMode.Puzzle || gameplayMode.CurrentMode == GameplayMode.Dialogue || gameplayMode.CurrentMode == GameplayMode.Inventory || gameplayMode.CurrentMode == GameplayMode.Map)) return;
             Keyboard keyboard = Keyboard.current;
             if (keyboard == null)
             {
@@ -172,6 +179,9 @@ namespace EscapeUNIFRANZ.Core
         {
             flow.Resume();
         }
+        public void OpenInventory() { session?.GetComponent<EscapeUNIFRANZ.Narrative.NarrativeController>()?.ShowInventory(); }
+        public void OpenJournal() { session?.GetComponent<EscapeUNIFRANZ.Narrative.NarrativeController>()?.ShowJournal(); }
+        public void OpenMap() { campusMap?.Toggle(); }
 
         public void RestartCheckpointFromPause()
         {
@@ -246,15 +256,25 @@ namespace EscapeUNIFRANZ.Core
 
         public void ReturnToMainMenu()
         {
-            if (sceneFlow != null && sceneFlow.IsTransitioning)
+            if (returningToMainMenu || (sceneFlow != null && sceneFlow.IsTransitioning))
             {
                 return;
             }
 
+            returningToMainMenu = true;
             campusMap?.CloseIfOpen();
             pendingEncounter = null;
             DefeatReason = string.Empty;
-            flow.ReturnToMainMenu();
+            Time.timeScale = 1f;
+
+            GameRuntimeRoot runtime = GameRuntimeRoot.Instance;
+            if (runtime != null && runtime.TeardownAndLoadScene(mainMenuScenePath))
+            {
+                return;
+            }
+
+            // Defensive fallback for an isolated controller used outside Bootstrap.
+            SceneManager.LoadScene(mainMenuScenePath, LoadSceneMode.Single);
         }
 
         public void QuitGame()

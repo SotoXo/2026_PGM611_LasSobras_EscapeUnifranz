@@ -11,6 +11,7 @@ namespace EscapeUNIFRANZ.Core
         Presentation = 6,
         Pause = 7,
         Defeat = 8,
-        Ending = 9
+        Ending = 9,
+        Inventory = 10
     }
 }

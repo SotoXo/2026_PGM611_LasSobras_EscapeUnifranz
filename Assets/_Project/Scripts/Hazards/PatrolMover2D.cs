@@ -18,11 +18,16 @@ namespace EscapeUNIFRANZ.Hazards
         private Transform chaseTarget;
         private float chaseSpeed;
         private Vector2 initialPosition;
+        private Vector2? investigationPoint;
+        private readonly RaycastHit2D[] obstacles=new RaycastHit2D[12];
+        public Vector2 Facing { get; private set; } = Vector2.down;
+        private DetectionSensor2D[] facingSensors;
 
         private void Awake()
         {
             body = GetComponent<Rigidbody2D>();
             initialPosition = body.position;
+            facingSensors=GetComponentsInChildren<DetectionSensor2D>(true);
         }
 
         public void Initialize(ZoneRuntimeContext context)
@@ -46,6 +51,7 @@ namespace EscapeUNIFRANZ.Hazards
                 destination = chaseTarget.position;
                 speed = chaseSpeed;
             }
+            else if (investigationPoint.HasValue) { destination=investigationPoint.Value; speed=chaseSpeed; }
             else if (path != null && path.Count > 0)
             {
                 destination = path.GetPoint(route.Index);
@@ -61,26 +67,41 @@ namespace EscapeUNIFRANZ.Hazards
                 return;
             }
 
-            body.MovePosition(Vector2.MoveTowards(
-                body.position,
-                destination,
-                speed * Time.fixedDeltaTime));
+            Vector2 delta=destination-body.position;
+            float distance=Mathf.Min(delta.magnitude,speed*Time.fixedDeltaTime);
+            if (distance<0.001f) return;
+            Vector2 direction=delta.normalized;
+            var filter=ContactFilter2D.noFilter; filter.useTriggers=false;
+            int count=body.Cast(direction,filter,obstacles,distance+0.04f);
+            float allowed=distance;
+            for(int i=0;i<count;i++) if (obstacles[i].collider!=null && obstacles[i].rigidbody!=body)
+                allowed=Mathf.Min(allowed,Mathf.Max(0f,obstacles[i].distance-0.04f));
+            if (allowed>0f)
+            {
+                Facing=direction; body.MovePosition(body.position+direction*allowed);
+                foreach(var detector in facingSensors) if (detector.transform!=transform) detector.Face(direction);
+            }
         }
 
         public void SetChaseTarget(Transform target, float speed)
         {
             chaseTarget = target;
+            investigationPoint=null;
             chaseSpeed = Mathf.Max(0f, speed);
         }
 
         public void ResumePatrol()
         {
             chaseTarget = null;
+            investigationPoint=null;
         }
+        public void Investigate(Vector2 point,float speed)
+        { chaseTarget=null; investigationPoint=point; chaseSpeed=speed; }
 
         public void ResetEncounter()
         {
             chaseTarget = null;
+            investigationPoint=null;
             route.Reset();
             if (body != null)
             {

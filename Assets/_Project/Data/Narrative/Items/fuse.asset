@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd372b4744aae54882cc8ef4f0a2fb8, type: 3}
+  m_Name: fuse
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ItemData
+  id: fuse
+  displayName: Fusible de respaldo
+  description: "Reemplaza el fusible da\xF1ado en Simulaci\xF3n."
+  examineText: "Fusible compatible con la caja de Simulaci\xF3n. Consulta la ficha
+    del circuito y arr\xE1stralo al hueco vac\xEDo. Una vez instalado deja de estar
+    disponible."
+  icon: {fileID: -8131423462172128821, guid: 1eb3204f997c9404ab37e29dba8b8777, type: 3}
+  fallbackIcon: FUS
+  consumable: 1
+  stackable: 0
+  placeholderIcon: 1
+  category: 2
+  immediateUse: 0

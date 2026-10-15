@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd372b4744aae54882cc8ef4f0a2fb8, type: 3}
+  m_Name: flashlight
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ItemData
+  id: flashlight
+  displayName: Linterna
+  description: "Ilumina en la direcci\xF3n en que miras. F \u2014 Encender / apagar."
+  examineText: "Linterna del personal. El foco frontal permite explorar m\xE1s all\xE1
+    del peque\xF1o radio cercano. Energ\xEDa ilimitada en esta versi\xF3n. Apagada:
+    conservas visi\xF3n cercana y las luces del escenario."
+  icon: {fileID: -3509768373723393573, guid: cda9dd79c8465564185dba027a095755, type: 3}
+  fallbackIcon: F
+  consumable: 0
+  stackable: 0
+  placeholderIcon: 0
+  category: 1
+  immediateUse: 1

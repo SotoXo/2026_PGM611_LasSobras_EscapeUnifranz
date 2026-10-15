@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872de609eef158748acef7da0ab2e217, type: 3}
+  m_Name: hall_mantenimiento
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
+  id: hall_mantenimiento
+  title: Gabinete de mantenimiento
+  category: Objetos / backtracking
+  text: "<b>GABINETE DE COMUNICACIONES</b> \u2014 requiere <b>TARJETA DE MANTENIMIENTO</b>.
+    El personal la dej\xF3 en Simulaci\xF3n. Dentro hay un <b>M\xD3DULO DE RED</b>:
+    una pieza que falta en el distribuidor de Tecnolog\xEDa."
+  associatedFlag: 0

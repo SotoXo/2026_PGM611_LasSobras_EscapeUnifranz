@@ -94,14 +94,17 @@ namespace EscapeUNIFRANZ.Player
         {
             if (ReferenceEquals(currentTarget, target))
             {
+                if (currentTarget!=null && currentTarget.CanInteract) promptView.Show(currentTarget.Prompt);
                 return;
             }
 
+            if (currentTarget is MonoBehaviour previous && previous!=null) previous.GetComponent<InteractableFeedback2D>()?.SetSelected(false);
             currentTarget = target;
 
             if (currentTarget != null && currentTarget.CanInteract)
             {
                 promptView.Show(currentTarget.Prompt);
+                if (currentTarget is MonoBehaviour owner) { owner.GetComponent<InteractableFeedback2D>()?.SetSelected(true); owner.GetComponent<EscapeUNIFRANZ.Map.MinimapTrackable2D>()?.Discover(); if(owner is InteractableBehaviour interactive) interactive.NoticeNearby(); }
             }
             else
             {

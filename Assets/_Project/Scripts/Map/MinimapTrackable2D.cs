@@ -13,6 +13,12 @@ namespace EscapeUNIFRANZ.Map
         [SerializeField] private string objectiveId;
         [SerializeField] private string checkpointId;
         [SerializeField] private bool showAsThreat;
+        public string displayName="Punto de interés";
+        public KnownPointKind pointKind;
+        private float cctvVisibleUntil;
+        public void RevealThreatFor(float seconds) { cctvVisibleUntil=Time.time+seconds; }
+        public bool IsThreatVisible(EscapeUNIFRANZ.Player.PlayerVisionController vision)=>showAsThreat && gameObject.activeInHierarchy && (Time.time<cctvVisibleUntil || vision!=null && vision.CanSeePoint(transform.position,transform));
+        private Transform player;
 
         private GameState state;
         private string zoneId;
@@ -31,7 +37,9 @@ namespace EscapeUNIFRANZ.Map
             state.CurrentObjectiveId == objectiveId;
         public bool IsCurrentCheckpoint => MinimapLogic.IsCurrentCheckpoint(
             state, zoneId, checkpointId);
-        public MinimapExitState ExitState => MinimapLogic.ResolveExitState(
+        public MinimapExitState ExitState => zoneExit != null && IsDiscovered && !secret
+            ? zoneExit.MapExitState
+            : MinimapLogic.ResolveExitState(
             state,
             zoneExit != null ? zoneExit.RequiredFlag : GameFlagId.None,
             IsDiscovered,
@@ -42,6 +50,7 @@ namespace EscapeUNIFRANZ.Map
             state = context.Session.State;
             zoneId = context.Zone.ZoneId;
             zoneExit = GetComponent<ZoneExitInteractable>();
+            player=context.Session.GetComponentInChildren<EscapeUNIFRANZ.Player.PlayerVisionController>(true)?.transform;
 
             if (string.IsNullOrWhiteSpace(markerId))
             {
@@ -56,7 +65,18 @@ namespace EscapeUNIFRANZ.Map
                 return false;
             }
 
-            return state.DiscoverWorldItem(zoneId, markerId);
+            bool discovered=state.DiscoverWorldItem(zoneId, markerId); Record(); return discovered;
+        }
+        public void Record(string status=null)
+        {
+            if(state==null || secret || showAsThreat && pointKind!=KnownPointKind.Camera || !IsDiscovered) return;
+            state.RecordMapPoint(zoneId,markerId,displayName,showAsExit ? KnownPointKind.Door : pointKind,status ?? (zoneExit!=null ? zoneExit.MapStatus : "Identificado"),zoneExit!=null ? (int)zoneExit.MapExitState : 1);
+        }
+        private void Update()
+        {
+            if((!showAsThreat || pointKind==KnownPointKind.Camera) && !IsDiscovered && player!=null && Vector2.Distance(player.position,transform.position)<=1.15f && EscapeUNIFRANZ.Hazards.DetectionSensor2D.HasLineOfSight(player.position,transform.position,~0,player,transform)) Discover();
+            if(showAsExit && IsDiscovered) Record();
+            else if(!string.IsNullOrEmpty(checkpointId) && IsDiscovered) Record(IsCurrentCheckpoint ? "Activo" : "Descubierto");
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EscapeUNIFRANZ.Core;
 using EscapeUNIFRANZ.Player;
 using EscapeUNIFRANZ.UI;
 using TMPro;
@@ -11,6 +12,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -34,8 +36,8 @@ namespace EscapeUNIFRANZ.EditorTools
             "Assets/_Project/Art/Characters/Player/Izquierda.aseprite";
         private const string RightPath =
             "Assets/_Project/Art/Characters/Player/Derecha.aseprite";
-        private const string BackgroundPath =
-            "Assets/_Project/Art/UI/MainMenu/Backgrounds/pasillounifranzl (1).aseprite";
+        private const string HallwayFlickerFolder =
+            "Assets/_Project/Art/UI/MainMenu/Backgrounds/HallwayFlicker";
         private const string OutlineFontMaterialPath =
             "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat";
         private const string ShadowFontMaterialPath =
@@ -48,6 +50,17 @@ namespace EscapeUNIFRANZ.EditorTools
         private static readonly Color Danger = new Color(0.98f, 0.20f, 0.25f, 1f);
         private static readonly Color TextPrimary = new Color(0.94f, 0.97f, 0.94f, 1f);
         private static readonly Color TextMuted = new Color(0.64f, 0.76f, 0.78f, 1f);
+
+        private static readonly string[] ZonePaths =
+        {
+            "Assets/_Project/Scenes/Zones/Z00_Entrada.unity",
+            "Assets/_Project/Scenes/Zones/Z01_Hall.unity",
+            "Assets/_Project/Scenes/Zones/Z02_ARCA.unity",
+            "Assets/_Project/Scenes/Zones/Z03_Piso2.unity",
+            "Assets/_Project/Scenes/Zones/Z04_Piso3.unity",
+            "Assets/_Project/Scenes/Zones/Z05_LabSoftware.unity",
+            "Assets/_Project/Scenes/Zones/Z06_NucleoIA.unity"
+        };
 
         [MenuItem("Escape UNIFRANZ/Visual/Build Player and Main Menu")]
         public static void BuildAll()
@@ -65,13 +78,8 @@ namespace EscapeUNIFRANZ.EditorTools
             Sprite frontSprite = directions[PlayerVisualController.FacingDirection.Front].Sprites[0];
             UpdateBootstrapPlayer(controller, frontSprite);
 
-            Sprite background = LoadSprites(BackgroundPath).FirstOrDefault();
-            if (background == null)
-            {
-                throw new InvalidOperationException("The main-menu Aseprite has no imported Sprite.");
-            }
-
-            BuildMainMenu(background);
+            BuildMainMenu(LoadHallwayFlickerSprites());
+            ConfigureZoneVision();
             UpdateBuildSettings();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
@@ -86,17 +94,53 @@ namespace EscapeUNIFRANZ.EditorTools
                 throw new InvalidOperationException("Exit Play Mode before rebuilding the menu.");
             }
 
-            Sprite background = LoadSprites(BackgroundPath).FirstOrDefault();
-            if (background == null)
-            {
-                throw new InvalidOperationException("The main-menu Aseprite has no imported Sprite.");
-            }
-
-            BuildMainMenu(background);
+            BuildMainMenu(LoadHallwayFlickerSprites());
             UpdateBuildSettings();
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Debug.Log("Atmospheric MainMenu rebuild completed.");
+        }
+
+        [MenuItem("Escape UNIFRANZ/Visual/Apply Definitive Menu and Player Vision")]
+        public static void ApplyDefinitiveMenuAndVision()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+            {
+                throw new InvalidOperationException("Exit Play Mode before applying scene content.");
+            }
+
+            AssetDatabase.Refresh();
+            RuntimeAnimatorController controller =
+                AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(ControllerPath);
+            Sprite frontSprite = LoadSprites(FrontPath).FirstOrDefault();
+            if (controller == null || frontSprite == null)
+            {
+                throw new InvalidOperationException(
+                    "Build the directional Player assets before applying the definitive scenes.");
+            }
+
+            UpdateBootstrapPlayer(controller, frontSprite);
+            ConfigureZoneVision();
+            BuildMainMenu(LoadHallwayFlickerSprites());
+            UpdateBuildSettings();
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+            Debug.Log("Definitive MainMenu, runtime return flow, and player vision scenes completed.");
+        }
+
+        private static Sprite[] LoadHallwayFlickerSprites()
+        {
+            var result = new Sprite[4];
+            for (int index = 0; index < result.Length; index++)
+            {
+                string path = $"{HallwayFlickerFolder}/MenuHallway_Light_{index + 1:00}.png";
+                result[index] = LoadSprites(path).FirstOrDefault();
+                if (result[index] == null)
+                {
+                    throw new InvalidOperationException("Missing main-menu lighting Sprite: " + path);
+                }
+            }
+            return result;
         }
 
         private static Dictionary<PlayerVisualController.FacingDirection, DirectionAssets>
@@ -348,6 +392,18 @@ namespace EscapeUNIFRANZ.EditorTools
             SetBool(serializedController, "centerVisualOnPlayer", true);
             serializedController.ApplyModifiedPropertiesWithoutUndo();
 
+            ConfigurePlayerVision(player, visualController);
+            RemoveLegacyRuntimeMenu(scene);
+
+            GameFlowController flow = UnityEngine.Object.FindFirstObjectByType<GameFlowController>(
+                FindObjectsInactive.Include);
+            if (flow != null)
+            {
+                SerializedObject serializedFlow = new SerializedObject(flow);
+                SetString(serializedFlow, "mainMenuScenePath", MainMenuPath);
+                serializedFlow.ApplyModifiedPropertiesWithoutUndo();
+            }
+
             EditorSceneManager.MarkSceneDirty(scene);
             if (!EditorSceneManager.SaveScene(scene))
             {
@@ -355,7 +411,154 @@ namespace EscapeUNIFRANZ.EditorTools
             }
         }
 
-        private static void BuildMainMenu(Sprite backgroundSprite)
+        private static void ConfigurePlayerVision(
+            GameObject player,
+            PlayerVisualController visualController)
+        {
+            GroupArtIntegrationBuilder.ConfigureHorrorVision(player);
+        }
+
+        private static Light2D FindOrCreatePointLight(Transform parent, string name)
+        {
+            Transform child = parent.Find(name);
+            if (child == null)
+            {
+                child = new GameObject(name).transform;
+                child.SetParent(parent, false);
+            }
+
+            Light2D light = child.GetComponent<Light2D>();
+            return light != null ? light : child.gameObject.AddComponent<Light2D>();
+        }
+
+        private static void ConfigurePointLight(
+            Light2D light,
+            float radius,
+            float outerAngle,
+            float innerAngle,
+            float intensity,
+            bool shadows)
+        {
+            light.lightType = Light2D.LightType.Point;
+            light.color = new Color(0.72f, 0.84f, 1f, 1f);
+            light.intensity = intensity;
+            light.falloffIntensity = 0.72f;
+            light.pointLightInnerRadius = shadows ? 0.15f : radius * 0.45f;
+            light.pointLightOuterRadius = radius;
+            light.pointLightOuterAngle = outerAngle;
+            light.pointLightInnerAngle = innerAngle;
+            light.shadowsEnabled = shadows;
+            light.shadowIntensity = shadows ? 0.93f : 0f;
+            light.shadowSoftness = shadows ? 0.28f : 0f;
+            light.targetSortingLayers = SortingLayer.layers.Select(layer => layer.id).ToArray();
+        }
+
+        private static void RemoveLegacyRuntimeMenu(Scene scene)
+        {
+            GameFlowView flowView = UnityEngine.Object.FindFirstObjectByType<GameFlowView>(
+                FindObjectsInactive.Include);
+            Transform legacyMenu = flowView != null
+                ? FindRecursive(flowView.transform, "MainMenuScreen")
+                : null;
+            if (legacyMenu != null)
+            {
+                UnityEngine.Object.DestroyImmediate(legacyMenu.gameObject);
+                EditorSceneManager.MarkSceneDirty(scene);
+            }
+        }
+
+        private static void ConfigureZoneVision()
+        {
+            for (int index = 0; index < ZonePaths.Length; index++)
+            {
+                Scene scene = EditorSceneManager.OpenScene(ZonePaths[index], OpenSceneMode.Single);
+                Transform zoneRoot = scene.GetRootGameObjects()
+                    .Select(root => root.transform)
+                    .FirstOrDefault(root => root.name.StartsWith("Z", StringComparison.Ordinal));
+                if (zoneRoot == null)
+                {
+                    throw new InvalidOperationException("Zone root is missing: " + ZonePaths[index]);
+                }
+
+                Transform environment = FindRecursive(zoneRoot, "Environment") ?? zoneRoot;
+                Transform globalLightTransform = FindRecursive(zoneRoot, "Global Light 2D");
+                if (globalLightTransform == null)
+                {
+                    globalLightTransform = new GameObject("Global Light 2D").transform;
+                    globalLightTransform.SetParent(environment, false);
+                }
+
+                Light2D globalLight = globalLightTransform.GetComponent<Light2D>();
+                if (globalLight == null)
+                {
+                    globalLight = globalLightTransform.gameObject.AddComponent<Light2D>();
+                }
+                globalLight.lightType = Light2D.LightType.Global;
+                globalLight.color = new Color(0.26f, 0.32f, 0.42f, 1f);
+                globalLight.intensity = 0.34f;
+                globalLight.targetSortingLayers =
+                    SortingLayer.layers.Select(layer => layer.id).ToArray();
+
+                Transform collisionRoot = FindRecursive(zoneRoot, "WorldCollision");
+                if (collisionRoot != null)
+                {
+                    Collider2D[] colliders =
+                        collisionRoot.GetComponentsInChildren<Collider2D>(true);
+                    for (int colliderIndex = 0; colliderIndex < colliders.Length; colliderIndex++)
+                    {
+                        Collider2D collider = colliders[colliderIndex];
+                        if (collider.isTrigger)
+                        {
+                            continue;
+                        }
+
+                        ShadowCaster2D caster = collider.GetComponent<ShadowCaster2D>();
+                        if (caster == null)
+                        {
+                            caster = collider.gameObject.AddComponent<ShadowCaster2D>();
+                        }
+                        caster.castsShadows = true;
+                        caster.selfShadows = false;
+                    }
+                }
+
+                EditorSceneManager.MarkSceneDirty(scene);
+                if (!EditorSceneManager.SaveScene(scene))
+                {
+                    throw new InvalidOperationException(
+                        "Unity could not save vision setup for " + ZonePaths[index]);
+                }
+            }
+        }
+
+        private static Transform FindRecursive(Transform parent, string objectName)
+        {
+            if (parent.name == objectName)
+            {
+                return parent;
+            }
+
+            for (int index = 0; index < parent.childCount; index++)
+            {
+                Transform result = FindRecursive(parent.GetChild(index), objectName);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+            return null;
+        }
+
+        private static void ConfigureBackgroundImage(Image image, Sprite sprite)
+        {
+            image.sprite = sprite;
+            image.type = Image.Type.Simple;
+            image.preserveAspect = false;
+            image.raycastTarget = false;
+            image.color = Color.white;
+        }
+
+        private static void BuildMainMenu(Sprite[] backgroundSprites)
         {
             EnsureFolder("Assets/_Project/Scenes/UI");
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -384,18 +587,41 @@ namespace EscapeUNIFRANZ.EditorTools
             scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
             scaler.matchWidthOrHeight = 0.5f;
 
+            RectTransform backgroundMotion = CreatePanel(
+                canvasObject.transform, "BackgroundMotion");
+            Stretch(backgroundMotion);
+            backgroundMotion.localScale = new Vector3(1.045f, 1.045f, 1f);
+
             RectTransform background = CreateImage(
-                canvasObject.transform, "Background", Color.white);
+                backgroundMotion, "HallwayPrimary", Color.white);
             Stretch(background);
             Image backgroundImage = background.GetComponent<Image>();
-            backgroundImage.sprite = backgroundSprite;
-            backgroundImage.type = Image.Type.Simple;
-            backgroundImage.preserveAspect = true;
-            backgroundImage.color = new Color(0.94f, 0.98f, 1f, 1f);
-            background.localScale = new Vector3(1.08f, 1.08f, 1f);
-            AspectRatioFitter fitter = background.gameObject.AddComponent<AspectRatioFitter>();
+            ConfigureBackgroundImage(backgroundImage, backgroundSprites[0]);
+
+            RectTransform blendBackground = CreateImage(
+                backgroundMotion, "HallwayCrossfade", new Color(1f, 1f, 1f, 0f));
+            Stretch(blendBackground);
+            Image blendImage = blendBackground.GetComponent<Image>();
+            ConfigureBackgroundImage(blendImage, backgroundSprites[0]);
+            blendImage.color = new Color(1f, 1f, 1f, 0f);
+
+            AspectRatioFitter fitter = backgroundMotion.gameObject.AddComponent<AspectRatioFitter>();
             fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
-            fitter.aspectRatio = backgroundSprite.rect.width / backgroundSprite.rect.height;
+            fitter.aspectRatio = backgroundSprites[0].rect.width / backgroundSprites[0].rect.height;
+
+            HallwayFlicker hallwayFlicker =
+                backgroundMotion.gameObject.AddComponent<HallwayFlicker>();
+            SerializedObject serializedFlicker = new SerializedObject(hallwayFlicker);
+            SetObject(serializedFlicker, "primaryImage", backgroundImage);
+            SetObject(serializedFlicker, "blendImage", blendImage);
+            SerializedProperty lightingStates = serializedFlicker.FindProperty("lightingStates");
+            lightingStates.arraySize = backgroundSprites.Length;
+            for (int index = 0; index < backgroundSprites.Length; index++)
+            {
+                lightingStates.GetArrayElementAtIndex(index).objectReferenceValue =
+                    backgroundSprites[index];
+            }
+            serializedFlicker.ApplyModifiedPropertiesWithoutUndo();
 
             RectTransform overlay = CreateImage(
                 canvasObject.transform, "ColdAtmosphere",
@@ -417,10 +643,6 @@ namespace EscapeUNIFRANZ.EditorTools
                 canvasObject.transform, "BottomVignette", new Color(0f, 0f, 0f, 0.46f));
             SetRect(bottomShade, Vector2.zero, new Vector2(1f, 0.18f),
                 Vector2.zero, Vector2.zero, new Vector2(0.5f, 0f));
-
-            RectTransform flicker = CreateImage(
-                canvasObject.transform, "ElectricalFlicker", new Color(0f, 0f, 0f, 0.012f));
-            Stretch(flicker);
 
             RectTransform scanline = CreateImage(
                 canvasObject.transform, "SurveillanceScanline", new Color(0.18f, 0.92f, 0.96f, 0.055f));
@@ -495,8 +717,7 @@ namespace EscapeUNIFRANZ.EditorTools
             MainMenuAmbienceController ambience =
                 canvasObject.GetComponent<MainMenuAmbienceController>();
             SerializedObject serializedAmbience = new SerializedObject(ambience);
-            SetObject(serializedAmbience, "background", background);
-            SetObject(serializedAmbience, "flickerOverlay", flicker.GetComponent<Image>());
+            SetObject(serializedAmbience, "background", backgroundMotion);
             SetObject(serializedAmbience, "scanline", scanline);
             SetObject(serializedAmbience, "alertPulse", alertPulse.GetComponent<Image>());
             SetObject(serializedAmbience, "statusReadout", statusReadout);

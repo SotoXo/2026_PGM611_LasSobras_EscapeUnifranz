@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0600a188e427c4397e57306660e1bf, type: 3}
+  m_Name: francis_network
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Puzzles.PuzzleData
+  id: francis_network
+  title: "Aislamiento del n\xFAcleo \u2014 Red"
+  objective: "AISLAMIENTO DEL N\xDACLEO \u2014 RED"
+  inspectionText: Revisa la nota junto al equipo y el objeto requerido. Consulta
+    la ficha del equipo y el objeto compatible.
+  environmentalClue: {fileID: 11400000, guid: 30fa61109b268294c8d4ca9e80cb5d7d, type: 2}
+  instructions: Construye la ruta de aislamiento indicada en el protocolo.
+  kind: 0
+  ports:
+  - id: ACCESS
+    label: PUERTAS
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: PUBLIC
+    label: PUBLIC / CAMPUS
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: ISOLATED
+    label: AISLADO
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: CAMERAS
+    label: "C\xC1MARAS"
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  - id: SERVER
+    label: SERVIDOR
+    output: 0
+    blocked: 0
+    row: 0
+    icon: {fileID: 0}
+  connections:
+  - from: CAMERAS
+    to: ACCESS
+  - from: ACCESS
+    to: SERVER
+  - from: SERVER
+    to: ISOLATED
+  diagramConnections: []
+  commandOrder: []
+  connectInOrder: 1
+  matchingColumns: 0
+  preserveCommandProgress: 0
+  requiredClueId: core_protocolo
+  requiredItem: 
+  prerequisiteClues:
+  - core_confirm
+  consumeItem: 0
+  installBeforePuzzle: 0
+  installedFlag: 0
+  requiredFlags: 
+  completionFlags: 
+  rewardItems: []
+  successMessage: "Fase de red validada. Procede al corte f\xEDsico coordinado."

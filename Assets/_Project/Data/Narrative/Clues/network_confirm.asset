@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872de609eef158748acef7da0ab2e217, type: 3}
+  m_Name: network_confirm
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
+  id: network_confirm
+  title: Rack abierto
+  category: "Inspecci\xF3n ambiental"
+  text: "La ruta A muestra una advertencia roja. El cartel de <b>SWITCH-02</b> apunta
+    al <b>LAB</b>. Falta un <b>M\xD3DULO DE RED</b> en el hueco del distribuidor."
+  associatedFlag: 0

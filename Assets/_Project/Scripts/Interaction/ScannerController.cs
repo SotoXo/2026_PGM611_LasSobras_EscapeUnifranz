@@ -17,6 +17,7 @@ namespace EscapeUNIFRANZ.Interaction
 
         private ScannerTimer timer;
         private Scannable2D[] zoneTargets = System.Array.Empty<Scannable2D>();
+        private readonly System.Collections.Generic.List<RaycastHit2D> sightHits=new System.Collections.Generic.List<RaycastHit2D>();
 
         private void Awake()
         {
@@ -73,18 +74,20 @@ namespace EscapeUNIFRANZ.Interaction
                 return;
             }
 
+            player.GetComponentInParent<GameSessionController>()?.GetComponent<EscapeUNIFRANZ.UI.EntranceTutorialController>()?.Complete(EscapeUNIFRANZ.UI.TutorialAction.Scanner);
             int revealed = 0;
             float radiusSquared = scanRadius * scanRadius;
             for (int index = 0; index < zoneTargets.Length; index++)
             {
                 Scannable2D target = zoneTargets[index];
                 if (target == null || !target.gameObject.activeInHierarchy ||
-                    ((Vector2)target.transform.position - (Vector2)player.position).sqrMagnitude > radiusSquared)
+                    ((Vector2)target.transform.position - (Vector2)player.position).sqrMagnitude > radiusSquared ||
+                    !EscapeUNIFRANZ.Hazards.DetectionSensor2D.HasLineOfSight(player.position,target.transform.position,~0,player,target.transform,sightHits))
                 {
                     continue;
                 }
 
-                if (target.RevealUntil(timer.ActiveUntil))
+                if (target.RevealUntil(timer.ActiveUntil,player))
                 {
                     revealed++;
                 }

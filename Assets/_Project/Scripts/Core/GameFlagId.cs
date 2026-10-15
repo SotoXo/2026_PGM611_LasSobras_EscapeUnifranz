@@ -22,6 +22,20 @@ namespace EscapeUNIFRANZ.Core
         FrancisNetworkPhaseComplete = 17,
         FrancisHardwarePhaseComplete = 18,
         FrancisShutdownPhaseComplete = 19,
-        GameCompleted = 20
+        GameCompleted = 20,
+        FirstClueFound = 21,
+        PowerEntranceRestored = 22,
+        HardwareRoutingRestored = 23,
+        TechnologyNetworkRestored = 24,
+        SecurityNodeDisabled = 25,
+        EntranceCodeAccepted = 26,
+        SimulationPowerRestored = 27,
+        MaintenanceAccessRestored = 28,
+        FirstThreatActivated = 29,
+        SimulationFuseReplaced = 30,
+        EntranceCodeObserved = 31,
+        CampusPlanRecovered = 32,
+        EntranceBatteryInstalled = 33,
+        EntrancePanelInspected = 34
     }
 }

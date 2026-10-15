@@ -12,6 +12,7 @@ namespace EscapeUNIFRANZ.UI
 
         private GameState state;
         private string objectiveText = string.Empty;
+        public string CurrentText => objectiveText;
 
         public void Bind(GameState gameState)
         {

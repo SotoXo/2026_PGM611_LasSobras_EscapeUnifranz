@@ -61,7 +61,7 @@ namespace EscapeUNIFRANZ.Encounters
             session.State.SetFlag(GameFlagId.FrancisEncounterStarted);
             encounter?.BeginEncounter();
             phaseView?.Show(FrancisBossState.Intro);
-            session.ShowMessage("Francis intenta destruir el núcleo.");
+            session.ShowMessage("Francis: Software construyó algo que no podía controlar.");
             introEndsAt = Time.time + introSeconds;
             nextInterferenceAt = Time.time + interferenceInterval;
             Debug.Log("Boss phase changed: Intro", this);

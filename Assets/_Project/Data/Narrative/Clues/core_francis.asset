@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872de609eef158748acef7da0ab2e217, type: 3}
+  m_Name: core_francis
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
+  id: core_francis
+  title: "\xDAltimo mensaje de Francis"
+  category: Registro personal
+  text: "Francis: \xABSoftware construy\xF3 algo que no pod\xEDa controlar. <b>Yo
+    pod\xEDa detenerlo</b>\xBB. Eligi\xF3 cortar equipos por orgullo. Ahora debes
+    frenar su intervenci\xF3n y la respuesta destructiva de la IA."
+  associatedFlag: 0
