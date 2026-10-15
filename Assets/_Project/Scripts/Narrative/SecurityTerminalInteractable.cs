@@ -30,11 +30,14 @@ namespace EscapeUNIFRANZ.Narrative
         private NarrativeController controller;
         public GameState State => BoundSession.State;
         public bool Online => powerFlag==GameFlagId.None || State.HasFlag(powerFlag);
+        public override string Prompt => Online ? "[E] Usar CCTV" : "[E] Revisar terminal sin energía";
         public bool CanDisable => !State.IsWorldItemDiscovered("cctv_control",terminalId);
         public void Initialize(ZoneRuntimeContext context) { controller=context.Session.GetComponent<NarrativeController>(); }
         protected override void PerformInteraction()
         {
             if (!Online) { BoundSession.ShowMessage("OFF — ENERGÍA ERROR. Recupera primero el suministro del sector."); return; }
+            if(State.SetFlag(GameFlagId.CampusPlanRecovered)) controller?.TeachOnce("map","PLANO DEL CAMPUS RECUPERADO. M — Mapa. Selecciona sectores conocidos para consultar detalles.");
+            GetComponent<EscapeUNIFRANZ.Map.MinimapTrackable2D>()?.Discover();
             controller?.ShowSecurity(this);
         }
         public void Read(int index)
@@ -45,6 +48,9 @@ namespace EscapeUNIFRANZ.Narrative
             if (feed.clue!=null) { State.DiscoverWorldItem("clue",feed.clue.id); State.SetFlag(feed.clue.associatedFlag); }
             if (optionalAudio!=null && switchSound!=null) optionalAudio.PlayOneShot(switchSound);
             ProjectAudioHooks.Emit(AudioCue.CameraFeed);
+            if(index==1) State.DiscoverWorldItem("sector","hall");
+            if(feed.camera!=null) { var marker=feed.camera.GetComponent<EscapeUNIFRANZ.Map.MinimapTrackable2D>(); if(marker!=null) { State.RecordMapPoint(State.CurrentZoneId,marker.MarkerId,"Cámara CCTV",KnownPointKind.Camera,feed.camera.Status); marker.RevealThreatFor(4f); } }
+            observedUnit?.GetComponent<EscapeUNIFRANZ.Map.MinimapTrackable2D>()?.RevealThreatFor(4f);
         }
         // World time is paused in the terminal. The 15 second budget starts on leaving it.
         public bool Disable(int index)

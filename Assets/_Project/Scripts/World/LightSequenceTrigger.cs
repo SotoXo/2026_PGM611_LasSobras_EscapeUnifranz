@@ -13,6 +13,7 @@ namespace EscapeUNIFRANZ.World
         public float stepSeconds=0.65f, blackoutSeconds=1.8f;
         public AudioSource optionalAudio;
         public Light2D distantEyes;
+        public RoomLightingController room;
         private GameSessionController session;
         private void Awake() { GetComponent<Collider2D>().isTrigger=true; }
         public void Initialize(ZoneRuntimeContext context) { session=context.Session; }
@@ -25,6 +26,7 @@ namespace EscapeUNIFRANZ.World
         }
         private IEnumerator Sequence()
         {
+            room?.BlackoutThenRecover(blackoutSeconds);
             var original=new float[lights.Length]; var flickers=new GroupLampFlicker2D[lights.Length]; var active=new bool[lights.Length];
             if (optionalAudio!=null && optionalAudio.clip!=null) optionalAudio.Play();
             EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.Blackout);
@@ -33,7 +35,7 @@ namespace EscapeUNIFRANZ.World
                 if (lights[i]==null) continue;
                 original[i]=lights[i].intensity; flickers[i]=lights[i].GetComponent<GroupLampFlicker2D>();
                 active[i]=flickers[i]!=null && flickers[i].enabled;
-                if (flickers[i]!=null) flickers[i].enabled=false;
+                if (flickers[i]!=null) flickers[i].SetOverride(true,0f);
                 lights[i].intensity=0f; yield return new WaitForSeconds(stepSeconds);
             }
             session.ShowMessage("IA: LA INFRAESTRUCTURA PERMANECE BAJO CONTROL.");
@@ -42,7 +44,7 @@ namespace EscapeUNIFRANZ.World
             yield return new WaitForSeconds(blackoutSeconds);
             if (distantEyes!=null) distantEyes.enabled=false;
             for(int i=0;i<lights.Length;i++)
-                if (lights[i]!=null) { lights[i].intensity=original[i]; if (flickers[i]!=null) flickers[i].enabled=active[i]; }
+                if (lights[i]!=null) { lights[i].intensity=original[i]; if (flickers[i]!=null) flickers[i].SetOverride(false); }
         }
     }
 }

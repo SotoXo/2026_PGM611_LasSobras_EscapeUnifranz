@@ -15,8 +15,8 @@ MonoBehaviour:
   id: francis_shutdown
   title: "Apagado seguro \u2014 Software"
   objective: "APAGADO SEGURO \u2014 SOFTWARE"
-  inspectionText: 'Revisa la nota junto al equipo y el objeto requerido. Registro
-    de pistas: J; objetos: I.'
+  inspectionText: Revisa la nota junto al equipo y el objeto requerido. Consulta
+    la ficha del equipo y el objeto compatible.
   environmentalClue: {fileID: 11400000, guid: 30fa61109b268294c8d4ca9e80cb5d7d, type: 2}
   instructions: "Ejecuta el protocolo despu\xE9s de aislar red y hardware."
   kind: 1
@@ -59,6 +59,8 @@ MonoBehaviour:
   prerequisiteClues:
   - core_confirm
   consumeItem: 0
+  installBeforePuzzle: 0
+  installedFlag: 0
   requiredFlags: 
   completionFlags: 
   rewardItems: []

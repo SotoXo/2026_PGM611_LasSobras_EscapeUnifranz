@@ -13,7 +13,7 @@ namespace EscapeUNIFRANZ.Narrative
             if (found.Length>0) view.ShowFoundHint(found[0]);
             else view.Options("PISTA ENCONTRADA","Aún no has leído una pista para este panel.",new[]{"VOLVER AL PUZZLE"},_=>ReturnToPuzzle());
         }
-        public void HandleClose() { if (reviewingPuzzleHint) ReturnToPuzzle(); else Close(); }
+        public void HandleClose() { if (reviewingPuzzleHint) ReturnToPuzzle(); else if (examiningItem) InventoryPage(); else if(journalReading) JournalPage(); else Close(); }
         private void ReturnToPuzzle()
         {
             if (activePuzzle==null || model==null) return;

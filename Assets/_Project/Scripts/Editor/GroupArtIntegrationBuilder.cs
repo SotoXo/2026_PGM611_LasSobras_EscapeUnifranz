@@ -139,7 +139,7 @@ namespace EscapeUNIFRANZ.EditorTools
         {
             var vision = player.GetComponent<PlayerVisionController>() ?? player.AddComponent<PlayerVisionController>();
             Set(vision, "visualController", player.GetComponent<PlayerVisualController>());
-            Set(vision, "immediateRadius", 1.45f); Set(vision, "immediateIntensity", 0.72f);
+            Set(vision, "immediateRadius", 1.1f); Set(vision, "immediateIntensity", 0.38f);
             Set(vision, "forwardRange", 6.8f); Set(vision, "forwardAngle", 88f); Set(vision, "innerAngle", 60f);
             Set(vision, "forwardIntensity", 1.15f); Set(vision, "forwardFalloff", 0.55f);
             Set(vision, "immediateFalloff", 0.72f); Set(vision, "forwardOffset", 0.18f);

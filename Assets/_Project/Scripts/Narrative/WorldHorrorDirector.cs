@@ -15,6 +15,7 @@ namespace EscapeUNIFRANZ.Narrative
         public ZoneExitInteractable[] alarmDoors;
         public EncounterContext firstEncounter;
         public GameFlagId localPowerFlag;
+        public RoomLightingController[] revealRooms=new RoomLightingController[0],alarmRooms=new RoomLightingController[0];
         public AudioSource optionalAudio;
         public AudioClip powerSound, alarmSound, robotSound;
         public AudioSource ambientAudio;
@@ -36,12 +37,12 @@ namespace EscapeUNIFRANZ.Narrative
             for(int i=0;i<alarmLights.Length;i++) if (alarmLights[i]!=null) { originalColors[i]=alarmLights[i].color; originalIntensity[i]=alarmLights[i].intensity; }
             session.State.FlagChanged+=Changed;
             if (localPowerFlag!=GameFlagId.None) foreach(var light in powerLights) if (light!=null)
-                light.intensity=session.State.HasFlag(localPowerFlag) ? 0.42f : 0f;
+                SetPower(light,session.State.HasFlag(localPowerFlag) ? 0.42f : 0f);
             if (firstRobot!=null)
             {
                 bool active=session.State.HasFlag(GameFlagId.FirstThreatActivated);
                 firstRobot.SetOperational(active,!active);
-                if (!session.State.HasFlag(GameFlagId.PowerEntranceRestored)) foreach(var lamp in powerLights) if (lamp!=null) { var f=lamp.GetComponent<GroupLampFlicker2D>(); if (f!=null) f.enabled=false; lamp.intensity=0f; }
+                if (!session.State.HasFlag(GameFlagId.PowerEntranceRestored)) foreach(var lamp in powerLights) if (lamp!=null) { var f=lamp.GetComponent<GroupLampFlicker2D>(); if (f!=null) f.SetExternalPower(0f); lamp.intensity=0f; }
                 else if (!active) StartCoroutine(PowerSequence());
             }
         }
@@ -56,24 +57,29 @@ namespace EscapeUNIFRANZ.Narrative
         private IEnumerator RestoreSector()
         {
             Play(powerSound);
-            foreach(var light in powerLights) if (light!=null) { light.intensity=0.42f; yield return new WaitForSeconds(0.25f); }
+            foreach(var light in powerLights) if (light!=null) { SetPower(light,0.42f); yield return new WaitForSeconds(0.25f); }
             glitch?.Pulse(); session.ShowMessage("ENERGÍA OK / RED OK. Los actuadores necesitan validación física.");
         }
         private IEnumerator PowerSequence()
         {
-            sequenceRunning=true; Play(powerSound);
+            sequenceRunning=true;
+            while(mode!=null && !mode.AllowsMovement || System.Array.Exists(revealRooms,r=>r!=null && !r.Initialized)) yield return null;
+            Play(powerSound);
             ProjectAudioHooks.Emit(AudioCue.Electricity);
-            foreach(var light in powerLights) if (light!=null) { light.intensity=0.42f; yield return new WaitForSeconds(0.25f); }
-            session.ShowMessage("ENERGÍA RESTAURADA. El edificio responde parcialmente.");
-            yield return new WaitForSeconds(1f);
-            glitch?.Pulse(false,true); session.ShowMessage("IA: SUJETO DETECTADO.\nUNIDAD DE INSPECCIÓN — ALIMENTACIÓN EXTERNA. Evita su ruta o corta energía en el panel.");
-            session.State.SetFlag(GameFlagId.FirstThreatActivated); firstRobot.SetOperational(true);
+            foreach(var room in revealRooms) if(room!=null) room.BeginRestorationReading();
+            foreach(var light in powerLights) if (light!=null) { SetPower(light,0.42f); yield return new WaitForSeconds(0.25f); }
+            session.ShowMessage("Las luces responden. Ahora puedes reconocer la habitación.");
+            if(revealRooms.Length>0) { while(System.Array.Exists(revealRooms,r=>r!=null && r.SequenceRunning)) yield return null; }
+            else yield return new WaitForSeconds(1f);
+            glitch?.Pulse(); session.ShowMessage("ACTIVIDAD HUMANA DETECTADA.");
+            session.State.SetFlag(GameFlagId.FirstThreatActivated); firstRobot.SetOperational(true,false,3f);
             firstEncounter?.BeginEncounter(); Play(robotSound); Alarm(false); sequenceRunning=false;
         }
         public void Alarm(bool activateDog=true)
         {
             if (session==null) return;
             alarmUntil=Time.time+5f; glitch?.Pulse(true); Play(alarmSound);
+            foreach(var room in alarmRooms) if(room!=null) room.EmergencyFor(5f);
             ProjectAudioHooks.Emit(AudioCue.RedAlarm); ProjectAudioHooks.Emit(AudioCue.MusicTension);
             foreach(var door in alarmDoors) if (door!=null) door.LockForAlarm(5f);
             if (activateDog && alarmDog!=null) alarmDog.ActivateFromAlarm();
@@ -88,6 +94,14 @@ namespace EscapeUNIFRANZ.Narrative
             { alarmLights[i].GetComponent<GroupLampFlicker2D>()?.SetOverride(false); alarmLights[i].color=originalColors[i]; alarmLights[i].intensity=originalIntensity[i]; }
         }
         private void OnDestroy() { if (session!=null) session.State.FlagChanged-=Changed; }
+        private static void SetPower(Light2D light,float level) { light.GetComponent<GroupLampFlicker2D>()?.SetExternalPower(level); light.intensity=level; }
+        public void InspectCorruptedMonitor(SpriteRenderer monitor,string eventId)
+        {
+            if(session==null || !session.State.DiscoverWorldItem("event",eventId)) return;
+            glitch?.Pulse(false,true); session.ShowMessage("ERROR — ERROR — TE VEO. El monitor pierde la señal.");
+            session.GetComponentInChildren<EscapeUNIFRANZ.Player.PlayerVisionController>(true)?.InterfereFor(.2f);
+            if(monitor!=null) monitor.color=new Color(.12f,.15f,.17f);
+        }
         private void Play(AudioClip sound) { if (optionalAudio!=null && sound!=null) optionalAudio.PlayOneShot(sound); }
     }
 }

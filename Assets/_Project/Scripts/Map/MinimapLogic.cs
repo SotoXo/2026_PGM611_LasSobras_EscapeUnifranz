@@ -8,7 +8,8 @@ namespace EscapeUNIFRANZ.Map
         Exit = 0,
         Objective = 1,
         Checkpoint = 2,
-        Threat = 3
+        Threat = 3,
+        Point = 4
     }
 
     public enum MinimapExitState
@@ -16,7 +17,8 @@ namespace EscapeUNIFRANZ.Map
         Unknown = 0,
         Discovered = 1,
         Available = 2,
-        Blocked = 3
+        Blocked = 3,
+        Conditional = 4
     }
 
     public static class MinimapLogic

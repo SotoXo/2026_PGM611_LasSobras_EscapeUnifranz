@@ -77,6 +77,8 @@ MonoBehaviour:
   prerequisiteClues:
   - network_confirm
   consumeItem: 1
+  installBeforePuzzle: 0
+  installedFlag: 0
   requiredFlags: 
   completionFlags: 18000000
   rewardItems: []

@@ -71,6 +71,7 @@ namespace EscapeUNIFRANZ.EditorTools
                 new GameFlagId[0],"Apagado seguro completado: Hardware + Software + Redes + Lógica.");
             BuildHorrorData();
             BuildAccessibleData();
+            BuildInteractiveData();
             foreach(var data in puzzles.Values)
             {
                 if (!PuzzleModel.Validate(data,out string error)) throw new InvalidOperationException(data.id+": "+error);
@@ -88,6 +89,7 @@ namespace EscapeUNIFRANZ.EditorTools
             d.ports=options.Select(o=>new CablePort{id=o,label=o}).ToArray(); d.completionFlags=flags; d.successMessage=message;
             d.requiredItem=""; d.consumeItem=false; d.rewardItems=new string[0]; d.prerequisiteClues=new string[0]; d.requiredFlags=new GameFlagId[0]; d.connectInOrder=true;
             d.matchingColumns=false; d.preserveCommandProgress=false;
+            d.installBeforePuzzle=false; d.installedFlag=GameFlagId.None;
             d.diagramConnections=new CableConnection[0]; d.environmentalClue=null;
             puzzles.Add(id,d); return d;
         }

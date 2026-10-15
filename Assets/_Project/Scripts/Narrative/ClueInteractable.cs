@@ -17,6 +17,7 @@ namespace EscapeUNIFRANZ.Narrative
             BoundSession.State.SetFlag(clue.associatedFlag);
             GetComponent<MinimapTrackable2D>()?.Discover();
             controller.ShowClue(clue);
+            controller.TeachOnce("journal","Pista guardada. J — Consultar documentos leídos.");
         }
     }
 }

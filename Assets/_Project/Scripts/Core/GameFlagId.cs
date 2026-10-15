@@ -33,6 +33,9 @@ namespace EscapeUNIFRANZ.Core
         MaintenanceAccessRestored = 28,
         FirstThreatActivated = 29,
         SimulationFuseReplaced = 30,
-        EntranceCodeObserved = 31
+        EntranceCodeObserved = 31,
+        CampusPlanRecovered = 32,
+        EntranceBatteryInstalled = 33,
+        EntrancePanelInspected = 34
     }
 }

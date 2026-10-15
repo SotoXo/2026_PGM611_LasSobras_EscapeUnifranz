@@ -92,6 +92,7 @@ namespace EscapeUNIFRANZ.Core
 
         public void BindZonePresentation(ZoneContext zone)
         {
+            GetComponent<EntranceTutorialController>()?.SetZone(zone!=null ? zone.ZoneId : null);
             minimapController?.SetZone(zone);
             scannerController?.SetZone(zone);
             objectiveMarkerController?.SetZone(zone);
@@ -108,7 +109,8 @@ namespace EscapeUNIFRANZ.Core
 
         private void OnCheckpointChanged(string _, string __)
         {
-            ShowMessage("Punto de control actualizado");
+            ShowMessage("CHECKPOINT ACTUALIZADO");
+            EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.Checkpoint);
         }
     }
 }

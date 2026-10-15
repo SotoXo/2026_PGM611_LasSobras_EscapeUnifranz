@@ -21,7 +21,7 @@ namespace EscapeUNIFRANZ.Narrative
             foreach(var light in restoredLights ?? new Light2D[0])
             {
                 if (light==null) continue;
-                if (light.TryGetComponent<GroupLampFlicker2D>(out var flicker)) flicker.enabled=false;
+                if (light.TryGetComponent<GroupLampFlicker2D>(out var flicker)) flicker.SetExternalPower(on ? 0.48f : 0f);
                 light.intensity=on ? 0.48f : 0f;
             }
             foreach(var monitor in monitors ?? new SpriteRenderer[0])

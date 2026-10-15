@@ -79,6 +79,7 @@ namespace EscapeUNIFRANZ.World
             }
 
             GameFlagId visitedFlag = ResolveVisitedFlag(zoneId);
+            session.State.DiscoverZone(zoneId);
 
             if (session.State.SetFlag(visitedFlag))
             {

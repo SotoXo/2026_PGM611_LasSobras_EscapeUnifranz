@@ -12,7 +12,9 @@ namespace EscapeUNIFRANZ.Narrative
         CameraMotor, CameraFeed, CameraDetection, CameraSignalLost,
         CableConnect, CableError, PuzzleSolved, Button, Switch, TerminalBoot, TerminalError,
         DistantImpact, MetallicNoise, TerrorInterference, RedAlarm, Stinger,
-        MusicMenu, MusicExplore, MusicTension, MusicChase, MusicCore
+        MusicMenu, MusicExplore, MusicTension, MusicChase, MusicCore,
+        InventoryOpen, InventoryClose, MapOpen, MapClose, FlashlightOn, FlashlightOff, ObjectUsed, ObjectError, Checkpoint,
+        ElectricBuzz, LightRestore, TutorialNotification
     }
     [Serializable] public class AudioCueBinding
     { public AudioCue cue; public AudioClip clip; [Range(0f,1f)] public float volume=0.7f; }
@@ -29,7 +31,7 @@ namespace EscapeUNIFRANZ.Narrative
             if (instance==null) return;
             var entry=Array.Find(instance.bindings,b=>b!=null && b.cue==cue);
             if (entry==null || entry.clip==null) return;
-            if (cue>=AudioCue.MusicMenu)
+            if (cue>=AudioCue.MusicMenu && cue<=AudioCue.MusicCore)
             { if (instance.music==null || instance.music.clip==entry.clip && instance.music.isPlaying) return; instance.music.clip=entry.clip; instance.music.volume=entry.volume; instance.music.loop=true; instance.music.Play(); }
             else if (cue==AudioCue.ElectricalHum || cue==AudioCue.HVAC || cue==AudioCue.BuildingAmbience)
             { if (instance.ambience==null || instance.ambience.clip==entry.clip && instance.ambience.isPlaying) return; instance.ambience.clip=entry.clip; instance.ambience.volume=entry.volume; instance.ambience.loop=true; instance.ambience.Play(); }

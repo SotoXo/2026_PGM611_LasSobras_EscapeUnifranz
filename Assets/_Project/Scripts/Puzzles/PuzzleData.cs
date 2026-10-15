@@ -29,6 +29,8 @@ namespace EscapeUNIFRANZ.Puzzles
         public string requiredClueId, requiredItem;
         public string[] prerequisiteClues;
         public bool consumeItem;
+        public bool installBeforePuzzle;
+        public GameFlagId installedFlag;
         public GameFlagId[] requiredFlags, completionFlags;
         public string[] rewardItems;
         public string successMessage;

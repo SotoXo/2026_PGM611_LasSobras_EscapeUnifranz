@@ -8,7 +8,7 @@ namespace EscapeUNIFRANZ.Core
     /// Serializable session state. It contains no scene objects or presentation logic.
     /// </summary>
     [Serializable]
-    public sealed class GameState
+    public sealed partial class GameState
     {
         [SerializeField] private string currentZoneId = string.Empty;
         [SerializeField] private string currentSpawnId = string.Empty;
@@ -50,11 +50,13 @@ namespace EscapeUNIFRANZ.Core
         public bool TryUseItem(string id)
         {
             if (string.IsNullOrWhiteSpace(id) || !carriedItems.Remove(id.Trim())) return false;
+            if (selectedItemId==id.Trim() && !HasItem(id)) selectedItemId=string.Empty;
             InventoryChanged?.Invoke(); return true;
         }
         public bool TryCollectPickup(string pickupId, string itemId)
         {
             if (string.IsNullOrWhiteSpace(itemId) || !DiscoverWorldItem("pickup",pickupId)) return false;
+            if (!DiscoverWorldItem("acquired",itemId)) return false;
             return AddItem(itemId);
         }
 
@@ -86,6 +88,7 @@ namespace EscapeUNIFRANZ.Core
 
             currentZoneId = nextZoneId;
             currentSpawnId = nextSpawnId;
+            DiscoverZone(nextZoneId);
             LocationChanged?.Invoke();
         }
 

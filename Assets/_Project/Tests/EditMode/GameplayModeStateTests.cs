@@ -48,7 +48,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         }
 
         [Test]
-        public void Encounter_AllowsGameplay_ButBlocksMap()
+        public void Encounter_AllowsGameplayAndMap()
         {
             var state = new GameplayModeState();
 
@@ -56,10 +56,11 @@ namespace EscapeUNIFRANZ.Tests.EditMode
 
             Assert.That(state.AllowsMovement, Is.True);
             Assert.That(state.AllowsInteraction, Is.True);
-            Assert.That(state.AllowsMapToggle, Is.False);
+            Assert.That(state.AllowsMapToggle, Is.True);
         }
 
         [TestCase(GameplayMode.Presentation)]
+        [TestCase(GameplayMode.Inventory)]
         [TestCase(GameplayMode.Pause)]
         [TestCase(GameplayMode.Defeat)]
         [TestCase(GameplayMode.Ending)]

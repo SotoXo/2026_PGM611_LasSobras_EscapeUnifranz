@@ -6,15 +6,18 @@ namespace EscapeUNIFRANZ.Narrative
     public sealed class ItemPickupInteractable : InteractableBehaviour, IZoneRuntimeInitializable, IScanStateProvider
     {
         public string pickupId, itemId;
+        public ItemData item;
+        public string ItemId => item!=null ? item.id : itemId;
+        public override string Prompt => "[E] Recoger "+Label(ItemId);
         public string ScanStateText => "[RECOLECTABLE]";
         public void Initialize(ZoneRuntimeContext context)
-        { if (context.Session.State.IsWorldItemDiscovered("pickup",pickupId)) gameObject.SetActive(false); }
+        { if (context.Session.State.IsWorldItemDiscovered("pickup",pickupId) || context.Session.State.HasItem(ItemId) || context.Session.State.IsWorldItemDiscovered("acquired",ItemId)) gameObject.SetActive(false); }
         protected override void PerformInteraction()
         {
-            if (BoundSession.State.TryCollectPickup(pickupId,itemId))
-            { ProjectAudioHooks.Emit(AudioCue.Pickup); BoundSession.ShowMessage("Recogiste: "+Label(itemId)+"."); gameObject.SetActive(false); }
+            if (BoundSession.State.TryCollectPickup(pickupId,ItemId))
+            { ProjectAudioHooks.Emit(AudioCue.Pickup); BoundSession.GetComponent<NarrativeController>()?.NotifyPickup(ItemId); GetComponent<EscapeUNIFRANZ.Map.MinimapTrackable2D>()?.Record("Recogido"); gameObject.SetActive(false); }
         }
         public static string Label(string id)
-        { switch(id) { case "battery":return "batería";case "key":return "llave";case "flashlight":return "linterna";case "lab_card":return "tarjeta de laboratorio";case "maintenance_card":return "tarjeta de mantenimiento";case "network_module":return "módulo de red";case "fuse":return "fusible de respaldo";default:return id; } }
+        { return ItemData.Label(id); }
     }
 }

@@ -19,33 +19,25 @@ namespace EscapeUNIFRANZ.Narrative
             else { selectedPort=null; view.SelectPort(null); }
         }
         public void ShowJournal()
-        { if (!Open(GameplayMode.Dialogue)) return; journalPage=0; JournalPage(); }
+        { if (!Open(GameplayMode.Dialogue)) return; session.GetComponent<EscapeUNIFRANZ.UI.EntranceTutorialController>()?.Complete(EscapeUNIFRANZ.UI.TutorialAction.Journal); journalPage=0; JournalPage(); }
         private void JournalPage()
         {
             var found=journalCatalog.Where(c=>c!=null && state.IsWorldItemDiscovered("clue",c.id)).ToArray();
             journalPage=Mathf.Clamp(journalPage,0,Mathf.Max(0,(found.Length-1)/6));
             var current=found.Skip(journalPage*6).Take(6).ToArray();
-            var labels=current.Select(c=>c.title).Concat(new[]{"ANTERIOR","SIGUIENTE","OBJETOS CLAVE"}).ToArray();
-            view.Options("REGISTRO DE PISTAS",found.Length==0 ? "Todavía no has encontrado documentos. Examina notas y terminales con E." :
+            var labels=current.Select(c=>c.title).Concat(new[]{"ANTERIOR","SIGUIENTE"}).ToArray();
+            view.Options("REGISTRO DE PISTAS",found.Length==0 ? "Todavía no has encontrado documentos. Examina notas y terminales." :
                 "Solo se guardan documentos leídos. Página "+(journalPage+1)+" • "+found.Length+" registros.",labels,index=>
             {
-                if (index<current.Length) { view.ShowClue(current[index]); view.Feedback("J: volver al índice • Esc: cerrar registro",false); journalReading=true; }
+                if (index<current.Length) { view.ShowJournalDocument(current[index]); journalReading=true; }
                 else if (index==current.Length) { journalPage--; JournalPage(); }
                 else if (index==current.Length+1) { journalPage++; JournalPage(); }
-                else InventoryPage();
             });
             journalReading=false;
         }
         private bool journalReading;
         private void LateUpdate()
         { if (modalOpen && journalReading && UnityEngine.InputSystem.Keyboard.current?.jKey.wasPressedThisFrame==true) JournalPage(); }
-        public void ShowInventory() { if (Open(GameplayMode.Dialogue)) InventoryPage(); }
-        private void InventoryPage()
-        {
-            var items=state.CarriedItems.Distinct().ToArray();
-            string content=items.Length==0 ? "No llevas objetos clave." : string.Join(" • ",items.Select(id=>ItemPickupInteractable.Label(id)+" ×"+state.CarriedItems.Count(i=>i==id)));
-            view.Options("OBJETOS CLAVE",content,new[]{"REGISTRO DE PISTAS"},_=>{journalPage=0; JournalPage();},"I: objetos • J: pistas • Los paneles usan el objeto requerido automáticamente.");
-        }
         public void ShowSecurity(SecurityTerminalInteractable terminal)
         { if (Open(GameplayMode.Puzzle)) SecurityPage(terminal,0); }
         private void SecurityPage(SecurityTerminalInteractable terminal,int feedIndex)

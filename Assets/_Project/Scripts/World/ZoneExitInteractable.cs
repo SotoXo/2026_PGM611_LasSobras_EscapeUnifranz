@@ -23,15 +23,38 @@ namespace EscapeUNIFRANZ.World
         private GameSessionController session;
         private float alarmLockUntil;
         public SpriteRenderer statusIndicator;
+        public UnityEngine.Rendering.Universal.Light2D statusLight;
+        public GameFlagId energyRequirement,networkRequirement,authorizationRequirement;
+        private bool previousUnlocked;
+        private bool statusInitialized;
         public void LockForAlarm(float seconds) { alarmLockUntil=Mathf.Max(alarmLockUntil,Time.time+seconds); }
-        private void Update() { if (statusIndicator!=null) statusIndicator.color=IsUnlocked ? new Color(0.45f,1f,0.7f) : new Color(1f,0.25f,0.18f); }
+        private void Update()
+        {
+            bool open=IsUnlocked; var color=open ? new Color(.45f,1f,.7f) : new Color(1f,.25f,.18f);
+            if(statusIndicator!=null) statusIndicator.color=color; if(statusLight!=null) { statusLight.color=color; statusLight.intensity=.25f; }
+            if(statusInitialized && open && !previousUnlocked) EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorUnlock);
+            previousUnlocked=open; statusInitialized=true;
+        }
+        public override string Prompt => IsUnlocked ? (!string.IsNullOrEmpty(RequiredItem) ? "[E] Usar "+EscapeUNIFRANZ.Narrative.ItemData.Label(RequiredItem) : "[E] Abrir") : "[E] Revisar acceso";
+        public EscapeUNIFRANZ.Map.MinimapExitState MapExitState => IsUnlocked ? EscapeUNIFRANZ.Map.MinimapExitState.Available : Time.time<alarmLockUntil || lockState==DoorLockState.Locked || lockState==DoorLockState.DisabledByAI ? EscapeUNIFRANZ.Map.MinimapExitState.Blocked : EscapeUNIFRANZ.Map.MinimapExitState.Conditional;
+        public string MapStatus => IsUnlocked ? "Disponible" : Time.time<alarmLockUntil ? "Alarma temporal" : "Requiere condición";
 
         public GameFlagId RequiredFlag => requiredFlag;
         public string TargetZoneId => targetZoneId;
         public bool IsUnlocked => Time.time>=alarmLockUntil && lockState != DoorLockState.Locked && RequirementsMet &&
             (requiredFlag == GameFlagId.None || (session != null && session.State.HasFlag(requiredFlag)));
-        public string ScanStateText => Time.time<alarmLockUntil ? "[LOCKED / ALARMA TEMPORAL]" : IsUnlocked ? "[ENERGÍA OK / RED OK / AUTORIZACIÓN OK]" :
-            "[ENERGÍA "+(session!=null && session.State.HasFlag(GameFlagId.PowerEntranceRestored) ? "OK" : "ERROR")+" / RED "+(requiredFlag==GameFlagId.None || (session!=null && session.State.HasFlag(requiredFlag)) ? "OK" : "ERROR")+" / AUTORIZACIÓN "+(RequirementsMet ? "OK" : "ERROR")+"]";
+        private bool Meets(GameFlagId flag)=>flag==GameFlagId.None || session?.State.HasFlag(flag)==true;
+        private string ReadableBlock(string fallback)
+        {
+            if(Time.time<alarmLockUntil) return "Alarma temporal. Espera a que el acceso responda.";
+            if(!Meets(energyRequirement)) return "Sin energía. Busca la alimentación del acceso.";
+            if(!Meets(networkRequirement)) return "Sin conexión con el controlador. Revisa la red del sector.";
+            if(!string.IsNullOrEmpty(RequiredItem) && session?.State.HasItem(RequiredItem)!=true) return "Se requiere "+EscapeUNIFRANZ.Narrative.ItemData.Label(RequiredItem)+".";
+            if(!Meets(authorizationRequirement)) return "El lector todavía no autoriza el acceso.";
+            return fallback;
+        }
+        public string ScanStateText => Time.time<alarmLockUntil ? "[BLOQUEADA / ALARMA TEMPORAL]" :
+            "ENERGÍA "+(Meets(energyRequirement) ? "✓" : "✕")+" / RED "+(Meets(networkRequirement) ? "✓" : "✕")+" / AUTORIZACIÓN "+(Meets(authorizationRequirement) && (string.IsNullOrEmpty(RequiredItem) || session?.State.HasItem(RequiredItem)==true) ? "✓" : "✕");
 
         public void Bind(SceneFlowController controller, GameSessionController gameSession)
         {
@@ -52,7 +75,7 @@ namespace EscapeUNIFRANZ.World
             if (!IsUnlocked)
             {
                 EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorLock);
-                session?.ShowMessage(ScanStateText+" "+lockedMessage);
+                session?.ShowMessage(ReadableBlock(lockedMessage)+"\n"+ScanStateText);
                 if (optionalAudio!=null && lockedSound!=null) optionalAudio.PlayOneShot(lockedSound);
                 onLocked.Invoke();
                 return;
@@ -62,6 +85,6 @@ namespace EscapeUNIFRANZ.World
             { EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorUnlock); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorOpen); if (optionalAudio!=null && openSound!=null) optionalAudio.PlayOneShot(openSound); onOpened.Invoke(); }
         }
         protected override void OnRequirementsBlocked(string message)
-        { session?.ShowMessage(ScanStateText+" "+message); if (optionalAudio!=null && lockedSound!=null) optionalAudio.PlayOneShot(lockedSound); onLocked.Invoke(); }
+        { session?.ShowMessage(ReadableBlock(message)+"\n"+ScanStateText); if (optionalAudio!=null && lockedSound!=null) optionalAudio.PlayOneShot(lockedSound); onLocked.Invoke(); }
     }
 }

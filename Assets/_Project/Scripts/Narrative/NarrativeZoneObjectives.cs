@@ -5,13 +5,14 @@ using UnityEngine;
 namespace EscapeUNIFRANZ.Narrative
 {
     [Serializable] public class NarrativeObjectiveStep
-    { public string id,text,untilItem; public GameFlagId untilFlag; }
+    { public string id,text,untilItem,sectorId; public GameFlagId untilFlag; }
     public sealed class NarrativeZoneObjectives : MonoBehaviour, IZoneRuntimeInitializable
     {
         public NarrativeObjectiveStep[] steps;
         private GameSessionController session;
+        private string zoneId;
         public void Initialize(ZoneRuntimeContext context)
-        { session=context.Session; session.State.FlagChanged+=OnFlag; session.State.InventoryChanged+=Refresh; Refresh(); }
+        { session=context.Session; zoneId=context.Zone.ZoneId; session.State.FlagChanged+=OnFlag; session.State.InventoryChanged+=Refresh; Refresh(); }
         private void OnFlag(GameFlagId _) { Refresh(); }
         private void Refresh()
         {
@@ -20,7 +21,7 @@ namespace EscapeUNIFRANZ.Narrative
             {
                 bool complete=step.untilFlag!=GameFlagId.None && session.State.HasFlag(step.untilFlag) ||
                     !string.IsNullOrWhiteSpace(step.untilItem) && session.State.HasItem(step.untilItem);
-                if (!complete) { session.Objectives.SetCurrent(step.id,step.text); return; }
+                if (!complete) { session.State.SetObjectiveSector(string.IsNullOrEmpty(step.sectorId) ? zoneId : step.sectorId); session.Objectives.SetCurrent(step.id,step.text); return; }
             }
         }
         private void OnDestroy()

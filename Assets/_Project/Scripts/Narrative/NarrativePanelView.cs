@@ -29,7 +29,7 @@ namespace EscapeUNIFRANZ.Narrative
         {
             body.rectTransform.sizeDelta=new Vector2(850f,330f); body.rectTransform.anchoredPosition=new Vector2(0f,38f);
             Clear(); overlay.SetActive(true); title.text=clue.title; body.text=clue.category+"\n\n"+clue.text;
-            portsRoot.gameObject.SetActive(false); resetButton.gameObject.SetActive(false); feedback.text="E para revisar objetos • Esc o Cerrar para volver";
+            portsRoot.gameObject.SetActive(false); resetButton.gameObject.SetActive(false); feedback.text="Documento guardado en el registro. Esc o Cerrar para volver";
             if (hintButton!=null) hintButton.gameObject.SetActive(false);
         }
         public void ShowFoundHint(ClueData clue)
@@ -37,6 +37,8 @@ namespace EscapeUNIFRANZ.Narrative
             ShowClue(clue); closeButton.GetComponentInChildren<TMP_Text>(true).text="VOLVER AL PUZZLE";
             feedback.text="Solo muestra una pista leída. Tu progreso se conserva. Esc para volver.";
         }
+        public void ShowJournalDocument(ClueData clue)
+        { ShowClue(clue); closeButton.GetComponentInChildren<TMP_Text>(true).text="VOLVER AL ÍNDICE"; feedback.text="Esc para volver al índice."; }
         public void ShowPuzzle(PuzzleData data)
         {
             CompactBody();

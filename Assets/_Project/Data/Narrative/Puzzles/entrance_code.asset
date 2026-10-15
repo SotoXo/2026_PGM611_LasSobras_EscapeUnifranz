@@ -15,8 +15,8 @@ MonoBehaviour:
   id: entrance_code
   title: "Lector de autorizaci\xF3n"
   objective: ABRIR EL ACCESO
-  inspectionText: 'Revisa la nota junto al equipo y el objeto requerido. Registro
-    de pistas: J; objetos: I.'
+  inspectionText: Revisa la nota junto al equipo y el objeto requerido. Consulta
+    la ficha del equipo y el objeto compatible.
   environmentalClue: {fileID: 0}
   instructions: "Introduce los cuatro d\xEDgitos observados en CCTV. Un error reinicia
     solo la entrada de c\xF3digo."
@@ -96,6 +96,8 @@ MonoBehaviour:
   requiredItem: 
   prerequisiteClues: []
   consumeItem: 0
+  installBeforePuzzle: 0
+  installedFlag: 0
   requiredFlags: 1d000000
   completionFlags: 1a000000
   rewardItems: []

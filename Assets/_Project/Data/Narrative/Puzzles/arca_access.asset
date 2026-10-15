@@ -15,8 +15,8 @@ MonoBehaviour:
   id: arca_access
   title: Terminal de control ARCA
   objective: RECUPERAR CONTROL LOCAL
-  inspectionText: 'Revisa la nota junto al equipo y el objeto requerido. Registro
-    de pistas: J; objetos: I.'
+  inspectionText: Revisa la nota junto al equipo y el objeto requerido. Consulta
+    la ficha del equipo y el objeto compatible.
   environmentalClue: {fileID: 11400000, guid: 39e45b4b1ea91174290f7838c4936378, type: 2}
   instructions: Reinicia los tres interruptores de izquierda a derecha, como indica
     la etiqueta.
@@ -54,6 +54,8 @@ MonoBehaviour:
   prerequisiteClues:
   - arca_confirm
   consumeItem: 0
+  installBeforePuzzle: 0
+  installedFlag: 0
   requiredFlags: 
   completionFlags: 0400000005000000
   rewardItems:

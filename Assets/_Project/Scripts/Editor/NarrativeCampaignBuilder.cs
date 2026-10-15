@@ -101,6 +101,8 @@ namespace EscapeUNIFRANZ.EditorTools
             if (audio==null) { audio=new GameObject("NarrativeAudio").transform; audio.SetParent(runtime.transform,false); }
             var source=Ensure<AudioSource>(audio.gameObject); source.playOnAwake=false;
             Set(controller,"audioSource",source);
+            BuildInteractiveUI(runtime,ui,controller,vision);
+            BuildAtmosphereUI(runtime,ui);
             overlay.gameObject.SetActive(false); holder.SetAsLastSibling(); Save(scene);
         }
         private static void BuildZone(int index)
@@ -195,6 +197,8 @@ namespace EscapeUNIFRANZ.EditorTools
             Set(zone,"objectiveText",objectives.steps[0].text); Set(zone,"objectiveId",objectives.steps[0].id); Set(zone,"objectiveTotal",0);
             BuildHorrorZone(index,root,zone,geometry);
             BuildClarityZone(index,root,zone,geometry);
+            BuildInteractiveZone(index,root,zone,geometry);
+            BuildAtmosphereZone(index,root,zone,geometry);
             Save(scene);
         }
         private static void ConfigureExits(int index,ZoneContext zone)

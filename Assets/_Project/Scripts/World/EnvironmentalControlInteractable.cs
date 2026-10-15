@@ -18,7 +18,7 @@ namespace EscapeUNIFRANZ.World
         private float readyAt;
         public string ScanStateText => Time.time<readyAt ? "[RECARGANDO]" : action==EnvironmentalAction.ChargingLock ? "[ESTACIÓN DE CARGA / CIERRE LOCAL]" : "[ALIMENTACIÓN EXTERNA / CONTROL LOCAL]";
         public void Initialize(ZoneRuntimeContext context) { narrative=context.Session.GetComponent<NarrativeController>(); }
-        protected override void PerformInteraction() { narrative.ShowEnvironmentalControl(this); }
+        protected override void PerformInteraction() { if(action==EnvironmentalAction.PowerCut) BoundSession.GetComponent<EscapeUNIFRANZ.UI.EntranceTutorialController>()?.Offer(EscapeUNIFRANZ.UI.TutorialAction.PowerCut); narrative.ShowEnvironmentalControl(this); }
         public string Execute()
         {
             if (Time.time<readyAt) return "El panel se está reiniciando. Espera "+Mathf.CeilToInt(readyAt-Time.time)+" s.";
@@ -31,6 +31,7 @@ namespace EscapeUNIFRANZ.World
             if (action==EnvironmentalAction.Distraction)
             { if (destination!=null) { mini?.DistractAt(destination.position,5f); dog?.DistractAt(destination.position,5f); } readyAt=Time.time+cooldownSeconds; return "SEÑAL DE PRUEBA ACTIVA. La unidad revisará ese punto."; }
             mini?.SuspendFor(disabledSeconds); dog?.SuspendFor(disabledSeconds); readyAt=Time.time+cooldownSeconds;
+            BoundSession.GetComponent<EscapeUNIFRANZ.UI.EntranceTutorialController>()?.Complete(EscapeUNIFRANZ.UI.TutorialAction.PowerCut);
             return "ALIMENTACIÓN CORTADA. Unidad desactivada "+disabledSeconds+" s al cerrar el panel.";
         }
     }

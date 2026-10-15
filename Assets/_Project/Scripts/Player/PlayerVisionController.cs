@@ -18,8 +18,8 @@ namespace EscapeUNIFRANZ.Player
         [SerializeField] private Light2D forwardLight;
 
         [Header("Immediate visibility")]
-        [SerializeField, Min(0.1f)] private float immediateRadius = 1.45f;
-        [SerializeField, Min(0f)] private float immediateIntensity = 0.72f;
+        [SerializeField, Min(0.1f)] private float immediateRadius = 1.1f;
+        [SerializeField, Min(0f)] private float immediateIntensity = 0.38f;
         [SerializeField, Range(0f, 1f)] private float immediateFalloff = 0.72f;
 
         [Header("Forward visibility")]
@@ -33,8 +33,20 @@ namespace EscapeUNIFRANZ.Player
         [SerializeField, Min(0f)] private float forwardOffset = 0.18f;
         [SerializeField] private Color lightColor = new Color(0.72f, 0.84f, 1f, 1f);
         private bool flashlightEquipped;
+        private bool flashlightOn;
+        private float interferenceUntil;
+        public bool FlashlightActive => flashlightEquipped && flashlightOn && Time.time>=interferenceUntil;
         private readonly List<RaycastHit2D> emitterHits=new List<RaycastHit2D>();
-        public void SetFlashlightEquipped(bool equipped) { flashlightEquipped=equipped; ApplyLightSettings(); }
+        public void SetFlashlightEquipped(bool equipped) { SetFlashlightState(equipped,equipped); }
+        public void SetFlashlightState(bool owned,bool on) { flashlightEquipped=owned; flashlightOn=on; ApplyLightSettings(); }
+        public void InterfereFor(float seconds) { interferenceUntil=Time.time+Mathf.Clamp(seconds,0f,0.2f); ApplyLightSettings(); }
+        public bool CanSeePoint(Vector2 point,Transform target=null)
+        {
+            Vector2 origin=transform.position; float distance=Vector2.Distance(origin,point);
+            bool roomLit=EscapeUNIFRANZ.World.RoomLightingController.IsAmbientlyVisible(origin,point);
+            if (!roomLit && distance>immediateRadius && (!FlashlightActive || !EscapeUNIFRANZ.Hazards.DetectionSensor2D.IsInField(origin,point,DirectionVector(CurrentDirection),forwardRange,forwardAngle))) return false;
+            return EscapeUNIFRANZ.Hazards.DetectionSensor2D.HasLineOfSight(origin,point,~0,transform,target,emitterHits);
+        }
 
         public PlayerVisualController.FacingDirection CurrentDirection =>
             visualController != null
@@ -53,6 +65,7 @@ namespace EscapeUNIFRANZ.Player
 
         private void LateUpdate()
         {
+            if (forwardLight!=null && forwardLight.enabled!=FlashlightActive) ApplyLightSettings();
             if (immediateLight!=null) immediateLight.transform.localPosition=SafeEmitterPosition(emitterOrigin);
             ApplyDirection(CurrentDirection);
         }
@@ -133,6 +146,7 @@ namespace EscapeUNIFRANZ.Player
                 forwardIntensity+(flashlightEquipped ? 0.12f : 0f),
                 forwardFalloff,
                 true);
+            if (forwardLight!=null) { forwardLight.enabled=FlashlightActive; if (!FlashlightActive) forwardLight.intensity=0f; }
         }
 
         private void EnsureLights()

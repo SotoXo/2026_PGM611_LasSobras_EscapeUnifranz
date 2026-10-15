@@ -94,6 +94,7 @@ namespace EscapeUNIFRANZ.Map
                 if (!string.IsNullOrWhiteSpace(source.ObjectiveId)) AddMarker(source, MinimapMarkerKind.Objective);
                 if (!string.IsNullOrWhiteSpace(source.CheckpointId)) AddMarker(source, MinimapMarkerKind.Checkpoint);
                 if (source.ShowAsThreat) AddMarker(source, MinimapMarkerKind.Threat);
+                if (!source.ShowAsThreat && !source.ShowAsExit && string.IsNullOrEmpty(source.ObjectiveId) && string.IsNullOrEmpty(source.CheckpointId)) AddMarker(source, MinimapMarkerKind.Point);
             }
 
             displayedPlayerPosition = GetPlayerPosition();
@@ -171,11 +172,12 @@ namespace EscapeUNIFRANZ.Map
                     visible = binding.Source.IsObjectiveActive && binding.Source.IsDiscovered;
                     break;
                 case MinimapMarkerKind.Checkpoint:
-                    visible = binding.Source.IsCurrentCheckpoint;
+                    visible = binding.Source.IsCurrentCheckpoint && binding.Source.IsDiscovered;
                     break;
                 case MinimapMarkerKind.Threat:
-                    visible = binding.Source.IsDiscovered;
+                    visible = binding.Source.IsThreatVisible(player!=null ? player.GetComponent<EscapeUNIFRANZ.Player.PlayerVisionController>() : null);
                     break;
+                case MinimapMarkerKind.Point: visible=binding.Source.IsDiscovered && binding.Source.gameObject.activeInHierarchy; break;
                 default:
                     visible = false;
                     break;

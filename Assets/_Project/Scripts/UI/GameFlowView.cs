@@ -23,7 +23,7 @@ namespace EscapeUNIFRANZ.UI
         {
             "Primer día. Ingeniería de Sistemas. El edificio está casi vacío. Tú también estás empezando a aprender.",
             "Un apagón. La terminal intenta reiniciarse: SISTEMA DE EMERGENCIA ACTIVO. Después: ERROR DE COMUNICACIÓN.",
-            "El acceso no responde. Examina el panel con E. J guarda tus pistas; I muestra los objetos que llevas."
+            "El acceso no responde. Una terminal permanece apagada junto a recepción. Busca una forma de devolverle energía."
         };
 
         [Header("Layers")]
@@ -51,6 +51,7 @@ namespace EscapeUNIFRANZ.UI
         [SerializeField] private Button pauseRestartButton;
         [SerializeField] private Button pauseControlsButton;
         [SerializeField] private Button pauseMenuButton;
+        [SerializeField] private Button pauseInventoryButton, pauseMapButton, pauseJournalButton;
 
         [Header("Controls")]
         [SerializeField] private Button controlsBackButton;
@@ -93,6 +94,9 @@ namespace EscapeUNIFRANZ.UI
             Add(pauseRestartButton, controller.RestartCheckpointFromPause);
             Add(pauseControlsButton, controller.OpenControls);
             Add(pauseMenuButton, controller.ReturnToMainMenu);
+            Add(pauseInventoryButton, controller.OpenInventory);
+            Add(pauseMapButton, controller.OpenMap);
+            Add(pauseJournalButton, controller.OpenJournal);
             Add(controlsBackButton, controller.CloseControls);
             Add(retryButton, controller.RetryCheckpoint);
             Add(defeatMenuButton, controller.ReturnToMainMenu);
@@ -115,6 +119,9 @@ namespace EscapeUNIFRANZ.UI
             Remove(pauseRestartButton, controller.RestartCheckpointFromPause);
             Remove(pauseControlsButton, controller.OpenControls);
             Remove(pauseMenuButton, controller.ReturnToMainMenu);
+            Remove(pauseInventoryButton, controller.OpenInventory);
+            Remove(pauseMapButton, controller.OpenMap);
+            Remove(pauseJournalButton, controller.OpenJournal);
             Remove(controlsBackButton, controller.CloseControls);
             Remove(retryButton, controller.RetryCheckpoint);
             Remove(defeatMenuButton, controller.ReturnToMainMenu);
@@ -138,6 +145,8 @@ namespace EscapeUNIFRANZ.UI
             SetActive(victoryRoot, screen == PresentationScreen.Victory);
             SetActive(creditsRoot, screen == PresentationScreen.Credits);
             SetActive(gameplayHudRoot, screen == PresentationScreen.Gameplay);
+            if(screen==PresentationScreen.Pause && pauseMapButton!=null)
+            { pauseMapButton.interactable=controller!=null && controller.HasMapAccess; var label=pauseMapButton.GetComponentInChildren<TMP_Text>(true); if(label!=null) label.text=pauseMapButton.interactable ? "MAPA" : "MAPA NO DISPONIBLE"; }
 
             if (screen == PresentationScreen.Intro)
             {

@@ -58,6 +58,8 @@ MonoBehaviour:
   requiredItem: maintenance_card
   prerequisiteClues: []
   consumeItem: 0
+  installBeforePuzzle: 0
+  installedFlag: 0
   requiredFlags: 
   completionFlags: 1c000000
   rewardItems:

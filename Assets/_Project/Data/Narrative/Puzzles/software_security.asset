@@ -15,8 +15,8 @@ MonoBehaviour:
   id: software_security
   title: Terminal de servicios
   objective: "DETENER \xD3RDENES HOSTILES"
-  inspectionText: 'Revisa la nota junto al equipo y el objeto requerido. Registro
-    de pistas: J; objetos: I.'
+  inspectionText: Revisa la nota junto al equipo y el objeto requerido. Consulta
+    la ficha del equipo y el objeto compatible.
   environmentalClue: {fileID: 11400000, guid: 0e4cbd518d8b5884ba1c5ae9f7ab6827, type: 2}
   instructions: "Un servicio env\xEDa \xF3rdenes hostiles. Selecciona la acci\xF3n
     que lo detiene sin apagar el resto del edificio."
@@ -58,6 +58,8 @@ MonoBehaviour:
   prerequisiteClues:
   - software_confirm
   consumeItem: 0
+  installBeforePuzzle: 0
+  installedFlag: 0
   requiredFlags: 
   completionFlags: 19000000
   rewardItems: []

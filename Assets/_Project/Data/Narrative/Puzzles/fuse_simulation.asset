@@ -46,6 +46,8 @@ MonoBehaviour:
   prerequisiteClues:
   - hardware_confirm
   consumeItem: 1
+  installBeforePuzzle: 0
+  installedFlag: 0
   requiredFlags: 
   completionFlags: 1e000000
   rewardItems: []

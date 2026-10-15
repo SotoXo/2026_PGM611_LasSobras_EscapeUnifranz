@@ -15,8 +15,8 @@ MonoBehaviour:
   id: hardware_routing
   title: "Control del dispositivo de simulaci\xF3n"
   objective: CONECTAR EL EQUIPO
-  inspectionText: 'Revisa la nota junto al equipo y el objeto requerido. Registro
-    de pistas: J; objetos: I.'
+  inspectionText: Revisa la nota junto al equipo y el objeto requerido. Consulta
+    la ficha del equipo y el objeto compatible.
   environmentalClue: {fileID: 11400000, guid: a56fbf9ffd2f6ac42a8a14657195b6f6, type: 2}
   instructions: "Ahora hay cuatro se\xF1ales. Cada abreviatura aparece junto a su
     nombre completo. Une las etiquetas iguales; el orden no importa."
@@ -101,6 +101,8 @@ MonoBehaviour:
   prerequisiteClues:
   - hardware_confirm
   consumeItem: 0
+  installBeforePuzzle: 0
+  installedFlag: 0
   requiredFlags: 1b000000
   completionFlags: 17000000
   rewardItems: []

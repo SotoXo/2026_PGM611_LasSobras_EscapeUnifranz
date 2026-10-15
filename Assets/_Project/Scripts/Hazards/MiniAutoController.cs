@@ -22,6 +22,8 @@ namespace EscapeUNIFRANZ.Hazards
         private bool operational=true;
         private float disabledUntil;
         private float distractionUntil;
+        private float startupUntil;
+        private EscapeUNIFRANZ.UI.EntranceTutorialController tutorial;
         private SpriteRenderer[] bodyVisuals;
         private void Awake() { bodyVisuals=GetComponentsInChildren<SpriteRenderer>(true).Where(r=>r.enabled).ToArray(); }
         public MobileThreatState State { get; private set; }=MobileThreatState.Patrol;
@@ -29,19 +31,22 @@ namespace EscapeUNIFRANZ.Hazards
         public void Initialize(ZoneRuntimeContext context)
         {
             mode=context.GameplayMode;
+            tutorial=context.Session.GetComponent<EscapeUNIFRANZ.UI.EntranceTutorialController>();
             Contact(false);
             if (sensor!=null) { sensor.TargetDetected+=Detected; sensor.TargetLost+=Lost; }
         }
-        public void SetOperational(bool value,bool hide=false)
+        public void SetOperational(bool value,bool hide=false,float startupSeconds=0f)
         {
             if (!hide) EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(value ? EscapeUNIFRANZ.Narrative.AudioCue.RobotRestart : EscapeUNIFRANZ.Narrative.AudioCue.RobotOff);
             operational=value; State=value ? MobileThreatState.Patrol : MobileThreatState.Disabled;
+            startupUntil=value && startupSeconds>0 ? Time.time+startupSeconds : 0;
             mover.enabled=value; sensor.enabled=value;
             Contact(false);
             if (bodyVisuals!=null) foreach(var renderer in bodyVisuals) if (renderer!=null) renderer.enabled=!hide;
             if (feedback!=null) { if (feedback.marker!=null) feedback.marker.gameObject.SetActive(!hide); feedback.Show(value ? ThreatVisualState.Patrol : ThreatVisualState.Disabled); }
             GetComponent<Rigidbody2D>().linearVelocity=Vector2.zero;
             if (!value) { visibleTarget=null; mover.ResumePatrol(); sensor.ClearTarget(); }
+            if(value && startupSeconds>0) { State=MobileThreatState.Idle; mover.enabled=false; sensor.enabled=false; feedback?.Show(ThreatVisualState.Alert); }
         }
         private void Contact(bool value) { foreach(var contact in GetComponentsInChildren<HazardContact2D>(true)) contact.SetContactAllowed(value); }
         public void SuspendFor(float seconds) { disabledUntil=Time.time+Mathf.Max(1f,seconds); SetOperational(false); }
@@ -54,6 +59,7 @@ namespace EscapeUNIFRANZ.Hazards
         private void Update()
         {
             if (mode==null || !mode.AllowsMovement) return;
+            if(startupUntil>0) { if(Time.time<startupUntil) return; startupUntil=0; SetOperational(true); }
             if (!operational) { if (disabledUntil>0f && Time.time>=disabledUntil) { disabledUntil=0f; SetOperational(true); } return; }
             if (distractionUntil>0f && Time.time>=distractionUntil) { distractionUntil=0f; sensor.enabled=true; }
             if (sensor.transform!=mover.transform && mover.Facing.sqrMagnitude>0f)
@@ -70,10 +76,11 @@ namespace EscapeUNIFRANZ.Hazards
             else if (State==MobileThreatState.Return) State=MobileThreatState.Patrol;
         }
         private void Detected(Transform target)
-        { visibleTarget=target; lastSeen=target.position; State=MobileThreatState.Suspicious; transitionAt=Time.time+0.25f; Contact(false); feedback?.Show(ThreatVisualState.Alert); mover.Investigate(lastSeen,0f); }
+        { tutorial?.Offer(EscapeUNIFRANZ.UI.TutorialAction.AvoidThreat); visibleTarget=target; lastSeen=target.position; State=MobileThreatState.Suspicious; transitionAt=Time.time+0.25f; Contact(false); feedback?.Show(ThreatVisualState.Alert); mover.Investigate(lastSeen,0f); }
         private void Lost()
         {
             visibleTarget=null; if (!operational) return;
+            tutorial?.Complete(EscapeUNIFRANZ.UI.TutorialAction.AvoidThreat);
             State=MobileThreatState.Search; Contact(false); feedback?.Show(ThreatVisualState.Patrol); transitionAt=Time.time+chaseSeconds; mover.Investigate(lastSeen,chaseSpeed*0.5f);
         }
         public void ResetEncounter()

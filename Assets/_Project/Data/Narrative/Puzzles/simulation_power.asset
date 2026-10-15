@@ -15,8 +15,8 @@ MonoBehaviour:
   id: simulation_power
   title: "Arranque de Simulaci\xF3n"
   objective: "ARRANQUE DE SIMULACI\xD3N"
-  inspectionText: 'Revisa la nota junto al equipo y el objeto requerido. Registro
-    de pistas: J; objetos: I.'
+  inspectionText: Revisa la nota junto al equipo y el objeto requerido. Consulta
+    la ficha del equipo y el objeto compatible.
   environmentalClue: {fileID: 11400000, guid: a56fbf9ffd2f6ac42a8a14657195b6f6, type: 2}
   instructions: "Enciende los componentes siguiendo los n\xFAmeros de la ficha: 1,
     2, 3 y 4. Cada paso correcto queda verde."
@@ -61,6 +61,8 @@ MonoBehaviour:
   prerequisiteClues:
   - hardware_confirm
   consumeItem: 0
+  installBeforePuzzle: 0
+  installedFlag: 0
   requiredFlags: 1e000000
   completionFlags: 1b000000
   rewardItems:

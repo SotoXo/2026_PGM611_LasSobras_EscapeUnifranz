@@ -60,7 +60,9 @@ MonoBehaviour:
   requiredItem: battery
   prerequisiteClues:
   - power_confirm
-  consumeItem: 1
+  consumeItem: 0
+  installBeforePuzzle: 1
+  installedFlag: 33
   requiredFlags: 
   completionFlags: 16000000
   rewardItems: []

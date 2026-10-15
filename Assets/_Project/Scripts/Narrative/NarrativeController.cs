@@ -12,6 +12,9 @@ namespace EscapeUNIFRANZ.Narrative
         [SerializeField] private GameplayModeController mode;
         [SerializeField] private NarrativePanelView view;
         [SerializeField] private PlayerVisionController vision;
+        [SerializeField] private ItemData[] itemCatalog;
+        [SerializeField] private TMPro.TMP_Text equipmentLabel, pickupLabel;
+        [SerializeField] private UnityEngine.UI.Image pickupIcon;
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private AudioClip correctSound, incorrectSound;
         private GameState state;
@@ -23,13 +26,16 @@ namespace EscapeUNIFRANZ.Narrative
         private GameplayMode returnMode;
         private float previousTimeScale;
         private GameplayMode modalMode;
+        private void Awake() { ItemData.Register(itemCatalog); }
         private void OnEnable() { session.StateChanged+=Bind; mode.ModeChanged+=OnModeChanged; }
         private void Start() { view.Bind(this); Bind(session.State); }
         private void Update()
         {
-            if (modalOpen && Keyboard.current?.escapeKey.wasPressedThisFrame==true) { if (reviewingPuzzleHint) ReturnToPuzzle(); else Close(); }
+            if (modalOpen && Keyboard.current?.escapeKey.wasPressedThisFrame==true) HandleClose();
             else if (!modalOpen && Keyboard.current!=null)
-            { if (Keyboard.current.jKey.wasPressedThisFrame) ShowJournal(); else if (Keyboard.current.iKey.wasPressedThisFrame) ShowInventory(); }
+            { if (Keyboard.current.jKey.wasPressedThisFrame) ShowJournal(); else if (Keyboard.current.iKey.wasPressedThisFrame) ShowInventory(); else if (mode.AllowsInteraction && Keyboard.current.fKey.wasPressedThisFrame) ToggleFlashlight(); }
+            if(inventoryExplanationUntil>0 && Time.unscaledTime>inventoryExplanationUntil) { inventoryExplanationUntil=0; if(modalOpen && modalMode==GameplayMode.Inventory && !examiningItem) view.Feedback("Examina o selecciona el objeto. Esc para cerrar.",false); }
+            if (pickupLabel!=null && Time.unscaledTime>pickupToastUntil) { pickupLabel.gameObject.SetActive(false); if (pickupIcon!=null) pickupIcon.gameObject.SetActive(false); }
         }
         private void OnDisable()
         {
@@ -45,12 +51,17 @@ namespace EscapeUNIFRANZ.Narrative
             if (state!=null) state.InventoryChanged+=ApplyEquipment;
             ApplyEquipment();
         }
-        private void ApplyEquipment() { vision?.SetFlashlightEquipped(state!=null&&state.HasItem("flashlight")); }
+        private void ApplyEquipment()
+        {
+            vision?.SetFlashlightState(state!=null&&state.HasItem("flashlight"),state!=null&&state.FlashlightOn);
+            if (equipmentLabel!=null) equipmentLabel.text=(state!=null && !string.IsNullOrEmpty(state.SelectedItemId) ? "OBJETO: "+ItemData.Label(state.SelectedItemId)+"   •   " : "")+(state!=null && state.HasItem("flashlight") ? "LINTERNA "+(state.FlashlightOn ? "ON" : "OFF") : "");
+            if(equipmentLabel!=null) equipmentLabel.gameObject.SetActive(!string.IsNullOrEmpty(equipmentLabel.text));
+        }
         private bool Open(GameplayMode next)
         {
-            if (modalOpen || !mode.AllowsInteraction) return false;
+            if (modalOpen || (!mode.AllowsInteraction && mode.CurrentMode!=GameplayMode.Pause)) return false;
             previousTimeScale=Time.timeScale; previousCursor=Cursor.visible; previousLock=Cursor.lockState;
-            journalReading=false; reviewingPuzzleHint=false; returnMode=mode.CurrentMode; modalMode=next; modalOpen=true;
+            journalReading=false; reviewingPuzzleHint=false; examiningItem=false; returnMode=mode.CurrentMode; modalMode=next; modalOpen=true;
             mode.SetMode(next); Time.timeScale=0f; Cursor.lockState=CursorLockMode.None; Cursor.visible=true; return true;
         }
         public void ShowClue(ClueData clue)
@@ -101,6 +112,7 @@ namespace EscapeUNIFRANZ.Narrative
         public void Close()
         {
             if (!modalOpen) return;
+            if (modalMode==GameplayMode.Inventory) ProjectAudioHooks.Emit(AudioCue.InventoryClose);
             modalOpen=false; activePuzzle=null; model=null; selectedPort=null; view.Hide();
             Time.timeScale=previousTimeScale; Cursor.visible=previousCursor; Cursor.lockState=previousLock;
             if (mode.CurrentMode==modalMode) mode.SetMode(returnMode);
