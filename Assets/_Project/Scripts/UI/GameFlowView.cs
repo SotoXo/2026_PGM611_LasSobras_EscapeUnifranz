@@ -3,6 +3,7 @@ using EscapeUNIFRANZ.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace EscapeUNIFRANZ.UI
@@ -59,16 +60,50 @@ namespace EscapeUNIFRANZ.UI
         [Header("Defeat")]
         [SerializeField] private Button retryButton;
         [SerializeField] private Button defeatMenuButton;
+        [SerializeField] private Image defeatSelectionCursor;
 
         [Header("Victory")]
         [SerializeField] private Button victoryCreditsButton;
         [SerializeField] private Button victoryMenuButton;
+        [SerializeField] private Image victorySelectionCursor;
 
         [Header("Credits")]
         [SerializeField] private Button creditsMenuButton;
 
         private GameFlowController controller;
         private Coroutine selectionRoutine;
+
+        private void LateUpdate()
+        {
+            UpdateSelectionCursor(defeatSelectionCursor, retryButton, defeatMenuButton);
+            UpdateSelectionCursor(victorySelectionCursor, victoryCreditsButton, victoryMenuButton);
+        }
+
+        private static void UpdateSelectionCursor(Image marker, Button first, Button second)
+        {
+            if (marker == null || first == null || !first.gameObject.activeInHierarchy) return;
+
+            GameObject selected = EventSystem.current != null
+                ? EventSystem.current.currentSelectedGameObject : null;
+            Button target = selected == second?.gameObject ? second : first;
+            if (Mouse.current != null)
+            {
+                Vector2 pointer = Mouse.current.position.ReadValue();
+                Canvas canvas = first.GetComponentInParent<Canvas>();
+                Camera camera = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
+                if (RectTransformUtility.RectangleContainsScreenPoint((RectTransform)first.transform, pointer, camera))
+                    target = first;
+                else if (second != null && RectTransformUtility.RectangleContainsScreenPoint(
+                    (RectTransform)second.transform, pointer, camera)) target = second;
+            }
+
+            RectTransform rect = marker.rectTransform;
+            if (rect.parent == target.transform) return;
+            rect.SetParent(target.transform, false);
+            rect.anchorMin = rect.anchorMax = new Vector2(0f, 0.5f);
+            rect.pivot = new Vector2(1f, 0.5f);
+            rect.anchoredPosition = new Vector2(-18f, 0f);
+        }
 
         public void Bind(GameFlowController target)
         {
