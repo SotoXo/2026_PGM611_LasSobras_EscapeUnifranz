@@ -32,13 +32,13 @@ namespace EscapeUNIFRANZ.Editor
             EditorBuildSettings.scenes = scenes.Select(s => new EditorBuildSettingsScene(s, true)).ToArray();
             PlayerSettings.productName = "EscapeUNIFRANZ";
             PlayerSettings.companyName = "UNIFRANZ";
-            PlayerSettings.bundleVersion = "1.0.0";
+            PlayerSettings.bundleVersion = "1.0.1";
             PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.Android, "com.unifranz.escape");
             PlayerSettings.SetScriptingBackend(NamedBuildTarget.Android, ScriptingImplementation.IL2CPP);
             PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
             PlayerSettings.Android.minSdkVersion = AndroidSdkVersions.AndroidApiLevel25;
             PlayerSettings.Android.targetSdkVersion = AndroidSdkVersions.AndroidApiLevelAuto;
-            PlayerSettings.Android.bundleVersionCode = 1;
+            PlayerSettings.Android.bundleVersionCode = 2;
             PlayerSettings.Android.splitApplicationBinary = false;
             PlayerSettings.Android.buildApkPerCpuArchitecture = false;
             PlayerSettings.Android.useCustomKeystore = false;
