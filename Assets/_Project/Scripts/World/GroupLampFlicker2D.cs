@@ -29,7 +29,13 @@ namespace EscapeUNIFRANZ.World
         public void SetExternalPower(float level,bool fault=false) { external=true; externalFault=fault; externalIntensity=Mathf.Max(0,level); ApplyPower(); }
         public void ResumeFlicker() { external=false; burst=0; nextTransitionAt=Time.time+Duration(); ApplyPower(); }
         private void OnEnable() { random=new System.Random(randomSeed!=0 ? randomSeed : unchecked(Mathf.RoundToInt(phase*1000)^GetInstanceID())); if(startsOff) { external=true; externalIntensity=0; } burst=0; nextTransitionAt=Time.time+Duration(); ApplyPower(); }
-        private float Duration()=>Mathf.Lerp(Mathf.Max(4.2f,onSeconds.x),Mathf.Max(4.2f,onSeconds.y),(float)random.NextDouble());
+        private float Duration()
+        {
+            // Zone initialization can set power before an inactive fixture receives OnEnable.
+            if(random==null)
+                random=new System.Random(randomSeed!=0 ? randomSeed : unchecked(Mathf.RoundToInt(phase*1000)^GetInstanceID()));
+            return Mathf.Lerp(Mathf.Max(4.2f,onSeconds.x),Mathf.Max(4.2f,onSeconds.y),(float)random.NextDouble());
+        }
         private void Update()
         {
             if(!external && !overridden && Time.time>=nextTransitionAt)

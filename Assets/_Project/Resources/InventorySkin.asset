@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fab2aedf85141e682f6a533416f5889, type: 3}
+  m_Name: InventorySkin
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.InventorySkin
+  sprites:
+  - {fileID: 21300000, guid: ae1dfd6a93374d068c03a8210c52fd1e, type: 3}
+  - {fileID: 21300000, guid: 30ebc7fb66f9447bbb677d8ee95cc921, type: 3}
+  - {fileID: 21300000, guid: 3efddd5baf704c45946138c1359e8757, type: 3}
+  - {fileID: 21300000, guid: 336c8bc8fc584f51ab360404c76a893d, type: 3}
+  - {fileID: 21300000, guid: 71e63e8546994fd5bb8b9be8a47b51de, type: 3}
+  - {fileID: 21300000, guid: 3c0953ed4ad54066a796f30da4c1b633, type: 3}
+  - {fileID: 21300000, guid: 2db9ffa08bce4ecdafbebbdbdb15d889, type: 3}
+  - {fileID: 21300000, guid: e135d185e95148269042077b4e11372c, type: 3}
+  - {fileID: 21300000, guid: 6377a7942a454efcac468d9bc9dfe984, type: 3}
+  - {fileID: 21300000, guid: a13bf291614e4c28ad9d557a7e0d4247, type: 3}
+  - {fileID: 21300000, guid: 9a66eff76623491ab63996a69827dc03, type: 3}
+  - {fileID: 21300000, guid: 742187d5ae1b4aa38b8fd8f893a2362c, type: 3}
+  - {fileID: 21300000, guid: 6f65f8f7a7834e6eb22e2119f32fea42, type: 3}
+  - {fileID: 21300000, guid: 1a16cc682ea14104b8e4e9a4d4478774, type: 3}
+  - {fileID: 21300000, guid: 6444d9001c7843eab07c0e579860539b, type: 3}
+  - {fileID: 21300000, guid: 56617b209b5a4e2cb45fb74f60fb2e5b, type: 3}
+  - {fileID: 21300000, guid: 30309e3df6194f6d93e2cf21555496cf, type: 3}
+  - {fileID: 21300000, guid: b209bb88e86a40af810b9fd9ccd3eb3b, type: 3}

@@ -93,6 +93,9 @@ namespace EscapeUNIFRANZ.World
         private void OnDisable() { active.Remove(this); }
         public void Initialize(ZoneRuntimeContext context)
         {
+            // ZoneContext also enumerates inactive legacy objects retained for recovery.
+            // They must not take control of the replacement map's lights.
+            if(!isActiveAndEnabled) return;
             state=context.Session.State; mode=context.GameplayMode; zoneId=context.Zone.ZoneId;
             player=context.Session.GetComponentInChildren<EscapeUNIFRANZ.Player.PlayerMovement2D>(true)?.transform;
             state.FlagChanged+=Changed; entered=oneShot && state.IsWorldItemDiscovered("room_event",EventId);

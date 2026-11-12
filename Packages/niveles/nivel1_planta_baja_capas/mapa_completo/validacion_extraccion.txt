@@ -1,0 +1,4 @@
+Pixeles interiores: 132745
+Pixeles de suelo reconstruidos que difieren del original: 47263
+Pixeles de muros/objetos alterados: 0
+El suelo se ha reconstruido con una muestra del original para eliminar sombras fijas.

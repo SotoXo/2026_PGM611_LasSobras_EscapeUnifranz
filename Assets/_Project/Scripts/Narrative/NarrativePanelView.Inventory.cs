@@ -8,50 +8,144 @@ namespace EscapeUNIFRANZ.Narrative
 {
     public sealed partial class NarrativePanelView
     {
-        public void ShowInventory(ItemData[] items,GameState state,string inspected,Action<string> inspect,Action select,Action examine,Action use,Action clear)
+        private InventorySkin inventorySkin;
+        private RectTransform inventoryRoot;
+        private TMP_Text inventoryFeedback;
+        private bool equipmentTab;
+        private int inventoryCategory, inventoryPage;
+        private string menuItemId;
+
+        public void ShowInventory(ItemData[] items, GameState state, string inspected,
+            Action<string> inspect, Action select, Action examine, Action use, Action clear)
         {
-            Clear(); CompactBody(); overlay.SetActive(true); title.text="INVENTARIO";
-            portsRoot.gameObject.SetActive(true); resetButton.gameObject.SetActive(false); hintButton.gameObject.SetActive(false);
-            var current=items.FirstOrDefault(i=>i.id==inspected);
-            string status=current==null ? "" : state.SelectedItemId==current.id ? "SELECCIONADO" : "DISPONIBLE";
-            body.text=current==null ? "Todavía no llevas objetos. Examina el entorno con E." : current.displayName+" • "+current.CategoryLabel+" • "+status+"\n"+current.description+"\n"+(current.consumable ? "Se instala y se consume." : "Permanece en tu inventario.");
-            feedback.text="El objeto seleccionado queda listo para usarse en el mundo. Esc para cerrar.";
-            for(int i=0;i<items.Length;i++)
+            Clear(); overlay.SetActive(true);
+            title.transform.parent.gameObject.SetActive(false);
+            if (inventorySkin == null) inventorySkin = Resources.Load<InventorySkin>("InventorySkin");
+            inventoryRoot = InvRect(overlay.transform, "Inventory", 0, 0, 940, 540, false);
+            var available = ((RectTransform)overlay.transform).rect.size;
+            inventoryRoot.localScale = Vector3.one * Mathf.Max(0.01f, Mathf.Min(1f, available.x / 940f, available.y / 540f));
+            Action redraw = () => ShowInventory(items, state, inspected, inspect, select, examine, use, clear);
+            InvImage(inventoryRoot, "GridPanel", "panel_inventario", 100, 96, 472, 400);
+            InvImage(inventoryRoot, "PreviewPanel", "panel_vista_previa", 572, 96, 344, 400);
+            InvButton(inventoryRoot, "InventoryTab", equipmentTab ? "pestana_normal" : "pestana_seleccionada",
+                100, 44, 220, 52, "INVENTARIO", () => { equipmentTab = false; inventoryPage = 0; menuItemId = null; redraw(); }, 22);
+            InvButton(inventoryRoot, "EquipmentTab", equipmentTab ? "pestana_seleccionada" : "pestana_normal",
+                324, 44, 220, 52, "EQUIPAMIENTO", () => { equipmentTab = true; inventoryCategory = 0; inventoryPage = 0; menuItemId = null; redraw(); }, 21);
+            InvButton(inventoryRoot, "Close", "boton_cerrar", 868, 44, 48, 48, "", () => controller.HandleClose());
+            string[] labels = { "TODOS", "OBJETOS", "LLAVES" };
+            string[] icons = { "icono_liquidos", "icono_objetos", "icono_llaves" };
+            for (int i = 0; i < labels.Length; i++)
             {
-                var item=items[i]; var rect=InventoryButton("Item_"+item.id,new Vector2(-330f+(i%4)*220f,65f-(i/4)*75f),new Vector2(208f,68f),"",()=>inspect(item.id));
-                rect.GetComponent<Image>().color=item.id==inspected ? new Color(0.1f,0.34f,0.37f) : new Color(0.06f,0.13f,0.17f);
-                if (item.icon!=null)
-                {
-                    var icon=new GameObject("Icon",typeof(RectTransform),typeof(Image)).GetComponent<Image>(); icon.rectTransform.SetParent(rect,false);
-                    icon.rectTransform.anchoredPosition=new Vector2(-75f,0); icon.rectTransform.sizeDelta=new Vector2(42f,42f); icon.sprite=item.icon; icon.preserveAspect=true; icon.raycastTarget=false;
-                }
-                else InventoryText(rect,"Symbol",item.fallbackIcon,new Vector2(-76f,0),new Vector2(38f,42f),18f);
-                int quantity=state.CarriedItems.Count(id=>id==item.id);
-                InventoryText(rect,"Name",item.displayName+(quantity>1 ? " ×"+quantity : ""),new Vector2(25f,0),new Vector2(140f,60f),15f);
+                int category = i;
+                var tab = InvButton(inventoryRoot, "Category_" + i,
+                    inventoryCategory == i ? "categoria_seleccionada" : "categoria_normal",
+                    16, 104 + i * 100, 88, 92, "", () => { inventoryCategory = category; inventoryPage = 0; menuItemId = null; redraw(); });
+                InvImage(tab, "Icon", icons[i], 12, 2, 64, 64);
+                InvLabel(tab, "Label", labels[i], 3, 65, 82, 22, 13);
             }
-            if (current!=null)
+            var visible = items.Where(item => (!equipmentTab || item.category == ItemCategory.Tool)
+                && (inventoryCategory == 0 || (inventoryCategory == 2 ? IsInventoryKey(item) : !IsInventoryKey(item)))).ToArray();
+            int pages = Mathf.Max(1, Mathf.CeilToInt(visible.Length / 20f));
+            inventoryPage = Mathf.Clamp(inventoryPage, 0, pages - 1);
+            var current = visible.FirstOrDefault(item => item.id == inspected) ?? visible.FirstOrDefault();
+            // Filters must also update the controller's action target.
+            if (current != null && current.id != inspected) { inspect(current.id); return; }
+            for (int i = 0; i < 20; i++)
             {
-                InventoryButton("Select",new Vector2(-330f,-68f),new Vector2(208f,40f),"SELECCIONAR",select);
-                InventoryButton("Examine",new Vector2(-110f,-68f),new Vector2(208f,40f),"EXAMINAR",examine);
-                if (current.immediateUse!=ImmediateItemUse.None) InventoryButton("Use",new Vector2(110f,-68f),new Vector2(208f,40f),state.FlashlightOn ? "APAGAR LINTERNA" : "ENCENDER LINTERNA",use);
-                InventoryButton("ClearSelection",new Vector2(330f,-68f),new Vector2(208f,40f),"QUITAR SELECCIÓN",clear);
+                int index = inventoryPage * 20 + i;
+                var item = index < visible.Length ? visible[index] : null;
+                var slot = InvButton(inventoryRoot, "Slot_" + i,
+                    item != null && item == current ? "casilla_seleccionada" : "casilla_normal",
+                    118 + i % 5 * 90, 118 + i / 5 * 90, 80, 80, "",
+                    () => { if (item != null) { menuItemId = item.id; inspect(item.id); } });
+                slot.GetComponent<Button>().interactable = item != null;
+                if (item == null) continue;
+                InvItem(slot, item, 12, 10, 56, 56);
+                int quantity = state.CarriedItems.Count(id => id == item.id);
+                if (quantity > 1) InvLabel(slot, "Quantity", "×" + quantity, 40, 57, 36, 20, 14);
+                if (state.SelectedItemId == item.id) InvLabel(slot, "Selected", "•", 4, 2, 16, 20, 18);
+            }
+            InvLabel(inventoryRoot, "ItemName", current == null ? "SIN OBJETOS" : current.displayName.ToUpperInvariant(), 592, 124, 304, 58, 23);
+            if (current != null)
+            {
+                InvItem(inventoryRoot, current, 660, 204, 168, 168);
+                InvLabel(inventoryRoot, "Description", current.description, 596, 386, 296, 82, 20);
+                if (state.SelectedItemId == current.id) InvLabel(inventoryRoot, "Selected", "SELECCIONADO", 596, 468, 296, 20, 13);
+            }
+            else InvLabel(inventoryRoot, "Empty", "No llevas objetos en esta categoría.", 606, 230, 276, 130, 22);
+            inventoryFeedback = InvLabel(inventoryRoot, "Feedback", "Selecciona un objeto · Esc para cerrar", 100, 500, 816, 30, 15);
+            if (pages > 1)
+            {
+                InvButton(inventoryRoot, "Previous", "boton_menu_normal", 118, 468, 80, 24, "<", () => { inventoryPage = (inventoryPage + pages - 1) % pages; menuItemId = null; redraw(); });
+                InvLabel(inventoryRoot, "Page", (inventoryPage + 1) + " / " + pages, 220, 468, 200, 24, 14);
+                InvButton(inventoryRoot, "Next", "boton_menu_normal", 478, 468, 80, 24, ">", () => { inventoryPage = (inventoryPage + 1) % pages; menuItemId = null; redraw(); });
+            }
+            if (current != null && menuItemId == current.id)
+            {
+                var menu = InvImage(inventoryRoot, "Actions", "panel_menu", 352, 206, 144, 156);
+                bool immediate = current.immediateUse != ImmediateItemUse.None;
+                InvButton(menu, "Use", "boton_menu_seleccionado", 6, 6, 132, 36,
+                    immediate ? (state.FlashlightOn ? "APAGAR" : "ENCENDER") : "SELECCIONAR", immediate ? use : select, 15);
+                InvButton(menu, "Examine", "boton_menu_normal", 6, 42, 132, 36, "EXAMINAR", examine, 17);
+                InvButton(menu, "Deselect", "boton_menu_normal", 6, 78, 132, 36, "DESELECCIONAR", clear, 13);
+                InvButton(menu, "Cancel", "boton_menu_normal", 6, 114, 132, 36, "CANCELAR", () => { menuItemId = null; menu.gameObject.SetActive(false); }, 17);
             }
         }
-        private RectTransform InventoryButton(string name,Vector2 pos,Vector2 size,string caption,Action action)
+        private static bool IsInventoryKey(ItemData item) => item.id == "key" || item.id.EndsWith("_card", StringComparison.Ordinal);
+        private void ClearInventoryVisuals()
         {
-            var obj=new GameObject(name,typeof(RectTransform),typeof(Image),typeof(Button)); var rect=obj.GetComponent<RectTransform>(); rect.SetParent(portsRoot,false); rect.anchoredPosition=pos; rect.sizeDelta=size;
-            obj.GetComponent<Image>().color=new Color(0.06f,0.16f,0.2f); obj.GetComponent<Button>().onClick.AddListener(()=>{ProjectAudioHooks.Emit(AudioCue.Button); action();});
-            InventoryText(rect,"Label",caption,Vector2.zero,size-new Vector2(10,6),15f); return rect;
+            if (inventoryRoot != null) { inventoryRoot.gameObject.SetActive(false); Destroy(inventoryRoot.gameObject); }
+            inventoryRoot = null; inventoryFeedback = null;
+            if (title != null) title.transform.parent.gameObject.SetActive(true);
         }
-        private void InventoryText(RectTransform parent,string name,string caption,Vector2 pos,Vector2 size,float fontSize)
+        private RectTransform InvRect(Transform parent, string name, float x, float y, float width, float height, bool topLeft = true)
         {
-            var text=new GameObject(name,typeof(RectTransform),typeof(TextMeshProUGUI)).GetComponent<TextMeshProUGUI>(); text.rectTransform.SetParent(parent,false); text.rectTransform.anchoredPosition=pos; text.rectTransform.sizeDelta=size;
-            text.font=body.font; text.fontSize=fontSize; text.text=caption; text.alignment=TextAlignmentOptions.Center; text.raycastTarget=false;
+            var rect = new GameObject(name, typeof(RectTransform)).GetComponent<RectTransform>();
+            rect.SetParent(parent, false);
+            rect.anchorMin = rect.anchorMax = topLeft ? new Vector2(0, 1) : Vector2.one * 0.5f;
+            rect.pivot = rect.anchorMin; rect.anchoredPosition = new Vector2(x, -y); rect.sizeDelta = new Vector2(width, height);
+            return rect;
+        }
+        private RectTransform InvImage(Transform parent, string name, string sprite, float x, float y, float width, float height)
+        {
+            var rect = InvRect(parent, name, x, y, width, height);
+            var image = rect.gameObject.AddComponent<Image>();
+            image.sprite = inventorySkin != null ? inventorySkin.Find(sprite) : null;
+            image.color = image.sprite != null ? Color.white : new Color(0.13f, 0.13f, 0.13f);
+            image.raycastTarget = false;
+            return rect;
+        }
+        private RectTransform InvButton(Transform parent, string name, string sprite, float x, float y, float width, float height, string caption, Action action, float fontSize = 18)
+        {
+            var rect = InvImage(parent, name, sprite, x, y, width, height);
+            var image = rect.GetComponent<Image>(); image.raycastTarget = true;
+            var button = rect.gameObject.AddComponent<Button>(); button.targetGraphic = image;
+            var colors = button.colors; colors.highlightedColor = new Color(0.8f, 0.94f, 1f); colors.pressedColor = new Color(0.6f, 0.78f, 0.85f); colors.disabledColor = Color.white; button.colors = colors;
+            button.onClick.AddListener(() => { ProjectAudioHooks.Emit(AudioCue.Button); action?.Invoke(); });
+            if (!string.IsNullOrEmpty(caption)) InvLabel(rect, "Label", caption, 6, 2, width - 12, height - 4, fontSize);
+            return rect;
+        }
+        private TMP_Text InvLabel(Transform parent, string name, string caption, float x, float y, float width, float height, float fontSize)
+        {
+            var rect = InvRect(parent, name, x, y, width, height);
+            var text = rect.gameObject.AddComponent<TextMeshProUGUI>();
+            text.font = body.font; text.text = caption; text.fontSize = fontSize;
+            text.enableAutoSizing = true; text.fontSizeMin = Mathf.Min(12, fontSize); text.fontSizeMax = fontSize;
+            text.alignment = TextAlignmentOptions.Center; text.color = new Color32(230, 230, 230, 255); text.raycastTarget = false;
+            return text;
+        }
+        private void InvItem(Transform parent, ItemData item, float x, float y, float width, float height)
+        {
+            if (item.icon == null) { InvLabel(parent, "Symbol", item.fallbackIcon, x, y, width, height, 32); return; }
+            var rect = InvRect(parent, "ItemIcon", x, y, width, height);
+            var image = rect.gameObject.AddComponent<Image>(); image.sprite = item.icon; image.preserveAspect = true; image.raycastTarget = false;
         }
         public void ShowItemExamination(ItemData item)
         {
-            Clear(); overlay.SetActive(true); title.text=item.displayName+" — EXAMINAR"; body.rectTransform.sizeDelta=new Vector2(850,330); body.rectTransform.anchoredPosition=new Vector2(0,38); body.text=item.examineText;
-            portsRoot.gameObject.SetActive(false); resetButton.gameObject.SetActive(false); hintButton.gameObject.SetActive(false); closeButton.GetComponentInChildren<TMP_Text>(true).text="VOLVER AL INVENTARIO"; feedback.text="Esc para volver al inventario.";
+            Clear(); overlay.SetActive(true); title.text = item.displayName + " — EXAMINAR";
+            body.rectTransform.sizeDelta = new Vector2(850, 330); body.rectTransform.anchoredPosition = new Vector2(0, 38); body.text = item.examineText;
+            portsRoot.gameObject.SetActive(false); resetButton.gameObject.SetActive(false); hintButton.gameObject.SetActive(false);
+            closeButton.GetComponentInChildren<TMP_Text>(true).text = "VOLVER AL INVENTARIO"; feedback.text = "Esc para volver al inventario.";
         }
     }
 }
