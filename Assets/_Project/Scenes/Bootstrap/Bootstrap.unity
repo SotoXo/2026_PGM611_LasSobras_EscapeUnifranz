@@ -1641,6 +1641,7 @@ GameObject:
   - component: {fileID: 168605704}
   - component: {fileID: 168605701}
   - component: {fileID: 168605710}
+  - component: {fileID: 168605711}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1824,6 +1825,25 @@ MonoBehaviour:
   emitterOrigin: {x: 0, y: 0.3, z: 0}
   forwardOffset: 0.18
   lightColor: {r: 0.72, g: 0.84, b: 1, a: 1}
+--- !u!114 &168605711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168605700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af36b83bac254c549823b1252f18aacf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Player.ThrowableCanController
+  itemId: soda
+  canSprite: {fileID: 21300000, guid: a0fa858e7cd6a5945ae45587a9048758, type: 3}
+  throwDistance: 4.5
+  flightSpeed: 9
+  noiseRadius: 10
+  distractSeconds: 5
+  cooldownSeconds: 0.6
 --- !u!1 &168636013
 GameObject:
   m_ObjectHideFlags: 0
@@ -7632,6 +7652,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab2e64078ccf9c24db6ed594f368b779, type: 2}
   - {fileID: 11400000, guid: 4fb0e317d7b5d7642a26c91ded592121, type: 2}
   - {fileID: 11400000, guid: 8b7c1051527f71e4fb446e8280424ae2, type: 2}
+  - {fileID: 11400000, guid: 3dbcf7dc10d400f4280571af0663c401, type: 2}
   equipmentLabel: {fileID: 1574550789}
   pickupLabel: {fileID: 1851398429}
   pickupIcon: {fileID: 1302547172}
