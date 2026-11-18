@@ -13,8 +13,8 @@ namespace EscapeUNIFRANZ.World
 
         protected override void PerformInteraction()
         {
-            if (BoundSession == null) return;
-            BoundSession.State.AddItem(itemId);
+            if (BoundSession == null || !BoundSession.State.AddItem(itemId)) return;
+            gameObject.SetActive(false);
             ProjectAudioHooks.Emit(AudioCue.Pickup);
             BoundSession.GetComponent<NarrativeController>()?.NotifyPickup(itemId);
             Destroy(gameObject);

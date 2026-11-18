@@ -5886,6 +5886,11 @@ MonoBehaviour:
     text: "A\xEDsla, verifica y ejecuta el apagado seguro."
     untilItem: 
     sectorId: 
+    untilFlag: 19
+  - id: core_escape
+    text: Vuelve por el corredor y sal por la puerta del laboratorio.
+    untilItem: 
+    sectorId: nucleo_ia
     untilFlag: 20
 --- !u!43 &428247221
 Mesh:
@@ -12944,6 +12949,7 @@ MonoBehaviour:
   requirementMessage: "El dispositivo todav\xEDa no est\xE1 habilitado."
   targetZoneId: lab_software
   targetSpawnId: from_nucleo
+  escapesAfterShutdown: 1
   requiredFlag: 0
   lockState: 0
   lockedMessage: Acceso restringido.

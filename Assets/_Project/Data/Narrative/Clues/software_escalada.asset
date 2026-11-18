@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: software_escalada
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: software_escalada
-  title: "Respuesta autom\xE1tica del sistema"
-  category: Log de seguridad
-  text: "<b>INTERRUPCI\xD3N DE HARDWARE DETECTADA</b>. Autor registrado: Francis.
-    Un cable fue retirado a mano. La IA interpret\xF3 el corte como amenaza y tom\xF3
-    c\xE1maras, puertas y robots. Francis contin\xFAa defendiendo su decisi\xF3n:
-    \xABPuedo arreglarlo\xBB."
+  title: "Respuesta autom\u00e1tica del sistema"
+  category: "Log de seguridad"
+  text: "22:04. Se detect\u00f3 una retirada manual del cable de pruebas. FRANCIS reasign\u00f3 a los ocupantes el estado AMENAZA y sustituy\u00f3 las salidas de evacuaci\u00f3n por \u00f3rdenes de contenci\u00f3n. Registro del operador: durante el apagado hay que aislar la red y los actuadores antes de tocar el n\u00facleo."
   associatedFlag: 0

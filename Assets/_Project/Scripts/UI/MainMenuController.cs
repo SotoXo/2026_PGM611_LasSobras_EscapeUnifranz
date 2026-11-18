@@ -1,3 +1,5 @@
+using EscapeUNIFRANZ.Core;
+using EscapeUNIFRANZ.Narrative;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -20,6 +22,10 @@ namespace EscapeUNIFRANZ.UI
         [SerializeField] private GameObject controlsPanel;
         [SerializeField] private GameObject creditsPanel;
         [SerializeField] private Button newGameButton;
+        [SerializeField] private Button continueButton;
+        [SerializeField] private Button optionsButton;
+        [SerializeField] private GameObject optionsPanel;
+        [SerializeField] private Button optionsBackButton;
         [SerializeField] private Button controlsButton;
         [SerializeField] private Button creditsButton;
         [SerializeField] private Button quitButton;
@@ -27,12 +33,14 @@ namespace EscapeUNIFRANZ.UI
         [SerializeField] private Button creditsBackButton;
 
         private static bool newGameRequested;
+        private static bool continueRequested;
         private bool isLoading;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void ResetStaticState()
         {
             newGameRequested = false;
+            continueRequested = false;
         }
 
         private void Awake()
@@ -41,6 +49,9 @@ namespace EscapeUNIFRANZ.UI
             // between clicking the button and loading Bootstrap.
             PlayerPrefs.DeleteKey(NewGameRequestKey);
             Add(newGameButton, StartNewGame);
+            Add(continueButton, ContinueGame);
+            Add(optionsButton, ShowOptions);
+            Add(optionsBackButton, ShowMain);
             Add(controlsButton, ShowControls);
             Add(creditsButton, ShowCredits);
             Add(quitButton, QuitGame);
@@ -49,11 +60,13 @@ namespace EscapeUNIFRANZ.UI
             ShowMain();
         }
 
+        private void Start() => ProjectAudioHooks.SetSceneMusic(AudioCue.MusicMenu);
+
         private void Update()
         {
             Keyboard keyboard = Keyboard.current;
             if (keyboard != null && keyboard.escapeKey.wasPressedThisFrame &&
-                (IsVisible(controlsPanel) || IsVisible(creditsPanel)))
+                (IsVisible(controlsPanel) || IsVisible(creditsPanel) || IsVisible(optionsPanel)))
             {
                 ShowMain();
             }
@@ -62,6 +75,9 @@ namespace EscapeUNIFRANZ.UI
         private void OnDestroy()
         {
             Remove(newGameButton, StartNewGame);
+            Remove(continueButton, ContinueGame);
+            Remove(optionsButton, ShowOptions);
+            Remove(optionsBackButton, ShowMain);
             Remove(controlsButton, ShowControls);
             Remove(creditsButton, ShowCredits);
             Remove(quitButton, QuitGame);
@@ -81,6 +97,27 @@ namespace EscapeUNIFRANZ.UI
             return requested;
         }
 
+        public static bool ConsumeContinueRequest()
+        {
+            bool requested = continueRequested;
+            continueRequested = false;
+            return requested;
+        }
+
+        public void ContinueGame()
+        {
+            if (isLoading || !CanContinue()) return;
+
+            ProjectAudioHooks.Emit(AudioCue.Button);
+            isLoading = true;
+            continueRequested = true;
+            SetButtonsInteractable(false);
+            SceneManager.LoadScene(bootstrapScenePath, LoadSceneMode.Single);
+        }
+
+        private static bool CanContinue() =>
+            CheckpointSave.TryLoad(out var state) && !state.HasFlag(GameFlagId.GameCompleted);
+
         public void StartNewGame()
         {
             if (isLoading)
@@ -88,6 +125,7 @@ namespace EscapeUNIFRANZ.UI
                 return;
             }
 
+            ProjectAudioHooks.Emit(AudioCue.Button);
             isLoading = true;
             newGameRequested = true;
             PlayerPrefs.SetInt(NewGameRequestKey, 1);
@@ -101,6 +139,8 @@ namespace EscapeUNIFRANZ.UI
             ShowPanel(controlsPanel, controlsBackButton);
         }
 
+        public void ShowOptions() => ShowPanel(optionsPanel, optionsBackButton);
+
         public void ShowCredits()
         {
             ShowPanel(creditsPanel, creditsBackButton);
@@ -108,10 +148,14 @@ namespace EscapeUNIFRANZ.UI
 
         public void ShowMain()
         {
+            if (IsVisible(optionsPanel)) GameOptions.Save();
             SetActive(mainPanel, true);
             SetActive(controlsPanel, false);
             SetActive(creditsPanel, false);
-            Select(newGameButton);
+            SetActive(optionsPanel, false);
+            bool canContinue = CanContinue();
+            SetActive(continueButton != null ? continueButton.gameObject : null, canContinue);
+            Select(canContinue && continueButton != null ? continueButton : newGameButton);
         }
 
         public void QuitGame()
@@ -125,15 +169,19 @@ namespace EscapeUNIFRANZ.UI
 
         private void ShowPanel(GameObject panel, Button defaultButton)
         {
+            ProjectAudioHooks.Emit(AudioCue.Button);
             SetActive(mainPanel, false);
             SetActive(controlsPanel, panel == controlsPanel);
             SetActive(creditsPanel, panel == creditsPanel);
+            SetActive(optionsPanel, panel == optionsPanel);
             Select(defaultButton);
         }
 
         private void SetButtonsInteractable(bool interactable)
         {
             if (newGameButton != null) newGameButton.interactable = interactable;
+            if (continueButton != null) continueButton.interactable = interactable;
+            if (optionsButton != null) optionsButton.interactable = interactable;
             if (controlsButton != null) controlsButton.interactable = interactable;
             if (creditsButton != null) creditsButton.interactable = interactable;
             if (quitButton != null) quitButton.interactable = interactable;

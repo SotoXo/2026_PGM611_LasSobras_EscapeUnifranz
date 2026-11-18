@@ -91,6 +91,7 @@ namespace EscapeUNIFRANZ.EditorTools
                     if (t.name.StartsWith("ItemVisual_") || t.name.StartsWith("AuthoredLamp_"))
                         t.localPosition = Safe(t.localPosition);
                 ConfigureCleanPrefab(root);
+                CampaignGroundFloor.MergeCollision(root);
                 PrefabUtility.SaveAsPrefabAsset(root, PrefabPath);
                 Directory.CreateDirectory("reports");
                 File.WriteAllText("reports/mapa-completo-integration.txt", $"Artwork: {width} x {height}; {Ppu} pixels/unit; {width/Ppu} x {height/Ppu} units.\nProps: {props.Count}. Collision boxes: {count}.\n");
@@ -129,6 +130,7 @@ namespace EscapeUNIFRANZ.EditorTools
                         if (!IsSafe(Mathf.RoundToInt(zone.transform.InverseTransformPoint(spawn.transform.position).x*Ppu), Mathf.RoundToInt(zone.transform.InverseTransformPoint(spawn.transform.position).y*Ppu)))
                             throw new InvalidOperationException("Unsafe spawn: " + spawn.name);
                     ConfigureCleanScene(zone, art);
+                    CampaignGroundFloor.Configure(zone, art);
                     EditorSceneManager.SaveScene(scene);
                 }
                 AssetDatabase.SaveAssets();
@@ -141,43 +143,7 @@ namespace EscapeUNIFRANZ.EditorTools
             Debug.Log("MAPA_COMPLETO_OK: replaced ground floor in three scenes; all spawn positions validated on connected walkable floor.");
         }
 
-        [MenuItem("Escape UNIFRANZ/Art/Clean And Light Complete Ground Floor")]
-        public static void CleanAndLight()
-        {
-            if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Run in Edit Mode.");
-            if (!SavePendingSceneChanges()) return;
-            var setup = EditorSceneManager.GetSceneManagerSetup();
-            var root = PrefabUtility.LoadPrefabContents(PrefabPath);
-            try { ConfigureCleanPrefab(root); PrefabUtility.SaveAsPrefabAsset(root, PrefabPath); }
-            finally { PrefabUtility.UnloadPrefabContents(root); }
-            var report = new List<string>();
-            try
-            {
-                foreach (string name in new[] { "Z00_Entrada", "Z01_Hall", "Z02_ARCA" })
-                {
-                    var scene = EditorSceneManager.OpenScene("Assets/_Project/Scenes/Zones/" + name + ".unity", OpenSceneMode.Single);
-                    var zone = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<ZoneContext>(true)).First();
-                    var art = zone.transform.Find("GroupLevelArt");
-                    if (art == null) throw new InvalidOperationException("Missing map in " + name);
-                    ConfigureCleanScene(zone, art.gameObject);
-                    var pickups = zone.GetComponentsInChildren<ItemPickupInteractable>().Where(p => p.gameObject.activeInHierarchy).ToArray();
-                    if (pickups.Length != 2 || !pickups.Any(p => p.ItemId == "key") || !pickups.Any(p => p.ItemId == "flashlight"))
-                        throw new InvalidOperationException("Expected only a flashlight and key in " + name);
-                    var overlays = zone.GetComponentsInChildren<SpriteRenderer>().Where(sr => sr.enabled && sr.gameObject.activeInHierarchy && !sr.transform.IsChildOf(art)).ToArray();
-                    if (overlays.Length != 0) throw new InvalidOperationException("Legacy renderers remain in " + name);
-                    EditorSceneManager.SaveScene(scene);
-                    report.Add(name + ": only key + flashlight pickups; no legacy sprite overlays; stable global light 0.85.");
-                }
-                AssetDatabase.SaveAssets();
-                Directory.CreateDirectory("reports"); File.WriteAllLines("reports/mapa-completo-cleanup.txt", report);
-            }
-            finally
-            {
-                if (setup.Any(s => s.isLoaded && s.isActive)) EditorSceneManager.RestoreSceneManagerSetup(setup);
-                else EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            }
-            Debug.Log("MAPA_COMPLETO_CLEAN_OK: three scenes validated; only flashlight and key; bright stable lighting.");
-        }
+        public static void CleanAndLight() => CampaignGroundFloor.Apply();
 
         static bool SavePendingSceneChanges()
         {

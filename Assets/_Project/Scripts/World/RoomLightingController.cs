@@ -136,7 +136,10 @@ namespace EscapeUNIFRANZ.World
         }
         private void ApplyStep(RoomLightingStep step)
         {
-            ApplyState(step.state,step.failedFixtures,true);
+            bool reduced = GameOptions.ReduceFlashes;
+            var visualState = reduced && (step.state == RoomLightingState.Blackout || step.state == RoomLightingState.Flicker)
+                ? RoomLightingState.Dim : step.state;
+            ApplyState(visualState, reduced ? 0 : step.failedFixtures, true);
             if(step.state==RoomLightingState.Blackout) ProjectAudioHooks.Emit(AudioCue.Blackout);
             else if(step.state==RoomLightingState.Flicker) ProjectAudioHooks.Emit(AudioCue.Flicker);
             else if(step.state==RoomLightingState.Normal) ProjectAudioHooks.Emit(AudioCue.Electricity);
@@ -144,7 +147,7 @@ namespace EscapeUNIFRANZ.World
         private void ApplyState(RoomLightingState value,int failed=0,bool sequenced=false)
         {
             CurrentState=value; float level=RoomLightingLogic.Level(value,normalIntensity,dimIntensity);
-            Color color=value==RoomLightingState.Emergency ? emergencyColor : normalColor;
+            Color color = value == RoomLightingState.Emergency ? Color.Lerp(emergencyColor, HorrorPalette.CriticalRed, 0.65f) : normalColor;
             for(int i=0;i<mainLights.Length;i++) if(mainLights[i]!=null)
             {
                 float power=i<failed ? 0 : level; mainLights[i].color=color;

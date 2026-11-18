@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: hall_admision
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: hall_admision
-  title: "Mostrador sin atenci\xF3n"
-  category: Accesos
-  text: "La <b>llave</b> del gabinete ARCA qued\xF3 en una mesa de la <b>cafeter\xEDa</b>.
-    All\xED podr\xE1s recuperar el control local del edificio."
+  title: "Mostrador sin atenci\u00f3n"
+  category: "Accesos"
+  text: "El supervisor dej\u00f3 la <b>llave</b> de ARCA en una mesa de la <b>cafeter\u00eda</b>. El aviso de admisi\u00f3n marcaba \u00abevacuaci\u00f3n en curso\u00bb. Cuando volvieron las c\u00e1maras, el mismo aviso dec\u00eda \u00abocupantes en custodia\u00bb."
   associatedFlag: 0

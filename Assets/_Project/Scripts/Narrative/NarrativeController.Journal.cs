@@ -25,16 +25,40 @@ namespace EscapeUNIFRANZ.Narrative
             var found=journalCatalog.Where(c=>c!=null && state.IsWorldItemDiscovered("clue",c.id)).ToArray();
             journalPage=Mathf.Clamp(journalPage,0,Mathf.Max(0,(found.Length-1)/6));
             var current=found.Skip(journalPage*6).Take(6).ToArray();
-            var labels=current.Select(c=>c.title).Concat(new[]{"ANTERIOR","SIGUIENTE"}).ToArray();
+            var labels = current.Select(c => c.title).Concat(new[] { "ANTERIOR", "SIGUIENTE", "AYUDA DEL OBJETIVO" }).ToArray();
             view.Options("REGISTRO DE PISTAS",found.Length==0 ? "Todavía no has encontrado documentos. Examina notas y terminales." :
                 "Solo se guardan documentos leídos. Página "+(journalPage+1)+" • "+found.Length+" registros.",labels,index=>
             {
                 if (index<current.Length) { view.ShowJournalDocument(current[index]); journalReading=true; }
                 else if (index==current.Length) { journalPage--; JournalPage(); }
                 else if (index==current.Length+1) { journalPage++; JournalPage(); }
+                else if (index==current.Length+2) ShowObjectiveHelp(false);
             });
             journalReading=false;
         }
+        private void ShowObjectiveHelp(bool detail)
+        {
+            var hints = state.CurrentObjectiveId switch
+            {
+                "entrada_bateria" => ("Alguien dejó un repuesto en la sala dental.", "Desde recepción, toma el corredor hacia la hilera de sillones azules y busca el repuesto entre los equipos."),
+                "entrada_cctv" or "entrada_codigo" => ("La cámara que apunta al Hall registró una placa.", "Vuelve al terminal CCTV, abre el feed del Hall y lleva el número que ves al lector de la puerta."),
+                "hall_llave" => ("El personal de admisión dejó un aviso.", "Busca las mesas anaranjadas de la cafetería. La llave de ARCA está en ese sector."),
+                "hall_gabinete" or "sim_salida" => ("El gabinete de comunicaciones está en un sector anterior.", "Vuelve al Hall con la tarjeta de mantenimiento de Simulación. Lee el documento junto al gabinete."),
+                "sim_exoleg" => ("El Exoleg avisa antes de activar el área de peligro.", "Actúa cuando el halo diga EN ESPERA. Desactiva sus dos actuadores antes del punto CONTROL."),
+                "tec_red" => ("La ruta marcada como comprometida aún lleva órdenes de FRANCIS.", "Examina la pizarra y el rack. Pasa por el switch que mantiene el enlace directo al laboratorio."),
+                "lab_stop" => ("La orden del proceso abrió una ventana en los actuadores.", "Busca la etiqueta EMERGENCY STOP y espera el estado EN ESPERA antes de cruzar."),
+                "core_escape" => ("La salida está en el camino por el que entraste.", "Vuelve al acceso del laboratorio por el corredor. Usa la acción Salir por la vía de emergencia."),
+                _ => ("Consulta los documentos del sector y examina el dispositivo.", "Acércate al control y usa el escáner. Lee las etiquetas y comprueba energía, red y autorización.")
+            };
+            string[] actions = detail ? new[] { "VOLVER AL DIARIO" } : new[] { "VER PISTA ADICIONAL", "VOLVER AL DIARIO" };
+            view.Options("AYUDA DEL OBJETIVO", detail ? hints.Item2 : hints.Item1, actions, index =>
+            {
+                if (!detail && index == 0) ShowObjectiveHelp(true);
+                else JournalPage();
+            });
+            journalReading = true;
+        }
+
         private bool journalReading;
         private void LateUpdate()
         { if (modalOpen && journalReading && UnityEngine.InputSystem.Keyboard.current?.jKey.wasPressedThisFrame==true) JournalPage(); }

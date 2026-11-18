@@ -39,6 +39,8 @@ namespace EscapeUNIFRANZ.Narrative
             var tutorial=session.GetComponent<EscapeUNIFRANZ.UI.EntranceTutorialController>();
             if(id=="battery") { message="BATERÍA PORTÁTIL OBTENIDA"; tutorial?.Offer(EscapeUNIFRANZ.UI.TutorialAction.Inventory); }
             if(id=="flashlight") { message="LINTERNA OBTENIDA"; tutorial?.Offer(EscapeUNIFRANZ.UI.TutorialAction.Flashlight); }
+            if (id == "soda" && state.DiscoverWorldItem("onboarding", "soda_throw"))
+                session.ShowMessage("G / Lanzar: distrae a un carrito. Puedes recoger la lata donde caiga.");
             if (pickupLabel!=null) { pickupLabel.text=message; pickupLabel.gameObject.SetActive(true); }
             else session.ShowMessage(message);
             if (pickupIcon!=null) { pickupIcon.sprite=data?.icon; pickupIcon.gameObject.SetActive(data?.icon!=null); }

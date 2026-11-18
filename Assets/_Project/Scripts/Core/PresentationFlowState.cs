@@ -80,6 +80,11 @@ namespace EscapeUNIFRANZ.Core
                 BeginLoading(PresentationScreen.MainMenu);
         }
 
+        public bool LoadSavedGame()
+        {
+            return Current == PresentationScreen.MainMenu && SetScreen(PresentationScreen.Loading);
+        }
+
         public bool BeginLoading(PresentationScreen failureScreen)
         {
             if (Current != PresentationScreen.Intro &&

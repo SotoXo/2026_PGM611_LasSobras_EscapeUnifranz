@@ -23,8 +23,10 @@ namespace EscapeUNIFRANZ.Narrative
         private void Update()
         {
             float elapsed=Time.unscaledTime-started;
-            bool active=Time.unscaledTime<until;
-            if (dim!=null) dim.color=active ? new Color(red ? 0.38f : 0f,0f,0f,0.06f) : Color.clear;
+            bool active=Time.unscaledTime<until && !EscapeUNIFRANZ.Core.GameOptions.ReduceFlashes;
+            Color tint = red ? EscapeUNIFRANZ.Core.HorrorPalette.CriticalRed : EscapeUNIFRANZ.Core.HorrorPalette.Violet;
+            tint.a = 0.08f;
+            if (dim != null) dim.color = active ? tint : Color.clear;
             if (intrusion!=null) { intrusion.text="TE VEO"; intrusion.enabled=active && words && elapsed<0.15f; }
             if (bands==null) return;
             for(int i=0;i<bands.Length;i++) if (bands[i]!=null)

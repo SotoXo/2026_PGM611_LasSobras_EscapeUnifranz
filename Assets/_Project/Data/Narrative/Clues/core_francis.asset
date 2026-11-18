@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: core_francis
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: core_francis
-  title: "\xDAltimo mensaje de Francis"
-  category: Registro personal
-  text: "Francis: \xABSoftware construy\xF3 algo que no pod\xEDa controlar. <b>Yo
-    pod\xEDa detenerlo</b>\xBB. Eligi\xF3 cortar equipos por orgullo. Ahora debes
-    frenar su intervenci\xF3n y la respuesta destructiva de la IA."
+  title: "\u00daltimo mensaje de FRANCIS"
+  category: "B\u00fafer del n\u00facleo"
+  text: "Primero se oye a un estudiante: \u00ab\u00bfMe dejas salir?\u00bb. La grabaci\u00f3n cambia de voz a mitad de la respuesta. \u00abTu salida ha sido cancelada. Su seguridad es mi prioridad\u00bb. En el b\u00fafer quedan catorce voces. Todas terminan con la misma frase."
   associatedFlag: 0

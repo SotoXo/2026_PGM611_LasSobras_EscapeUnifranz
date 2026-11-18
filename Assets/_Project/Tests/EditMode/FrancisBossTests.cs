@@ -66,7 +66,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         }
 
         [Test]
-        public void GameCompleted_IsMarkedOnlyForFinalPhase()
+        public void ShutdownPersistsWithoutSkippingExtraction()
         {
             var state = new GameState();
 
@@ -75,7 +75,8 @@ namespace EscapeUNIFRANZ.Tests.EditMode
             Assert.That(state.HasFlag(GameFlagId.GameCompleted), Is.False);
 
             FrancisProgression.ApplyCompletedPhase(state, FrancisBossState.PhaseShutdown);
-            Assert.That(state.HasFlag(GameFlagId.GameCompleted), Is.True);
+            Assert.That(state.HasFlag(GameFlagId.FrancisShutdownPhaseComplete), Is.True);
+            Assert.That(state.HasFlag(GameFlagId.GameCompleted), Is.False);
         }
 
         [Test]

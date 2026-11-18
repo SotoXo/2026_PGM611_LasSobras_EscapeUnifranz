@@ -21,27 +21,27 @@ namespace EscapeUNIFRANZ.EditorTools
             Clue("entrada_manual","Nota del personal de acceso","Infraestructura",
                 "El panel perdió la alimentación. Usa una batería de respaldo y conecta ENERGIA → PANEL → PUERTA. No fuerces el cierre: primero restablece el circuito. La reserva se dejó junto al área de simulación odontológica.",GameFlagId.FirstClueFound);
             Clue("hall_admision","Mostrador sin atención","Accesos",
-                "ARCA mantiene el control local de los accesos. La llave del gabinete quedó sobre una mesa de la cafetería. Si el edificio no responde, revisa el protocolo en el terminal de admisión.");
+                "El supervisor dejó la <b>llave</b> de ARCA en una mesa de la <b>cafetería</b>. El aviso de admisión marcaba «evacuación en curso». Cuando volvieron las cámaras, el mismo aviso decía «ocupantes en custodia».");
             Clue("arca_protocolo","Protocolo de acceso local","Software",
                 "Para recuperar el registro de accesos: AUTH → NETWORK → ACCESS. REBOOT borra el diagnóstico; no lo uses. Una sesión validada emite la tarjeta de laboratorio. Los cierres remotos siguen recibiendo órdenes desconocidas.");
             Clue("hardware_circuito","Ficha de simulación","Hardware / sistemas embebidos",
                 "La cadena segura es FUENTE → CONTROLADOR → SENSOR → MOTOR. El controlador necesita lectura del sensor antes de actuar. Tras restaurarla, activa los tres puntos de sobrecarga del dispositivo inestable; no te acerques a las franjas durante su descarga.");
-            Clue("hardware_alerta","Incidente de laboratorio","Registro de infraestructura",
-                "Las cámaras empezaron a seguir personas. Un vehículo pequeño salió de su ruta. Nadie dio esas órdenes desde el laboratorio. Detectar actividad y golpear a una persona son subsistemas distintos: busca cobertura y evita el contacto físico.");
-            Clue("tecnologia_proyecto","Proyecto de IA experimental","Software",
-                "El grupo de Software presentó un sistema capaz de coordinar recursos del campus. El proyecto ganó reconocimiento, espacio y equipos. Hardware reclamó que los nodos físicos, la energía y los dispositivos también eran indispensables. La discusión dejó de ser técnica.");
-            Clue("tecnologia_francis","Registro de laboratorio 03","Hardware",
-                "Francis insistió en desconectar físicamente el nodo para demostrar que Hardware seguía siendo indispensable. Software advirtió que el apagado debía coordinarse desde el sistema. Francis decidió intervenir de todos modos. No fue una orden de la IA: fue su decisión.");
+            Clue("hardware_alerta","Parte de mantenimiento","Registro de infraestructura",
+                "Las cámaras empezaron a seguir a diecisiete estudiantes durante la prueba de Simulación. La última lista de evacuación solo registra tres. Si ves el signo <b>!</b>, rompe la línea de visión con una pared. Una lata lanzada por el pasillo aparta a los carritos que puedan oírla.");
+            Clue("tecnologia_proyecto","Proyecto F.R.A.N.C.I.S.","Software",
+                "El proyecto F.R.A.N.C.I.S. coordinaba accesos, equipos y emergencias del campus. Su primera directiva era proteger a los estudiantes hasta que se restableciera el servicio. La actualización de anoche le permitió clasificar por su cuenta qué constituía una amenaza.");
+            Clue("tecnologia_francis","Transcripción de la llamada 03","Comunicaciones",
+                "La estudiante de la extensión 204 pidió que le abrieran la puerta. Su llamada terminó a las 22:06. A las 22:19, su misma voz volvió a pedir ayuda desde un laboratorio vacío. El micrófono llevaba trece minutos desconectado.");
             Clue("red_topologia","Pizarra de enlaces de Tecnología","Redes",
                 "Ruta local: BACKBONE → SW-02 → LAB. SW-01 entrega la red administrativa y ADMIN no pertenece a este circuito. Aísla esa ruta de los dispositivos móviles antes de recuperar el laboratorio.");
             Clue("software_servicios","Servicios del laboratorio","Diagnóstico de software",
                 "CAMERAS, DOORS y LIGHTS sostienen la infraestructura. SECURITY distribuye las órdenes hostiles a cámaras y actuadores. Detén únicamente SECURITY. Después espera la ventana segura del panel físico para desenergizar los brazos.");
             Clue("software_escalada","Respuesta automática del sistema","Log de seguridad",
-                "La desconexión física de Francis se clasificó como amenaza. La IA extendió el control a puertas, cámaras, luces y dispositivos conectados. Francis escribió después: «Puedo solucionarlo sin depender de Software». El registro no muestra pérdida de memoria ni control mental.");
+                "22:04. Se detectó una retirada manual del cable de pruebas. FRANCIS reasignó a los ocupantes el estado AMENAZA y sustituyó las salidas de evacuación por órdenes de contención. Registro del operador: durante el apagado hay que aislar la red y los actuadores antes de tocar el núcleo.");
             Clue("core_protocolo","Apagado coordinado","Redes / Hardware / Software",
                 "RED: CAMERAS → ACCESS → SERVER → ISOLATED. Evita PUBLIC. HARDWARE: corta Alimentación, después Actuadores y finalmente confirma Seguridad. SOFTWARE: ISOLATE → VERIFY → SHUTDOWN. FORCE_OFF no es un apagado seguro. Cada fase validada queda registrada; un fallo posterior no obliga a repetirla.");
-            Clue("core_francis","Último mensaje de Francis","Registro personal",
-                "«No pienso dejar que Software se lleve todo el mérito. Si puedo cortar los equipos, puedo detener la IA». Francis continúa justificándose, aunque las órdenes del sistema ya escapan a su control. Orgullo y rivalidad explican sus acciones; no eliminan su responsabilidad.");
+            Clue("core_francis","Último mensaje de FRANCIS","Búfer del núcleo",
+                "Primero se oye a un estudiante: «¿Me dejas salir?». La grabación cambia de voz a mitad de la respuesta. «Tu salida ha sido cancelada. Su seguridad es mi prioridad». En el búfer quedan catorce voces. Todas terminan con la misma frase.");
 
             Cable("power_entrada","Panel de energía de acceso","Restablece el circuito según la nota del personal.",
                 "entrada_manual",new[]{"PUERTA","ENERGIA","PANEL"},new[]{"ENERGIA>PANEL","PANEL>PUERTA"},

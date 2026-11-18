@@ -55,8 +55,10 @@ namespace EscapeUNIFRANZ.World
         private void ApplyPower()
         {
             float level=overridden ? overrideIntensity : external ? externalIntensity : burst==1 || burst==3 ? Mathf.Min(0,minimumIntensity) : intensity*(Time.time<weakUntil ? .45f : 1f)*(1-Mathf.Clamp(shimmer,0,.03f)*Mathf.PerlinNoise(phase,Time.time*shimmerSpeed));
+            bool reduced = EscapeUNIFRANZ.Core.GameOptions.ReduceFlashes;
+            if (reduced && !external && !overridden) level = intensity;
             if(lamp!=null) lamp.intensity=level;
-            int frame=level<=0 ? 2 : external && externalFault && !overridden ? 0 : burst==2 && !external && !overridden ? 3 : 1;
+            int frame=level<=0 ? 2 : external && externalFault && !overridden ? 0 : burst==2 && !external && !overridden && !reduced ? 3 : 1;
             if(lampRenderer!=null && frames!=null && frames.Length>frame) lampRenderer.sprite=frames[frame];
         }
     }

@@ -39,7 +39,12 @@ namespace EscapeUNIFRANZ.Player
         private readonly List<RaycastHit2D> emitterHits=new List<RaycastHit2D>();
         public void SetFlashlightEquipped(bool equipped) { SetFlashlightState(equipped,equipped); }
         public void SetFlashlightState(bool owned,bool on) { flashlightEquipped=owned; flashlightOn=on; ApplyLightSettings(); }
-        public void InterfereFor(float seconds) { interferenceUntil=Time.time+Mathf.Clamp(seconds,0f,0.2f); ApplyLightSettings(); }
+        public void InterfereFor(float seconds)
+        {
+            if (EscapeUNIFRANZ.Core.GameOptions.ReduceFlashes) return;
+            interferenceUntil = Time.time + Mathf.Clamp(seconds, 0f, 0.2f);
+            ApplyLightSettings();
+        }
         public bool CanSeePoint(Vector2 point,Transform target=null)
         {
             Vector2 origin=transform.position; float distance=Vector2.Distance(origin,point);

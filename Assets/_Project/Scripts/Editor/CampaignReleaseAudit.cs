@@ -1,0 +1,308 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using EscapeUNIFRANZ.Core;
+using EscapeUNIFRANZ.Hazards;
+using EscapeUNIFRANZ.Encounters;
+using EscapeUNIFRANZ.Interaction;
+using EscapeUNIFRANZ.Narrative;
+using EscapeUNIFRANZ.Player;
+using EscapeUNIFRANZ.Puzzles;
+using EscapeUNIFRANZ.UI;
+using EscapeUNIFRANZ.World;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+namespace EscapeUNIFRANZ.EditorTools
+{
+    public static class CampaignReleaseAudit
+    {
+        private const string CatalogPath = "Assets/_Project/Data/Zones/ZoneCatalog.asset";
+
+        [MenuItem("Escape UNIFRANZ/Campaña/Auditar recorrido")]
+        public static void Run()
+        {
+            var setup = EditorSceneManager.GetSceneManagerSetup();
+            var lines = new List<string>();
+            var errors = new List<string>();
+            var definitions = AssetDatabase.LoadAssetAtPath<ZoneCatalog>(CatalogPath).Zones;
+            var enabled = EditorBuildSettings.scenes.Where(scene => scene.enabled).Select(scene => scene.path).ToArray();
+            Require(enabled.SequenceEqual(new[] { CampaignReleaseSetup.MainMenuPath, CampaignReleaseSetup.BootstrapPath }
+                .Concat(definitions.Select(zone => zone.ScenePath))), "Escenas de build incorrectas", errors);
+
+            var spawns = new Dictionary<string, HashSet<string>>();
+            var links = new List<(string zone, string exit, string destination, string spawn, bool extraction)>();
+            try
+            {
+                var menu = Open(CampaignReleaseSetup.MainMenuPath, errors);
+                var menuController = Components<MainMenuController>(menu).Single();
+                CheckFields(menuController, errors, "newGameButton", "continueButton", "optionsButton",
+                    "optionsPanel", "optionsBackButton", "controlsButton", "creditsButton", "quitButton");
+                var audioMenu = Components<ProjectAudioHooks>(menu).Single();
+                Require(audioMenu.bindings.Length == 2 && audioMenu.bindings.All(b => b.clip != null) &&
+                    Components<AudioListener>(menu).Length == 1, "Audio de menú incompleto", errors);
+
+                var bootstrap = Open(CampaignReleaseSetup.BootstrapPath, errors);
+                var player = Components<PlayerMovement2D>(bootstrap).Single();
+                var body = player.GetComponent<CapsuleCollider2D>();
+                var bodySize = body.size;
+                var bodyOffset = body.offset;
+                var layer = player.gameObject.layer;
+                Require(Components<ThrowableCanController>(bootstrap).Length == 1 &&
+                    Components<EntranceTutorialController>(bootstrap).Length == 1 &&
+                    Components<GameFlowController>(bootstrap).Length == 1 &&
+                    Components<Canvas>(bootstrap).Length == 1, "Jugador, tutorial o flujo persistente incompleto", errors);
+                var vision = Components<PlayerVisionController>(bootstrap).Single();
+                CheckFields(vision, errors, "visualController", "immediateLight", "forwardLight");
+                var audio = Components<ProjectAudioHooks>(bootstrap).Single();
+                Require(audio.bindings.Select(b => b.cue).Distinct().Count() == Enum.GetValues(typeof(AudioCue)).Length &&
+                    audio.bindings.All(b => b.clip != null) && Components<AudioListener>(bootstrap).Length == 1 &&
+                    audio.effects != null && audio.music != null && audio.ambience != null, "Audio de partida incompleto", errors);
+                var items = new SerializedObject(Components<NarrativeController>(bootstrap).Single()).FindProperty("itemCatalog");
+                var itemIds = Enumerable.Range(0, items.arraySize).Select(i =>
+                    ((ItemData)items.GetArrayElementAtIndex(i).objectReferenceValue)?.id).ToArray();
+                Require(itemIds.Length >= 8 && itemIds.Contains("soda") && itemIds.Contains("flashlight") &&
+                    itemIds.All(id => !string.IsNullOrEmpty(id)), "Inventario sin objetos requeridos", errors);
+                var initialSession = Components<GameSessionController>(bootstrap).Single();
+                CheckFields(initialSession, errors, "sceneFlow", "objectiveController", "gameFlow");
+                lines.Add($"Bootstrap: {itemIds.Length} objetos, {audio.bindings.Length} cues, un jugador y un tutorial.");
+
+                foreach (var definition in definitions)
+                {
+                    var scene = Open(definition.ScenePath, errors);
+                    var zone = Components<ZoneContext>(scene).Single();
+                    Require(zone.ZoneId == definition.ZoneId, $"ZoneId incorrecto en {scene.name}", errors);
+                    Require(Components<PlayerMovement2D>(scene).Length == 0, $"Jugador duplicado en {scene.name}", errors);
+                    var points = Components<SpawnPoint>(scene);
+                    var ids = points.Select(p => p.SpawnId).ToHashSet();
+                    spawns.Add(zone.ZoneId, ids);
+                    Require(ids.Count == points.Length && ids.Contains(zone.DefaultCheckpointSpawnId),
+                        $"{scene.name}: checkpoint ausente o IDs de spawn duplicados", errors);
+                    var exits = Components<ZoneExitInteractable>(scene).Where(Active).ToArray();
+                    foreach (var exit in exits)
+                    {
+                        links.Add((zone.ZoneId, exit.name, exit.TargetZoneId, exit.TargetSpawnId, exit.EscapesAfterShutdown));
+                        Require(exit.statusLight != null && exit.statusIndicator != null,
+                            $"{scene.name}/{exit.name}: falta indicador", errors);
+                    }
+
+                    foreach (var actor in Components<MiniAutoController>(scene).Where(Active))
+                        CheckFields(actor, errors, "mover", "sensor", "carVisual", "movementArt", "verticalArt", "impactArt");
+                    var activePuzzles = Components<PuzzleInteractable>(scene).Where(Active).ToArray();
+                    Require(activePuzzles.Length > 0, $"{scene.name}: no hay puzles activos", errors);
+                    var pickups = Components<ItemPickupInteractable>(scene).Where(Active).ToArray();
+                    if (zone.ZoneId == "entrada")
+                    {
+                        Require(new[] { "battery", "flashlight" }.All(id => pickups.Count(p => p.ItemId == id) == 1),
+                            "Entrada: faltan la batería o la linterna únicas", errors);
+                        Require(Components<SecurityTerminalInteractable>(scene).Where(Active)
+                                .Any(t => t.feeds.Any(feed => feed.clue != null && feed.clue.id == "cctv_codigo")),
+                            "Entrada: el código no está disponible en CCTV", errors);
+                    }
+                    if (zone.ZoneId == "hall")
+                        Require(pickups.Count(p => p.ItemId == "key") == 1, "Hall: falta la llave de ARCA", errors);
+                    if (zone.ZoneId is "entrada" or "hall" or "arca")
+                        Require(Components<CompositeCollider2D>(scene).Any(c => Active(c) && c.pathCount > 0),
+                            $"{scene.name}: colisión compuesta vacía o ausente", errors);
+                    if (zone.ZoneId == "piso2")
+                        Require(Components<ShelterInteractable>(scene).Count(Active) == 1,
+                            "Simulación: falta el punto de cobertura", errors);
+                    if (zone.ZoneId == "nucleo_ia")
+                    {
+                        var francis = Components<FrancisBossController>(scene).Single();
+                        CheckFields(francis, errors, "interferenceHazard", "encounter");
+                    }
+                    foreach (var p in activePuzzles)
+                        Require(PuzzleModel.Validate(p.puzzle, out string error), $"{scene.name}/{p.name}: {error}", errors);
+
+                    var rooms = Components<RoomLightingController>(scene).Where(Active).ToArray();
+                    foreach (var room in rooms)
+                    {
+                        Require(room.fillLights.Length > 0 && room.fillLights.All(light => light != null && light.shadowsEnabled),
+                            $"{scene.name}/{room.roomId}: relleno de habitación sin sombras", errors);
+                    }
+                    Require(rooms.Length > 0, $"{scene.name}: faltan luces de habitación activas", errors);
+
+                    var solids = Components<BoxCollider2D>(scene)
+                        .Where(c => Active(c) && !c.isTrigger && !Physics2D.GetIgnoreLayerCollision(layer, c.gameObject.layer)
+                            && c.GetComponentInParent<PatrolMover2D>() == null &&
+                            c.GetComponentInParent<DoorPanel2D>() == null).ToArray();
+                    var map = new WalkableGrid(zone.MinimapBounds, solids, bodySize, bodyOffset);
+                    var origin = points.FirstOrDefault(p => p.SpawnId == zone.DefaultCheckpointSpawnId);
+                    int reachable = origin != null ? map.Fill(origin.Position) : 0;
+                    if (origin != null && reachable == 0) errors.Add($"{scene.name}/{origin.SpawnId}: checkpoint en colisión {origin.Position:F2}");
+                    foreach (var point in points)
+                    {
+                        if (!map.IsReachable(point.Position, 0.23f))
+                            errors.Add($"{scene.name}/{point.SpawnId}: spawn aislado {point.Position:F2}");
+                    }
+                    foreach (var target in Components<InteractableBehaviour>(scene)
+                                 .Where(c => Active(c) && (c is ZoneExitInteractable || c is ClueInteractable ||
+                                     c is ItemPickupInteractable || c is PuzzleInteractable || c is VendingMachineInteractable ||
+                                     c is SecurityTerminalInteractable || c is EnvironmentalControlInteractable || c is ShelterInteractable)))
+                    {
+                        if (!map.IsReachable(target.transform.position, 0.92f))
+                            errors.Add($"{scene.name}/{target.name}: interacción aislada {target.transform.position:F2}");
+                    }
+                    lines.Add($"{scene.name}: {points.Length} spawns, {exits.Length} salidas, {activePuzzles.Length} puzles, " +
+                        $"{rooms.Length} grupos de luz, {solids.Length} cajas de mapa, {reachable} celdas conectadas.");
+                }
+
+                Require(spawns.TryGetValue("entrada", out var entry) && entry.Contains("entrada_inicio"),
+                    "El menú no tiene un punto válido de arranque", errors);
+                Require(spawns.TryGetValue("nucleo_ia", out var core) &&
+                    new[] { "francis_inicio", "francis_fase2", "francis_fase3" }.All(core.Contains),
+                    "Faltan checkpoints de Francis", errors);
+                Require(links.Count(link => link.extraction && link.zone == "nucleo_ia") == 1,
+                    "La vía de extracción del núcleo debe ser única", errors);
+                foreach (var link in links)
+                {
+                    Require(spawns.TryGetValue(link.destination, out var available) && available.Contains(link.spawn),
+                        $"{link.zone}/{link.exit}: destino {link.destination}/{link.spawn} inválido", errors);
+                    Require(links.Any(reverse => reverse.zone == link.destination && reverse.destination == link.zone),
+                        $"{link.zone}/{link.exit}: acceso sin retorno", errors);
+                    lines.Add($"{link.zone}/{link.exit} -> {link.destination}/{link.spawn}");
+                }
+            }
+            finally
+            {
+                Directory.CreateDirectory("Logs");
+                File.WriteAllLines("Logs/campaign-audit.txt", lines.Concat(errors.Select(error => "ERROR " + error)));
+                if (setup.Any(scene => scene.isLoaded && scene.isActive && !string.IsNullOrEmpty(scene.path)))
+                    EditorSceneManager.RestoreSceneManagerSetup(setup);
+            }
+
+            if (errors.Count > 0) throw new InvalidOperationException(string.Join("\n", errors));
+            Debug.Log(string.Join("\n", lines));
+        }
+
+        private static Scene Open(string path, List<string> errors)
+        {
+            var scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
+            foreach (var transform in Components<Transform>(scene))
+                Require(GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(transform.gameObject) == 0,
+                    $"{scene.name}/{transform.name}: componente sin script", errors);
+            return scene;
+        }
+
+        private static bool Active(Behaviour component) => component.isActiveAndEnabled;
+
+        private static bool Active(Collider2D collider) => collider.enabled && collider.gameObject.activeInHierarchy;
+
+        private static void CheckFields(UnityEngine.Object target, List<string> errors, params string[] fields)
+        {
+            var serialized = new SerializedObject(target);
+            foreach (string name in fields)
+                Require(serialized.FindProperty(name)?.objectReferenceValue != null, $"{target.name}: falta {name}", errors);
+        }
+
+        private static T[] Components<T>(Scene scene) where T : Component =>
+            scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<T>(true)).ToArray();
+
+        private static void Require(bool success, string message, List<string> errors)
+        {
+            if (!success) errors.Add(message);
+        }
+
+        internal sealed class WalkableGrid
+        {
+            private const float Step = 0.12f;
+            private readonly Vector2 bottomLeft;
+            private readonly bool[,] occupied;
+            private readonly bool[,] reachable;
+            private static readonly Vector2Int[] Neighbors =
+                { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
+
+            public WalkableGrid(Rect bounds, BoxCollider2D[] obstacles, Vector2 footprint, Vector2 offset)
+            {
+                int width = Mathf.Max(1, Mathf.FloorToInt(bounds.width / Step));
+                int height = Mathf.Max(1, Mathf.FloorToInt(bounds.height / Step));
+                bottomLeft = bounds.min + Vector2.one * (Step * 0.5f);
+                occupied = new bool[width, height];
+                reachable = new bool[width, height];
+
+                foreach (var collider in obstacles)
+                {
+                    Vector2 center = collider.transform.TransformPoint(collider.offset);
+                    Vector2 scale = collider.transform.lossyScale;
+                    Vector2 half = Vector2.Scale(collider.size, new Vector2(Mathf.Abs(scale.x), Mathf.Abs(scale.y))) * 0.5f;
+                    // Rasterize the two limits in player-origin coordinates. Use a conservative AABB for rotated boxes.
+                    float radians = collider.transform.eulerAngles.z * Mathf.Deg2Rad;
+                    float sin = Mathf.Abs(Mathf.Sin(radians)), cos = Mathf.Abs(Mathf.Cos(radians));
+                    half = new Vector2(half.x * cos + half.y * sin, half.x * sin + half.y * cos);
+                    Vector2 clearance = half + footprint * 0.5f;
+                    Vector2 min = (center - offset - clearance - bottomLeft) / Step;
+                    Vector2 max = (center - offset + clearance - bottomLeft) / Step;
+                    for (int x = Mathf.Max(0, Mathf.CeilToInt(min.x)); x <= Mathf.Min(width - 1, Mathf.FloorToInt(max.x)); x++)
+                        for (int y = Mathf.Max(0, Mathf.CeilToInt(min.y)); y <= Mathf.Min(height - 1, Mathf.FloorToInt(max.y)); y++)
+                            occupied[x, y] = true;
+                }
+            }
+
+            public int Fill(Vector2 origin)
+            {
+                var cell = Cell(origin);
+                if (!Inside(cell) || occupied[cell.x, cell.y]) return 0;
+                var queue = new Queue<Vector2Int>();
+                queue.Enqueue(cell);
+                reachable[cell.x, cell.y] = true;
+                int count = 0;
+                while (queue.Count > 0)
+                {
+                    var previous = queue.Dequeue();
+                    count++;
+                    foreach (var direction in Neighbors)
+                    {
+                        var next = previous + direction;
+                        if (!Inside(next) || occupied[next.x, next.y] || reachable[next.x, next.y]) continue;
+                        reachable[next.x, next.y] = true;
+                        queue.Enqueue(next);
+                    }
+                }
+                return count;
+            }
+
+            public bool IsReachable(Vector2 point, float tolerance)
+            {
+                var cell = Cell(point);
+                int range = Mathf.CeilToInt(tolerance / Step);
+                for (int x = -range; x <= range; x++)
+                    for (int y = -range; y <= range; y++)
+                    {
+                        var neighbor = cell + new Vector2Int(x, y);
+                        if (Inside(neighbor) && reachable[neighbor.x, neighbor.y] &&
+                            (bottomLeft + (Vector2)neighbor * Step - point).sqrMagnitude <= tolerance * tolerance)
+                            return true;
+                    }
+                return false;
+            }
+
+            public Vector2 Nearest(Vector2 desired, IEnumerable<Vector2> taken = null, float separation = 0f)
+            {
+                Vector2 best = desired;
+                float distance = float.PositiveInfinity;
+                Vector2[] reserved = taken?.ToArray() ?? Array.Empty<Vector2>();
+                for (int x = 0; x < reachable.GetLength(0); x++)
+                for (int y = 0; y < reachable.GetLength(1); y++)
+                {
+                    if (!reachable[x, y]) continue;
+                    Vector2 candidate = bottomLeft + new Vector2(x, y) * Step;
+                    float next = (candidate - desired).sqrMagnitude;
+                    if (next >= distance || reserved.Any(point => (candidate - point).sqrMagnitude < separation * separation)) continue;
+                    distance = next;
+                    best = candidate;
+                }
+                if (float.IsPositiveInfinity(distance)) throw new InvalidOperationException("No hay suelo accesible cerca de " + desired);
+                return best;
+            }
+
+            private Vector2Int Cell(Vector2 point) => Vector2Int.RoundToInt((point - bottomLeft) / Step);
+
+            private bool Inside(Vector2Int point) =>
+                point.x >= 0 && point.y >= 0 && point.x < occupied.GetLength(0) && point.y < occupied.GetLength(1);
+        }
+    }
+}

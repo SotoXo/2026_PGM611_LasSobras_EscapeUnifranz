@@ -16,6 +16,10 @@ namespace EscapeUNIFRANZ.Core
         public void SetObjectiveSector(string id) { if(currentObjectiveSectorId==id) return; currentObjectiveSectorId=id; MapKnowledgeChanged?.Invoke(); }
         [SerializeField] private List<string> discoveredZones=new List<string>();
         [SerializeField] private List<KnownMapPoint> knownMapPoints=new List<KnownMapPoint>();
+        internal bool HasValidSaveData => HasCheckpoint && !string.IsNullOrWhiteSpace(currentZoneId) &&
+            !string.IsNullOrWhiteSpace(currentSpawnId) && completedFlags != null &&
+            discoveredWorldItems != null && carriedItems != null && discoveredZones != null &&
+            knownMapPoints != null && !knownMapPoints.Contains(null);
         public string SelectedItemId => selectedItemId;
         public bool FlashlightOn => flashlightOn;
         public bool HasActiveFlashlight => HasItem("flashlight") && flashlightOn;
