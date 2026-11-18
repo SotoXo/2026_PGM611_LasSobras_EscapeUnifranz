@@ -41,8 +41,9 @@ namespace EscapeUNIFRANZ.EditorTools
                 var menuController = Components<MainMenuController>(menu).Single();
                 CheckFields(menuController, errors, "newGameButton", "continueButton", "optionsButton",
                     "optionsPanel", "optionsBackButton", "controlsButton", "creditsButton", "quitButton");
+                ValidateMenuComposition(menuController, errors);
                 var audioMenu = Components<ProjectAudioHooks>(menu).Single();
-                Require(audioMenu.bindings.Length == 2 && audioMenu.bindings.All(b => b.clip != null) &&
+                Require(audioMenu.bindings.Length == 3 && audioMenu.bindings.All(b => b.clip != null) && audioMenu.mixer != null &&
                     Components<AudioListener>(menu).Length == 1, "Audio de menú incompleto", errors);
 
                 var bootstrap = Open(CampaignReleaseSetup.BootstrapPath, errors);
@@ -60,7 +61,9 @@ namespace EscapeUNIFRANZ.EditorTools
                 var audio = Components<ProjectAudioHooks>(bootstrap).Single();
                 Require(audio.bindings.Select(b => b.cue).Distinct().Count() == Enum.GetValues(typeof(AudioCue)).Length &&
                     audio.bindings.All(b => b.clip != null) && Components<AudioListener>(bootstrap).Length == 1 &&
-                    audio.effects != null && audio.music != null && audio.ambience != null, "Audio de partida incompleto", errors);
+                    audio.effects != null && audio.music != null && audio.ambience != null && audio.mixer != null &&
+                    new[] { audio.musicBus, audio.ambienceBus, audio.sfxBus, audio.uiBus, audio.voicesBus }.All(group => group != null),
+                    "Audio de partida incompleto", errors);
                 var items = new SerializedObject(Components<NarrativeController>(bootstrap).Single()).FindProperty("itemCatalog");
                 var itemIds = Enumerable.Range(0, items.arraySize).Select(i =>
                     ((ItemData)items.GetArrayElementAtIndex(i).objectReferenceValue)?.id).ToArray();
@@ -197,6 +200,32 @@ namespace EscapeUNIFRANZ.EditorTools
         private static bool Active(Behaviour component) => component.isActiveAndEnabled;
 
         private static bool Active(Collider2D collider) => collider.enabled && collider.gameObject.activeInHierarchy;
+
+        private static void ValidateMenuComposition(MainMenuController menu, List<string> errors)
+        {
+            using var fields = new SerializedObject(menu);
+            var names = new[] { "newGameButton", "continueButton", "optionsButton", "controlsButton", "creditsButton", "quitButton" };
+            var buttonList = names.Select(name => (UnityEngine.UI.Button)fields.FindProperty(name).objectReferenceValue).ToArray();
+            if (buttonList.Any(button => button == null)) return;
+            var rects = buttonList.Select(button => (RectTransform)button.transform).ToArray();
+            Require(buttonList.Distinct().Count() == 6 && buttonList.All(button => button.gameObject.activeSelf &&
+                    (button.targetGraphic as UnityEngine.UI.Image)?.sprite != null),
+                "El menú requiere seis botones visibles con sprite", errors);
+            for (int i = 1; i < rects.Length; i++)
+                Require(Mathf.Approximately(rects[i].anchoredPosition.x, rects[0].anchoredPosition.x) &&
+                        Mathf.Approximately(rects[i - 1].anchoredPosition.y - rects[i].anchoredPosition.y, 102f),
+                    $"Posición de menú fuera de la columna: {names[i]}", errors);
+            Require(!buttonList[1].interactable, "Continuar debe estar deshabilitado antes de leer el guardado", errors);
+            foreach (int i in new[] { 1, 2, 4 })
+                Require(buttonList[i].GetComponent<MenuButtonFeedback>()?.label?.font?.name == "PirataOne SDF",
+                    $"{names[i]} no usa PirataOne", errors);
+
+            var options = (GameObject)fields.FindProperty("optionsPanel").objectReferenceValue;
+            var view = options.GetComponent<GameOptionsView>();
+            Require(view != null && view.volumeSliders.Length == 6 && view.volumeSliders.All(slider => slider != null) &&
+                    view.flashes != null && view.vsync != null && view.frameLimit != null,
+                "Faltan controles de sonido o gráficos", errors);
+        }
 
         private static void CheckPuzzle(string sceneName, PuzzleInteractable panel, HashSet<string> sources, List<string> errors)
         {

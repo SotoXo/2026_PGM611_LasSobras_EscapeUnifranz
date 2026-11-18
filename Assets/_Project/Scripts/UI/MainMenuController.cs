@@ -154,8 +154,12 @@ namespace EscapeUNIFRANZ.UI
             SetActive(creditsPanel, false);
             SetActive(optionsPanel, false);
             bool canContinue = CanContinue();
-            SetActive(continueButton != null ? continueButton.gameObject : null, canContinue);
-            Select(canContinue && continueButton != null ? continueButton : newGameButton);
+            if (continueButton != null)
+            {
+                continueButton.interactable = canContinue && !isLoading;
+                continueButton.GetComponent<MenuButtonFeedback>()?.Refresh();
+            }
+            Select(newGameButton);
         }
 
         public void QuitGame()

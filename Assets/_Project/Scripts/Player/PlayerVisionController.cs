@@ -35,6 +35,10 @@ namespace EscapeUNIFRANZ.Player
         private bool flashlightEquipped;
         private bool flashlightOn;
         private float interferenceUntil;
+        private Vector3 lastEmitterOrigin;
+        private PlayerVisualController.FacingDirection lastFacing;
+        private bool lastBeam;
+        private float nextEmitterCheck;
         public bool FlashlightActive => flashlightEquipped && flashlightOn && Time.time>=interferenceUntil;
         private readonly List<RaycastHit2D> emitterHits=new List<RaycastHit2D>();
         public void SetFlashlightEquipped(bool equipped) { SetFlashlightState(equipped,equipped); }
@@ -70,9 +74,18 @@ namespace EscapeUNIFRANZ.Player
 
         private void LateUpdate()
         {
-            if (forwardLight!=null && forwardLight.enabled!=FlashlightActive) ApplyLightSettings();
-            if (immediateLight!=null) immediateLight.transform.localPosition=SafeEmitterPosition(emitterOrigin);
-            ApplyDirection(CurrentDirection);
+            bool beam = FlashlightActive;
+            if (forwardLight != null && forwardLight.enabled != beam) ApplyLightSettings();
+            Vector3 origin = transform.position;
+            var facing = CurrentDirection;
+            if ((origin - lastEmitterOrigin).sqrMagnitude < .0016f && (!beam || lastFacing == facing) &&
+                lastBeam == beam && Time.time < nextEmitterCheck) return;
+            lastEmitterOrigin = origin;
+            lastFacing = facing;
+            lastBeam = beam;
+            nextEmitterCheck = Time.time + .12f;
+            if (immediateLight != null) immediateLight.transform.localPosition = SafeEmitterPosition(emitterOrigin);
+            if (beam) ApplyDirection(facing);
         }
 
         private void OnValidate()

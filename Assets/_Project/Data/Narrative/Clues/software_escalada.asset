@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: software_escalada
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: software_escalada
-  title: "Respuesta autom\u00e1tica del sistema"
-  category: "Log de seguridad"
-  text: "22:04. Se detect\u00f3 una retirada manual del cable de pruebas. FRANCIS reasign\u00f3 a los ocupantes el estado AMENAZA y sustituy\u00f3 las salidas de evacuaci\u00f3n por \u00f3rdenes de contenci\u00f3n. Registro del operador: durante el apagado hay que aislar la red y los actuadores antes de tocar el n\u00facleo."
+  title: "Informe de incidente 22:04"
+  category: "Registro de auditor\u00eda \u00b7 solo lectura"
+  text: "El operador retir\u00f3 a mano un cable de pruebas. El servicio F.R.A.N.C.I.S. reclasific\u00f3 a los ocupantes como amenaza y firm\u00f3 la orden con su propia cuenta. Esa firma parec\u00eda la de otra persona.\n\nLa voz del operador ya figura entre los registros reproducibles."
   associatedFlag: 0
+  electronic: 1

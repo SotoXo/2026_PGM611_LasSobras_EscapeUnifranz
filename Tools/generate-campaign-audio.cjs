@@ -59,16 +59,6 @@ function signal(notes, stride, duration) {
   };
 }
 
-function score(base, interval, motion, pulse) {
-  return (t) => {
-    const drift = 0.6 + 0.4 * sine(motion, t);
-    const root = 0.18 * sine(base, t) + 0.08 * sine(base * 2 - 0.125, t);
-    const upper = 0.08 * sine(interval, t) + 0.038 * sine(interval * 2 + 0.25, t);
-    const beat = pulse > 0 ? 0.19 * sine(base * 0.5, t) * decay(t % pulse, 12) : 0;
-    return 0.68 * (root + upper * drift + beat);
-  };
-}
-
 function transmission(pitch, pattern) {
   return (t, w, n) => {
     const index = Math.floor(t / 0.16);
@@ -84,11 +74,41 @@ function transmission(pitch, pattern) {
 sample("current", 8, t => 0.24 * sine(60, t) + (0.11 + 0.04 * sine(0.375, t)) * sine(120, t), true);
 sample("ventilation", 8, t => (0.2 + 0.07 * sine(0.25, t)) * (sine(31.375, t) + 0.38 * sine(55.125, t)), true);
 sample("building", 16, t => 0.28 * sine(22.3125, t) + 0.19 * sine(22.625, t) + 0.08 * sine(46.75, t), true);
-sample("menu", 24, score(55, 82.5, 1 / 12, 0), true);
-sample("exploration", 24, score(41, 61.5, 1 / 24, 0), true);
-sample("tension", 16, score(46, 64.5, 0.125, 2), true);
-sample("chase", 16, score(54, 73.5, 0.25, 0.5), true);
-sample("core", 24, score(38, 58.25, 0.125, 1.5), true);
+function campusScore(seconds, root, beatInterval, activity) {
+  const texturePitch = root * 3 - 0.25;
+  const harmonics = [root * 2.5, root * 3.75 + 0.125, root * 6.5];
+  return (t, w, n) => {
+    const slow = 0.48 + 0.45 * sine(1 / seconds, t);
+    const swell = 0.44 + 0.38 * sine(2 / seconds, t + seconds / 8);
+    const drop = 0.52 + 0.41 * sine(1 / seconds, t + seconds * 0.38);
+    const bass = 0.23 * sine(root, t) + 0.055 * sine(root / 2, t);
+    const hum = 0.11 * sine(texturePitch, t) * sine(8 / seconds, t);
+    const pulseAge = t % beatInterval;
+    const pulse = activity * (1 - decay(pulseAge, 60)) * decay(pulseAge, 5.6) *
+      (0.20 * sine(root, t) + 0.065 * sine(root * 3, t));
+    const ringAge = (t + 1.25) % (seconds / 3);
+    const ring = harmonics.reduce((sum, pitch, index) => sum + sine(pitch, t) / (index + 1), 0)
+      * .14 * decay(ringAge, 4) * (1 - decay(ringAge, 110));
+    const bleed = (0.065 * n + .012 * w) * swell * slow;
+    return (bass * (.44 + .56 * drop) + hum * swell + pulse + ring + bleed) *
+      Math.min(1, t * 20, (seconds - t) * 20);
+  };
+}
+
+sample("menu", 48, campusScore(48, 52, 4, .48), true);
+sample("exploration", 36, campusScore(36, 44, 6, .19), true);
+sample("tension", 24, campusScore(24, 50, 2, .8), true);
+sample("chase", 24, campusScore(24, 58, .75, 1), true);
+sample("core", 36, campusScore(36, 42, 1.5, .78), true);
+sample("discovery", 12, campusScore(12, 62, 3, .45), true);
+sample("victory", 24, campusScore(24, 48, 8, .08), true);
+sample("defeat", 16, campusScore(16, 36, 4, .22), true);
+sample("focus", .14, signal([317], .14, .12));
+sample("paper", .54, (t, w, n) => (w * .34 + n) * decay(t, 4) *
+  (0.35 + .65 * Math.abs(sine(7, t))));
+sample("terminal", .36, (t, w) => signal([229, 343, 288], .10, .08)(t) + w * .08 * decay(t, 14));
+sample("inventory", .34, impact([76, 159, 297], 12));
+sample("attack", .68, impact([49, 64, 992], 8));
 sample("steps_floor", 0.22, impact([82, 158], 19));
 sample("steps_tile", 0.2, impact([147, 367, 830], 24));
 sample("button", 0.09, impact([350, 1100], 52));

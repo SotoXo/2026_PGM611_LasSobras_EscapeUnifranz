@@ -81,6 +81,7 @@ namespace EscapeUNIFRANZ.Hazards
             if (encounter != null && encounter.RequestRespawn(defeatReason))
             {
                 armed = false;
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.AttackImpact);
             }
         }
 

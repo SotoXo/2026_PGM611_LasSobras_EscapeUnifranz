@@ -8,5 +8,6 @@ namespace EscapeUNIFRANZ.Narrative
         public string id, title, category;
         [TextArea(3,12)] public string text;
         public GameFlagId associatedFlag;
+        public bool electronic;
     }
 }

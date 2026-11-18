@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: core_confirm
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: core_confirm
-  title: "Consola del n\xFAcleo"
-  category: "Inspecci\xF3n ambiental"
-  text: "Los conectores dicen <b>C\xC1MARAS / PUERTAS / SERVIDOR / AISLADO</b>. PUBLIC
-    sigue conectado al campus: evita esa salida. La consola permite apagar solo despu\xE9s
-    de aislar y verificar."
+  title: "\u00daltima instant\u00e1nea"
+  category: "Terminal del n\u00facleo"
+  text: "El sistema prepara una respuesta para cada voz que queda en la memoria. La primera es la tuya. La fecha es de ma\u00f1ana.\n\n<b>C\u00c1MARAS \u2192 PUERTAS \u2192 SERVIDOR \u2192 AISLADO</b>. PUBLIC conserva acceso al campus. Tras el corte f\u00edsico, <b>AISLAR \u2192 VERIFICAR \u2192 APAGAR</b>."
   associatedFlag: 0
+  electronic: 1

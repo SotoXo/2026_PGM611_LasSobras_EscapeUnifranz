@@ -250,6 +250,7 @@ namespace EscapeUNIFRANZ.Core
                 resumeMode = PresentationFlowState.ResolveResumeMode(
                     gameplayMode != null ? gameplayMode.CurrentMode : GameplayMode.Explore);
                 DefeatReason = acceptedReason;
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.PlayOutcome(EscapeUNIFRANZ.Narrative.AudioCue.MusicDefeat);
                 ApplyScreen();
                 StartOutcomeTransition();
             }
@@ -356,6 +357,7 @@ namespace EscapeUNIFRANZ.Core
             if (succeeded)
             {
                 pendingEncounter = null;
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.RestoreSceneMusic();
                 flow.CompleteLoading();
             }
             else
@@ -415,6 +417,7 @@ namespace EscapeUNIFRANZ.Core
             if (boundState != null && boundState.HasFlag(GameFlagId.GameCompleted) &&
                 flow.ShowVictory())
             {
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.PlayOutcome(EscapeUNIFRANZ.Narrative.AudioCue.MusicVictory);
                 StartOutcomeTransition();
             }
         }

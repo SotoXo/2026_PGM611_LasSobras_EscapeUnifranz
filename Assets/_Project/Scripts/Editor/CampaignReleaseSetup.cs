@@ -31,14 +31,19 @@ namespace EscapeUNIFRANZ.EditorTools
                 var audio = Ensure<ProjectAudioHooks>(menu.gameObject);
                 if (audio.effects == null) audio.effects = NewSource(menu.transform, "MenuEffects");
                 if (audio.music == null) audio.music = NewSource(menu.transform, "MenuMusic");
-                audio.bindings = bindings.Where(b => b.cue == AudioCue.MusicMenu || b.cue == AudioCue.Button).ToArray();
+                audio.bindings = bindings.Where(b => b.cue == AudioCue.MusicMenu || b.cue == AudioCue.Button ||
+                    b.cue == AudioCue.MenuFocus).ToArray();
+                CampaignPolishSetup.RouteAudio(audio);
                 EnsureListener(scene);
-                ConfigureMenu(menu);
+                CampaignPolishSetup.ConfigureMenu(menu);
             });
 
             Edit(BootstrapPath, scene =>
             {
-                InScene<ProjectAudioHooks>(scene).Single().bindings = bindings;
+                var campaignAudio = InScene<ProjectAudioHooks>(scene).Single();
+                campaignAudio.bindings = bindings;
+                CampaignPolishSetup.RouteAudio(campaignAudio);
+                CampaignPolishSetup.ConfigureDocuments(scene);
                 EnsureListener(scene);
                 var view = InScene<GameFlowView>(scene).Single();
                 var flow = new SerializedObject(view);
@@ -52,7 +57,7 @@ namespace EscapeUNIFRANZ.EditorTools
                     epilogue.color = HorrorPalette.SpectralWhite;
                 }
             });
-            Debug.Log("Campaña: 30 sonidos importados y conectados a menú y Bootstrap.");
+            Debug.Log($"Campaña: {bindings.Length} eventos de audio conectados.");
         }
 
         [MenuItem("Escape UNIFRANZ/Campaña/Conectar arte de carritos")]
@@ -143,11 +148,19 @@ namespace EscapeUNIFRANZ.EditorTools
                 AudioCue.ElectricalHum => ("current", 0.12f),
                 AudioCue.HVAC => ("ventilation", 0.12f),
                 AudioCue.BuildingAmbience => ("building", 0.086f),
-                AudioCue.MusicMenu => ("menu", 0.45f),
-                AudioCue.MusicExplore => ("exploration", 0.27f),
+                AudioCue.MusicMenu => ("menu", 0.72f),
+                AudioCue.MusicExplore => ("exploration", 0.49f),
                 AudioCue.MusicTension => ("tension", 0.42f),
                 AudioCue.MusicChase => ("chase", 0.5f),
-                AudioCue.MusicCore => ("core", 0.43f),
+                AudioCue.MusicCore => ("core", 0.58f),
+                AudioCue.MusicDiscovery => ("discovery", 0.48f),
+                AudioCue.MusicVictory => ("victory", 0.42f),
+                AudioCue.MusicDefeat => ("defeat", 0.56f),
+                AudioCue.MenuFocus => ("focus", 0.26f),
+                AudioCue.PaperOpen => ("paper", 0.35f),
+                AudioCue.TerminalOpen => ("terminal", 0.35f),
+                AudioCue.InventoryOpen or AudioCue.InventoryClose => ("inventory", 0.26f),
+                AudioCue.AttackImpact => ("attack", 0.53f),
                 AudioCue.FootstepFloor => ("steps_floor", 0.27f),
                 AudioCue.FootstepTile => ("steps_tile", 0.24f),
                 AudioCue.Switch or AudioCue.CableConnect or AudioCue.FlashlightOn or AudioCue.FlashlightOff => ("switch", 0.23f),
@@ -169,95 +182,13 @@ namespace EscapeUNIFRANZ.EditorTools
                 AudioCue.CanImpact => ("can_impact", 0.58f),
                 AudioCue.FrancisBroadcast => ("francis_broadcast", 0.46f),
                 AudioCue.FrancisFarewell => ("francis_farewell", 0.55f),
-                AudioCue.Button or AudioCue.Interaction or AudioCue.InventoryOpen or AudioCue.InventoryClose or AudioCue.MapOpen or AudioCue.MapClose => ("button", 0.19f),
+                AudioCue.Button or AudioCue.Interaction or AudioCue.MapOpen or AudioCue.MapClose => ("button", 0.19f),
                 _ => throw new InvalidOperationException($"Falta el audio {cue}")
             };
 
             var asset = AssetDatabase.LoadAssetAtPath<AudioClip>(AudioPath + clip + ".wav");
             if (asset == null) throw new InvalidOperationException($"No se importó {clip}.wav");
             return new AudioCueBinding { cue = cue, clip = asset, volume = volume };
-        }
-
-        private static void ConfigureMenu(MainMenuController menu)
-        {
-            var serialized = new SerializedObject(menu);
-            if (serialized.FindProperty("optionsPanel").objectReferenceValue != null) return;
-            var main = (GameObject)serialized.FindProperty("mainPanel").objectReferenceValue;
-            var start = (Button)serialized.FindProperty("newGameButton").objectReferenceValue;
-            var font = start.GetComponentInChildren<TMP_Text>(true).font;
-
-            var resume = Command(main.transform, "Continue", "CONTINUAR", font,
-                new Vector2(870, 60), new Vector2(240, 66), new Vector2(0, 0.5f));
-            var options = Command(main.transform, "Options", "OPCIONES", font,
-                new Vector2(870, -20), new Vector2(240, 66), new Vector2(0, 0.5f));
-            resume.gameObject.SetActive(false);
-
-            var card = Rect(main.transform.parent, "OptionsPanel", new Vector2(0, -15), new Vector2(680, 510));
-            card.gameObject.SetActive(false);
-            var background = card.gameObject.AddComponent<Image>();
-            background.color = new Color(HorrorPalette.Obsidian.r, HorrorPalette.Obsidian.g, HorrorPalette.Obsidian.b, 0.97f);
-            Label(card, "Title", "OPCIONES", font, new Vector2(0, 170), new Vector2(600, 62), 48).color = HorrorPalette.Cyan;
-            var volumeText = Label(card, "Volume", string.Empty, font, new Vector2(0, 85), new Vector2(600, 48), 28);
-            var slider = VolumeSlider(card);
-            var flashes = Command(card, "ReduceFlashes", "REDUCIR DESTELLOS", font, new Vector2(0, -52), new Vector2(490, 64));
-            var back = Command(card, "Back", "VOLVER", font, new Vector2(0, -158), new Vector2(325, 62));
-            var settings = card.gameObject.AddComponent<GameOptionsView>();
-            settings.volume = slider;
-            settings.flashes = flashes;
-            settings.flashLabel = flashes.GetComponentInChildren<TMP_Text>(true);
-            settings.volumeLabel = volumeText;
-
-            // Preserve the original vertical menu and connect the two extra controls laterally.
-            var nav = start.navigation;
-            nav.selectOnRight = resume;
-            start.navigation = nav;
-            var controls = (Button)serialized.FindProperty("controlsButton").objectReferenceValue;
-            nav = controls.navigation;
-            nav.selectOnRight = options;
-            controls.navigation = nav;
-            resume.navigation = new Navigation { mode = Navigation.Mode.Explicit, selectOnLeft = start, selectOnDown = options };
-            options.navigation = new Navigation { mode = Navigation.Mode.Explicit, selectOnLeft = controls, selectOnUp = resume };
-            serialized.FindProperty("continueButton").objectReferenceValue = resume;
-            serialized.FindProperty("optionsButton").objectReferenceValue = options;
-            serialized.FindProperty("optionsPanel").objectReferenceValue = card.gameObject;
-            serialized.FindProperty("optionsBackButton").objectReferenceValue = back;
-            serialized.ApplyModifiedPropertiesWithoutUndo();
-        }
-
-        private static Slider VolumeSlider(Transform parent)
-        {
-            var root = Rect(parent, "VolumeSlider", new Vector2(0, 31), new Vector2(460, 32));
-            var track = root.gameObject.AddComponent<Image>();
-            track.color = HorrorPalette.Steel;
-            var handles = Rect(root, "HandleArea", Vector2.zero, Vector2.zero);
-            handles.anchorMin = Vector2.zero;
-            handles.anchorMax = Vector2.one;
-            handles.offsetMin = new Vector2(18, 0);
-            handles.offsetMax = new Vector2(-18, 0);
-            var handle = Rect(handles, "Handle", Vector2.zero, new Vector2(38, 42));
-            var image = handle.gameObject.AddComponent<Image>();
-            image.color = HorrorPalette.Cyan;
-            var slider = root.gameObject.AddComponent<Slider>();
-            slider.handleRect = handle;
-            slider.targetGraphic = image;
-            return slider;
-        }
-
-        private static Button Command(Transform parent, string name, string title, TMP_FontAsset font,
-            Vector2 position, Vector2 size, Vector2? anchor = null)
-        {
-            var rect = Rect(parent, name, position, size);
-            if (anchor.HasValue) rect.anchorMin = rect.anchorMax = anchor.Value;
-            var image = rect.gameObject.AddComponent<Image>();
-            image.color = HorrorPalette.Charcoal;
-            var button = rect.gameObject.AddComponent<Button>();
-            button.targetGraphic = image;
-            var colors = button.colors;
-            colors.highlightedColor = colors.selectedColor = HorrorPalette.Cyan;
-            colors.pressedColor = HorrorPalette.SurgicalGreen;
-            button.colors = colors;
-            Label(rect, "Label", title, font, Vector2.zero, size, 28);
-            return button;
         }
 
         private static TMP_Text Label(Transform parent, string name, string text, TMP_FontAsset font,
@@ -307,7 +238,7 @@ namespace EscapeUNIFRANZ.EditorTools
         private static T[] InScene<T>(Scene scene) where T : Component =>
             scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<T>(true)).ToArray();
 
-        private static void Edit(string path, Action<Scene> edit)
+        internal static void Edit(string path, Action<Scene> edit)
         {
             var scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
             edit(scene);

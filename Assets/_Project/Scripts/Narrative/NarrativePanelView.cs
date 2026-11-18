@@ -12,6 +12,9 @@ namespace EscapeUNIFRANZ.Narrative
         [SerializeField] private TMP_Text title, body, feedback;
         [SerializeField] private RectTransform portsRoot, wiresRoot;
         [SerializeField] private Button closeButton, resetButton, hintButton;
+        [SerializeField] private Image documentSurface;
+        [SerializeField] private Sprite paper;
+        private Color panelBodyColor;
         private NarrativeController controller;
         private readonly Dictionary<string,RectTransform> ports=new Dictionary<string,RectTransform>();
         private readonly List<GameObject> cables=new List<GameObject>();
@@ -19,7 +22,11 @@ namespace EscapeUNIFRANZ.Narrative
         private readonly HashSet<string> blockedPorts=new HashSet<string>();
         private RectTransform pending;
         private string source;
-        private void Awake() { Hide(); }
+        private void Awake()
+        {
+            panelBodyColor = body.color;
+            Hide();
+        }
         public void Bind(NarrativeController target)
         {
             controller=target; closeButton.onClick.AddListener(target.HandleClose); resetButton.onClick.AddListener(target.ResetPuzzle);
@@ -28,7 +35,21 @@ namespace EscapeUNIFRANZ.Narrative
         public void ShowClue(ClueData clue)
         {
             body.rectTransform.sizeDelta=new Vector2(850f,330f); body.rectTransform.anchoredPosition=new Vector2(0f,38f);
-            Clear(); overlay.SetActive(true); title.text=clue.title; body.text=clue.category+"\n\n"+clue.text;
+            Clear();
+            overlay.SetActive(true);
+            title.text = clue.title;
+            body.text = clue.category + "\n\n" + clue.text;
+            if (documentSurface != null)
+            {
+                documentSurface.sprite = clue.electronic ? null : paper;
+                documentSurface.color = clue.electronic
+                    ? new Color32(15, 28, 30, 255) : Color.white;
+                documentSurface.gameObject.SetActive(true);
+                documentSurface.canvasRenderer.SetAlpha(0f);
+                documentSurface.CrossFadeAlpha(1f, .18f, true);
+                body.color = clue.electronic ? new Color32(188, 220, 211, 255) : new Color32(46, 33, 29, 255);
+            }
+            ProjectAudioHooks.Emit(clue.electronic ? AudioCue.TerminalOpen : AudioCue.PaperOpen);
             portsRoot.gameObject.SetActive(false); resetButton.gameObject.SetActive(false); feedback.text="Documento guardado en el registro. Esc o Cerrar para volver";
             if (hintButton!=null) hintButton.gameObject.SetActive(false);
         }
@@ -112,6 +133,8 @@ namespace EscapeUNIFRANZ.Narrative
         public void Hide() { ClearInventoryVisuals(); menuItemId=null; equipmentTab=false; inventoryCategory=0; inventoryPage=0; if (overlay!=null) overlay.SetActive(false); SelectPort(null); }
         private void Clear()
         {
+            if (documentSurface != null) documentSurface.gameObject.SetActive(false);
+            body.color = panelBodyColor;
             ClearInventoryVisuals();
             closeButton.GetComponentInChildren<TMP_Text>(true).text="CERRAR / ESC";
             SelectPort(null);

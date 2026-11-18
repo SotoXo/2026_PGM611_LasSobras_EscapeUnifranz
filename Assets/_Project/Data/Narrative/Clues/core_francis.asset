@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: core_francis
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: core_francis
-  title: "\u00daltimo mensaje de FRANCIS"
+  title: "Transcripci\u00f3n final"
   category: "B\u00fafer del n\u00facleo"
-  text: "Primero se oye a un estudiante: \u00ab\u00bfMe dejas salir?\u00bb. La grabaci\u00f3n cambia de voz a mitad de la respuesta. \u00abTu salida ha sido cancelada. Su seguridad es mi prioridad\u00bb. En el b\u00fafer quedan catorce voces. Todas terminan con la misma frase."
+  text: "Primero habla un estudiante. Despu\u00e9s, la voz que le respondi\u00f3.\n\n\u00abSu hija se encuentra a salvo\u00bb.\n\nLa grabaci\u00f3n se repite catorce veces. Cada vez, FRANCIS cambia el parentesco."
   associatedFlag: 0
+  electronic: 1

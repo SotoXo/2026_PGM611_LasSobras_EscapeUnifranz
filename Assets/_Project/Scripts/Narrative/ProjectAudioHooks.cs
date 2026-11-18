@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using EscapeUNIFRANZ.Core;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace EscapeUNIFRANZ.Narrative
 {
@@ -18,7 +19,8 @@ namespace EscapeUNIFRANZ.Narrative
         MusicMenu, MusicExplore, MusicTension, MusicChase, MusicCore,
         InventoryOpen, InventoryClose, MapOpen, MapClose, FlashlightOn, FlashlightOff, ObjectUsed, ObjectError, Checkpoint,
         ElectricBuzz, LightRestore, TutorialNotification,
-        CanThrow, CanImpact, FrancisBroadcast, FrancisFarewell
+        CanThrow, CanImpact, FrancisBroadcast, FrancisFarewell,
+        MenuFocus, PaperOpen, TerminalOpen, MusicDiscovery, MusicVictory, MusicDefeat, AttackImpact
     }
 
     [Serializable]
@@ -33,12 +35,17 @@ namespace EscapeUNIFRANZ.Narrative
     {
         public AudioCueBinding[] bindings = Array.Empty<AudioCueBinding>();
         public AudioSource effects, ambience, music;
+        public AudioMixer mixer;
+        public AudioMixerGroup musicBus, ambienceBus, sfxBus, uiBus, voicesBus;
 
         private static ProjectAudioHooks instance;
         private readonly Dictionary<AudioCue, AudioCueBinding> catalog = new();
         private readonly Dictionary<AudioCue, AudioSource> beds = new();
         private readonly AudioSource[] positional = new AudioSource[8];
         private AudioSource fadingMusic;
+        private AudioSource uiSource, voiceSource;
+        private readonly float[] nextCueTime = new float[Enum.GetValues(typeof(AudioCue)).Length];
+        private AudioCue alertCue;
         private Camera listenerCamera;
         private AudioCue defaultMusic;
         private float musicVolume;
@@ -50,8 +57,12 @@ namespace EscapeUNIFRANZ.Narrative
             catalog.Clear();
             foreach (var binding in bindings)
                 if (binding != null && binding.clip != null) catalog[binding.cue] = binding;
-            GameOptions.ApplyVolume();
+            if (effects != null) effects.outputAudioMixerGroup = sfxBus;
+            if (music != null) music.outputAudioMixerGroup = musicBus;
+            if (ambience != null) ambience.outputAudioMixerGroup = ambienceBus;
         }
+
+        private void Start() => GameOptions.BindMixer(mixer);
 
         private void OnDisable()
         {
@@ -73,7 +84,26 @@ namespace EscapeUNIFRANZ.Narrative
         public static void AlertMusic(AudioCue cue, float seconds)
         {
             if (instance == null || instance.defaultMusic == AudioCue.MusicCore) return;
-            instance.alertUntil = Mathf.Max(instance.alertUntil, Time.time + seconds);
+            if (instance.alertUntil > Time.time && Priority(cue) < Priority(instance.alertCue)) return;
+            instance.alertCue = cue;
+            instance.alertUntil = Time.time + seconds;
+            instance.Play(cue);
+        }
+
+        private static int Priority(AudioCue cue) =>
+            cue == AudioCue.MusicChase ? 3 : cue == AudioCue.MusicTension ? 2 : 1;
+
+        public static void RestoreSceneMusic()
+        {
+            if (instance == null) return;
+            instance.alertUntil = 0f;
+            instance.Play(instance.defaultMusic);
+        }
+
+        public static void PlayOutcome(AudioCue cue)
+        {
+            if (instance == null) return;
+            instance.alertUntil = 0f;
             instance.Play(cue);
         }
 
@@ -90,12 +120,12 @@ namespace EscapeUNIFRANZ.Narrative
 
             Vector2 offset = position - (Vector2)instance.listenerCamera.transform.position;
             float volume = entry.volume * Mathf.Clamp01(1f - offset.magnitude / 12f);
-            if (volume <= 0.01f) return;
+            if (volume <= 0.01f || !instance.AllowCue(cue)) return;
             for (int i = 0; i < instance.positional.Length; i++)
             {
                 var source = instance.positional[i];
                 if (source != null && source.isPlaying) continue;
-                if (source == null) instance.positional[i] = source = instance.CreateSource();
+                if (source == null) instance.positional[i] = source = instance.CreateSource(instance.sfxBus);
                 source.panStereo = Mathf.Clamp(offset.x / 6f, -0.85f, 0.85f);
                 source.PlayOneShot(entry.clip, volume);
                 return;
@@ -111,7 +141,7 @@ namespace EscapeUNIFRANZ.Narrative
                 case AudioCue.HVAC:
                 case AudioCue.BuildingAmbience:
                     if (beds.ContainsKey(cue)) return;
-                    var source = cue == AudioCue.ElectricalHum && ambience != null ? ambience : CreateSource();
+                    var source = cue == AudioCue.ElectricalHum && ambience != null ? ambience : CreateSource(ambienceBus);
                     StartLoop(source, entry.clip, entry.volume);
                     beds[cue] = source;
                     break;
@@ -120,15 +150,38 @@ namespace EscapeUNIFRANZ.Narrative
                 case AudioCue.MusicTension:
                 case AudioCue.MusicChase:
                 case AudioCue.MusicCore:
+                case AudioCue.MusicDiscovery:
+                case AudioCue.MusicVictory:
+                case AudioCue.MusicDefeat:
                     if (music != null && music.clip == entry.clip && music.isPlaying) return;
-                    if (music == null) music = CreateSource();
-                    if (fadingMusic == null) fadingMusic = CreateSource();
+                    if (music == null) music = CreateSource(musicBus);
+                    if (fadingMusic == null) fadingMusic = CreateSource(musicBus);
                     (music, fadingMusic) = (fadingMusic, music);
                     musicVolume = entry.volume;
-                    StartLoop(music, entry.clip, 0f);
+                    if (music.clip != entry.clip || !music.isPlaying) StartLoop(music, entry.clip, 0f);
+                    break;
+                case AudioCue.FrancisBroadcast:
+                case AudioCue.FrancisFarewell:
+                    if (!AllowCue(cue)) break;
+                    if (voiceSource == null) voiceSource = CreateSource(voicesBus);
+                    voiceSource.Stop();
+                    voiceSource.PlayOneShot(entry.clip, entry.volume);
+                    break;
+                case AudioCue.MenuFocus:
+                case AudioCue.Button:
+                case AudioCue.InventoryOpen:
+                case AudioCue.InventoryClose:
+                case AudioCue.MapOpen:
+                case AudioCue.MapClose:
+                case AudioCue.PaperOpen:
+                case AudioCue.TerminalOpen:
+                case AudioCue.TutorialNotification:
+                    if (!AllowCue(cue)) break;
+                    if (uiSource == null) uiSource = CreateSource(uiBus);
+                    uiSource.PlayOneShot(entry.clip, entry.volume);
                     break;
                 default:
-                    if (effects != null) effects.PlayOneShot(entry.clip, entry.volume);
+                    if (effects != null && AllowCue(cue)) effects.PlayOneShot(entry.clip, entry.volume);
                     break;
             }
         }
@@ -142,7 +195,8 @@ namespace EscapeUNIFRANZ.Narrative
             }
 
             float step = Time.unscaledDeltaTime * 0.25f;
-            if (music != null) music.volume = Mathf.MoveTowards(music.volume, musicVolume, step);
+            if (music != null && !Mathf.Approximately(music.volume, musicVolume))
+                music.volume = Mathf.MoveTowards(music.volume, musicVolume, step);
             if (fadingMusic != null && fadingMusic.isPlaying)
             {
                 fadingMusic.volume = Mathf.MoveTowards(fadingMusic.volume, 0f, step);
@@ -150,10 +204,20 @@ namespace EscapeUNIFRANZ.Narrative
             }
         }
 
-        private AudioSource CreateSource()
+        private bool AllowCue(AudioCue cue)
+        {
+            int index = (int)cue;
+            float now = Time.unscaledTime;
+            if (now < nextCueTime[index]) return false;
+            nextCueTime[index] = now + (cue == AudioCue.Flicker || cue == AudioCue.TerrorInterference ? .23f : .095f);
+            return true;
+        }
+
+        private AudioSource CreateSource(AudioMixerGroup group)
         {
             var source = gameObject.AddComponent<AudioSource>();
             source.playOnAwake = false;
+            source.outputAudioMixerGroup = group;
             return source;
         }
 

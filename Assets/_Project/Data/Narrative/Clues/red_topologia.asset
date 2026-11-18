@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: red_topologia
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: red_topologia
-  title: "Pizarra de enlaces de Tecnolog\xEDa"
-  category: Redes
-  text: "El <b>SERVIDOR</b> env\xEDa informaci\xF3n al edificio. La ruta A est\xE1
-    <b>COMPROMETIDA</b>. Usa <b>SWITCH-02</b>, que mantiene la conexi\xF3n al <b>LAB</b>.
-    Un switch une lugares: busca la ruta azul que evita el nodo rojo."
+  title: "Ruta del operador"
+  category: "Pizarra en Tecnolog\u00eda"
+  text: "Dibuj\u00e9 la ruta A antes del apag\u00f3n. Al volver, alguien hab\u00eda marcado todas las aulas abiertas con el nombre de la persona que quedaba dentro.\n\nEnlaza <b>SERVIDOR \u2192 SWITCH-02 \u2192 LAB</b>. La ruta A est\u00e1 comprometida."
   associatedFlag: 0
+  electronic: 0

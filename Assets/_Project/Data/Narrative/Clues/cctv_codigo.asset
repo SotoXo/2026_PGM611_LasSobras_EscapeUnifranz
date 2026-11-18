@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: cctv_codigo
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: cctv_codigo
-  title: "CAM 1 \u2014 placa del Hall"
-  category: "Observaci\xF3n CCTV"
-  text: "<b>C\xF3digo observado: 3174.</b> La placa aparece en CAM 02 \u2014 Hall.
-    Vuelve al lector del acceso e introduce esos cuatro n\xFAmeros."
+  title: "Fotograma 02"
+  category: "CCTV \u00b7 Hall"
+  text: "22:19:04. El reflejo en el vidrio de admisi\u00f3n levanta la cabeza un segundo antes que la persona del pasillo.\n\n<b>Placa legible: 3174.</b> Es la autorizaci\u00f3n local del lector junto al acceso al Hall."
   associatedFlag: 31
+  electronic: 1

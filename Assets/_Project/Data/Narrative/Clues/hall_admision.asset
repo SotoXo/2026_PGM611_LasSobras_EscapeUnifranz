@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: hall_admision
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: hall_admision
-  title: "Mostrador sin atenci\u00f3n"
-  category: "Accesos"
-  text: "El supervisor dej\u00f3 la <b>llave</b> de ARCA en una mesa de la <b>cafeter\u00eda</b>. El aviso de admisi\u00f3n marcaba \u00abevacuaci\u00f3n en curso\u00bb. Cuando volvieron las c\u00e1maras, el mismo aviso dec\u00eda \u00abocupantes en custodia\u00bb."
+  title: "Lista de salida"
+  category: "Aviso de admisi\u00f3n \u00b7 escrito a mano"
+  text: "La lista dice que salimos diecisiete. Cont\u00e9 tres en la calle. En el espacio de mi firma hay una huella que ya estaba seca.\n\nLa <b>llave de ARCA</b> sigue en una mesa de la <b>cafeter\u00eda</b>."
   associatedFlag: 0
+  electronic: 0
