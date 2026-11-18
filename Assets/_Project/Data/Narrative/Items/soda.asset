@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd372b4744aae54882cc8ef4f0a2fb8, type: 3}
+  m_Name: soda
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ItemData
+  id: soda
+  displayName: Lata de refresco
+  description: "L\xE1nzala con [G] para distraer a los carritos. Se puede recoger
+    de nuevo."
+  examineText: "Una lata naranja, todav\xEDa fr\xEDa. Si la lanzas lejos, el ruido
+    atraer\xE1 a los carritos hacia ese punto. Luego puedes ir a recogerla."
+  icon: {fileID: 21300000, guid: a0fa858e7cd6a5945ae45587a9048758, type: 3}
+  fallbackIcon: SOD
+  consumable: 1
+  stackable: 1
+  placeholderIcon: 0
+  category: 2
+  immediateUse: 0
