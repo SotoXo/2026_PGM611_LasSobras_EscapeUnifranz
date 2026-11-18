@@ -39,6 +39,6 @@ La amenaza se lee con señales: aviso, persecución y área activa. Las paredes 
 
 ## Audio y atribución
 
-La música tiene pistas de menú, exploración, alarma, persecución y núcleo. Los ambientes separan fluorescentes, aire y vibración del edificio. El terror ambiental deja intervalos de exploración con golpes aislados y eventos controlados por la campaña. Los anuncios de FRANCIS combinan señales de transmisión sintetizadas con texto subtitulado.
+La música tiene pistas de menú, exploración, descubrimiento, alarma, persecución, núcleo, Victoria y Game Over. Los ambientes separan fluorescentes, aire y vibración del edificio. El terror ambiental deja intervalos de exploración con golpes aislados y eventos controlados por la campaña. Los anuncios de FRANCIS combinan señales de transmisión sintetizadas con texto subtitulado.
 
-Los 30 WAV de esta integración son originales, a 24 kHz mono, generados por el script local del repositorio. El arte, control táctil, tipografías y pantallas se acreditan al equipo en el README, menú y créditos. Los carritos usan los atlas de garra, rampa y sierra ya presentes en el trabajo local del proyecto.
+Los 38 WAV de la campaña son originales, a 24 kHz mono, generados por el script local del repositorio. El arte, control táctil, tipografías y pantallas se acreditan al equipo en el README, menú y créditos. Los carritos usan los atlas de garra, rampa y sierra ya presentes en el trabajo local del proyecto.

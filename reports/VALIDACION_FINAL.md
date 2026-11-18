@@ -1,5 +1,7 @@
 # Validación de Escape UNIFRANZ
 
+Las cifras de esta primera validación corresponden a la campaña de `feat/terror-final`. Para las compilaciones y las pruebas de la corrección de menú y rendimiento, consulta [Performance Audit](PERFORMANCE_AUDIT.md).
+
 ## Resultados automatizados
 
 - Unity **6000.3.16f1** importó y compiló el proyecto. Se trabajó en EditMode y por lotes.
