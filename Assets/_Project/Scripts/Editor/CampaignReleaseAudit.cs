@@ -115,8 +115,13 @@ namespace EscapeUNIFRANZ.EditorTools
                         var francis = Components<FrancisBossController>(scene).Single();
                         CheckFields(francis, errors, "interferenceHazard", "encounter");
                     }
-                    foreach (var p in activePuzzles)
-                        Require(PuzzleModel.Validate(p.puzzle, out string error), $"{scene.name}/{p.name}: {error}", errors);
+                    var clueSources = Components<ClueInteractable>(scene).Where(Active).Select(component => component.clue)
+                        .Concat(Components<SecurityTerminalInteractable>(scene).Where(Active).SelectMany(terminal => terminal.feeds)
+                            .Where(feed => !feed.noSignal).Select(feed => feed.clue))
+                        .Concat(activePuzzles.Select(component => component.puzzle?.environmentalClue))
+                        .Where(clue => clue != null).Select(clue => clue.id).ToHashSet();
+                    foreach (var panel in activePuzzles)
+                        CheckPuzzle(scene.name, panel, clueSources, errors);
 
                     var rooms = Components<RoomLightingController>(scene).Where(Active).ToArray();
                     foreach (var room in rooms)
@@ -142,7 +147,8 @@ namespace EscapeUNIFRANZ.EditorTools
                     foreach (var target in Components<InteractableBehaviour>(scene)
                                  .Where(c => Active(c) && (c is ZoneExitInteractable || c is ClueInteractable ||
                                      c is ItemPickupInteractable || c is PuzzleInteractable || c is VendingMachineInteractable ||
-                                     c is SecurityTerminalInteractable || c is EnvironmentalControlInteractable || c is ShelterInteractable)))
+                                     c is SecurityTerminalInteractable || c is EnvironmentalControlInteractable || c is ShelterInteractable ||
+                                     c is ExolegOverloadInteractable || c is RobotArmsPanelInteractable || c is FrancisSystemNodeInteractable)))
                     {
                         if (!map.IsReachable(target.transform.position, 0.92f))
                             errors.Add($"{scene.name}/{target.name}: interacción aislada {target.transform.position:F2}");
@@ -191,6 +197,26 @@ namespace EscapeUNIFRANZ.EditorTools
         private static bool Active(Behaviour component) => component.isActiveAndEnabled;
 
         private static bool Active(Collider2D collider) => collider.enabled && collider.gameObject.activeInHierarchy;
+
+        private static void CheckPuzzle(string sceneName, PuzzleInteractable panel, HashSet<string> sources, List<string> errors)
+        {
+            var data = panel.puzzle;
+            if (!PuzzleModel.Validate(data, out string error))
+            {
+                errors.Add($"{sceneName}/{panel.name}: {error}");
+                return;
+            }
+
+            foreach (string clue in (data.prerequisiteClues ?? Array.Empty<string>()).Append(data.requiredClueId))
+                Require(string.IsNullOrWhiteSpace(clue) || sources.Contains(clue), $"{sceneName}/{panel.name}: no hay fuente para {clue}", errors);
+
+            var model = new PuzzleModel(data);
+            var solution = data.IsConnectionPuzzle
+                ? data.connections.Select(connection => model.Connect(connection.from, connection.to))
+                : data.commandOrder.Select(model.Command);
+            Require(solution.All(result => result != PuzzleSubmission.Rejected) && model.IsComplete,
+                $"{sceneName}/{panel.name}: la solución de escena no completa el puzle", errors);
+        }
 
         private static void CheckFields(UnityEngine.Object target, List<string> errors, params string[] fields)
         {
