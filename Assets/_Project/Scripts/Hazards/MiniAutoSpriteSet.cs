@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace EscapeUNIFRANZ.Hazards
 {
@@ -12,6 +13,9 @@ namespace EscapeUNIFRANZ.Hazards
 
         private enum Direction { Right, Left, Up, Down }
 
+        private static readonly Dictionary<(Texture2D,Texture2D,Texture2D), MiniAutoSpriteSet> cache = new Dictionary<(Texture2D,Texture2D,Texture2D), MiniAutoSpriteSet>();
+        private (Texture2D,Texture2D,Texture2D) key;
+        private int references;
         private readonly Sprite[,] movement;
         private readonly Sprite[,] vertical;
         private readonly Sprite[,] impact;
@@ -28,7 +32,9 @@ namespace EscapeUNIFRANZ.Hazards
             if (!HasGrid(movement, 10, 3) || !HasGrid(vertical, 1, 2) || !HasGrid(impact, 5, 3))
                 return null;
 
-            return new MiniAutoSpriteSet(movement, vertical, impact);
+            var key=(movement,vertical,impact);
+            if (!cache.TryGetValue(key,out var set)) {set=new MiniAutoSpriteSet(movement,vertical,impact); set.key=key; cache.Add(key,set);}
+            set.references++; return set;
         }
 
         public Sprite Frame(Vector2 facing, MiniAutoWear wear, bool moving, float movementTime, float impactTime, out bool flipX)
@@ -67,6 +73,8 @@ namespace EscapeUNIFRANZ.Hazards
 
         public void Dispose()
         {
+            if (--references > 0) return;
+            cache.Remove(key);
             foreach (Sprite sprite in movement) Object.Destroy(sprite);
             foreach (Sprite sprite in vertical) Object.Destroy(sprite);
             foreach (Sprite sprite in impact) Object.Destroy(sprite);

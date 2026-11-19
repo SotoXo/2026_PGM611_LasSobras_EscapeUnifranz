@@ -11,6 +11,7 @@ namespace EscapeUNIFRANZ.Hazards
         public SpriteRenderer[] bodyRenderers;
         private Color[] original;
         private ThreatVisualState state;
+        public ThreatVisualState State => state;
         private void Awake()
         { original=new Color[bodyRenderers.Length]; for(int i=0;i<original.Length;i++) original[i]=bodyRenderers[i].color; }
         public void Show(ThreatVisualState value)
