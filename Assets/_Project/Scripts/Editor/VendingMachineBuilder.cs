@@ -82,6 +82,83 @@ namespace EscapeUNIFRANZ.EditorTools
             Debug.Log("[Expendedoras] Listo en " + string.Join(", ", Floors.Select(f => f.scene)) + ". Jugar: [E] comprar/recoger, [G] lanzar.");
         }
 
+        [MenuItem("Escape UNIFRANZ/Expendedoras/Reparar máquinas existentes")]
+        public static void RepairExistingMachines()
+        {
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+            AssetDatabase.Refresh();
+
+            // Estos recursos ya existen en el proyecto; la reparación solo completa
+            // referencias que quedaron vacías y conserva la posición de cada máquina.
+            foreach (string path in DrinkFrames)
+                if (AssetDatabase.LoadAssetAtPath<Sprite>(path) == null)
+                    ImportSprite(path, SpriteAlignment.BottomCenter);
+
+            string idlePath = V2 + "expendedora_bebidas_reposo_64.png";
+            if (AssetDatabase.LoadAssetAtPath<Sprite>(idlePath) == null)
+                ImportSprite(idlePath, SpriteAlignment.BottomCenter);
+
+            string friturasPath = V2 + "expendedora_frituras_64.png";
+            if (AssetDatabase.LoadAssetAtPath<Sprite>(friturasPath) == null)
+                ImportSprite(friturasPath, SpriteAlignment.BottomCenter);
+
+            string canPath = CanArt;
+            if (AssetDatabase.LoadAssetAtPath<Sprite>(canPath) == null)
+                ImportSprite(canPath, SpriteAlignment.Center);
+
+            var soda = AssetDatabase.LoadAssetAtPath<ItemData>(SodaAsset);
+            if (soda == null) soda = MakeSoda();
+            PrepareBootstrap(soda);
+
+            int repaired = 0;
+            foreach (var floor in Floors)
+            {
+                string scenePath = "Assets/_Project/Scenes/Zones/" + floor.scene + ".unity";
+                var scene = SceneManager.GetSceneByPath(scenePath);
+                bool opened = !scene.IsValid() || !scene.isLoaded;
+                if (opened) scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Additive);
+
+                foreach (var machine in scene.GetRootGameObjects()
+                    .SelectMany(g => g.GetComponentsInChildren<VendingMachineInteractable>(true)))
+                {
+                    var so = new SerializedObject(machine);
+                    var product = so.FindProperty("product");
+                    var body = so.FindProperty("body");
+                    var idle = so.FindProperty("idleSprite");
+                    var frames = so.FindProperty("purchaseFrames");
+
+                    if (product != null && product.objectReferenceValue == null)
+                    {
+                        product.objectReferenceValue = soda;
+                        repaired++;
+                    }
+
+                    var renderer = machine.GetComponent<SpriteRenderer>();
+                    if (body != null && body.objectReferenceValue == null) body.objectReferenceValue = renderer;
+                    if (idle != null && idle.objectReferenceValue == null)
+                        idle.objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(idlePath);
+
+                    if (frames != null && frames.arraySize == 0)
+                    {
+                        frames.arraySize = DrinkFrames.Length;
+                        for (int i = 0; i < DrinkFrames.Length; i++)
+                            frames.GetArrayElementAtIndex(i).objectReferenceValue =
+                                AssetDatabase.LoadAssetAtPath<Sprite>(DrinkFrames[i]);
+                    }
+
+                    so.ApplyModifiedProperties();
+                    EditorUtility.SetDirty(machine);
+                }
+
+                EditorSceneManager.MarkSceneDirty(scene);
+                EditorSceneManager.SaveScene(scene);
+                if (opened) EditorSceneManager.CloseScene(scene, true);
+            }
+
+            AssetDatabase.SaveAssets();
+            Debug.Log("[Expendedoras] Reparación terminada. Referencias de producto completadas: " + repaired);
+        }
+
         private static void ImportSprite(string path, SpriteAlignment alignment)
         {
             AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport);
