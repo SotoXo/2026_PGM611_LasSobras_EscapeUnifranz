@@ -29,6 +29,16 @@ namespace EscapeUNIFRANZ.EditorTools
         static int width, height;
         static bool[] solid, reachable;
         static Material material;
+        // Authored stair treads are walkable floor, not furniture footprints.
+        // These rectangles use the source canvas's bottom-left pixel coordinates.
+        static readonly RectInt[] StairTreads = {
+            new RectInt(70, 126, 20, 16),
+            new RectInt(249, 87, 30, 30),
+            new RectInt(432, 47, 29, 28)
+        };
+        // The authored landing is nine pixels wide. A corner pixel and an
+        // isolated wall-layer fleck cross it; they must not block the stairs.
+        static readonly RectInt StairLanding = new RectInt(79, 115, 9, 13);
 
         [MenuItem("Escape UNIFRANZ/Art/Replace Ground Floor With Mapa Completo")]
         public static void Build()
@@ -45,12 +55,11 @@ namespace EscapeUNIFRANZ.EditorTools
             if (width != 610 || height != 285 || walls.width != width || walls.height != height || objects.width != width || objects.height != height)
                 throw new InvalidOperationException("Expected three aligned 610 x 285 layers.");
             var fp = floor.GetPixels32(); var wp = walls.GetPixels32(); var op = objects.GetPixels32();
-            // Open a walkable doorway at the east end of the dental room's north wall.
-            // Coordinates are in map pixels, measured from the bottom left.
-            var dentalDoorway = new RectInt(215, 108, 17, 17);
+            var elevatorDoor = ElevatorMapIntegration.FindDoor(objects, false);
+            ElevatorMapIntegration.ClearDoor(op, width, elevatorDoor);
             var wallMask = wp.Select(pixel => pixel.a >= 128).ToArray();
-            for (int y = dentalDoorway.yMin; y < dentalDoorway.yMax; y++)
-                for (int x = dentalDoorway.xMin; x < dentalDoorway.xMax; x++)
+            for (int y = StairLanding.yMin; y < StairLanding.yMax; y++)
+                for (int x = StairLanding.xMin; x < StairLanding.xMax; x++)
                     wallMask[y * width + x] = false;
             solid = new bool[width * height];
             for (int i = 0; i < solid.Length; i++) solid[i] = fp[i].a < 128 || wallMask[i];
@@ -60,7 +69,10 @@ namespace EscapeUNIFRANZ.EditorTools
             foreach (var r in props)
                 for (int y = r.yMin; y < Math.Min(r.yMax, r.yMin + Mathf.Max(2, Mathf.RoundToInt(r.height * .4f))); y++)
                     for (int x = r.xMin; x < r.xMax; x++)
-                        if (op[y * width + x].a >= 128) solid[y * width + x] = true;
+                        if (op[y * width + x].a >= 128 && !StairLanding.Contains(new Vector2Int(x, y)) &&
+                            !StairTreads.Any(stair => stair.Contains(new Vector2Int(x, y))))
+                            solid[y * width + x] = true;
+            ValidateStairsAndWall(fp, wp, wallMask);
             FindReachable();
             var root = PrefabUtility.LoadPrefabContents(PrefabPath);
             try
@@ -71,23 +83,18 @@ namespace EscapeUNIFRANZ.EditorTools
                 var visual = new GameObject("MapaCompleto").transform; visual.SetParent(root.transform, false);
                 Draw(visual, Slice("mapa_suelo", new[] { new RectInt(0, 0, width, height) }, "Suelo")[0], new RectInt(0, 0, width, height), "Ground");
                 var bands = new List<RectInt>();
-                for (int y = 0; y < height;)
-                {
-                    int end = Math.Min(y + 8, height);
-                    if (y < dentalDoorway.yMin) end = Math.Min(end, dentalDoorway.yMin);
-                    else if (y < dentalDoorway.yMax) end = Math.Min(end, dentalDoorway.yMax);
-                    if (y >= dentalDoorway.yMin && y < dentalDoorway.yMax)
-                    {
-                        bands.Add(new RectInt(0, y, dentalDoorway.xMin, end - y));
-                        bands.Add(new RectInt(dentalDoorway.xMax, y, width - dentalDoorway.xMax, end - y));
-                    }
-                    else bands.Add(new RectInt(0, y, width, end - y));
-                    y = end;
-                }
+                for (int y = 0; y < height; y += 8)
+                    bands.Add(new RectInt(0, y, width, Math.Min(8, height - y)));
                 var wallSprites = Slice("mapa_muros", bands, "Wall");
                 for (int i = 0; i < bands.Count; i++) Draw(visual, wallSprites[i], bands[i], "World");
                 var propSprites = Slice("mapa_objetos", props, "Prop");
-                for (int i = 0; i < props.Count; i++) Draw(visual, propSprites[i], props[i], "World");
+                for (int i = 0; i < props.Count; i++)
+                {
+                    var rect = props[i];
+                    bool stair = StairTreads.Any(s => s.Contains(new Vector2Int(Mathf.RoundToInt(rect.center.x), Mathf.RoundToInt(rect.center.y))));
+                    var sprite = Draw(visual, propSprites[i], rect, stair ? "Decals" : "World");
+                    if (!stair && rect.height >= 10) sprite.gameObject.AddComponent<WorldObjectOcclusion2D>();
+                }
                 var collision = BuildGeometry(root.transform, "WorldCollision_Authored", solid,
                     CompositeCollider2D.GeometryType.Polygons, out int collisionRectangles);
 
@@ -169,6 +176,22 @@ namespace EscapeUNIFRANZ.EditorTools
                 else EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             }
             Debug.Log("MAPA_COMPLETO_OK: replaced ground floor in three scenes; all spawn positions validated on connected walkable floor.");
+        }
+
+        static void ValidateStairsAndWall(Color32[] floor, Color32[] walls, bool[] wallMask)
+        {
+            for (int i = 0; i < walls.Length; i++)
+                if (!StairLanding.Contains(new Vector2Int(i % width, i / width)) && wallMask[i] != (walls[i].a >= 128))
+                    throw new InvalidOperationException("Wall collision must preserve every authored wall pixel.");
+            foreach (var stair in StairTreads)
+                for (int y = stair.yMin; y < stair.yMax; y++)
+                    for (int x = stair.xMin; x < stair.xMax; x++)
+                    {
+                        int i = y * width + x;
+                        if (floor[i].a >= 128 && !wallMask[i] && solid[i])
+                            throw new InvalidOperationException("Stair treads must not have furniture collision.");
+                    }
+            Debug.Log("STAIRS_AND_WALL_OK: all three stair flights and the narrow landing are walkable; complete authored wall artwork is preserved.");
         }
 
         public static void CleanAndLight() => CampaignGroundFloor.Apply();
@@ -322,8 +345,8 @@ namespace EscapeUNIFRANZ.EditorTools
                 exit = owner.AddComponent<ZoneExitInteractable>();
             }
             var exitData = new SerializedObject(exit);
-            exitData.FindProperty("targetZoneId").stringValue = "piso2";
-            exitData.FindProperty("targetSpawnId").stringValue = "from_hall";
+            exitData.FindProperty("targetZoneId").stringValue = "aula2";
+            exitData.FindProperty("targetSpawnId").stringValue = "from_elevator";
             exitData.ApplyModifiedPropertiesWithoutUndo();
             var circuit = new ElevatorCircuit();
             int[] referenceTurns = { 0, 1, 2, 1, 1, 2, 0, 3, 1, 1, 0, 1, 0, 2, 1, 1 };
@@ -429,6 +452,21 @@ namespace EscapeUNIFRANZ.EditorTools
             renderer.sortingOrder = WorldYSort2D.Order(pickup.transform.position.y);
             pickup.transform.localScale = Vector3.one * .18f;
             trigger.radius /= pickup.transform.localScale.x;
+            var returnSpawn = zone.GetComponentsInChildren<SpawnPoint>(true).FirstOrDefault(s => s.SpawnId == "from_aula2_elevator");
+            if (returnSpawn == null)
+            {
+                var owner = new GameObject("Spawn_from_aula2_elevator"); owner.transform.SetParent(zone.transform, false);
+                returnSpawn = owner.AddComponent<SpawnPoint>();
+                var spawnData = new SerializedObject(returnSpawn); spawnData.FindProperty("spawnId").stringValue = "from_aula2_elevator";
+                spawnData.ApplyModifiedPropertiesWithoutUndo();
+            }
+            var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(Folder + "MapaCompleto/mapa_objetos.png");
+            var doorRect = ElevatorMapIntegration.FindDoor(texture, false);
+            Vector2 cabin = ElevatorMapIntegration.CabinCenter(doorRect, Ppu);
+            returnSpawn.transform.position = art.TransformPoint(Safe(cabin));
+            ElevatorMapIntegration.Configure(exit, art, doorRect, Ppu, false);
+            if (!exit.elevatorAnimation.cabinBounds.Contains(returnSpawn.Position))
+                throw new InvalidOperationException("The elevator arrival spawn must be inside the ground-floor cabin.");
         }
 
         static void ConfigureHallAccess(ZoneContext zone)
@@ -515,12 +553,13 @@ namespace EscapeUNIFRANZ.EditorTools
             provider.Apply(); AssetImporter.GetAtPath(path).SaveAndReimport();
             return AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>().OrderBy(s => s.name).ToArray();
         }
-        static void Draw(Transform parent, Sprite sprite, RectInt r, string layer)
+        static SpriteRenderer Draw(Transform parent, Sprite sprite, RectInt r, string layer)
         {
             var go = new GameObject(sprite.name); go.transform.SetParent(parent,false);
             go.transform.localPosition = new Vector3(r.center.x/Ppu,r.y/Ppu,0);
             var sr = go.AddComponent<SpriteRenderer>(); sr.sprite=sprite; sr.sharedMaterial=material;
             sr.sortingLayerName=layer; sr.sortingOrder=layer=="Ground"?0:WorldYSort2D.Order(r.y/Ppu);
+            return sr;
         }
         static List<RectInt> Components(Color32[] pixels)
         {

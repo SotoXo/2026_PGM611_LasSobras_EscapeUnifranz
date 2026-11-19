@@ -1,0 +1,10 @@
+Elevador piso 2, al tamaño de elevadorPiso2.png
+Lienzo de 80 × 80 px. Puerta y marco de 37 × 25 px.
+Posición superior izquierda, x=22, y=27.
+10 fotogramas de apertura, fondo transparente.
+Dos capas en elevador_piso2.ase, Puertas y Marco.
+sprites.png tiene diez columnas de 80 × 80 px.
+sprites.json contiene las posiciones y las duraciones.
+apertura.gif muestra el tamaño original.
+vista_previa_4x.gif amplía los píxeles para revisar.
+El estado cerrado coincide píxel por píxel con la referencia.

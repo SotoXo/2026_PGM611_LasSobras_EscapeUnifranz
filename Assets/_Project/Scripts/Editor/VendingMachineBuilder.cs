@@ -48,6 +48,22 @@ namespace EscapeUNIFRANZ.EditorTools
 
         private static string[] DrinkFrames => Enumerable.Range(0, 6).Select(i => V2 + "bebidas_compra_0" + i + "_64.png").ToArray();
 
+        public static void InstallInAula2()
+        {
+            foreach(string p in DrinkFrames) ImportSprite(p,SpriteAlignment.BottomCenter);
+            ImportSprite(V2+"expendedora_bebidas_reposo_64.png",SpriteAlignment.BottomCenter);
+            ImportSprite(CanArt,SpriteAlignment.Center);
+            var soda=MakeSoda();AssetDatabase.SaveAssets();PrepareBootstrap(soda);
+            Vector2 position=Aula2MapBuilder.FindOpenPosition(new Vector2(414f/32f,(576f-320f)/32f));
+            PlaceFloor("Z07_Aula2",new[]{new Spot("Expendedora_Prueba_Abril","aula2_abril_prueba",true,position.x*64,position.y*64)},soda);
+            var scene=SceneManager.GetSceneByPath("Assets/_Project/Scenes/Zones/Z07_Aula2.unity");
+            var machine=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<VendingMachineInteractable>()).Single();
+            var label=new GameObject("Prueba_Abril");label.transform.SetParent(machine.transform,false);label.transform.localPosition=Vector3.up*1.1f;
+            var text=label.AddComponent<TMPro.TextMeshPro>();text.text="Abril · Expendedora de prueba";text.fontSize=1.5f;text.alignment=TMPro.TextAlignmentOptions.Center;text.rectTransform.sizeDelta=new Vector2(3.5f,.4f);
+            text.GetComponent<MeshRenderer>().sortingLayerName="Effects";
+            EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);
+        }
+
         [MenuItem("Escape UNIFRANZ/Expendedoras/Instalar en piso 1 y 2")]
         public static void Install()
         {
@@ -64,6 +80,83 @@ namespace EscapeUNIFRANZ.EditorTools
             foreach (var floor in Floors) PlaceFloor(floor.scene, floor.spots, soda);
             AssetDatabase.SaveAssets();
             Debug.Log("[Expendedoras] Listo en " + string.Join(", ", Floors.Select(f => f.scene)) + ". Jugar: [E] comprar/recoger, [G] lanzar.");
+        }
+
+        [MenuItem("Escape UNIFRANZ/Expendedoras/Reparar máquinas existentes")]
+        public static void RepairExistingMachines()
+        {
+            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+            AssetDatabase.Refresh();
+
+            // Estos recursos ya existen en el proyecto; la reparación solo completa
+            // referencias que quedaron vacías y conserva la posición de cada máquina.
+            foreach (string path in DrinkFrames)
+                if (AssetDatabase.LoadAssetAtPath<Sprite>(path) == null)
+                    ImportSprite(path, SpriteAlignment.BottomCenter);
+
+            string idlePath = V2 + "expendedora_bebidas_reposo_64.png";
+            if (AssetDatabase.LoadAssetAtPath<Sprite>(idlePath) == null)
+                ImportSprite(idlePath, SpriteAlignment.BottomCenter);
+
+            string friturasPath = V2 + "expendedora_frituras_64.png";
+            if (AssetDatabase.LoadAssetAtPath<Sprite>(friturasPath) == null)
+                ImportSprite(friturasPath, SpriteAlignment.BottomCenter);
+
+            string canPath = CanArt;
+            if (AssetDatabase.LoadAssetAtPath<Sprite>(canPath) == null)
+                ImportSprite(canPath, SpriteAlignment.Center);
+
+            var soda = AssetDatabase.LoadAssetAtPath<ItemData>(SodaAsset);
+            if (soda == null) soda = MakeSoda();
+            PrepareBootstrap(soda);
+
+            int repaired = 0;
+            foreach (var floor in Floors)
+            {
+                string scenePath = "Assets/_Project/Scenes/Zones/" + floor.scene + ".unity";
+                var scene = SceneManager.GetSceneByPath(scenePath);
+                bool opened = !scene.IsValid() || !scene.isLoaded;
+                if (opened) scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Additive);
+
+                foreach (var machine in scene.GetRootGameObjects()
+                    .SelectMany(g => g.GetComponentsInChildren<VendingMachineInteractable>(true)))
+                {
+                    var so = new SerializedObject(machine);
+                    var product = so.FindProperty("product");
+                    var body = so.FindProperty("body");
+                    var idle = so.FindProperty("idleSprite");
+                    var frames = so.FindProperty("purchaseFrames");
+
+                    if (product != null && product.objectReferenceValue == null)
+                    {
+                        product.objectReferenceValue = soda;
+                        repaired++;
+                    }
+
+                    var renderer = machine.GetComponent<SpriteRenderer>();
+                    if (body != null && body.objectReferenceValue == null) body.objectReferenceValue = renderer;
+                    if (idle != null && idle.objectReferenceValue == null)
+                        idle.objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(idlePath);
+
+                    if (frames != null && frames.arraySize == 0)
+                    {
+                        frames.arraySize = DrinkFrames.Length;
+                        for (int i = 0; i < DrinkFrames.Length; i++)
+                            frames.GetArrayElementAtIndex(i).objectReferenceValue =
+                                AssetDatabase.LoadAssetAtPath<Sprite>(DrinkFrames[i]);
+                    }
+
+                    so.ApplyModifiedProperties();
+                    EditorUtility.SetDirty(machine);
+                }
+
+                EditorSceneManager.MarkSceneDirty(scene);
+                EditorSceneManager.SaveScene(scene);
+                if (opened) EditorSceneManager.CloseScene(scene, true);
+            }
+
+            AssetDatabase.SaveAssets();
+            Debug.Log("[Expendedoras] Reparación terminada. Referencias de producto completadas: " + repaired);
         }
 
         private static void ImportSprite(string path, SpriteAlignment alignment)
@@ -103,6 +196,8 @@ namespace EscapeUNIFRANZ.EditorTools
             var scene = SceneManager.GetSceneByPath(Bootstrap);
             bool opened = !scene.IsValid() || !scene.isLoaded;
             if (opened) scene = EditorSceneManager.OpenScene(Bootstrap, OpenSceneMode.Additive);
+            soda = AssetDatabase.LoadAssetAtPath<ItemData>(SodaAsset);
+            if (soda == null) throw new InvalidOperationException("No se encontró el producto soda de la expendedora.");
 
             var controller = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<NarrativeController>(true)).FirstOrDefault();
             if (controller == null) throw new InvalidOperationException("No hay NarrativeController en Bootstrap.");
@@ -128,6 +223,9 @@ namespace EscapeUNIFRANZ.EditorTools
         private static void PlaceFloor(string sceneName, Spot[] spots, ItemData soda)
         {
             var scene = EditorSceneManager.OpenScene("Assets/_Project/Scenes/Zones/" + sceneName + ".unity", OpenSceneMode.Single);
+            // Opening a scene can unload/reimport previously held ScriptableObjects.
+            soda = AssetDatabase.LoadAssetAtPath<ItemData>(SodaAsset);
+            if (soda == null) throw new InvalidOperationException("No se encontró el producto soda de la expendedora.");
             var zone = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<ZoneContext>(true)).First();
             var old = zone.transform.Find(RootName); if (old != null) Object.DestroyImmediate(old.gameObject);
             var root = new GameObject(RootName).transform; root.SetParent(zone.transform, false);

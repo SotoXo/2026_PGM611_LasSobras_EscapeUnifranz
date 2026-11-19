@@ -81,6 +81,18 @@ namespace EscapeUNIFRANZ.Player
                 return;
             }
 
+            // El personaje se gira hacia lo que va a usar y hace un pulso de acción.
+            PlayerVisualController visual = PlayerVisualController.Active;
+            if (visual != null)
+            {
+                if (target is MonoBehaviour targetBehaviour && targetBehaviour != null)
+                {
+                    visual.FaceTowards(targetBehaviour.transform.position);
+                }
+
+                visual.PlayAction(PlayerVisualController.ActionPose.Interact);
+            }
+
             target.Interact();
             RefreshTarget();
         }

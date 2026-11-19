@@ -80,7 +80,7 @@ namespace EscapeUNIFRANZ.Narrative
         {
             if (!Open(GameplayMode.Puzzle)) return;
             bool repaired = circuit == null;
-            view.Options("ASCENSOR", repaired ? "El ascensor está listo para subir al segundo piso." :
+            view.Options("ASCENSOR", repaired ? "El ascensor está listo para subir al aula 2." :
                 "El panel de control necesita reparación.", new[] { "Interactuar con el ascensor", "Volver" }, choice =>
             {
                 if (choice != 0) { Close(); return; }

@@ -153,7 +153,7 @@ namespace EscapeUNIFRANZ.EditorTools
             }
             if (hall)
             {
-                var exit = zone.GetComponentsInChildren<ZoneExitInteractable>().Single(c => c.TargetZoneId == "piso2");
+                var exit = zone.GetComponentsInChildren<ZoneExitInteractable>().Single(c => c.name == "ExitToPiso2");
                 if (exit.elevatorPanel == null)
                 {
                     exit.transform.position = walkable.Nearest(new Vector2(12.93f, 5.58f));
