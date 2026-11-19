@@ -35,6 +35,10 @@ namespace EscapeUNIFRANZ.Hazards
         private float movementTime;
         private float impactTime = -1f;
         private float nextServoAt;
+        [SerializeField, Min(0.1f)] private float reactionSeconds = 0.65f;
+        [SerializeField, Min(1f)] private float maxChaseSeconds = 9f;
+        private float chaseUntil, nextDistractionAt;
+        private bool operationalBeforeSuspend;
 
         private void Awake()
         {
@@ -70,9 +74,11 @@ namespace EscapeUNIFRANZ.Hazards
             if(value && startupSeconds>0) { State=MobileThreatState.Idle; mover.enabled=false; sensor.enabled=false; feedback?.Show(ThreatVisualState.Alert); }
         }
         private void Contact(bool value) { foreach(var contact in GetComponentsInChildren<HazardContact2D>(true)) contact.SetContactAllowed(value); }
+        public void PlayImpact() { impactTime=0f; RenderCar(false); }
         public void SuspendFor(float seconds)
         {
             bool wasOperational = operational;
+            if (disabledUntil<=0f) operationalBeforeSuspend=operational;
             disabledUntil = Time.time + Mathf.Max(1f, seconds);
             SetOperational(false);
             if (wasOperational && spriteSet != null)
@@ -110,9 +116,10 @@ namespace EscapeUNIFRANZ.Hazards
         }
         public void DistractAt(Vector2 point,float seconds)
         {
-            if (!operational || startupUntil > 0f) return;
+            if (!operational || startupUntil > 0f || Time.time < nextDistractionAt || (sensor != null && sensor.HasTarget)) return;
+            nextDistractionAt=Time.time+Mathf.Max(1f,seconds)+2f;
             sensor.enabled=false; sensor.ClearTarget(); distractionUntil=Time.time+seconds; visibleTarget=null; lastSeen=point; State=MobileThreatState.Search; transitionAt=Time.time+seconds;
-            Contact(false); mover.Investigate(point,1.4f); feedback?.Show(ThreatVisualState.Patrol);
+            Contact(false); mover.Investigate(point,1.4f); feedback?.Show(ThreatVisualState.Alert);
         }
         private void Update()
         {
@@ -128,12 +135,12 @@ namespace EscapeUNIFRANZ.Hazards
             if (sensor.transform!=mover.transform && mover.Facing.sqrMagnitude>0f)
                 sensor.transform.localRotation=Quaternion.Euler(0f,0f,Vector2.SignedAngle(Vector2.up,mover.Facing));
             if (visibleTarget!=null) lastSeen=visibleTarget.position;
-            if (State==MobileThreatState.Chase && visibleTarget!=null) return;
+            if (State==MobileThreatState.Chase && visibleTarget!=null) { if (Time.time < chaseUntil && !mover.RouteBlocked) return; sensor.ClearTarget(); sensor.enabled=false; distractionUntil=Time.time+chaseSeconds; }
             if (Time.time<transitionAt) return;
             if (State==MobileThreatState.Suspicious && visibleTarget!=null)
-            { State=MobileThreatState.Alert; transitionAt=Time.time+0.65f; feedback?.Show(ThreatVisualState.Alert); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotAlert, transform.position); if (optionalAudio!=null && alertSound!=null) optionalAudio.PlayOneShot(alertSound); }
+            { State=MobileThreatState.Alert; transitionAt=Time.time+reactionSeconds; feedback?.Show(ThreatVisualState.Alert); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotAlert, transform.position); if (optionalAudio!=null && alertSound!=null) optionalAudio.PlayOneShot(alertSound); }
             else if (State==MobileThreatState.Alert && visibleTarget!=null)
-            { State=MobileThreatState.Chase; Contact(true); feedback?.Show(ThreatVisualState.Attack); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotChase, transform.position); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.AlertMusic(EscapeUNIFRANZ.Narrative.AudioCue.MusicChase, 6f); mover.SetChaseTarget(visibleTarget,chaseSpeed); }
+            { State=MobileThreatState.Chase; chaseUntil=Time.time+maxChaseSeconds; Contact(true); feedback?.Show(ThreatVisualState.Attack); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotChase, transform.position); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.AlertMusic(EscapeUNIFRANZ.Narrative.AudioCue.MusicChase, 6f); mover.SetChaseTarget(visibleTarget,chaseSpeed); }
             else if (State==MobileThreatState.Search)
             { State=MobileThreatState.Return; Contact(false); feedback?.Show(ThreatVisualState.Patrol); mover.ResumePatrol(); transitionAt=Time.time+0.5f; }
             else if (State==MobileThreatState.Return) State=MobileThreatState.Patrol;
@@ -151,7 +158,9 @@ namespace EscapeUNIFRANZ.Hazards
             impactTime = -1f;
             movementTime = 0f;
             visibleTarget = null;
-            distractionUntil = 0f;
+            if (disabledUntil > 0f) operational = operationalBeforeSuspend;
+            distractionUntil = disabledUntil = startupUntil = nextDistractionAt = chaseUntil = 0f;
+            if (mover != null) mover.enabled = operational;
             sensor?.ClearTarget();
             if (sensor != null) sensor.enabled = operational && startupUntil <= 0f;
             mover?.ResetEncounter();

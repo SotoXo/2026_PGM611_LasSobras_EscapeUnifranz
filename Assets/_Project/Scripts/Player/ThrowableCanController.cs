@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using EscapeUNIFRANZ.Core;
+using EscapeUNIFRANZ.Encounters;
 using EscapeUNIFRANZ.Hazards;
 using EscapeUNIFRANZ.Narrative;
 using EscapeUNIFRANZ.World;
@@ -105,13 +106,23 @@ namespace EscapeUNIFRANZ.Player
             sr.sprite = canSprite; sr.sortingLayerName = "World";
             can.transform.localScale = Vector3.one * 0.7f;
 
-            float duration = Mathf.Max(0.15f, distance / flightSpeed), t = 0f;
+            Vector2 previousGround = from;
+            float duration = Mathf.Max(0.15f, distance / Mathf.Max(.1f,flightSpeed)), t = 0f;
             while (t < 1f)
             {
                 if (can == null) yield break;
+                if (mode != null && !mode.AllowsMovement) { yield return null; continue; }
                 t += Time.deltaTime / duration;
                 float k = Mathf.Clamp01(t);
                 Vector2 ground = Vector2.Lerp(from, to, k);
+                Vector2 segment=ground-previousGround;
+                var filter=ContactFilter2D.noFilter; filter.useTriggers=false;
+                Physics2D.CircleCast(previousGround,.07f,segment.normalized,filter,hits,segment.magnitude);
+                float allowed=segment.magnitude;
+                foreach(var hit in hits) if(hit.collider!=null && !hit.transform.IsChildOf(transform) && !hit.transform.IsChildOf(can.transform))
+                    allowed=Mathf.Min(allowed,Mathf.Max(0f,hit.distance-.08f));
+                if(allowed < segment.magnitude) {to=previousGround+segment.normalized*allowed;break;}
+                previousGround=ground;
                 can.transform.position = ground + Vector2.up * Mathf.Sin(k * Mathf.PI) * 0.6f;
                 can.transform.rotation = Quaternion.Euler(0f, 0f, 720f * k);
                 sr.sortingOrder = WorldYSort2D.Order(ground.y);
@@ -126,6 +137,9 @@ namespace EscapeUNIFRANZ.Player
             var pickup = can.AddComponent<ThrownCanPickup>(); pickup.itemId = itemId; pickup.BindSession(session);
 
             ProjectAudioHooks.EmitAt(AudioCue.CanImpact, to);
+            foreach (var dog in FindObjectsByType<RobotDogEncounterController>(FindObjectsSortMode.None))
+                if ((dog.UnitPosition-to).sqrMagnitude <= noiseRadius*noiseRadius && DetectionSensor2D.HasLineOfSight(dog.UnitPosition,to,~0,dog.UnitTransform,null,hits))
+                    dog.DistractAt(to,distractSeconds);
             foreach (var robot in FindObjectsByType<MiniAutoController>(FindObjectsSortMode.None))
             {
                 Vector2 eye = (Vector2)robot.transform.position + Vector2.up * 0.12f;

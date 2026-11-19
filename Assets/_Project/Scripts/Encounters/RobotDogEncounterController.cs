@@ -17,12 +17,13 @@ namespace EscapeUNIFRANZ.Encounters
 
         private readonly RobotDogEncounterStateMachine machine = new RobotDogEncounterStateMachine();
         private GameSessionController session;
+        private GameplayModeController gameplayMode;
         private float searchUntil;
         public bool requireCameraAlarm;
         private bool alarmActivated;
         private Vector2 lastSeen;
         private float disabledUntil, attackAt;
-        private float distractionUntil;
+        private float distractionUntil, nextDistractionAt, chaseUntil;
         public ThreatFeedback2D feedback;
         public Vector2 UnitPosition => mover!=null ? (Vector2)mover.transform.position : (Vector2)transform.position;
         public Transform UnitTransform => mover!=null ? mover.transform : transform;
@@ -35,7 +36,7 @@ namespace EscapeUNIFRANZ.Encounters
             mover.GetComponent<Rigidbody2D>().linearVelocity=Vector2.zero; feedback?.Show(ThreatVisualState.Disabled);
         }
         public void DistractAt(Vector2 point,float seconds)
-        { if (TemporarilyDisabled || machine.Current==RobotDogEncounterState.Disabled) return; ActivateFromAlarm(); sensor.enabled=false; sensor.ClearTarget(); lastSeen=point; machine.Detect(); machine.LoseTarget(); distractionUntil=Time.time+seconds; searchUntil=Time.time+seconds; Contact(false); mover.Investigate(point,2f); }
+        { if (session == null || TemporarilyDisabled || machine.Current==RobotDogEncounterState.Disabled || sensor.HasTarget || Time.time < nextDistractionAt) return; nextDistractionAt=Time.time+Mathf.Max(1f,seconds)+2f; ActivateFromAlarm(); sensor.enabled=false; sensor.ClearTarget(); lastSeen=point; machine.Detect(); machine.LoseTarget(); distractionUntil=Time.time+seconds; searchUntil=Time.time+seconds; Contact(false); mover.Investigate(point,2f); }
         public bool CaptureAtStation() { return DisableNetworkNode(0) && DisableNetworkNode(1); }
         public void ActivateFromAlarm()
         { if (session==null || session.State.HasFlag(GameFlagId.RobotDogDisabled)) return; alarmActivated=true; if (TemporarilyDisabled) return; mover.enabled=true; sensor.enabled=Time.time>=distractionUntil; foreach(var contact in GetComponentsInChildren<HazardContact2D>(true)) contact.enabled=true; }
@@ -44,7 +45,7 @@ namespace EscapeUNIFRANZ.Encounters
 
         public void Initialize(ZoneRuntimeContext context)
         {
-            session = context.Session;
+            session = context.Session; gameplayMode=context.GameplayMode;
             Contact(false);
             alarmActivated=!requireCameraAlarm;
             if (requireCameraAlarm) { mover.enabled=false; sensor.enabled=false; foreach(var contact in GetComponentsInChildren<HazardContact2D>(true)) contact.enabled=false; }
@@ -73,12 +74,13 @@ namespace EscapeUNIFRANZ.Encounters
 
         private void Update()
         {
+            if (session == null || gameplayMode == null || !gameplayMode.AllowsMovement) return;
             if (disabledUntil>0f)
             {
                 if (Time.time<disabledUntil) return;
                 disabledUntil=0f; mover.enabled=alarmActivated; sensor.enabled=alarmActivated; mover.ResumePatrol(); feedback?.Show(ThreatVisualState.Patrol); attackAt=Time.time+0.65f;
             }
-            if (sensor!=null && sensor.CurrentTarget!=null) lastSeen=sensor.CurrentTarget.position;
+            if (sensor!=null && sensor.CurrentTarget!=null) { lastSeen=sensor.CurrentTarget.position; if(Time.time>=chaseUntil || mover.RouteBlocked) { sensor.ClearTarget(); sensor.enabled=false; distractionUntil=Time.time+searchSeconds; } }
             if (distractionUntil>0f && Time.time>=distractionUntil) { distractionUntil=0f; sensor.enabled=alarmActivated && machine.Current!=RobotDogEncounterState.Disabled; }
             if (machine.Current==RobotDogEncounterState.Alert && sensor.HasTarget && Time.time>=attackAt)
             { Contact(true); feedback?.Show(ThreatVisualState.Attack); mover.SetChaseTarget(sensor.CurrentTarget,alertSpeed); }
@@ -94,6 +96,7 @@ namespace EscapeUNIFRANZ.Encounters
         {
             if (!alarmActivated) return;
             lastSeen=target.position;
+            chaseUntil=Time.time+9f;
             if (machine.Detect())
             {
                 encounter?.BeginEncounter();
@@ -138,7 +141,11 @@ namespace EscapeUNIFRANZ.Encounters
         {
             if (machine.Reset())
             {
-                searchUntil = 0f;
+                searchUntil = disabledUntil = distractionUntil = nextDistractionAt = 0f;
+                attackAt=Time.time+0.65f;
+                Contact(false);
+                mover.enabled=alarmActivated; sensor.enabled=alarmActivated;
+                feedback?.Show(ThreatVisualState.Patrol);
                 sensor?.ClearTarget();
                 mover?.ResetEncounter();
             }
