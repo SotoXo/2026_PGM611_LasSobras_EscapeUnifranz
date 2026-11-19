@@ -53,6 +53,7 @@ namespace EscapeUNIFRANZ.Interaction
         /// <summary>Recoger: pose del jugador, el objeto vuela hacia él y sale "+ nombre".</summary>
         public static void Pickup(Sprite sprite, Vector2 from, string label)
         {
+            if (!Application.isPlaying) return;
             PlayerVisualController player = PlayerVisualController.Active;
             if (player != null)
             {
@@ -73,6 +74,7 @@ namespace EscapeUNIFRANZ.Interaction
         /// <summary>Usar un objeto sobre algo del mundo: pose del jugador y texto flotante.</summary>
         public static void Use(Vector2 at, string label)
         {
+            if (!Application.isPlaying) return;
             PlayerVisualController player = PlayerVisualController.Active;
             if (player != null)
             {
@@ -88,12 +90,14 @@ namespace EscapeUNIFRANZ.Interaction
         /// <summary>Nube de polvo que se expande y se desvanece (p. ej. al caer una lata).</summary>
         public static void Puff(Vector2 position, Color color)
         {
+            if (!Application.isPlaying) return;
             Runner.StartCoroutine(PuffRoutine(position, color));
         }
 
         /// <summary>Texto que sube y se desvanece sobre un punto del mundo.</summary>
         public static void Popup(string text, Vector2 position, Color color)
         {
+            if (!Application.isPlaying) return;
             Runner.StartCoroutine(PopupRoutine(text, position, color));
         }
 

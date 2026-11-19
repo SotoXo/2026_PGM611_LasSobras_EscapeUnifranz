@@ -17,10 +17,13 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         [TestCase("Z04_Piso3")]
         [TestCase("Z05_LabSoftware")]
         [TestCase("Z06_NucleoIA")]
+        [TestCase("Z07_Aula2")]
         public void SceneHasValidEnemyRoutesAndVisualBindings(string zone)
         {
             var path="Assets/_Project/Scenes/Zones/"+zone+".unity";
-            var scene=EditorSceneManager.OpenScene(path,OpenSceneMode.Additive);
+            var scene=SceneManager.GetSceneByPath(path);
+            bool opened=!scene.isLoaded;
+            if(opened) scene=EditorSceneManager.OpenScene(path,OpenSceneMode.Additive);
             try
             {
                 Physics2D.SyncTransforms();
@@ -36,7 +39,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
                         for(int i=0;i<points.arraySize;i++)
                         {
                             Assert.That(points.GetArrayElementAtIndex(i).objectReferenceValue,Is.Not.Null);
-                            var blockers=Physics2D.OverlapCircleAll(route.GetPoint(i),.18f).Where(c=>!c.isTrigger&&!c.transform.IsChildOf(mover.transform));
+                            var blockers=Physics2D.OverlapCircleAll(route.GetPoint(i),.18f).Where(c=>c.gameObject.scene==scene&&!c.isTrigger&&!c.transform.IsChildOf(mover.transform));
                             Assert.That(blockers.Count(),Is.Zero,zone+" "+mover.name+" waypoint "+i);
                         }
                     }
@@ -53,7 +56,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
                     }
                 }
             }
-            finally { EditorSceneManager.CloseScene(scene,true); }
+            finally { if(opened) EditorSceneManager.CloseScene(scene,true); }
         }
     }
 }
