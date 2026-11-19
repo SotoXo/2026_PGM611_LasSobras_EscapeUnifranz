@@ -11,6 +11,22 @@ namespace EscapeUNIFRANZ.Player
         private Vector3 velocity;
         private Vector3 previousTarget;
         private bool initialized;
+        private Camera view;
+        private Rect? zoneBounds;
+
+        public void SetZoneBounds(Rect bounds)
+        {
+            zoneBounds = bounds;
+            initialized = false;
+        }
+
+        private void Awake() => view = GetComponent<Camera>();
+
+        public static float ConstrainAxis(float target, float low, float high, float halfViewport)
+        {
+            if (high - low <= halfViewport * 2f) return (low + high) * 0.5f;
+            return Mathf.Clamp(target, low + halfViewport, high - halfViewport);
+        }
 
         private void OnEnable() { initialized = false; }
 
@@ -18,6 +34,14 @@ namespace EscapeUNIFRANZ.Player
         {
             if (target == null) return;
             Vector3 desired = new Vector3(target.position.x, target.position.y, transform.position.z);
+            if (zoneBounds.HasValue && view != null && view.orthographic)
+            {
+                Rect bounds = zoneBounds.Value;
+                float halfHeight = view.orthographicSize;
+                float halfWidth = halfHeight * view.aspect;
+                desired.x = ConstrainAxis(desired.x, bounds.xMin, bounds.xMax, halfWidth);
+                desired.y = ConstrainAxis(desired.y, bounds.yMin, bounds.yMax, halfHeight);
+            }
             if (!initialized || (target.position - previousTarget).sqrMagnitude > teleportDistance * teleportDistance)
             {
                 transform.position = desired;

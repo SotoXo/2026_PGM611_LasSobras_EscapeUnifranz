@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: hardware_alerta
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: hardware_alerta
-  title: Incidente de laboratorio
-  category: Registro de infraestructura
-  text: "<b>Verte no es tocarte.</b> La luz amarilla y el signo <b>!</b> anuncian
-    una persecuci\xF3n. Usa paredes como cobertura. Los paneles de mantenimiento
-    pueden cortar la alimentaci\xF3n de una unidad durante unos segundos."
+  title: "Parte de mantenimiento"
+  category: "Registro de infraestructura"
+  text: "Las c\u00e1maras empezaron a seguir a diecisiete estudiantes durante la prueba de Simulaci\u00f3n. La \u00faltima lista de evacuaci\u00f3n solo registra tres. Si ves el signo <b>!</b>, rompe la l\u00ednea de visi\u00f3n con una pared. Una lata lanzada por el pasillo aparta a los carritos que puedan o\u00edrla."
   associatedFlag: 0

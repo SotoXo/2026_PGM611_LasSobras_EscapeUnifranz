@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: network_confirm
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: network_confirm
-  title: Rack abierto
-  category: "Inspecci\xF3n ambiental"
-  text: "La ruta A muestra una advertencia roja. El cartel de <b>SWITCH-02</b> apunta
-    al <b>LAB</b>. Falta un <b>M\xD3DULO DE RED</b> en el hueco del distribuidor."
+  title: "Registro de voces duplicadas"
+  category: "Pantalla del distribuidor"
+  text: "22:19. El canal de ayuda transmiti\u00f3 desde una sala cerrada. Cuando desconectaron el micr\u00f3fono, la se\u00f1al sigui\u00f3 sonando por el retorno.\n\nLa ruta A est\u00e1 comprometida. Usa <b>SWITCH-02 \u2192 LAB</b>. Falta el <b>m\u00f3dulo de red</b>."
   associatedFlag: 0
+  electronic: 1

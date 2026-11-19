@@ -27,6 +27,8 @@ namespace EscapeUNIFRANZ.UI
         private Vector2 backgroundOrigin;
         private Quaternion backgroundRotation;
         private Vector2 parallaxVelocity;
+        private float nextVisualUpdate;
+        private const float VisualInterval = 1f / 30f;
 
         public Vector2 CurrentParallaxOffset => background != null
             ? background.anchoredPosition - backgroundOrigin
@@ -46,7 +48,9 @@ namespace EscapeUNIFRANZ.UI
         private void Update()
         {
             float now = Time.unscaledTime;
-            float deltaTime = Mathf.Max(Time.unscaledDeltaTime, 0.0001f);
+            if (now < nextVisualUpdate) return;
+            float deltaTime = Mathf.Clamp(now - nextVisualUpdate + VisualInterval, VisualInterval, 0.12f);
+            nextVisualUpdate = now + VisualInterval;
             UpdateParallax(deltaTime);
             UpdateScanline(now);
             UpdateStatusPulse(now);
@@ -79,23 +83,18 @@ namespace EscapeUNIFRANZ.UI
             }
 
             Vector2 target = backgroundOrigin + Vector2.Scale(normalizedPointer, maxOffset);
-            background.anchoredPosition = Vector2.SmoothDamp(
-                background.anchoredPosition,
-                target,
-                ref parallaxVelocity,
-                smoothTime,
-                Mathf.Infinity,
-                deltaTime);
+            Vector2 position = background.anchoredPosition;
+            if ((target - position).sqrMagnitude > .0025f)
+                background.anchoredPosition = Vector2.SmoothDamp(position, target, ref parallaxVelocity,
+                    smoothTime, Mathf.Infinity, deltaTime);
 
             Quaternion targetRotation = backgroundRotation * Quaternion.Euler(
                 0f,
                 0f,
                 -normalizedPointer.x * maxTiltDegrees);
             float damping = 1f - Mathf.Exp(-deltaTime / smoothTime);
-            background.localRotation = Quaternion.Slerp(
-                background.localRotation,
-                targetRotation,
-                damping);
+            if (Quaternion.Angle(background.localRotation, targetRotation) > .01f)
+                background.localRotation = Quaternion.Slerp(background.localRotation, targetRotation, damping);
         }
 
         private void UpdateScanline(float now)

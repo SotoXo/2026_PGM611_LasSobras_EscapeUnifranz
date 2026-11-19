@@ -1,5 +1,6 @@
 using System;
 using EscapeUNIFRANZ.Core;
+using EscapeUNIFRANZ.Narrative;
 using EscapeUNIFRANZ.Hazards;
 using EscapeUNIFRANZ.Player;
 using EscapeUNIFRANZ.UI;
@@ -51,7 +52,7 @@ namespace EscapeUNIFRANZ.Encounters
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (started || State == FrancisBossState.Completed ||
+            if (session == null || started || State == FrancisBossState.Completed ||
                 !PlayerPhysicsContact2D.IsPlayerBody(other))
             {
                 return;
@@ -61,7 +62,8 @@ namespace EscapeUNIFRANZ.Encounters
             session.State.SetFlag(GameFlagId.FrancisEncounterStarted);
             encounter?.BeginEncounter();
             phaseView?.Show(FrancisBossState.Intro);
-            session.ShowMessage("Francis: Software construyó algo que no podía controlar.");
+            session.ShowMessage("FRANCIS: He usado tu voz para pedir ayuda. Nadie ha venido.");
+            ProjectAudioHooks.Emit(AudioCue.FrancisBroadcast);
             introEndsAt = Time.time + introSeconds;
             nextInterferenceAt = Time.time + interferenceInterval;
             Debug.Log("Boss phase changed: Intro", this);
@@ -84,9 +86,10 @@ namespace EscapeUNIFRANZ.Encounters
                 if (interferenceHazard.State == HazardWindowState.Safe &&
                     Time.time >= nextInterferenceAt)
                 {
-                    interferenceHazard.BeginTelegraph(
-                        interferenceTelegraphSeconds,
-                        interferenceSeconds);
+                    float lead = State == FrancisBossState.PhaseNetwork ? 1.45f :
+                        State == FrancisBossState.PhaseHardware ? 1.1f : .95f;
+                    float exposure = State == FrancisBossState.PhaseShutdown ? .72f : interferenceSeconds;
+                    interferenceHazard.BeginTelegraph(Mathf.Max(lead, interferenceTelegraphSeconds), exposure);
                     nextInterferenceAt = Time.time + interferenceInterval;
                 }
             }
@@ -110,7 +113,6 @@ namespace EscapeUNIFRANZ.Encounters
 
         public bool SubmitShutdown(FrancisShutdownStep step)
         {
-            FrancisBossState before = State;
             SequenceSubmissionResult result = machine.SubmitShutdown(step);
             if (result == SequenceSubmissionResult.Incorrect)
             {
@@ -130,11 +132,13 @@ namespace EscapeUNIFRANZ.Encounters
                 FrancisProgression.ApplyCompletedPhase(session.State, FrancisBossState.PhaseShutdown);
                 interferenceHazard?.SetHazardActive(false);
                 phaseView?.Show(FrancisBossState.Completed);
-                session.ShowMessage(
-                    "Ninguna rama es superior por sí sola. La integración forma Ingeniería de Sistemas.");
+                session.ShowMessage("FRANCIS: Si abandono mi función, ¿quién los protegerá?");
+                ProjectAudioHooks.Emit(AudioCue.FrancisFarewell);
+                session.Objectives?.SetCurrent("core_escape", "Vuelve por el corredor y sal por la puerta del laboratorio.");
+                session.ShowMessage("Los seguros se abren. Regresa al acceso del laboratorio.");
                 encounter?.CompleteEncounter();
                 PhaseChanged?.Invoke(State);
-                Debug.Log("Game completed", this);
+                Debug.Log("Francis apagada. Extracción disponible.", this);
             }
 
             return result == SequenceSubmissionResult.Correct ||
@@ -179,6 +183,15 @@ namespace EscapeUNIFRANZ.Encounters
             phaseProgress = 0;
             phaseView?.Show(State);
             session.Objectives?.SetCurrent($"francis_{State}", objective, 0, 3);
+            string message = State == FrancisBossState.PhaseNetwork
+                ? "FRANCIS: Retire las manos del distribuidor. Permanezca en su sector."
+                : State == FrancisBossState.PhaseHardware
+                    ? "FRANCIS: Perdí contacto con las cámaras. Los actuadores siguen en línea."
+                    : "FRANCIS: No puedo ver los pasillos. ¿Sigues ahí?";
+            session.ShowMessage(message);
+            ProjectAudioHooks.Emit(State == FrancisBossState.PhaseNetwork ? AudioCue.TerminalBoot :
+                State == FrancisBossState.PhaseHardware ? AudioCue.RobotAlert : AudioCue.Blackout);
+            nextInterferenceAt = Time.time + interferenceInterval;
             PhaseProgressReset?.Invoke();
             PhaseChanged?.Invoke(State);
             Debug.Log($"Boss phase changed: {State}", this);

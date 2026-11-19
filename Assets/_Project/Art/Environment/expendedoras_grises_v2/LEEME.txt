@@ -1,0 +1,11 @@
+EXPENDEDORAS GRISES v2
+
+Dos disenos con carcasa gris metalica: frituras y bebidas, PNG RGBA64x64 con transparencia. Los productos conservan sus colores.
+Bebidas: reposo, seleccion/espera, caida inicial, caida inferior, llegada a bandeja, lista para recoger.
+Reposo y espera comparten pose para que la lata naranja empiece arriba y descienda sin saltar hacia arriba.
+ASE bebidas: etiqueta Reposo(fotograma1) y Compra_refresco(fotogramas2-6). Reproducir compra una vez y mantener el final hasta recoger la lata. El GIF repite solo para demostracion.
+La expendedora de frituras es una pose de diseno; no incluye entrega de bolsas.
+Hoja192x128 con3columnas2filas; tira384x64 con seis fases de izquierda a derecha.
+Generadas con ImageGen integrado. Exportadas con vecino mas cercano. Prompts completos incluidos.
+
+VERIFICADO: LibreSprite instalado abrio los dos ASE, exporto seis fotogramas de bebidas y uno de frituras a64x64. Posiciones de la lata comprobadas de arriba hacia abajo. En GIF las dos pausas identicas iniciales se fusionan conservando el tiempo total.

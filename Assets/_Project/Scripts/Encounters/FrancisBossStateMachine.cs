@@ -188,7 +188,6 @@ namespace EscapeUNIFRANZ.Encounters
                     return state.SetFlag(GameFlagId.FrancisHardwarePhaseComplete);
                 case FrancisBossState.PhaseShutdown:
                     bool changed = state.SetFlag(GameFlagId.FrancisShutdownPhaseComplete);
-                    changed |= state.SetFlag(GameFlagId.GameCompleted);
                     return changed;
                 default:
                     return false;

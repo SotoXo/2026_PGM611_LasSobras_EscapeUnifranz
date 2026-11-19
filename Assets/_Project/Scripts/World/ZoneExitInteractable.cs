@@ -1,5 +1,7 @@
 using EscapeUNIFRANZ.Core;
 using EscapeUNIFRANZ.Interaction;
+using EscapeUNIFRANZ.Narrative;
+using EscapeUNIFRANZ.Puzzles;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +14,7 @@ namespace EscapeUNIFRANZ.World
     {
         [SerializeField] private string targetZoneId;
         [SerializeField] private string targetSpawnId;
+        [SerializeField] private bool escapesAfterShutdown;
         [SerializeField] private GameFlagId requiredFlag;
         [SerializeField] private DoorLockState lockState;
         [SerializeField, TextArea] private string lockedMessage = "Acceso restringido.";
@@ -27,34 +30,36 @@ namespace EscapeUNIFRANZ.World
         public SpriteRenderer statusIndicator;
         public UnityEngine.Rendering.Universal.Light2D statusLight;
         public GameFlagId energyRequirement,networkRequirement,authorizationRequirement;
+        public Sprite elevatorPanel;
+        public Sprite[] elevatorTiles;
+        public ItemData elevatorPiece;
+        private ElevatorCircuit circuit;
+        private GameState circuitState;
+        private bool HasCircuit => elevatorPanel != null;
+        private bool CircuitSolved => session?.State.IsWorldItemDiscovered("puzzle", ElevatorCircuit.PuzzleId) == true;
         private bool previousUnlocked;
         private bool statusInitialized;
         public void LockForAlarm(float seconds) { alarmLockUntil=Mathf.Max(alarmLockUntil,Time.time+seconds); }
         private void Update()
         {
-            bool open=IsUnlocked; var color=open ? new Color(.45f,1f,.7f) : new Color(1f,.25f,.18f);
+            bool open = IsUnlocked;
+            Color color = open ? HorrorPalette.Cyan : Time.time < alarmLockUntil ? HorrorPalette.CriticalRed : HorrorPalette.Amber;
             if(statusIndicator!=null) statusIndicator.color=color; if(statusLight!=null) { statusLight.color=color; statusLight.intensity=.25f; }
             if(statusInitialized && open && !previousUnlocked) EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorUnlock);
             previousUnlocked=open; statusInitialized=true;
         }
-        public override string Prompt
-        {
-            get
-            {
-                if (!IsUnlocked)
-                    return string.IsNullOrEmpty(accessLabel) ? "[E] Revisar acceso" : "[E] Revisar: " + accessLabel;
-                if (!string.IsNullOrEmpty(RequiredItem))
-                    return "[E] Usar " + EscapeUNIFRANZ.Narrative.ItemData.Label(RequiredItem);
-                return string.IsNullOrEmpty(accessLabel) ? "[E] Abrir" : "[E] " + accessLabel;
-            }
-        }
+        public override string Prompt => HasCircuit ? "[E] Interactuar con el ascensor" :
+            IsUnlocked && CanEscape ? "[E] Salir por la vía de emergencia" : IsUnlocked ? (!string.IsNullOrEmpty(RequiredItem) ? "[E] Usar "+EscapeUNIFRANZ.Narrative.ItemData.Label(RequiredItem) : "[E] Abrir") : "[E] Revisar acceso";
         public EscapeUNIFRANZ.Map.MinimapExitState MapExitState => IsUnlocked ? EscapeUNIFRANZ.Map.MinimapExitState.Available : Time.time<alarmLockUntil || lockState==DoorLockState.Locked || lockState==DoorLockState.DisabledByAI ? EscapeUNIFRANZ.Map.MinimapExitState.Blocked : EscapeUNIFRANZ.Map.MinimapExitState.Conditional;
         public string MapStatus => IsUnlocked ? "Disponible" : Time.time<alarmLockUntil ? "Alarma temporal" : "Requiere condición";
 
         public GameFlagId RequiredFlag => requiredFlag;
         public string TargetZoneId => targetZoneId;
+        public string TargetSpawnId => targetSpawnId;
+        public bool EscapesAfterShutdown => escapesAfterShutdown;
+        private bool CanEscape => escapesAfterShutdown && Meets(GameFlagId.FrancisShutdownPhaseComplete);
         public bool IsUnlocked => Time.time>=alarmLockUntil && lockState != DoorLockState.Locked && RequirementsMet &&
-            (requiredFlag == GameFlagId.None || (session != null && session.State.HasFlag(requiredFlag)));
+            (HasCircuit ? CircuitSolved : requiredFlag == GameFlagId.None || (session != null && session.State.HasFlag(requiredFlag)));
         private bool Meets(GameFlagId flag)=>flag==GameFlagId.None || session?.State.HasFlag(flag)==true;
         private string ReadableBlock(string fallback)
         {
@@ -73,6 +78,19 @@ namespace EscapeUNIFRANZ.World
             sceneFlow = controller;
             session = gameSession;
             BindSession(gameSession);
+            ItemData.RegisterItem(elevatorPiece);
+        }
+
+        public bool CompleteElevatorCircuit()
+        {
+            var state = session?.State;
+            if (state == null || CircuitSolved || circuit?.IsPowered() != true || !state.TryUseItem(ElevatorCircuit.ItemId))
+                return false;
+            state.DiscoverWorldItem("puzzle", ElevatorCircuit.PuzzleId);
+            state.SetFlag(GameFlagId.Piso2Unlocked);
+            session.ShowMessage("Circuito reparado. El ascensor está disponible.");
+            ProjectAudioHooks.Emit(AudioCue.PuzzleSolved);
+            return true;
         }
 
         protected override void PerformInteraction()
@@ -83,7 +101,28 @@ namespace EscapeUNIFRANZ.World
                 return;
             }
 
+            if (HasCircuit)
+            {
+                if (circuitState != session.State)
+                {
+                    circuitState = session.State;
+                    circuit = new ElevatorCircuit();
+                }
+                session.GetComponent<NarrativeController>()?.ShowElevatorInteraction(this,
+                    CircuitSolved ? null : circuit, circuitState.HasItem(ElevatorCircuit.ItemId));
+                return;
+            }
 
+            Travel();
+        }
+
+        public void UseRepairedElevator()
+        {
+            if (HasCircuit && sceneFlow != null) Travel();
+        }
+
+        private void Travel()
+        {
             if (!IsUnlocked)
             {
                 EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorLock);
@@ -93,10 +132,25 @@ namespace EscapeUNIFRANZ.World
                 return;
             }
 
+            if (CanEscape)
+            {
+                if (session.State.SetFlag(GameFlagId.GameCompleted))
+                {
+                    EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorOpen);
+                    onOpened.Invoke();
+                }
+                return;
+            }
+
             if (sceneFlow.GoToZone(targetZoneId, targetSpawnId))
             { if (doorPanel != null) doorPanel.Open(); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorUnlock); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorOpen); if (optionalAudio!=null && openSound!=null) optionalAudio.PlayOneShot(openSound); onOpened.Invoke(); }
         }
         protected override void OnRequirementsBlocked(string message)
-        { session?.ShowMessage(ReadableBlock(message)+"\n"+ScanStateText); if (optionalAudio!=null && lockedSound!=null) optionalAudio.PlayOneShot(lockedSound); onLocked.Invoke(); }
+        {
+            session?.ShowMessage(ReadableBlock(message) + "\n" + ScanStateText);
+            EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorLock);
+            if (optionalAudio != null && lockedSound != null) optionalAudio.PlayOneShot(lockedSound);
+            onLocked.Invoke();
+        }
     }
 }

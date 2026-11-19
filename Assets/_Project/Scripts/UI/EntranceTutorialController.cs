@@ -86,7 +86,7 @@ namespace EscapeUNIFRANZ.UI
         {
             switch(action)
             {
-                case TutorialAction.Movement:return "WASD\nMoverse";
+                case TutorialAction.Movement:return "WASD / Flechas — Moverse\nEsc — Pausa";
                 case TutorialAction.Interaction:return "E\nInteractuar con el objeto cercano";
                 case TutorialAction.Inventory:return "I — Inventario\nRevisa la batería que acabas de recoger";
                 case TutorialAction.Flashlight:return "F — Linterna\nEncender / apagar";

@@ -85,6 +85,9 @@ namespace EscapeUNIFRANZ.World
         private float emergencyRemaining;
         private RoomLightingState preEmergency;
         private int eventCount;
+        private Camera viewCamera;
+        private bool rendering = true;
+        private float nextVisibilityCheck;
         public RoomLightingState CurrentState { get; private set; }
         public float FillLevel { get; private set; }
         public bool SequenceRunning=>timeline!=null && timeline.Running;
@@ -97,6 +100,7 @@ namespace EscapeUNIFRANZ.World
             // They must not take control of the replacement map's lights.
             if(!isActiveAndEnabled) return;
             state=context.Session.State; mode=context.GameplayMode; zoneId=context.Zone.ZoneId;
+            viewCamera = Camera.main;
             player=context.Session.GetComponentInChildren<EscapeUNIFRANZ.Player.PlayerMovement2D>(true)?.transform;
             state.FlagChanged+=Changed; entered=oneShot && state.IsWorldItemDiscovered("room_event",EventId);
             ApplyState(state.HasFlag(restoreFlag) ? RoomLightingState.Restored : entered ? afterEntry : initialState);
@@ -126,7 +130,9 @@ namespace EscapeUNIFRANZ.World
         { timeline=new RoomLightingTimeline(steps); finalState=settled; ApplyStep(timeline.Current); }
         private void Update()
         {
-            if(state==null || mode==null || !mode.AllowsMovement) return;
+            if(state==null || mode==null) return;
+            if (Time.unscaledTime >= nextVisibilityCheck) RefreshVisibility();
+            if (!mode.AllowsMovement) return;
             bool inside=player!=null && roomBounds.Contains(player.position);
             if(inside && !wasInside) TryBeginEntry(); wasInside=inside;
             if(emergencyRemaining>0)
@@ -134,17 +140,51 @@ namespace EscapeUNIFRANZ.World
             if(SequenceRunning && timeline.Tick(Time.deltaTime))
             { if(timeline.Running) ApplyStep(timeline.Current); else { timeline=null; ApplyState(finalState); } }
         }
+        private void RefreshVisibility()
+        {
+            nextVisibilityCheck = Time.unscaledTime + .16f;
+            if (viewCamera == null || !viewCamera.orthographic) return;
+            Vector2 center = viewCamera.transform.position;
+            float halfHeight = viewCamera.orthographicSize;
+            bool visible = IntersectsViewport(roomBounds, center, halfHeight, viewCamera.aspect, rendering);
+            if (visible == rendering) return;
+
+            rendering = visible;
+            SetLightVisibility(mainLights, visible);
+            SetLightVisibility(fillLights, visible);
+            SetLightVisibility(auxiliaryLights, visible);
+        }
+
+        public static bool IntersectsViewport(Rect room, Vector2 center, float halfHeight, float aspect, bool alreadyVisible)
+        {
+            // Allow for point-light spill, camera smoothing and a margin when leaving the viewport.
+            float padding = alreadyVisible ? 3.6f : 2.8f;
+            Vector2 extent = new Vector2(halfHeight * aspect + padding, halfHeight + padding);
+            return room.Overlaps(Rect.MinMaxRect(center.x - extent.x, center.y - extent.y,
+                center.x + extent.x, center.y + extent.y));
+        }
+
+        private static void SetLightVisibility(Light2D[] lights, bool visible)
+        {
+            foreach (var light in lights)
+                if (light != null) light.enabled = visible;
+        }
+
         private void ApplyStep(RoomLightingStep step)
         {
-            ApplyState(step.state,step.failedFixtures,true);
-            if(step.state==RoomLightingState.Blackout) ProjectAudioHooks.Emit(AudioCue.Blackout);
-            else if(step.state==RoomLightingState.Flicker) ProjectAudioHooks.Emit(AudioCue.Flicker);
-            else if(step.state==RoomLightingState.Normal) ProjectAudioHooks.Emit(AudioCue.Electricity);
+            bool reduced = GameOptions.ReduceFlashes;
+            var visualState = reduced && (step.state == RoomLightingState.Blackout || step.state == RoomLightingState.Flicker)
+                ? RoomLightingState.Dim : step.state;
+            ApplyState(visualState, reduced ? 0 : step.failedFixtures, true);
+            if (!rendering) return;
+            if(step.state==RoomLightingState.Blackout) ProjectAudioHooks.EmitAt(AudioCue.Blackout, roomBounds.center);
+            else if(step.state==RoomLightingState.Flicker) ProjectAudioHooks.EmitAt(AudioCue.Flicker, roomBounds.center);
+            else if(step.state==RoomLightingState.Normal) ProjectAudioHooks.EmitAt(AudioCue.Electricity, roomBounds.center);
         }
         private void ApplyState(RoomLightingState value,int failed=0,bool sequenced=false)
         {
             CurrentState=value; float level=RoomLightingLogic.Level(value,normalIntensity,dimIntensity);
-            Color color=value==RoomLightingState.Emergency ? emergencyColor : normalColor;
+            Color color = value == RoomLightingState.Emergency ? Color.Lerp(emergencyColor, HorrorPalette.CriticalRed, 0.65f) : normalColor;
             for(int i=0;i<mainLights.Length;i++) if(mainLights[i]!=null)
             {
                 float power=i<failed ? 0 : level; mainLights[i].color=color;

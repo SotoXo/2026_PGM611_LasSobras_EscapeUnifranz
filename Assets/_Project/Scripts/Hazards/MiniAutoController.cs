@@ -34,6 +34,7 @@ namespace EscapeUNIFRANZ.Hazards
         private MiniAutoSpriteSet spriteSet;
         private float movementTime;
         private float impactTime = -1f;
+        private float nextServoAt;
 
         private void Awake()
         {
@@ -109,7 +110,7 @@ namespace EscapeUNIFRANZ.Hazards
         }
         public void DistractAt(Vector2 point,float seconds)
         {
-            if (!operational) return;
+            if (!operational || startupUntil > 0f) return;
             sensor.enabled=false; sensor.ClearTarget(); distractionUntil=Time.time+seconds; visibleTarget=null; lastSeen=point; State=MobileThreatState.Search; transitionAt=Time.time+seconds;
             Contact(false); mover.Investigate(point,1.4f); feedback?.Show(ThreatVisualState.Patrol);
         }
@@ -119,15 +120,20 @@ namespace EscapeUNIFRANZ.Hazards
             if(startupUntil>0) { if(Time.time<startupUntil) return; startupUntil=0; SetOperational(true); }
             if (!operational) { if (disabledUntil>0f && Time.time>=disabledUntil) { disabledUntil=0f; SetOperational(true); } return; }
             if (distractionUntil>0f && Time.time>=distractionUntil) { distractionUntil=0f; sensor.enabled=true; }
+            if (mover.IsMoving && Time.time >= nextServoAt)
+            {
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotWheels, transform.position);
+                nextServoAt = Time.time + 1.55f;
+            }
             if (sensor.transform!=mover.transform && mover.Facing.sqrMagnitude>0f)
                 sensor.transform.localRotation=Quaternion.Euler(0f,0f,Vector2.SignedAngle(Vector2.up,mover.Facing));
             if (visibleTarget!=null) lastSeen=visibleTarget.position;
             if (State==MobileThreatState.Chase && visibleTarget!=null) return;
             if (Time.time<transitionAt) return;
             if (State==MobileThreatState.Suspicious && visibleTarget!=null)
-            { State=MobileThreatState.Alert; transitionAt=Time.time+0.65f; feedback?.Show(ThreatVisualState.Alert); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.RobotAlert); if (optionalAudio!=null && alertSound!=null) optionalAudio.PlayOneShot(alertSound); }
+            { State=MobileThreatState.Alert; transitionAt=Time.time+0.65f; feedback?.Show(ThreatVisualState.Alert); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotAlert, transform.position); if (optionalAudio!=null && alertSound!=null) optionalAudio.PlayOneShot(alertSound); }
             else if (State==MobileThreatState.Alert && visibleTarget!=null)
-            { State=MobileThreatState.Chase; Contact(true); feedback?.Show(ThreatVisualState.Attack); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.RobotChase); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.MusicChase); mover.SetChaseTarget(visibleTarget,chaseSpeed); }
+            { State=MobileThreatState.Chase; Contact(true); feedback?.Show(ThreatVisualState.Attack); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotChase, transform.position); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.AlertMusic(EscapeUNIFRANZ.Narrative.AudioCue.MusicChase, 6f); mover.SetChaseTarget(visibleTarget,chaseSpeed); }
             else if (State==MobileThreatState.Search)
             { State=MobileThreatState.Return; Contact(false); feedback?.Show(ThreatVisualState.Patrol); mover.ResumePatrol(); transitionAt=Time.time+0.5f; }
             else if (State==MobileThreatState.Return) State=MobileThreatState.Patrol;
@@ -141,7 +147,19 @@ namespace EscapeUNIFRANZ.Hazards
             State=MobileThreatState.Search; Contact(false); feedback?.Show(ThreatVisualState.Patrol); transitionAt=Time.time+chaseSeconds; mover.Investigate(lastSeen,chaseSpeed*0.5f);
         }
         public void ResetEncounter()
-        { impactTime=-1f; movementTime=0f; visibleTarget=null; sensor?.ClearTarget(); mover?.ResetEncounter(); State=operational ? MobileThreatState.Patrol : MobileThreatState.Disabled; transitionAt=0f; Contact(false); feedback?.Show(operational ? ThreatVisualState.Patrol : ThreatVisualState.Disabled); }
+        {
+            impactTime = -1f;
+            movementTime = 0f;
+            visibleTarget = null;
+            distractionUntil = 0f;
+            sensor?.ClearTarget();
+            if (sensor != null) sensor.enabled = operational && startupUntil <= 0f;
+            mover?.ResetEncounter();
+            State = operational ? MobileThreatState.Patrol : MobileThreatState.Disabled;
+            transitionAt = 0f;
+            Contact(false);
+            feedback?.Show(operational ? ThreatVisualState.Patrol : ThreatVisualState.Disabled);
+        }
         private void OnDestroy()
         {
             if (sensor!=null) { sensor.TargetDetected-=Detected; sensor.TargetLost-=Lost; }

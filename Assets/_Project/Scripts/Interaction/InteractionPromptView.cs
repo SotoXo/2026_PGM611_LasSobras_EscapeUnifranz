@@ -24,13 +24,13 @@ namespace EscapeUNIFRANZ.Interaction
                 return;
             }
 
-            promptLabel.text = prompt;
-            promptRoot.SetActive(true);
+            if (promptLabel.text != prompt) promptLabel.text = prompt;
+            if (!promptRoot.activeSelf) promptRoot.SetActive(true);
         }
 
         public void Hide()
         {
-            if (promptRoot != null)
+            if (promptRoot != null && promptRoot.activeSelf)
             {
                 promptRoot.SetActive(false);
             }

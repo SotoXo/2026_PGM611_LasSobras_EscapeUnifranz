@@ -12,6 +12,9 @@ namespace EscapeUNIFRANZ.Narrative
         [SerializeField] private TMP_Text title, body, feedback;
         [SerializeField] private RectTransform portsRoot, wiresRoot;
         [SerializeField] private Button closeButton, resetButton, hintButton;
+        [SerializeField] private Image documentSurface;
+        [SerializeField] private Sprite paper;
+        private Color panelBodyColor;
         private NarrativeController controller;
         private readonly Dictionary<string,RectTransform> ports=new Dictionary<string,RectTransform>();
         private readonly List<GameObject> cables=new List<GameObject>();
@@ -19,7 +22,13 @@ namespace EscapeUNIFRANZ.Narrative
         private readonly HashSet<string> blockedPorts=new HashSet<string>();
         private RectTransform pending;
         private string source;
-        private void Awake() { Hide(); }
+        private TextAlignmentOptions defaultBodyAlignment;
+        private void Awake()
+        {
+            defaultBodyAlignment = body.alignment;
+            panelBodyColor = body.color;
+            Hide();
+        }
         public void Bind(NarrativeController target)
         {
             controller=target; closeButton.onClick.AddListener(target.HandleClose); resetButton.onClick.AddListener(target.ResetPuzzle);
@@ -28,7 +37,21 @@ namespace EscapeUNIFRANZ.Narrative
         public void ShowClue(ClueData clue)
         {
             body.rectTransform.sizeDelta=new Vector2(850f,330f); body.rectTransform.anchoredPosition=new Vector2(0f,38f);
-            Clear(); overlay.SetActive(true); title.text=clue.title; body.text=clue.category+"\n\n"+clue.text;
+            Clear();
+            overlay.SetActive(true);
+            title.text = clue.title;
+            body.text = clue.category + "\n\n" + clue.text;
+            if (documentSurface != null)
+            {
+                documentSurface.sprite = clue.electronic ? null : paper;
+                documentSurface.color = clue.electronic
+                    ? new Color32(15, 28, 30, 255) : Color.white;
+                documentSurface.gameObject.SetActive(true);
+                documentSurface.canvasRenderer.SetAlpha(0f);
+                documentSurface.CrossFadeAlpha(1f, .18f, true);
+                body.color = clue.electronic ? new Color32(188, 220, 211, 255) : new Color32(46, 33, 29, 255);
+            }
+            ProjectAudioHooks.Emit(clue.electronic ? AudioCue.TerminalOpen : AudioCue.PaperOpen);
             portsRoot.gameObject.SetActive(false); resetButton.gameObject.SetActive(false); feedback.text="Documento guardado en el registro. Esc o Cerrar para volver";
             if (hintButton!=null) hintButton.gameObject.SetActive(false);
         }
@@ -76,6 +99,70 @@ namespace EscapeUNIFRANZ.Narrative
             pending=id==null ? null : NewLine("Pending",new Color(0.25f,0.85f,1f,0.7f));
             foreach(var p in ports) p.Value.GetComponent<Image>().color=p.Key==id ? new Color(0.1f,0.35f,0.45f) : blockedPorts.Contains(p.Key) ? new Color(0.42f,0.07f,0.04f) : new Color(0.045f,0.1f,0.13f);
         }
+        public void ShowElevatorCircuit(Sprite panel, Sprite[] tiles, ElevatorCircuit circuit, bool hasPiece,
+            System.Action completed)
+        {
+            Clear();
+            overlay.SetActive(true);
+            title.text = "PANEL DEL ASCENSOR";
+            body.rectTransform.sizeDelta = new Vector2(540f, 112f);
+            body.rectTransform.anchoredPosition = new Vector2(-166f, -190f);
+            body.alignment = TextAlignmentOptions.TopLeft;
+            const string instructions = "Gira las piezas para conectar la entrada amarilla con la salida inferior derecha.";
+            portsRoot.gameObject.SetActive(true);
+            resetButton.gameObject.SetActive(false);
+            if (hintButton != null) hintButton.gameObject.SetActive(false);
+            feedback.text = "";
+            string status = circuit.Installed ? "Pieza instalada." : hasPiece
+                ? "Selecciona el hueco para instalar la pieza."
+                : "Busca la pieza en la sala de mesas naranjas.";
+            body.text = instructions + "\n" + status;
+
+            const float scale = 2f;
+            var board = new GameObject("Circuito", typeof(RectTransform), typeof(Image)).GetComponent<Image>();
+            board.rectTransform.SetParent(portsRoot, false);
+            board.rectTransform.anchoredPosition = new Vector2(0f, 103f);
+            board.rectTransform.sizeDelta = new Vector2(192f, 158f) * scale;
+            board.sprite = panel;
+            board.raycastTarget = false;
+
+            for (int i = 0; i < ElevatorCircuit.Count; i++)
+            {
+                int index = i;
+                bool missing = index == ElevatorCircuit.Missing;
+                var cell = new GameObject("Pieza " + (i + 1), typeof(RectTransform), typeof(Image), typeof(Button));
+                var hit = cell.GetComponent<Image>();
+                hit.rectTransform.SetParent(board.rectTransform, false);
+                hit.rectTransform.sizeDelta = Vector2.one * (30f * scale);
+                hit.rectTransform.anchoredPosition = new Vector2(51.5f + i % 4 * 30f - 96f, 79f - (38.5f + i / 4 * 30f)) * scale;
+                hit.color = new Color(1f, 1f, 1f, missing && !circuit.Installed && hasPiece ? .22f : 0f);
+                var piece = new GameObject("Arte", typeof(RectTransform), typeof(Image)).GetComponent<Image>();
+                piece.rectTransform.SetParent(hit.rectTransform, false);
+                piece.rectTransform.sizeDelta = hit.rectTransform.sizeDelta;
+                piece.sprite = tiles[i];
+                piece.raycastTarget = false;
+                piece.enabled = !missing || circuit.Installed;
+                piece.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -90f * circuit.Rotation(i));
+                cell.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    if (missing && !circuit.Installed)
+                    {
+                        if (!hasPiece) return;
+                        circuit.Install();
+                        piece.enabled = true;
+                        hit.color = Color.clear;
+                        body.text = instructions + "\nPieza instalada.";
+                    }
+                    else
+                    {
+                        circuit.Rotate(index);
+                        piece.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -90f * circuit.Rotation(index));
+                    }
+                    ProjectAudioHooks.Emit(AudioCue.Switch);
+                    if (circuit.IsPowered()) completed();
+                });
+            }
+        }
         private void Update()
         {
             if (pending==null || source==null || Mouse.current==null) return;
@@ -112,7 +199,10 @@ namespace EscapeUNIFRANZ.Narrative
         public void Hide() { ClearInventoryVisuals(); menuItemId=null; equipmentTab=false; inventoryCategory=0; inventoryPage=0; if (overlay!=null) overlay.SetActive(false); SelectPort(null); }
         private void Clear()
         {
+            if (documentSurface != null) documentSurface.gameObject.SetActive(false);
+            body.color = panelBodyColor;
             ClearInventoryVisuals();
+            body.alignment = defaultBodyAlignment;
             closeButton.GetComponentInChildren<TMP_Text>(true).text="CERRAR / ESC";
             SelectPort(null);
             foreach(Transform t in portsRoot) { t.gameObject.SetActive(false); Destroy(t.gameObject); }

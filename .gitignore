@@ -9,6 +9,7 @@
 [Uu]ser[Ss]ettings/
 [Mm]emoryCaptures/
 [Rr]ecordings/
+/.utmp/
 
 # Unity recovery / temporary assets
 Assets/_Recovery/

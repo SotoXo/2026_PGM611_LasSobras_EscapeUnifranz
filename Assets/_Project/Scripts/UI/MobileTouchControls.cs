@@ -17,7 +17,7 @@ namespace EscapeUNIFRANZ.UI
         private GameplayModeController mode;
         private GameSessionController session;
         private PlayerInteraction interaction;
-        private MobileControlButton pickupButton, flashlightButton, mapButton;
+        private MobileControlButton pickupButton, flashlightButton, mapButton, tossButton;
         private Rect lastSafeArea;
         private Vector2Int lastScreenSize;
         private TMP_FontAsset font;
@@ -59,6 +59,7 @@ namespace EscapeUNIFRANZ.UI
             TextButton("ESCÁNER", "tab", new Vector2(-185, 180));
             mapButton = TextButton("MAPA", "m", new Vector2(0, 180));
             TextButton("DIARIO", "j", new Vector2(185, 180));
+            tossButton = TextButton("LANZAR", "g", new Vector2(185, 278));
             controls.SetActive(false);
             SceneManager.sceneLoaded += OnSceneLoaded;
             ResolveControllers();
@@ -86,6 +87,8 @@ namespace EscapeUNIFRANZ.UI
                 flashlightButton.SetInteractable(session != null && session.State != null &&
                     session.State.HasItem("flashlight"));
                 mapButton.SetInteractable(flow.HasMapAccess);
+                bool hasCan = session?.State?.HasItem("soda") == true;
+                tossButton.gameObject.SetActive(hasCan);
             }
             if (Screen.safeArea != lastSafeArea ||
                 lastScreenSize != new Vector2Int(Screen.width, Screen.height)) ApplySafeArea();

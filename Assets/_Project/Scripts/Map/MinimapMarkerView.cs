@@ -11,6 +11,9 @@ namespace EscapeUNIFRANZ.Map
         [SerializeField] private Image background;
         [SerializeField] private Image accentPrimary;
         [SerializeField] private Image accentSecondary;
+        private bool shapeConfigured;
+        private MinimapMarkerKind displayedKind;
+        private MinimapExitState displayedExitState;
 
         public void Render(
             MinimapMarkerKind kind,
@@ -24,23 +27,26 @@ namespace EscapeUNIFRANZ.Map
                 return;
             }
 
-            if (icon != null)
+            if (!shapeConfigured || displayedKind != kind || displayedExitState != exitState)
             {
-                icon.gameObject.SetActive(false);
+                if (icon != null) icon.gameObject.SetActive(false);
+                ConfigureShape(kind, exitState);
+                displayedKind = kind;
+                displayedExitState = exitState;
+                shapeConfigured = true;
             }
 
-            ConfigureShape(kind, exitState);
-
             RectTransform rect = (RectTransform)root.transform;
-            rect.anchoredPosition = new Vector2(
+            var position = new Vector2(
                 (normalizedPosition.x - 0.5f) * content.rect.width,
                 (normalizedPosition.y - 0.5f) * content.rect.height);
-            root.SetActive(true);
+            if (rect.anchoredPosition != position) rect.anchoredPosition = position;
+            if (!root.activeSelf) root.SetActive(true);
         }
 
         public void Hide()
         {
-            root?.SetActive(false);
+            if (root != null && root.activeSelf) root.SetActive(false);
         }
 
         private void ConfigureShape(MinimapMarkerKind kind, MinimapExitState exitState)

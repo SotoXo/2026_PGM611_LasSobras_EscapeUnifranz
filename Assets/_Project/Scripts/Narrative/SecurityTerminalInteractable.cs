@@ -38,6 +38,7 @@ namespace EscapeUNIFRANZ.Narrative
             if (!Online) { BoundSession.ShowMessage("OFF — ENERGÍA ERROR. Recupera primero el suministro del sector."); return; }
             if(State.SetFlag(GameFlagId.CampusPlanRecovered)) controller?.TeachOnce("map","PLANO DEL CAMPUS RECUPERADO. M — Mapa. Selecciona sectores conocidos para consultar detalles.");
             GetComponent<EscapeUNIFRANZ.Map.MinimapTrackable2D>()?.Discover();
+            ProjectAudioHooks.Emit(AudioCue.TerminalOpen);
             controller?.ShowSecurity(this);
         }
         public void Read(int index)

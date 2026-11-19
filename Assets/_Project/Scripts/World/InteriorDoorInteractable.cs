@@ -18,12 +18,14 @@ namespace EscapeUNIFRANZ.World
             if (IsOpen)
             {
                 if (!panel.TryClose())
-                    BoundSession.ShowMessage("Hay algo en el paso de la puerta.");
+                    BoundSession?.ShowMessage("Hay algo en el paso de la puerta.");
+                else
+                    ProjectAudioHooks.EmitAt(AudioCue.DoorClose, transform.position);
                 return;
             }
 
             panel.Open();
-            ProjectAudioHooks.Emit(AudioCue.DoorOpen);
+            ProjectAudioHooks.EmitAt(AudioCue.DoorOpen, transform.position);
         }
     }
 }

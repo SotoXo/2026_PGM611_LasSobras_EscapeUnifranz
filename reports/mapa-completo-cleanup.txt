@@ -1,0 +1,3 @@
+Z00_Entrada: only key + flashlight pickups; no legacy sprite overlays; stable global light 0.85.
+Z01_Hall: only key + flashlight pickups; no legacy sprite overlays; stable global light 0.85.
+Z02_ARCA: only key + flashlight pickups; no legacy sprite overlays; stable global light 0.85.
