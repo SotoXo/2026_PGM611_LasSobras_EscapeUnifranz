@@ -18,7 +18,7 @@ namespace EscapeUNIFRANZ.Narrative
         protected override void PerformInteraction()
         {
             if (BoundSession.State.TryCollectPickup(pickupId,ItemId))
-            { ProjectAudioHooks.Emit(AudioCue.Pickup); BoundSession.GetComponent<NarrativeController>()?.NotifyPickup(ItemId); GetComponent<EscapeUNIFRANZ.Map.MinimapTrackable2D>()?.Record("Recogido"); gameObject.SetActive(false); }
+            { ProjectAudioHooks.Emit(AudioCue.Pickup); var worldSprite=GetComponent<SpriteRenderer>(); InteractionFx.Pickup(worldSprite!=null && worldSprite.sprite!=null ? worldSprite.sprite : ItemData.Find(ItemId)?.icon, transform.position, Label(ItemId)); BoundSession.GetComponent<NarrativeController>()?.NotifyPickup(ItemId); GetComponent<EscapeUNIFRANZ.Map.MinimapTrackable2D>()?.Record("Recogido"); gameObject.SetActive(false); }
         }
         public static string Label(string id)
         { return ItemData.Label(id); }

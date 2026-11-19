@@ -43,7 +43,7 @@ namespace EscapeUNIFRANZ.Interaction
                 if (!string.IsNullOrWhiteSpace(requiredItem) && BoundSession?.State.CheckContextItem(requiredItem)==ContextItemResult.WrongSelection)
                 { BoundSession.ShowMessage("Eso no sirve aquí. Quita la selección o elige "+EscapeUNIFRANZ.Narrative.ItemData.Label(requiredItem)+"."); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.ObjectError); return; }
                 if (!RequirementsMet) { OnRequirementsBlocked(requirementMessage); return; }
-                if (!string.IsNullOrWhiteSpace(requiredItem)) EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.ObjectUsed);
+                if (!string.IsNullOrWhiteSpace(requiredItem)) { EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.ObjectUsed); InteractionFx.Use(transform.position, EscapeUNIFRANZ.Narrative.ItemData.Label(requiredItem)); }
                 PerformInteraction();
             }
         }
