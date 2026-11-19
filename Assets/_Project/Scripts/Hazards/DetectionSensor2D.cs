@@ -12,6 +12,9 @@ namespace EscapeUNIFRANZ.Hazards
     {
         private CircleCollider2D sensor;
         private GameplayModeController gameplayMode;
+        private PatrolMover2D owner;
+        private float nextSenseAt;
+        [SerializeField, Min(0.02f)] private float sensingInterval = 0.1f;
         [SerializeField] private bool directional;
         [SerializeField, Range(1f,179f)] private float fieldOfView=75f;
         [SerializeField] private LayerMask obstacleLayers=~0;
@@ -40,6 +43,7 @@ namespace EscapeUNIFRANZ.Hazards
         private void Awake()
         {
             sensor = GetComponent<CircleCollider2D>();
+            owner = GetComponentInParent<PatrolMover2D>();
             sensor.isTrigger = true;
         }
 
@@ -61,6 +65,8 @@ namespace EscapeUNIFRANZ.Hazards
 
         private void FixedUpdate()
         {
+            if (Time.time < nextSenseAt) return;
+            nextSenseAt=Time.time+sensingInterval;
             Transform visible=null;
             if (CanSense()) foreach(var player in candidates)
             {
@@ -76,7 +82,7 @@ namespace EscapeUNIFRANZ.Hazards
         }
         private bool ClearLine(Transform player)
         {
-            var owner=GetComponentInParent<PatrolMover2D>();
+
             if (player.TryGetComponent<PlayerMovement2D>(out var movement) && movement.IsConcealed &&
                 !IsWithinRange(transform.position, player.position, 1.05f))
                 return false;

@@ -23,11 +23,21 @@ namespace EscapeUNIFRANZ.Hazards
         public Vector2 Facing { get; private set; } = Vector2.down;
         public bool IsMoving { get; private set; }
         private DetectionSensor2D[] facingSensors;
+        [SerializeField, Min(0.2f)] private float navigationCellSize = 0.4f;
+        [SerializeField, Min(0f)] private float waypointPauseSeconds = 0.25f;
+        private readonly ObstacleRoute2D navigation = new ObstacleRoute2D();
+        private Vector2 footprint = new Vector2(.3f, .3f);
+        private float pauseUntil, blockedSince;
+        public bool RouteBlocked { get; private set; }
 
         private void Awake()
         {
             body = GetComponent<Rigidbody2D>();
             initialPosition = body.position;
+            foreach (var collider in GetComponentsInChildren<Collider2D>())
+                if (!collider.isTrigger && collider.attachedRigidbody == body)
+                    footprint = Vector2.Max(footprint, collider.bounds.size);
+            footprint += Vector2.one * .04f;
             facingSensors=GetComponentsInChildren<DetectionSensor2D>(true);
         }
 
@@ -61,6 +71,7 @@ namespace EscapeUNIFRANZ.Hazards
                 if ((destination - body.position).sqrMagnitude <= arrivalDistance * arrivalDistance)
                 {
                     route.Advance(path.Count, path.PingPong);
+                    navigation.Clear(); pauseUntil=Time.time+waypointPauseSeconds;
                     destination = path.GetPoint(route.Index);
                 }
             }
@@ -69,9 +80,20 @@ namespace EscapeUNIFRANZ.Hazards
                 return;
             }
 
+            if (Time.time < pauseUntil) return;
+            destination = navigation.Next(body.position, destination, footprint, transform, chaseTarget,
+                navigationCellSize, Time.time);
             Vector2 delta=destination-body.position;
             float distance=Mathf.Min(delta.magnitude,speed*Time.fixedDeltaTime);
-            if (distance<0.001f) return;
+            if (distance<0.001f) {
+                if (blockedSince <= 0f) blockedSince=Time.time;
+                RouteBlocked=Time.time-blockedSince>2f;
+                if (RouteBlocked && chaseTarget==null && !investigationPoint.HasValue && path!=null) {
+                    route.Advance(path.Count,path.PingPong); navigation.Clear(); blockedSince=Time.time;
+                }
+                return;
+            }
+            
             Vector2 direction=delta.normalized;
             var filter=ContactFilter2D.noFilter; filter.useTriggers=false;
             int count=body.Cast(direction,filter,obstacles,distance+0.04f);
@@ -80,14 +102,17 @@ namespace EscapeUNIFRANZ.Hazards
                 allowed=Mathf.Min(allowed,Mathf.Max(0f,obstacles[i].distance-0.04f));
             if (allowed>0f)
             {
+                blockedSince=0f; RouteBlocked=false;
                 IsMoving = true;
                 Facing=direction; body.MovePosition(body.position+direction*allowed);
                 foreach(var detector in facingSensors) if (detector.transform!=transform) detector.Face(direction);
             }
+            else { if(blockedSince<=0f) blockedSince=Time.time; RouteBlocked=Time.time-blockedSince>2f; }
         }
 
         public void SetChaseTarget(Transform target, float speed)
         {
+            if (chaseTarget != target) navigation.Clear();
             chaseTarget = target;
             investigationPoint=null;
             chaseSpeed = Mathf.Max(0f, speed);
@@ -95,18 +120,19 @@ namespace EscapeUNIFRANZ.Hazards
 
         public void ResumePatrol()
         {
+            navigation.Clear();
             chaseTarget = null;
             investigationPoint=null;
         }
         public void Investigate(Vector2 point,float speed)
-        { chaseTarget=null; investigationPoint=point; chaseSpeed=speed; }
+        { navigation.Clear(); chaseTarget=null; investigationPoint=point; chaseSpeed=Mathf.Max(0f,speed); }
 
         public void ResetEncounter()
         {
             IsMoving = false;
             chaseTarget = null;
             investigationPoint=null;
-            route.Reset();
+            route.Reset(); pauseUntil=blockedSince=0f; RouteBlocked=false; navigation.Clear();
             if (body != null)
             {
                 body.position = initialPosition;
