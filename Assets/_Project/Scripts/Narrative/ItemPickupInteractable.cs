@@ -11,7 +11,10 @@ namespace EscapeUNIFRANZ.Narrative
         public override string Prompt => "[E] Recoger "+Label(ItemId);
         public string ScanStateText => "[RECOLECTABLE]";
         public void Initialize(ZoneRuntimeContext context)
-        { if (context.Session.State.IsWorldItemDiscovered("pickup",pickupId) || context.Session.State.HasItem(ItemId) || context.Session.State.IsWorldItemDiscovered("acquired",ItemId)) gameObject.SetActive(false); }
+        {
+            ItemData.RegisterItem(item);
+            if (context.Session.State.IsWorldItemDiscovered("pickup",pickupId) || context.Session.State.HasItem(ItemId) || context.Session.State.IsWorldItemDiscovered("acquired",ItemId)) gameObject.SetActive(false);
+        }
         protected override void PerformInteraction()
         {
             if (BoundSession.State.TryCollectPickup(pickupId,ItemId))

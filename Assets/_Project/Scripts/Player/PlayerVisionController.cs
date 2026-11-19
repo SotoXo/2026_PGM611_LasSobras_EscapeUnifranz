@@ -35,6 +35,7 @@ namespace EscapeUNIFRANZ.Player
         private bool flashlightEquipped;
         private bool flashlightOn;
         private float interferenceUntil;
+        private Collider2D bodyCollider;
         public bool FlashlightActive => flashlightEquipped && flashlightOn && Time.time>=interferenceUntil;
         private readonly List<RaycastHit2D> emitterHits=new List<RaycastHit2D>();
         public void SetFlashlightEquipped(bool equipped) { SetFlashlightState(equipped,equipped); }
@@ -55,6 +56,7 @@ namespace EscapeUNIFRANZ.Player
 
         private void Awake()
         {
+            bodyCollider = GetComponent<Collider2D>();
             if (visualController == null)
             {
                 visualController = GetComponent<PlayerVisualController>();
@@ -67,7 +69,8 @@ namespace EscapeUNIFRANZ.Player
         {
             if (forwardLight!=null && forwardLight.enabled!=FlashlightActive) ApplyLightSettings();
             if (immediateLight!=null) immediateLight.transform.localPosition=SafeEmitterPosition(emitterOrigin);
-            ApplyDirection(CurrentDirection);
+            if (forwardLight != null && forwardLight.enabled)
+                ApplyDirection(CurrentDirection);
         }
 
         private void OnValidate()
@@ -118,14 +121,23 @@ namespace EscapeUNIFRANZ.Player
         }
         private Vector3 SafeEmitterPosition(Vector3 localPosition)
         {
-            Vector2 origin=transform.TransformPoint(new Vector3(0f,0.13f,0f));
+            // The pivot is below the body collider and can overlap a wall.
+            // Trace from inside the body before applying the visual offset.
+            if (!Application.isPlaying) return localPosition;
+            Vector2 origin = bodyCollider != null && bodyCollider.enabled
+                ? (Vector2)bodyCollider.bounds.center
+                : (Vector2)transform.position;
             Vector2 desired=transform.TransformPoint(localPosition), delta=desired-origin;
-            var filter=ContactFilter2D.noFilter; filter.useTriggers=false;
-            emitterHits.Clear(); Physics2D.Raycast(origin,delta.normalized,filter,emitterHits,delta.magnitude);
             float distance=delta.magnitude;
+            if (distance <= Mathf.Epsilon) return localPosition;
+            Vector2 direction = delta / distance;
+            var filter=ContactFilter2D.noFilter; filter.useTriggers=false;
+            emitterHits.Clear(); Physics2D.Raycast(origin,direction,filter,emitterHits,distance);
             foreach(var hit in emitterHits)
                 if (hit.collider!=null && !hit.collider.transform.IsChildOf(transform)) distance=Mathf.Min(distance,Mathf.Max(0f,hit.distance-0.025f));
-            return transform.InverseTransformPoint(origin+delta.normalized*distance);
+            var result = transform.InverseTransformPoint(origin + direction * distance);
+            result.z = localPosition.z;
+            return result;
         }
 
         private void ApplyLightSettings()
@@ -198,8 +210,8 @@ namespace EscapeUNIFRANZ.Player
             light.pointLightOuterAngle = outerAngle;
             light.pointLightInnerAngle = Mathf.Min(lightInnerAngle, outerAngle);
             light.shadowsEnabled = shadows;
-            light.shadowIntensity = shadows ? 0.93f : 0f;
-            light.shadowSoftness = shadows ? 0.28f : 0f;
+            light.shadowIntensity = shadows ? 1f : 0f;
+            light.shadowSoftness = 0f;
         }
 
         private static Vector3 DirectionVector(

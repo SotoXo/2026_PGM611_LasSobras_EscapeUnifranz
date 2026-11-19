@@ -15,6 +15,7 @@ namespace EscapeUNIFRANZ.Player
 
         private IInteractable currentTarget;
         private bool interactionEnabled = true;
+        private float nextPromptRefresh;
 
         public IInteractable CurrentTarget => currentTarget;
         public bool InteractionEnabled => interactionEnabled;
@@ -35,6 +36,8 @@ namespace EscapeUNIFRANZ.Player
 
         private void Update()
         {
+            if (!interactionEnabled || Time.unscaledTime < nextPromptRefresh) return;
+            nextPromptRefresh = Time.unscaledTime + .05f;
             RefreshTarget();
         }
 

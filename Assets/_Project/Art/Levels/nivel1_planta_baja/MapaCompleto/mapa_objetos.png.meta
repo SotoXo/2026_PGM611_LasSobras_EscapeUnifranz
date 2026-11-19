@@ -342,6 +342,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -373,8 +386,8 @@ TextureImporter:
         serializedVersion: 2
         x: 421
         y: 10
-        width: 11
-        height: 14
+        width: 8
+        height: 10
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -417,8 +430,8 @@ TextureImporter:
         serializedVersion: 2
         x: 456
         y: 10
-        width: 10
-        height: 13
+        width: 7
+        height: 9
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -437,10 +450,10 @@ TextureImporter:
       name: Prop_004
       rect:
         serializedVersion: 2
-        x: 420
-        y: 16
-        width: 1
-        height: 1
+        x: 30
+        y: 21
+        width: 6
+        height: 9
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -459,9 +472,9 @@ TextureImporter:
       name: Prop_005
       rect:
         serializedVersion: 2
-        x: 31
+        x: 37
         y: 21
-        width: 5
+        width: 9
         height: 9
       alignment: 9
       pivot: {x: 0.5, y: 0}
@@ -481,10 +494,10 @@ TextureImporter:
       name: Prop_006
       rect:
         serializedVersion: 2
-        x: 37
-        y: 21
-        width: 9
-        height: 9
+        x: 60
+        y: 27
+        width: 12
+        height: 14
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -503,10 +516,10 @@ TextureImporter:
       name: Prop_007
       rect:
         serializedVersion: 2
-        x: 57
-        y: 27
-        width: 19
-        height: 14
+        x: 108
+        y: 30
+        width: 10
+        height: 28
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -525,10 +538,10 @@ TextureImporter:
       name: Prop_008
       rect:
         serializedVersion: 2
-        x: 107
-        y: 27
+        x: 31
+        y: 31
         width: 15
-        height: 31
+        height: 13
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -547,10 +560,10 @@ TextureImporter:
       name: Prop_009
       rect:
         serializedVersion: 2
-        x: 154
-        y: 30
-        width: 54
-        height: 28
+        x: 405
+        y: 32
+        width: 23
+        height: 15
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -569,10 +582,10 @@ TextureImporter:
       name: Prop_010
       rect:
         serializedVersion: 2
-        x: 31
-        y: 31
-        width: 15
-        height: 13
+        x: 131
+        y: 34
+        width: 19
+        height: 21
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -591,9 +604,9 @@ TextureImporter:
       name: Prop_011
       rect:
         serializedVersion: 2
-        x: 131
+        x: 156
         y: 34
-        width: 19
+        width: 18
         height: 21
       alignment: 9
       pivot: {x: 0.5, y: 0}
@@ -613,10 +626,10 @@ TextureImporter:
       name: Prop_012
       rect:
         serializedVersion: 2
-        x: 37
-        y: 47
-        width: 4
-        height: 1
+        x: 196
+        y: 34
+        width: 10
+        height: 24
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -635,10 +648,10 @@ TextureImporter:
       name: Prop_013
       rect:
         serializedVersion: 2
-        x: 291
-        y: 48
+        x: 180
+        y: 35
         width: 12
-        height: 15
+        height: 17
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -657,10 +670,10 @@ TextureImporter:
       name: Prop_014
       rect:
         serializedVersion: 2
-        x: 477
-        y: 48
-        width: 2
-        height: 2
+        x: 433
+        y: 46
+        width: 26
+        height: 28
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -679,10 +692,10 @@ TextureImporter:
       name: Prop_015
       rect:
         serializedVersion: 2
-        x: 68
-        y: 49
-        width: 1
-        height: 2
+        x: 290
+        y: 48
+        width: 13
+        height: 15
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -723,10 +736,10 @@ TextureImporter:
       name: Prop_017
       rect:
         serializedVersion: 2
-        x: 481
-        y: 50
-        width: 12
-        height: 14
+        x: 482
+        y: 52
+        width: 10
+        height: 11
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -877,10 +890,10 @@ TextureImporter:
       name: Prop_024
       rect:
         serializedVersion: 2
-        x: 57
-        y: 65
-        width: 12
-        height: 2
+        x: 364
+        y: 68
+        width: 18
+        height: 17
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -899,10 +912,10 @@ TextureImporter:
       name: Prop_025
       rect:
         serializedVersion: 2
-        x: 480
-        y: 80
-        width: 39
-        height: 16
+        x: 283
+        y: 72
+        width: 19
+        height: 19
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -922,9 +935,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 534
-        y: 80
+        y: 82
         width: 39
-        height: 16
+        height: 14
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -943,10 +956,10 @@ TextureImporter:
       name: Prop_027
       rect:
         serializedVersion: 2
-        x: 27
-        y: 81
-        width: 18
-        height: 54
+        x: 61
+        y: 83
+        width: 4
+        height: 23
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -965,10 +978,10 @@ TextureImporter:
       name: Prop_028
       rect:
         serializedVersion: 2
-        x: 61
-        y: 82
-        width: 3
-        height: 24
+        x: 481
+        y: 83
+        width: 38
+        height: 13
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -987,10 +1000,10 @@ TextureImporter:
       name: Prop_029
       rect:
         serializedVersion: 2
-        x: 315
-        y: 83
-        width: 22
-        height: 17
+        x: 27
+        y: 84
+        width: 17
+        height: 49
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1009,10 +1022,10 @@ TextureImporter:
       name: Prop_030
       rect:
         serializedVersion: 2
-        x: 223
-        y: 86
-        width: 16
-        height: 21
+        x: 315
+        y: 84
+        width: 22
+        height: 16
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1053,7 +1066,7 @@ TextureImporter:
       name: Prop_032
       rect:
         serializedVersion: 2
-        x: 100
+        x: 176
         y: 87
         width: 18
         height: 20
@@ -1075,9 +1088,9 @@ TextureImporter:
       name: Prop_033
       rect:
         serializedVersion: 2
-        x: 126
+        x: 200
         y: 87
-        width: 18
+        width: 17
         height: 20
       alignment: 9
       pivot: {x: 0.5, y: 0}
@@ -1097,10 +1110,10 @@ TextureImporter:
       name: Prop_034
       rect:
         serializedVersion: 2
-        x: 152
-        y: 87
+        x: 100
+        y: 88
         width: 18
-        height: 20
+        height: 19
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1119,10 +1132,10 @@ TextureImporter:
       name: Prop_035
       rect:
         serializedVersion: 2
-        x: 176
-        y: 87
+        x: 126
+        y: 88
         width: 18
-        height: 20
+        height: 19
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1141,10 +1154,10 @@ TextureImporter:
       name: Prop_036
       rect:
         serializedVersion: 2
-        x: 200
-        y: 87
-        width: 17
-        height: 20
+        x: 152
+        y: 88
+        width: 18
+        height: 19
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1163,10 +1176,10 @@ TextureImporter:
       name: Prop_037
       rect:
         serializedVersion: 2
-        x: 480
-        y: 100
-        width: 39
-        height: 16
+        x: 223
+        y: 88
+        width: 16
+        height: 19
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1185,10 +1198,10 @@ TextureImporter:
       name: Prop_038
       rect:
         serializedVersion: 2
-        x: 534
-        y: 100
-        width: 39
-        height: 16
+        x: 250
+        y: 89
+        width: 28
+        height: 27
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1207,10 +1220,10 @@ TextureImporter:
       name: Prop_039
       rect:
         serializedVersion: 2
-        x: 66
-        y: 106
-        width: 2
-        height: 1
+        x: 464
+        y: 99
+        width: 10
+        height: 24
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1229,8 +1242,8 @@ TextureImporter:
       name: Prop_040
       rect:
         serializedVersion: 2
-        x: 239
-        y: 108
+        x: 514
+        y: 100
         width: 1
         height: 1
       alignment: 9
@@ -1251,10 +1264,10 @@ TextureImporter:
       name: Prop_041
       rect:
         serializedVersion: 2
-        x: 241
-        y: 108
-        width: 1
-        height: 1
+        x: 534
+        y: 100
+        width: 39
+        height: 15
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1273,10 +1286,10 @@ TextureImporter:
       name: Prop_042
       rect:
         serializedVersion: 2
-        x: 534
-        y: 118
+        x: 480
+        y: 101
         width: 39
-        height: 17
+        height: 15
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1295,10 +1308,10 @@ TextureImporter:
       name: Prop_043
       rect:
         serializedVersion: 2
-        x: 480
-        y: 119
-        width: 39
-        height: 16
+        x: 481
+        y: 120
+        width: 38
+        height: 15
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1317,10 +1330,10 @@ TextureImporter:
       name: Prop_044
       rect:
         serializedVersion: 2
-        x: 235
-        y: 122
-        width: 17
-        height: 8
+        x: 534
+        y: 120
+        width: 39
+        height: 15
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1339,10 +1352,10 @@ TextureImporter:
       name: Prop_045
       rect:
         serializedVersion: 2
-        x: 110
-        y: 125
-        width: 2
-        height: 14
+        x: 235
+        y: 122
+        width: 17
+        height: 8
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1361,10 +1374,10 @@ TextureImporter:
       name: Prop_046
       rect:
         serializedVersion: 2
-        x: 99
+        x: 71
         y: 127
-        width: 8
-        height: 8
+        width: 18
+        height: 14
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1383,10 +1396,10 @@ TextureImporter:
       name: Prop_047
       rect:
         serializedVersion: 2
-        x: 236
-        y: 130
-        width: 16
-        height: 26
+        x: 99
+        y: 127
+        width: 8
+        height: 8
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1405,10 +1418,10 @@ TextureImporter:
       name: Prop_048
       rect:
         serializedVersion: 2
-        x: 480
-        y: 138
-        width: 39
-        height: 17
+        x: 236
+        y: 130
+        width: 16
+        height: 36
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1428,9 +1441,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 534
-        y: 139
+        y: 140
         width: 39
-        height: 16
+        height: 14
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1449,10 +1462,10 @@ TextureImporter:
       name: Prop_050
       rect:
         serializedVersion: 2
-        x: 49
-        y: 157
-        width: 2
-        height: 1
+        x: 481
+        y: 141
+        width: 38
+        height: 13
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1471,10 +1484,10 @@ TextureImporter:
       name: Prop_051
       rect:
         serializedVersion: 2
-        x: 480
-        y: 158
-        width: 39
-        height: 16
+        x: 28
+        y: 157
+        width: 32
+        height: 38
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1493,10 +1506,10 @@ TextureImporter:
       name: Prop_052
       rect:
         serializedVersion: 2
-        x: 534
-        y: 158
+        x: 480
+        y: 159
         width: 39
-        height: 16
+        height: 14
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1515,10 +1528,10 @@ TextureImporter:
       name: Prop_053
       rect:
         serializedVersion: 2
-        x: 33
-        y: 159
-        width: 21
-        height: 20
+        x: 534
+        y: 160
+        width: 39
+        height: 13
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1537,10 +1550,10 @@ TextureImporter:
       name: Prop_054
       rect:
         serializedVersion: 2
-        x: 56
-        y: 161
-        width: 1
-        height: 1
+        x: 436
+        y: 162
+        width: 13
+        height: 21
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1559,10 +1572,10 @@ TextureImporter:
       name: Prop_055
       rect:
         serializedVersion: 2
-        x: 436
-        y: 161
-        width: 13
-        height: 22
+        x: 235
+        y: 169
+        width: 21
+        height: 21
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1581,10 +1594,10 @@ TextureImporter:
       name: Prop_056
       rect:
         serializedVersion: 2
-        x: 232
-        y: 169
-        width: 2
-        height: 22
+        x: 129
+        y: 171
+        width: 23
+        height: 10
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1603,10 +1616,10 @@ TextureImporter:
       name: Prop_057
       rect:
         serializedVersion: 2
-        x: 235
-        y: 169
-        width: 21
-        height: 21
+        x: 262
+        y: 174
+        width: 28
+        height: 18
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1625,10 +1638,10 @@ TextureImporter:
       name: Prop_058
       rect:
         serializedVersion: 2
-        x: 129
-        y: 170
-        width: 25
-        height: 12
+        x: 452
+        y: 177
+        width: 9
+        height: 15
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1647,10 +1660,10 @@ TextureImporter:
       name: Prop_059
       rect:
         serializedVersion: 2
-        x: 32
-        y: 174
-        width: 1
-        height: 1
+        x: 534
+        y: 178
+        width: 39
+        height: 15
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1669,10 +1682,10 @@ TextureImporter:
       name: Prop_060
       rect:
         serializedVersion: 2
-        x: 262
-        y: 174
-        width: 28
-        height: 17
+        x: 480
+        y: 179
+        width: 39
+        height: 13
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1691,10 +1704,10 @@ TextureImporter:
       name: Prop_061
       rect:
         serializedVersion: 2
-        x: 452
-        y: 177
-        width: 9
-        height: 15
+        x: 364
+        y: 183
+        width: 20
+        height: 21
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1713,10 +1726,10 @@ TextureImporter:
       name: Prop_062
       rect:
         serializedVersion: 2
-        x: 480
-        y: 177
-        width: 39
-        height: 15
+        x: 387
+        y: 183
+        width: 20
+        height: 20
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1735,10 +1748,10 @@ TextureImporter:
       name: Prop_063
       rect:
         serializedVersion: 2
-        x: 534
-        y: 177
-        width: 39
-        height: 16
+        x: 308
+        y: 184
+        width: 20
+        height: 20
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1757,10 +1770,10 @@ TextureImporter:
       name: Prop_064
       rect:
         serializedVersion: 2
-        x: 28
-        y: 179
-        width: 12
-        height: 40
+        x: 333
+        y: 184
+        width: 19
+        height: 20
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1779,10 +1792,10 @@ TextureImporter:
       name: Prop_065
       rect:
         serializedVersion: 2
-        x: 364
-        y: 182
-        width: 20
-        height: 22
+        x: 436
+        y: 185
+        width: 13
+        height: 29
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1801,10 +1814,10 @@ TextureImporter:
       name: Prop_066
       rect:
         serializedVersion: 2
-        x: 387
-        y: 182
-        width: 20
-        height: 22
+        x: 464
+        y: 186
+        width: 10
+        height: 25
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1823,10 +1836,10 @@ TextureImporter:
       name: Prop_067
       rect:
         serializedVersion: 2
-        x: 308
-        y: 183
-        width: 20
-        height: 21
+        x: 135
+        y: 192
+        width: 28
+        height: 10
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1845,10 +1858,10 @@ TextureImporter:
       name: Prop_068
       rect:
         serializedVersion: 2
-        x: 333
-        y: 183
-        width: 20
-        height: 21
+        x: 203
+        y: 194
+        width: 15
+        height: 15
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1867,10 +1880,10 @@ TextureImporter:
       name: Prop_069
       rect:
         serializedVersion: 2
-        x: 464
-        y: 184
-        width: 11
-        height: 27
+        x: 480
+        y: 198
+        width: 39
+        height: 13
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1889,10 +1902,10 @@ TextureImporter:
       name: Prop_070
       rect:
         serializedVersion: 2
-        x: 436
-        y: 185
-        width: 13
-        height: 29
+        x: 534
+        y: 198
+        width: 38
+        height: 13
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1911,10 +1924,10 @@ TextureImporter:
       name: Prop_071
       rect:
         serializedVersion: 2
-        x: 134
-        y: 191
-        width: 29
-        height: 11
+        x: 29
+        y: 201
+        width: 11
+        height: 15
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1933,10 +1946,10 @@ TextureImporter:
       name: Prop_072
       rect:
         serializedVersion: 2
-        x: 203
-        y: 194
-        width: 15
-        height: 15
+        x: 97
+        y: 203
+        width: 19
+        height: 16
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1955,10 +1968,10 @@ TextureImporter:
       name: Prop_073
       rect:
         serializedVersion: 2
-        x: 502
-        y: 195
-        width: 1
-        height: 1
+        x: 123
+        y: 205
+        width: 10
+        height: 23
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1977,10 +1990,10 @@ TextureImporter:
       name: Prop_074
       rect:
         serializedVersion: 2
-        x: 534
-        y: 195
-        width: 39
-        height: 16
+        x: 148
+        y: 205
+        width: 9
+        height: 23
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1999,10 +2012,10 @@ TextureImporter:
       name: Prop_075
       rect:
         serializedVersion: 2
-        x: 480
-        y: 196
-        width: 39
-        height: 15
+        x: 136
+        y: 207
+        width: 8
+        height: 8
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2021,10 +2034,10 @@ TextureImporter:
       name: Prop_076
       rect:
         serializedVersion: 2
-        x: 97
-        y: 203
-        width: 19
-        height: 16
+        x: 234
+        y: 208
+        width: 36
+        height: 55
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2043,10 +2056,10 @@ TextureImporter:
       name: Prop_077
       rect:
         serializedVersion: 2
-        x: 123
-        y: 205
-        width: 10
-        height: 23
+        x: 364
+        y: 208
+        width: 20
+        height: 21
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2065,10 +2078,10 @@ TextureImporter:
       name: Prop_078
       rect:
         serializedVersion: 2
-        x: 148
-        y: 205
-        width: 9
-        height: 23
+        x: 387
+        y: 208
+        width: 20
+        height: 21
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2087,10 +2100,10 @@ TextureImporter:
       name: Prop_079
       rect:
         serializedVersion: 2
-        x: 136
-        y: 207
-        width: 8
-        height: 8
+        x: 308
+        y: 209
+        width: 19
+        height: 23
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2109,10 +2122,10 @@ TextureImporter:
       name: Prop_080
       rect:
         serializedVersion: 2
-        x: 234
-        y: 207
-        width: 37
-        height: 56
+        x: 333
+        y: 210
+        width: 20
+        height: 22
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2131,10 +2144,10 @@ TextureImporter:
       name: Prop_081
       rect:
         serializedVersion: 2
-        x: 364
-        y: 208
-        width: 20
-        height: 21
+        x: 480
+        y: 214
+        width: 39
+        height: 17
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2153,10 +2166,10 @@ TextureImporter:
       name: Prop_082
       rect:
         serializedVersion: 2
-        x: 387
-        y: 208
-        width: 20
-        height: 21
+        x: 452
+        y: 215
+        width: 10
+        height: 16
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2175,10 +2188,10 @@ TextureImporter:
       name: Prop_083
       rect:
         serializedVersion: 2
-        x: 308
-        y: 209
-        width: 20
-        height: 23
+        x: 534
+        y: 216
+        width: 39
+        height: 14
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2197,10 +2210,10 @@ TextureImporter:
       name: Prop_084
       rect:
         serializedVersion: 2
-        x: 202
-        y: 210
-        width: 18
-        height: 2
+        x: 136
+        y: 217
+        width: 8
+        height: 9
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2219,10 +2232,10 @@ TextureImporter:
       name: Prop_085
       rect:
         serializedVersion: 2
-        x: 333
-        y: 210
+        x: 96
+        y: 224
         width: 20
-        height: 22
+        height: 15
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2241,10 +2254,10 @@ TextureImporter:
       name: Prop_086
       rect:
         serializedVersion: 2
-        x: 292
-        y: 212
-        width: 3
-        height: 25
+        x: 167
+        y: 229
+        width: 24
+        height: 32
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2263,9 +2276,9 @@ TextureImporter:
       name: Prop_087
       rect:
         serializedVersion: 2
-        x: 480
-        y: 214
-        width: 39
+        x: 29
+        y: 233
+        width: 12
         height: 17
       alignment: 9
       pivot: {x: 0.5, y: 0}
@@ -2285,10 +2298,10 @@ TextureImporter:
       name: Prop_088
       rect:
         serializedVersion: 2
-        x: 534
-        y: 214
-        width: 39
-        height: 17
+        x: 204
+        y: 236
+        width: 11
+        height: 23
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2307,10 +2320,10 @@ TextureImporter:
       name: Prop_089
       rect:
         serializedVersion: 2
-        x: 452
-        y: 215
-        width: 12
-        height: 16
+        x: 308
+        y: 236
+        width: 20
+        height: 21
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2329,10 +2342,10 @@ TextureImporter:
       name: Prop_090
       rect:
         serializedVersion: 2
-        x: 136
-        y: 217
-        width: 8
-        height: 9
+        x: 333
+        y: 236
+        width: 19
+        height: 22
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2351,10 +2364,10 @@ TextureImporter:
       name: Prop_091
       rect:
         serializedVersion: 2
-        x: 97
-        y: 223
-        width: 19
-        height: 16
+        x: 103
+        y: 241
+        width: 15
+        height: 20
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2373,10 +2386,10 @@ TextureImporter:
       name: Prop_092
       rect:
         serializedVersion: 2
-        x: 167
-        y: 229
-        width: 24
-        height: 32
+        x: 123
+        y: 242
+        width: 14
+        height: 22
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2395,140 +2408,8 @@ TextureImporter:
       name: Prop_093
       rect:
         serializedVersion: 2
-        x: 28
-        y: 231
-        width: 15
-        height: 19
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 27720fd5ac8609f4f994b0ae87d0df6f
-      internalID: -182402581
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Prop_094
-      rect:
-        serializedVersion: 2
-        x: 373
-        y: 231
-        width: 1
-        height: 1
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6d21abbcd812c1e4fa203229ec906fba
-      internalID: 1375140598
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Prop_095
-      rect:
-        serializedVersion: 2
-        x: 204
-        y: 235
-        width: 11
-        height: 24
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cd49e778dc8fa56419679a983721444b
-      internalID: -393273025
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Prop_096
-      rect:
-        serializedVersion: 2
-        x: 308
-        y: 236
-        width: 20
-        height: 21
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3ec9dce5aad38b94e87961f3c784e336
-      internalID: -1522715929
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Prop_097
-      rect:
-        serializedVersion: 2
-        x: 333
-        y: 236
-        width: 20
-        height: 22
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e49b2b408f6ee634c84ef250df1512e0
-      internalID: -1887447025
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Prop_098
-      rect:
-        serializedVersion: 2
-        x: 103
-        y: 241
-        width: 15
-        height: 20
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: efccd7192a4dc23448a6b759b137cc74
-      internalID: -1999019221
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Prop_099
-      rect:
-        serializedVersion: 2
-        x: 123
-        y: 241
+        x: 148
+        y: 242
         width: 14
         height: 22
       alignment: 9
@@ -2539,30 +2420,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12a2ae34debf9134fa2db0649025631e
-      internalID: 375596842
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Prop_100
-      rect:
-        serializedVersion: 2
-        x: 148
-        y: 242
-        width: 16
-        height: 21
-      alignment: 9
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 312485ff416e74542b57f08b1d2bc399
-      internalID: -492483616
+      spriteID: 27720fd5ac8609f4f994b0ae87d0df6f
+      internalID: -182402581
       vertices: []
       indices: 
       edges: []
@@ -2675,13 +2534,6 @@ TextureImporter:
       Prop_091: 583234533
       Prop_092: 641093744
       Prop_093: -182402581
-      Prop_094: 1375140598
-      Prop_095: -393273025
-      Prop_096: -1522715929
-      Prop_097: -1887447025
-      Prop_098: -1999019221
-      Prop_099: 375596842
-      Prop_100: -492483616
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

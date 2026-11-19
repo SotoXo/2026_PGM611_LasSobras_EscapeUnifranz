@@ -96,6 +96,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -392,7 +405,7 @@ TextureImporter:
         x: 0
         y: 104
         width: 610
-        height: 8
+        height: 4
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -412,8 +425,8 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 112
-        width: 610
+        y: 108
+        width: 215
         height: 8
       alignment: 9
       pivot: {x: 0.5, y: 0}
@@ -433,9 +446,9 @@ TextureImporter:
       name: Wall_015
       rect:
         serializedVersion: 2
-        x: 0
-        y: 120
-        width: 610
+        x: 232
+        y: 108
+        width: 378
         height: 8
       alignment: 9
       pivot: {x: 0.5, y: 0}
@@ -456,8 +469,8 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
-        width: 610
+        y: 116
+        width: 215
         height: 8
       alignment: 9
       pivot: {x: 0.5, y: 0}
@@ -477,9 +490,9 @@ TextureImporter:
       name: Wall_017
       rect:
         serializedVersion: 2
-        x: 0
-        y: 136
-        width: 610
+        x: 232
+        y: 116
+        width: 378
         height: 8
       alignment: 9
       pivot: {x: 0.5, y: 0}
@@ -500,9 +513,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 144
-        width: 610
-        height: 8
+        y: 124
+        width: 215
+        height: 1
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -521,10 +534,10 @@ TextureImporter:
       name: Wall_019
       rect:
         serializedVersion: 2
-        x: 0
-        y: 152
-        width: 610
-        height: 8
+        x: 232
+        y: 124
+        width: 378
+        height: 1
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -544,7 +557,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 160
+        y: 125
         width: 610
         height: 8
       alignment: 9
@@ -566,7 +579,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 168
+        y: 133
         width: 610
         height: 8
       alignment: 9
@@ -588,7 +601,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 176
+        y: 141
         width: 610
         height: 8
       alignment: 9
@@ -610,7 +623,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 184
+        y: 149
         width: 610
         height: 8
       alignment: 9
@@ -632,7 +645,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 192
+        y: 157
         width: 610
         height: 8
       alignment: 9
@@ -654,7 +667,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 200
+        y: 165
         width: 610
         height: 8
       alignment: 9
@@ -676,7 +689,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 208
+        y: 173
         width: 610
         height: 8
       alignment: 9
@@ -698,7 +711,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 216
+        y: 181
         width: 610
         height: 8
       alignment: 9
@@ -720,7 +733,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 224
+        y: 189
         width: 610
         height: 8
       alignment: 9
@@ -742,7 +755,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 232
+        y: 197
         width: 610
         height: 8
       alignment: 9
@@ -764,7 +777,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 240
+        y: 205
         width: 610
         height: 8
       alignment: 9
@@ -786,7 +799,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 248
+        y: 213
         width: 610
         height: 8
       alignment: 9
@@ -808,7 +821,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
+        y: 221
         width: 610
         height: 8
       alignment: 9
@@ -830,7 +843,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 264
+        y: 229
         width: 610
         height: 8
       alignment: 9
@@ -852,7 +865,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 272
+        y: 237
         width: 610
         height: 8
       alignment: 9
@@ -874,9 +887,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 280
+        y: 245
         width: 610
-        height: 5
+        height: 8
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -887,6 +900,94 @@ TextureImporter:
       bones: []
       spriteID: 18cdf7e1b425f3040917963d7a0309e4
       internalID: 2092592417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_036
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 253
+        width: 610
+        height: 8
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee43917c2abce604db2ad1eb532aad43
+      internalID: 491373168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_037
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 261
+        width: 610
+        height: 8
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44338ed65cec81a46ba777c68dd1126c
+      internalID: 768940311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_038
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 269
+        width: 610
+        height: 8
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a543953f207f4864c84c42bb220377eb
+      internalID: 916519950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall_039
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 277
+        width: 610
+        height: 8
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e69a2900ab489e840bfb9270e88d1c06
+      internalID: -721945198
       vertices: []
       indices: 
       edges: []
@@ -941,6 +1042,10 @@ TextureImporter:
       Wall_033: -1373511338
       Wall_034: 2086950818
       Wall_035: 2092592417
+      Wall_036: 491373168
+      Wall_037: 768940311
+      Wall_038: 916519950
+      Wall_039: -721945198
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
