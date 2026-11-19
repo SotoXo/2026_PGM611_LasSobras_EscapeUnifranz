@@ -104,7 +104,7 @@ namespace EscapeUNIFRANZ.EditorTools
             trigger.radius = .55f;
         }
 
-        private static void ConfigureMiniAuto(MiniAutoController robot, string style, int wear)
+        internal static void ConfigureMiniAuto(MiniAutoController robot, string style, int wear)
         {
             const string folder = "Assets/_Project/Art/Characters/Enemies/MiniAutos/";
             var node = robot.transform.Find("CarPixelArt");

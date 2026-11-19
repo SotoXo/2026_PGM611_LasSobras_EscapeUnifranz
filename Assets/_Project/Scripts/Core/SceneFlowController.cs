@@ -24,6 +24,7 @@ namespace EscapeUNIFRANZ.Core
 
         public bool IsTransitioning { get; private set; }
         public GameplayModeController ModeController => gameplayMode;
+        public Rigidbody2D PlayerBody => playerBody;
         public event Action<bool> ZoneTransitionFinished;
         public event Action<bool> RespawnFinished;
 
@@ -226,6 +227,10 @@ namespace EscapeUNIFRANZ.Core
 
             playerBody.position = spawnPoint.Position;
             playerBody.linearVelocity = Vector2.zero;
+            ElevatorDoorAnimation arrivalDoor = null;
+            foreach (var exit in zoneContext.GetComponentsInChildren<ZoneExitInteractable>(true))
+                if (exit.elevatorAnimation != null && exit.elevatorAnimation.cabinBounds.Contains(spawnPoint.Position))
+                { arrivalDoor = exit.elevatorAnimation; arrivalDoor.BeginArrival(); break; }
             GetComponentInChildren<PlayerCameraFollow2D>(true)?.SetZoneBounds(zoneContext.MinimapBounds);
             playerMovement.SetZoneSurface(zoneId);
             session.State.SetLocation(zoneId, spawnPoint.SpawnId);
@@ -238,6 +243,8 @@ namespace EscapeUNIFRANZ.Core
             Debug.Log($"Loaded zone: {zoneId} | Spawn: {spawnId}", zoneContext);
 
             yield return fadeView.FadeIn();
+
+            if (arrivalDoor != null) yield return arrivalDoor.Arrive();
 
             gameplayMode.SetMode(GameplayMode.Explore);
             IsTransitioning = false;
