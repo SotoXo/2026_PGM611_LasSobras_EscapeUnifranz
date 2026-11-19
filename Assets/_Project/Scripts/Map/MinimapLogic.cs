@@ -9,7 +9,9 @@ namespace EscapeUNIFRANZ.Map
         Objective = 1,
         Checkpoint = 2,
         Threat = 3,
-        Point = 4
+        Point = 4,
+        Item = 5,
+        Camera = 6
     }
 
     public enum MinimapExitState

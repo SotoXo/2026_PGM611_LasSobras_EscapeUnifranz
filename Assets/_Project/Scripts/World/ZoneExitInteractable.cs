@@ -15,6 +15,8 @@ namespace EscapeUNIFRANZ.World
         [SerializeField] private GameFlagId requiredFlag;
         [SerializeField] private DoorLockState lockState;
         [SerializeField, TextArea] private string lockedMessage = "Acceso restringido.";
+        [SerializeField] private string accessLabel;
+        [SerializeField] private DoorPanel2D doorPanel;
         [SerializeField] private AudioSource optionalAudio;
         [SerializeField] private AudioClip openSound, lockedSound;
         public UnityEvent onOpened=new UnityEvent(), onLocked=new UnityEvent();
@@ -35,7 +37,17 @@ namespace EscapeUNIFRANZ.World
             if(statusInitialized && open && !previousUnlocked) EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorUnlock);
             previousUnlocked=open; statusInitialized=true;
         }
-        public override string Prompt => IsUnlocked ? (!string.IsNullOrEmpty(RequiredItem) ? "[E] Usar "+EscapeUNIFRANZ.Narrative.ItemData.Label(RequiredItem) : "[E] Abrir") : "[E] Revisar acceso";
+        public override string Prompt
+        {
+            get
+            {
+                if (!IsUnlocked)
+                    return string.IsNullOrEmpty(accessLabel) ? "[E] Revisar acceso" : "[E] Revisar: " + accessLabel;
+                if (!string.IsNullOrEmpty(RequiredItem))
+                    return "[E] Usar " + EscapeUNIFRANZ.Narrative.ItemData.Label(RequiredItem);
+                return string.IsNullOrEmpty(accessLabel) ? "[E] Abrir" : "[E] " + accessLabel;
+            }
+        }
         public EscapeUNIFRANZ.Map.MinimapExitState MapExitState => IsUnlocked ? EscapeUNIFRANZ.Map.MinimapExitState.Available : Time.time<alarmLockUntil || lockState==DoorLockState.Locked || lockState==DoorLockState.DisabledByAI ? EscapeUNIFRANZ.Map.MinimapExitState.Blocked : EscapeUNIFRANZ.Map.MinimapExitState.Conditional;
         public string MapStatus => IsUnlocked ? "Disponible" : Time.time<alarmLockUntil ? "Alarma temporal" : "Requiere condición";
 
@@ -82,7 +94,7 @@ namespace EscapeUNIFRANZ.World
             }
 
             if (sceneFlow.GoToZone(targetZoneId, targetSpawnId))
-            { EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorUnlock); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorOpen); if (optionalAudio!=null && openSound!=null) optionalAudio.PlayOneShot(openSound); onOpened.Invoke(); }
+            { if (doorPanel != null) doorPanel.Open(); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorUnlock); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorOpen); if (optionalAudio!=null && openSound!=null) optionalAudio.PlayOneShot(openSound); onOpened.Invoke(); }
         }
         protected override void OnRequirementsBlocked(string message)
         { session?.ShowMessage(ReadableBlock(message)+"\n"+ScanStateText); if (optionalAudio!=null && lockedSound!=null) optionalAudio.PlayOneShot(lockedSound); onLocked.Invoke(); }

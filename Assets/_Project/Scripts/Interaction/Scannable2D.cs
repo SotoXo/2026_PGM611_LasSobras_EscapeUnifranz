@@ -23,6 +23,8 @@ namespace EscapeUNIFRANZ.Interaction
 
         public ScanCategory Category => category;
         public bool CanScan => isActiveAndEnabled && ScanLogic.CanReveal(state, secret, revealFlag);
+        public bool IsRevealed => isActiveAndEnabled && feedbackRoot != null &&
+            feedbackRoot.activeSelf && Time.unscaledTime < visibleUntil;
 
         public void Initialize(ZoneRuntimeContext context)
         {

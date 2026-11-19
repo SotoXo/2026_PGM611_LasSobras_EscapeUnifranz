@@ -1,0 +1,36 @@
+{
+  "new": [
+    "Assets/_Project/Scripts/Editor/NarrativeCampaignBuilder.Atmosphere.cs",
+    "Assets/_Project/Scripts/UI/EntranceTutorialController.cs",
+    "Assets/_Project/Scripts/World/RoomLightingController.cs",
+    "Assets/_Project/Tests/EditMode/RoomLightingAndOnboardingTests.cs"
+  ],
+  "modified": [
+    "Assets/_Project/Scripts/Core/GameFlagId.cs",
+    "Assets/_Project/Scripts/Core/GameSessionController.cs",
+    "Assets/_Project/Scripts/Editor/NarrativeCampaignBuilder.Audit.cs",
+    "Assets/_Project/Scripts/Editor/NarrativeCampaignBuilder.cs",
+    "Assets/_Project/Scripts/Hazards/MiniAutoController.cs",
+    "Assets/_Project/Scripts/Interaction/InteractableBehaviour.cs",
+    "Assets/_Project/Scripts/Interaction/ScannerController.cs",
+    "Assets/_Project/Scripts/Map/CampusMapController.cs",
+    "Assets/_Project/Scripts/Narrative/EnvironmentalInspectInteractable.cs",
+    "Assets/_Project/Scripts/Narrative/NarrativeController.cs",
+    "Assets/_Project/Scripts/Narrative/NarrativeController.Hints.cs",
+    "Assets/_Project/Scripts/Narrative/NarrativeController.Inventory.cs",
+    "Assets/_Project/Scripts/Narrative/NarrativeController.Journal.cs",
+    "Assets/_Project/Scripts/Narrative/NarrativePanelView.cs",
+    "Assets/_Project/Scripts/Narrative/NarrativePanelView.Inventory.cs",
+    "Assets/_Project/Scripts/Narrative/ProjectAudioHooks.cs",
+    "Assets/_Project/Scripts/Narrative/TerminalStatus2D.cs",
+    "Assets/_Project/Scripts/Narrative/WorldHorrorDirector.cs",
+    "Assets/_Project/Scripts/Player/PlayerVisionController.cs",
+    "Assets/_Project/Scripts/Puzzles/PuzzleInteractable.cs",
+    "Assets/_Project/Scripts/UI/GameFlowView.cs",
+    "Assets/_Project/Scripts/World/EnvironmentalControlInteractable.cs",
+    "Assets/_Project/Scripts/World/GroupLampFlicker2D.cs",
+    "Assets/_Project/Scripts/World/LightSequenceTrigger.cs",
+    "Assets/_Project/Scripts/World/ZoneContext.cs",
+    "Assets/_Project/Scripts/World/ZoneExitInteractable.cs"
+  ]
+}

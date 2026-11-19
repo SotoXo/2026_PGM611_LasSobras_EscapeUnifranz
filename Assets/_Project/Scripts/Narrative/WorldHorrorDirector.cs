@@ -41,7 +41,7 @@ namespace EscapeUNIFRANZ.Narrative
             if (firstRobot!=null)
             {
                 bool active=session.State.HasFlag(GameFlagId.FirstThreatActivated);
-                firstRobot.SetOperational(active,!active);
+                firstRobot.SetOperational(active);
                 if (!session.State.HasFlag(GameFlagId.PowerEntranceRestored)) foreach(var lamp in powerLights) if (lamp!=null) { var f=lamp.GetComponent<GroupLampFlicker2D>(); if (f!=null) f.SetExternalPower(0f); lamp.intensity=0f; }
                 else if (!active) StartCoroutine(PowerSequence());
             }
@@ -63,13 +63,16 @@ namespace EscapeUNIFRANZ.Narrative
         private IEnumerator PowerSequence()
         {
             sequenceRunning=true;
-            while(mode!=null && !mode.AllowsMovement || System.Array.Exists(revealRooms,r=>r!=null && !r.Initialized)) yield return null;
+            while((mode!=null && !mode.AllowsMovement) ||
+                System.Array.Exists(revealRooms,r=>r!=null && r.isActiveAndEnabled && !r.Initialized))
+                yield return null;
             Play(powerSound);
             ProjectAudioHooks.Emit(AudioCue.Electricity);
-            foreach(var room in revealRooms) if(room!=null) room.BeginRestorationReading();
+            foreach(var room in revealRooms) if(room!=null && room.isActiveAndEnabled) room.BeginRestorationReading();
             foreach(var light in powerLights) if (light!=null) { SetPower(light,0.42f); yield return new WaitForSeconds(0.25f); }
-            session.ShowMessage("Las luces responden. Ahora puedes reconocer la habitación.");
-            if(revealRooms.Length>0) { while(System.Array.Exists(revealRooms,r=>r!=null && r.SequenceRunning)) yield return null; }
+            session.ShowMessage("La terminal tiene energía. El edificio sigue a oscuras.");
+            if(System.Array.Exists(revealRooms,r=>r!=null && r.isActiveAndEnabled))
+            { while(System.Array.Exists(revealRooms,r=>r!=null && r.isActiveAndEnabled && r.SequenceRunning)) yield return null; }
             else yield return new WaitForSeconds(1f);
             glitch?.Pulse(); session.ShowMessage("ACTIVIDAD HUMANA DETECTADA.");
             session.State.SetFlag(GameFlagId.FirstThreatActivated); firstRobot.SetOperational(true,false,3f);

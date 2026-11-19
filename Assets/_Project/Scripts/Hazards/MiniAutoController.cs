@@ -15,6 +15,12 @@ namespace EscapeUNIFRANZ.Hazards
         public AudioSource optionalAudio;
         public AudioClip alertSound;
         public ThreatFeedback2D feedback;
+        [Header("Mini-auto art")]
+        [SerializeField] private SpriteRenderer carVisual;
+        [SerializeField] private Texture2D movementArt;
+        [SerializeField] private Texture2D verticalArt;
+        [SerializeField] private Texture2D impactArt;
+        [SerializeField] private MiniAutoWear wear;
         private GameplayModeController mode;
         private float transitionAt;
         private Transform visibleTarget;
@@ -25,7 +31,20 @@ namespace EscapeUNIFRANZ.Hazards
         private float startupUntil;
         private EscapeUNIFRANZ.UI.EntranceTutorialController tutorial;
         private SpriteRenderer[] bodyVisuals;
-        private void Awake() { bodyVisuals=GetComponentsInChildren<SpriteRenderer>(true).Where(r=>r.enabled).ToArray(); }
+        private MiniAutoSpriteSet spriteSet;
+        private float movementTime;
+        private float impactTime = -1f;
+
+        private void Awake()
+        {
+            if (carVisual != null)
+                spriteSet = MiniAutoSpriteSet.Create(movementArt, verticalArt, impactArt);
+
+            bodyVisuals = GetComponentsInChildren<SpriteRenderer>(true)
+                .Where(renderer => renderer.enabled || (spriteSet != null && renderer == carVisual))
+                .ToArray();
+            RenderCar(false);
+        }
         public MobileThreatState State { get; private set; }=MobileThreatState.Patrol;
         public string ReadableState => State==MobileThreatState.Disabled ? "DESACTIVADO / DISABLED" : State==MobileThreatState.Chase ? "PERSIGUIENDO" : State==MobileThreatState.Alert || State==MobileThreatState.Suspicious ? "TE VIO / AVISO" : State==MobileThreatState.Search ? "BUSCANDO" : State==MobileThreatState.Return ? "VOLVIENDO" : "PATRULLA";
         public void Initialize(ZoneRuntimeContext context)
@@ -37,6 +56,7 @@ namespace EscapeUNIFRANZ.Hazards
         }
         public void SetOperational(bool value,bool hide=false,float startupSeconds=0f)
         {
+            impactTime = -1f;
             if (!hide) EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(value ? EscapeUNIFRANZ.Narrative.AudioCue.RobotRestart : EscapeUNIFRANZ.Narrative.AudioCue.RobotOff);
             operational=value; State=value ? MobileThreatState.Patrol : MobileThreatState.Disabled;
             startupUntil=value && startupSeconds>0 ? Time.time+startupSeconds : 0;
@@ -49,7 +69,44 @@ namespace EscapeUNIFRANZ.Hazards
             if(value && startupSeconds>0) { State=MobileThreatState.Idle; mover.enabled=false; sensor.enabled=false; feedback?.Show(ThreatVisualState.Alert); }
         }
         private void Contact(bool value) { foreach(var contact in GetComponentsInChildren<HazardContact2D>(true)) contact.SetContactAllowed(value); }
-        public void SuspendFor(float seconds) { disabledUntil=Time.time+Mathf.Max(1f,seconds); SetOperational(false); }
+        public void SuspendFor(float seconds)
+        {
+            bool wasOperational = operational;
+            disabledUntil = Time.time + Mathf.Max(1f, seconds);
+            SetOperational(false);
+            if (wasOperational && spriteSet != null)
+                impactTime = 0f;
+        }
+
+        private void LateUpdate()
+        {
+            if (spriteSet == null || mode == null || !mode.AllowsMovement)
+                return;
+
+            bool moving = mover != null && mover.isActiveAndEnabled && mover.IsMoving;
+            if (!moving)
+                movementTime = 0f;
+            RenderCar(moving);
+            if (moving)
+                movementTime = Mathf.Repeat(movementTime + Time.deltaTime, MiniAutoSpriteSet.CycleSeconds);
+
+            if (impactTime >= 0f)
+            {
+                impactTime += Time.deltaTime;
+                if (impactTime >= MiniAutoSpriteSet.CycleSeconds)
+                    impactTime = -1f;
+            }
+        }
+
+        private void RenderCar(bool moving)
+        {
+            if (spriteSet == null)
+                return;
+
+            Vector2 facing = mover != null ? mover.Facing : Vector2.down;
+            carVisual.sprite = spriteSet.Frame(facing, wear, moving, movementTime, impactTime, out bool flipX);
+            carVisual.flipX = flipX;
+        }
         public void DistractAt(Vector2 point,float seconds)
         {
             if (!operational) return;
@@ -84,8 +141,11 @@ namespace EscapeUNIFRANZ.Hazards
             State=MobileThreatState.Search; Contact(false); feedback?.Show(ThreatVisualState.Patrol); transitionAt=Time.time+chaseSeconds; mover.Investigate(lastSeen,chaseSpeed*0.5f);
         }
         public void ResetEncounter()
-        { visibleTarget=null; sensor?.ClearTarget(); mover?.ResetEncounter(); State=operational ? MobileThreatState.Patrol : MobileThreatState.Disabled; transitionAt=0f; Contact(false); feedback?.Show(operational ? ThreatVisualState.Patrol : ThreatVisualState.Disabled); }
+        { impactTime=-1f; movementTime=0f; visibleTarget=null; sensor?.ClearTarget(); mover?.ResetEncounter(); State=operational ? MobileThreatState.Patrol : MobileThreatState.Disabled; transitionAt=0f; Contact(false); feedback?.Show(operational ? ThreatVisualState.Patrol : ThreatVisualState.Disabled); }
         private void OnDestroy()
-        { if (sensor!=null) { sensor.TargetDetected-=Detected; sensor.TargetLost-=Lost; } }
+        {
+            if (sensor!=null) { sensor.TargetDetected-=Detected; sensor.TargetLost-=Lost; }
+            spriteSet?.Dispose();
+        }
     }
 }

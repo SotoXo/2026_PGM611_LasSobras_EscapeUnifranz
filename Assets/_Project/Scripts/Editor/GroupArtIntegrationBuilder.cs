@@ -350,7 +350,7 @@ namespace EscapeUNIFRANZ.EditorTools
             finally { Object.DestroyImmediate(root); EditorSceneManager.ClosePreviewScene(preview); }
         }
 
-        private static void ConfigureShadow(GameObject obj, Vector2 size)
+        internal static void ConfigureShadow(GameObject obj, Vector2 size)
         {
             var caster = obj.AddComponent<ShadowCaster2D>(); caster.castsShadows = true; caster.selfShadows = false;
             var so = new SerializedObject(caster);

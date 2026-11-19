@@ -61,7 +61,6 @@ namespace EscapeUNIFRANZ.Core
             state = new GameState();
             state.CheckpointChanged += OnCheckpointChanged;
             objectiveController?.Bind(state);
-            minimapController?.Bind(state);
             objectiveMarkerController?.Bind(state);
             notificationController?.Clear();
             bossPhaseView?.Hide();

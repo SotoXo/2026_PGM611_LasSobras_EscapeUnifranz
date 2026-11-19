@@ -51,13 +51,23 @@ namespace EscapeUNIFRANZ.Hazards
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            TryHandleContact(other);
+            TryHandleTriggerContact(other);
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            TryHandleContact(other);
+            TryHandleTriggerContact(other);
         }
+
+        private void TryHandleTriggerContact(Collider2D other)
+        {
+            // A Rigidbody2D also receives trigger callbacks from its child sensors.
+            if (CanDealContactDamage && IsHitboxOverlap(hitbox, other))
+                TryHandleContact(other);
+        }
+
+        private static bool IsHitboxOverlap(Collider2D hitbox, Collider2D other) =>
+            hitbox != null && other != null && hitbox.Distance(other).isOverlapped;
 
         private void TryHandleContact(Collider2D other)
         {

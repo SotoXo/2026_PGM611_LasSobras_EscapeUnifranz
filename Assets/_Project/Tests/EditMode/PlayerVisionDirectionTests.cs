@@ -1,4 +1,5 @@
 using EscapeUNIFRANZ.Player;
+using EscapeUNIFRANZ.Core;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -6,6 +7,18 @@ namespace EscapeUNIFRANZ.Tests.EditMode
 {
     public sealed class PlayerVisionDirectionTests
     {
+        [Test]
+        public void FlashlightCannotTurnOnBeforePickup()
+        {
+            var state = new GameState();
+            Assert.That(state.HasActiveFlashlight, Is.False);
+            Assert.That(state.ToggleFlashlight(), Is.False);
+            Assert.That(state.TryCollectPickup("test-flashlight", "flashlight"), Is.True);
+            Assert.That(state.HasActiveFlashlight, Is.True);
+            Assert.That(state.ToggleFlashlight(), Is.True);
+            Assert.That(state.HasActiveFlashlight, Is.False);
+        }
+
         [TestCase(PlayerVisualController.FacingDirection.Front, 180f)]
         [TestCase(PlayerVisualController.FacingDirection.Back, 0f)]
         [TestCase(PlayerVisualController.FacingDirection.Left, 90f)]

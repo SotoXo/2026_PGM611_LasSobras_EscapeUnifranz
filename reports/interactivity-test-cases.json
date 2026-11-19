@@ -1,0 +1,818 @@
+{
+  "summary": {
+    "id": "2",
+    "testcasecount": "154",
+    "result": "Passed",
+    "total": "154",
+    "passed": "154",
+    "failed": "0",
+    "inconclusive": "0",
+    "skipped": "0",
+    "asserts": "0",
+    "engine-version": "3.5.0.0",
+    "clr-version": "4.0.30319.42000",
+    "start-time": "2026-10-13 21:58:52Z",
+    "end-time": "2026-10-13 21:58:56Z",
+    "duration": "4,263403"
+  },
+  "groups": {
+    "EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests": 4,
+    "EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests": 6,
+    "EscapeUNIFRANZ.Tests.EditMode.ExolegEncounterTests": 2,
+    "EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests": 8,
+    "EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests": 10,
+    "EscapeUNIFRANZ.Tests.EditMode.GameSessionControllerTests": 1,
+    "EscapeUNIFRANZ.Tests.EditMode.GameStateTests": 11,
+    "EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests": 9,
+    "EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests": 6,
+    "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests": 17,
+    "EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests": 4,
+    "EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests": 8,
+    "EscapeUNIFRANZ.Tests.EditMode.NotificationQueueTests": 2,
+    "EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests": 4,
+    "EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests": 6,
+    "EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests": 6,
+    "EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests": 9,
+    "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests": 13,
+    "EscapeUNIFRANZ.Tests.EditMode.RobotArmsEncounterTests": 3,
+    "EscapeUNIFRANZ.Tests.EditMode.RobotDogEncounterTests": 3,
+    "EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests": 4,
+    "EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests": 4,
+    "EscapeUNIFRANZ.Tests.EditMode.SpawnIdResolverTests": 2,
+    "EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests": 6,
+    "EscapeUNIFRANZ.Tests.EditMode.ThreatAlertIndicatorTests": 3,
+    "EscapeUNIFRANZ.Tests.EditMode.ZoneCatalogTests": 3
+  },
+  "tests": [
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests.EmergencyStopCanInterruptAnActiveArmSequence",
+      "result": "Passed",
+      "duration": "0.010645"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests.FuseReplacementIsADragConnection_AndOnlyCompletionAllowsConsumption",
+      "result": "Passed",
+      "duration": "0.002565"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests.SoftwareButtonsUseReadableActionsRatherThanRealCommands",
+      "result": "Passed",
+      "duration": "0.004242"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests.SuspendingAMiniStopsMovementDetectionAndContact_WhileKeepingItsObject",
+      "result": "Passed",
+      "duration": "0.002616"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests.CurrentZone_OverridesOtherVisualStates",
+      "result": "Passed",
+      "duration": "0.002102"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests.HiddenZone_IsUnknown",
+      "result": "Passed",
+      "duration": "0.000197"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests.ResolvingMap_DoesNotMutateGameState",
+      "result": "Passed",
+      "duration": "0.000715"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests.RevealedButLockedZone_IsLocked",
+      "result": "Passed",
+      "duration": "0.000709"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests.UnlockedZone_IsDiscovered",
+      "result": "Passed",
+      "duration": "0.000077"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests.VisitedZone_IsCompleted",
+      "result": "Passed",
+      "duration": "0.000055"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ExolegEncounterTests.DisabledState_DoesNotReset",
+      "result": "Passed",
+      "duration": "0.000905"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ExolegEncounterTests.FullStateFlow_ReachesDisabled",
+      "result": "Passed",
+      "duration": "0.000186"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.CompletedPhase_DoesNotRegressOnReset",
+      "result": "Passed",
+      "duration": "0.001019"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.CorrectSequences_AdvanceAllPhases",
+      "result": "Passed",
+      "duration": "0.000690"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.FailureInHardware_KeepsNetworkPhaseCompleted",
+      "result": "Passed",
+      "duration": "0.000272"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.FailureInShutdown_KeepsNetworkAndHardwareCompleted",
+      "result": "Passed",
+      "duration": "0.000150"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.GameCompleted_IsMarkedOnlyForFinalPhase",
+      "result": "Passed",
+      "duration": "0.000068"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.IncorrectNetworkSequence_DoesNotCompletePhase",
+      "result": "Passed",
+      "duration": "0.000144"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.Intro_ToPhaseOne",
+      "result": "Passed",
+      "duration": "0.000066"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.PhaseReset_DoesNotErasePreviousGlobalProgress",
+      "result": "Passed",
+      "duration": "0.000069"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.Encounter_AllowsGameplayAndMap",
+      "result": "Passed",
+      "duration": "0.000416"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.Map_BlocksMovementAndInteraction_ButCanBeClosed",
+      "result": "Passed",
+      "duration": "0.000103"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.NewState_StartsInExplore",
+      "result": "Passed",
+      "duration": "0.000245"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.PresentationModes_BlockGameplay(Presentation)",
+      "result": "Passed",
+      "duration": "0.000484"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.PresentationModes_BlockGameplay(Inventory)",
+      "result": "Passed",
+      "duration": "0.000054"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.PresentationModes_BlockGameplay(Pause)",
+      "result": "Passed",
+      "duration": "0.000032"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.PresentationModes_BlockGameplay(Defeat)",
+      "result": "Passed",
+      "duration": "0.000028"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.PresentationModes_BlockGameplay(Ending)",
+      "result": "Passed",
+      "duration": "0.000020"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.ReturningToExplore_EnablesGameplay",
+      "result": "Passed",
+      "duration": "0.000107"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.Transition_BlocksGameplay",
+      "result": "Passed",
+      "duration": "0.000047"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameSessionControllerTests.StartNewGame_HidesStaleBossPhaseBanner",
+      "result": "Passed",
+      "duration": "0.001886"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameStateTests.ActivatingRespawnPoints_UsesLatestStableId",
+      "result": "Passed",
+      "duration": "0.000418"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameStateTests.ChangingZone_DoesNotRemoveFlags",
+      "result": "Passed",
+      "duration": "0.000106"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameStateTests.DiscoveredThreat_IsScopedByZoneAndStableId",
+      "result": "Passed",
+      "duration": "0.000089"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameStateTests.GameCompleted_RaisesOneCanonicalVictorySignal",
+      "result": "Passed",
+      "duration": "0.000302"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameStateTests.HasFlag_ReturnsCorrectValue",
+      "result": "Passed",
+      "duration": "0.000110"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameStateTests.NewState_StartsWithoutFlags",
+      "result": "Passed",
+      "duration": "0.000460"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameStateTests.RepeatingSameCheckpoint_DoesNotRaiseAnotherChange",
+      "result": "Passed",
+      "duration": "0.000135"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameStateTests.SetCheckpoint_PreservesGlobalProgress",
+      "result": "Passed",
+      "duration": "0.000128"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameStateTests.SetFlag_AddsFlag",
+      "result": "Passed",
+      "duration": "0.000051"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameStateTests.SetFlag_IsIdempotent",
+      "result": "Passed",
+      "duration": "0.000055"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.GameStateTests.UpdatingRespawnPoint_DoesNotEraseGlobalFlags",
+      "result": "Passed",
+      "duration": "0.000046"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.ActiveHazard_PhysicalContactRequestsRespawn",
+      "result": "Passed",
+      "duration": "0.000206"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.ActiveHazard_PlayerSensorContactDoesNotRequestRespawn",
+      "result": "Passed",
+      "duration": "0.000052"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.Detection_InRange_ReturnsTrue",
+      "result": "Passed",
+      "duration": "0.000160"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.Detection_OutOfRange_ReturnsFalse",
+      "result": "Passed",
+      "duration": "0.000059"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.DetectionSensor_HasNoRespawnDependency",
+      "result": "Passed",
+      "duration": "0.000688"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.DisableByFlag_ReflectsGameState",
+      "result": "Passed",
+      "duration": "0.000144"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.InactiveHazard_PhysicalContactDoesNotRequestRespawn",
+      "result": "Passed",
+      "duration": "0.000043"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.PatrolLoop_WrapsToFirstPoint",
+      "result": "Passed",
+      "duration": "0.000181"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.PatrolPingPong_ReversesAtEnds",
+      "result": "Passed",
+      "duration": "0.000086"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests.Resolve_EqualPriorityChoosesNearest",
+      "result": "Passed",
+      "duration": "0.000919"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests.Resolve_ExactTieUsesStableOrderIndependentlyOfListOrder",
+      "result": "Passed",
+      "duration": "0.000202"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests.Resolve_HigherPriorityWinsBeforeDistance",
+      "result": "Passed",
+      "duration": "0.000163"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests.Resolve_OneCandidate_ReturnsCandidate",
+      "result": "Passed",
+      "duration": "0.000104"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests.Resolve_RemovedCandidateIsIgnored",
+      "result": "Passed",
+      "duration": "0.000130"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests.Resolve_ZeroCandidates_ReturnsNull",
+      "result": "Passed",
+      "duration": "0.000154"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.CCTVIdentifiesSectorWithoutDiscoveringContents",
+      "result": "Passed",
+      "duration": "0.000473"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.CheckpointAndLocationChangesPreserveInventoryAndKnowledge",
+      "result": "Passed",
+      "duration": "0.000783"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ContextConsumesExactlyOneObject(\"fuse\")",
+      "result": "Passed",
+      "duration": "0.000728"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ContextConsumesExactlyOneObject(\"network_module\")",
+      "result": "Passed",
+      "duration": "0.000195"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.DoorRequiresCredentialAndSystemThenKeepsKey",
+      "result": "Passed",
+      "duration": "0.000589"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.EnteringZoneDiscoversOnlyThatZone",
+      "result": "Passed",
+      "duration": "0.000096"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.FlashlightCannotToggleBeforePickupAndTogglesAfter",
+      "result": "Passed",
+      "duration": "0.000130"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ForwardLightDisabledWithoutOwnershipAndWhenSwitchedOff",
+      "result": "Passed",
+      "duration": "0.006638"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.InstalledConsumableCannotRespawnFromAnotherPickup",
+      "result": "Passed",
+      "duration": "0.000143"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.KnownDoorStatusUpdatesWithoutDuplicatingPoint",
+      "result": "Passed",
+      "duration": "0.000172"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.PickupRegistersItemAndRejectsRepeatedOrSharedDuplicate",
+      "result": "Passed",
+      "duration": "0.000126"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ReusableCredentialRemainsAfterContextUse(\"key\")",
+      "result": "Passed",
+      "duration": "0.000264"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ReusableCredentialRemainsAfterContextUse(\"lab_card\")",
+      "result": "Passed",
+      "duration": "0.000026"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ReusableCredentialRemainsAfterContextUse(\"maintenance_card\")",
+      "result": "Passed",
+      "duration": "0.000015"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.SelectionRejectsUnownedItems",
+      "result": "Passed",
+      "duration": "0.000156"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.UnlockFlagDoesNotRevealUnvisitedZone",
+      "result": "Passed",
+      "duration": "0.000086"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.WrongSelectionPreservesBothItems",
+      "result": "Passed",
+      "duration": "0.000201"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests.CurrentCheckpoint_RequiresMatchingZoneAndSpawn",
+      "result": "Passed",
+      "duration": "0.000268"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests.CurrentZone_UsesStableZoneId",
+      "result": "Passed",
+      "duration": "0.000121"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests.LockedExit_ChangesToAvailableAfterFlag",
+      "result": "Passed",
+      "duration": "0.000233"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests.UnknownOrSecretExit_IsNotShown",
+      "result": "Passed",
+      "duration": "0.000073"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.CableChain_RejectsReverseAndPrematureEdges_AndCompletesOnlyAllRequiredConnections",
+      "result": "Passed",
+      "duration": "0.001694"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.CameraCone_DoesNotDetectBehindOrOutsideRange",
+      "result": "Passed",
+      "duration": "0.000376"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.CancellingOrResettingPuzzle_DoesNotResetPreviouslyCompletedBossPhases",
+      "result": "Passed",
+      "duration": "0.000211"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.CommandError_ResetsScratchProgress_AndDoesNotChangeWorldState",
+      "result": "Passed",
+      "duration": "0.000171"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.DoorNeedsBothCredentialAndCompletedSystem",
+      "result": "Passed",
+      "duration": "0.000122"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.IncompleteOrDanglingDefinitions_CannotAutomaticallySolve",
+      "result": "Passed",
+      "duration": "0.000112"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.NonOrderedTopology_AcceptsDeclaredEdgesInEitherOrder",
+      "result": "Passed",
+      "duration": "0.000103"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.SamePickupAcrossSharedScenes_IsCollectedOnce_AndBatteryCanBeConsumedOnce",
+      "result": "Passed",
+      "duration": "0.000257"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.NotificationQueueTests.IdenticalCheckpointNotification_IsNotRepeated",
+      "result": "Passed",
+      "duration": "0.000504"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.NotificationQueueTests.Queue_PreservesOrderAndShowsOneAtATime",
+      "result": "Passed",
+      "duration": "0.000157"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests.FormatsProgressFromZeroToComplete(0,\"Desconecta los nodos [0/2]\")",
+      "result": "Passed",
+      "duration": "0.000467"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests.FormatsProgressFromZeroToComplete(1,\"Desconecta los nodos [1/2]\")",
+      "result": "Passed",
+      "duration": "0.000026"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests.FormatsProgressFromZeroToComplete(2,\"Desconecta los nodos [2/2]\")",
+      "result": "Passed",
+      "duration": "0.000014"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests.SimpleObjective_RemainsSimple",
+      "result": "Passed",
+      "duration": "0.000075"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests.ResolveDirection_CardinalInput_UsesMatchingDirection(0.0f,-1.0f,Front)",
+      "result": "Passed",
+      "duration": "0.000658"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests.ResolveDirection_CardinalInput_UsesMatchingDirection(0.0f,1.0f,Back)",
+      "result": "Passed",
+      "duration": "0.000040"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests.ResolveDirection_CardinalInput_UsesMatchingDirection(-1.0f,0.0f,Left)",
+      "result": "Passed",
+      "duration": "0.000019"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests.ResolveDirection_CardinalInput_UsesMatchingDirection(1.0f,0.0f,Right)",
+      "result": "Passed",
+      "duration": "0.000019"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests.ResolveDirection_DiagonalInput_UsesDominantAxis",
+      "result": "Passed",
+      "duration": "0.000127"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests.ResolveDirection_NoInput_PreservesLastDirection",
+      "result": "Passed",
+      "duration": "0.000076"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests.NormalizeMovementInput_DiagonalInput_HasUnitMagnitude",
+      "result": "Passed",
+      "duration": "0.000536"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests.NormalizeMovementInput_ZeroInput_RemainsZero",
+      "result": "Passed",
+      "duration": "0.000579"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests.ResolveFacing_NegativeHorizontal_FacesLeft",
+      "result": "Passed",
+      "duration": "0.000190"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests.ResolveFacing_PositiveHorizontal_FacesRight",
+      "result": "Passed",
+      "duration": "0.000061"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests.ResolveFacing_VerticalMovement_PreservesPreviousFacing(1.0f)",
+      "result": "Passed",
+      "duration": "0.000407"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests.ResolveFacing_VerticalMovement_PreservesPreviousFacing(-1.0f)",
+      "result": "Passed",
+      "duration": "0.000022"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.ConePositiveYAxis_AlignsWithSpriteFacing(Front,0.0f,-1.0f)",
+      "result": "Passed",
+      "duration": "0.001047"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.ConePositiveYAxis_AlignsWithSpriteFacing(Back,0.0f,1.0f)",
+      "result": "Passed",
+      "duration": "0.000063"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.ConePositiveYAxis_AlignsWithSpriteFacing(Left,-1.0f,0.0f)",
+      "result": "Passed",
+      "duration": "0.000038"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.ConePositiveYAxis_AlignsWithSpriteFacing(Right,1.0f,0.0f)",
+      "result": "Passed",
+      "duration": "0.000028"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.VisionRotation_UsesPlayerVisualDirection(Front,180.0f)",
+      "result": "Passed",
+      "duration": "0.000461"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.VisionRotation_UsesPlayerVisualDirection(Back,0.0f)",
+      "result": "Passed",
+      "duration": "0.000040"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.VisionRotation_UsesPlayerVisualDirection(Left,90.0f)",
+      "result": "Passed",
+      "duration": "0.000019"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.VisionRotation_UsesPlayerVisualDirection(Right,-90.0f)",
+      "result": "Passed",
+      "duration": "0.000017"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.ZeroMovement_KeepsLastDirectionAndVisionRotation",
+      "result": "Passed",
+      "duration": "0.000141"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.Controls_ReturnsToItsMainMenuOrPauseOrigin",
+      "result": "Passed",
+      "duration": "0.000741"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.Defeat_DoesNotRespawnUntilRetryCompletesLoading",
+      "result": "Passed",
+      "duration": "0.000188"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.EncounterMode_IsRestoredAfterPresentationOverlay",
+      "result": "Passed",
+      "duration": "0.000086"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.FailedRetry_ReturnsToDefeatPanel",
+      "result": "Passed",
+      "duration": "0.000081"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.GameplayWithoutTransition_AllowsPauseAndDefeat",
+      "result": "Passed",
+      "duration": "0.000069"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.Intro_CanBeSkippedDirectlyToLoading",
+      "result": "Passed",
+      "duration": "0.000075"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.InvalidTransitions_AreRejected",
+      "result": "Passed",
+      "duration": "0.000122"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.Launch_StartsAtMainMenuWithFrozenGameplayAndHiddenHud",
+      "result": "Passed",
+      "duration": "0.000065"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.NewGame_TraversesThreeIntroPanelsBeforeLoadingAndGameplay",
+      "result": "Passed",
+      "duration": "0.000158"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.Pause_FreezesAndHidesHudUntilResume",
+      "result": "Passed",
+      "duration": "0.000118"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.PauseCheckpointRestart_CanFailSafelyBackToPause",
+      "result": "Passed",
+      "duration": "0.000088"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.PendingVictory_BlocksPauseAndDefeatInterruptions",
+      "result": "Passed",
+      "duration": "0.000054"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.Victory_LeadsToCreditsAndThenMainMenu",
+      "result": "Passed",
+      "duration": "0.000139"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.RobotArmsEncounterTests.DisabledArms_DoNotReset",
+      "result": "Passed",
+      "duration": "0.001239"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.RobotArmsEncounterTests.FullStateFlow_ReachesDisabled",
+      "result": "Passed",
+      "duration": "0.000168"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.RobotArmsEncounterTests.PanelCannotDisableOutsideVulnerableState",
+      "result": "Passed",
+      "duration": "0.000063"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.RobotDogEncounterTests.DetectionAndSearch_ReturnToPatrol",
+      "result": "Passed",
+      "duration": "0.000585"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.RobotDogEncounterTests.DisabledDog_DoesNotReturnToPatrol",
+      "result": "Passed",
+      "duration": "0.000196"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.RobotDogEncounterTests.TwoNetworkNodes_DisableDog",
+      "result": "Passed",
+      "duration": "0.000093"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests.LockedSecret_IsNotRevealed",
+      "result": "Passed",
+      "duration": "0.000280"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests.ScanEndsAfterLogicalDuration",
+      "result": "Passed",
+      "duration": "0.000225"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests.ScanRespectsCooldown",
+      "result": "Passed",
+      "duration": "0.000066"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests.ValidElement_CanBeRevealed",
+      "result": "Passed",
+      "duration": "0.000044"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests.ResolveCheckpointEncounter_IgnoresCompletedEncounter",
+      "result": "Passed",
+      "duration": "0.000813"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests.ResolveCheckpointEncounter_SelectsMatchingResetBoundary",
+      "result": "Passed",
+      "duration": "0.000190"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests.ResolveCheckpointEncounter_UsesActiveEncounterForPhaseCheckpoint",
+      "result": "Passed",
+      "duration": "0.000244"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests.ResolveCheckpointEncounter_UsesSoleInactiveBoundaryForRepeatedPhaseRespawn",
+      "result": "Passed",
+      "duration": "0.000178"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.SpawnIdResolverTests.TryResolveIndex_ExistingSpawn_ReturnsIndex",
+      "result": "Passed",
+      "duration": "0.000615"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.SpawnIdResolverTests.TryResolveIndex_MissingSpawn_ReturnsClearError",
+      "result": "Passed",
+      "duration": "0.000493"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests.EnergyOrderWrongSwitchPreservesValidatedStages",
+      "result": "Passed",
+      "duration": "0.000750"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests.EveryMajorRepairHasWrittenAndEnvironmentalEvidence",
+      "result": "Passed",
+      "duration": "0.001759"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests.FirstCablesOnlyNeedEnergyAndData_AndMistakesPreserveProgress",
+      "result": "Passed",
+      "duration": "0.000998"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests.ProgressionRequiresCCTV_AndAllowsMaintenanceBacktrackingBeforeTechnology",
+      "result": "Passed",
+      "duration": "0.000594"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests.SecondCablesKeepFourSignalsAndAcceptAnyOrder",
+      "result": "Passed",
+      "duration": "0.000152"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests.SolidWallsBlockLineOfSight_AndTriggerVolumesDoNot",
+      "result": "Passed",
+      "duration": "0.001280"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ThreatAlertIndicatorTests.Alert_ShowsDetectionIndicator",
+      "result": "Passed",
+      "duration": "0.000185"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ThreatAlertIndicatorTests.Disabled_ClearsIndicator",
+      "result": "Passed",
+      "duration": "0.000069"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ThreatAlertIndicatorTests.Patrol_HasNoIndicator",
+      "result": "Passed",
+      "duration": "0.000037"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ZoneCatalogTests.TryCreateLookup_DuplicateId_ReturnsClearError",
+      "result": "Passed",
+      "duration": "0.000876"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ZoneCatalogTests.TryCreateLookup_ValidZone_ResolvesScene",
+      "result": "Passed",
+      "duration": "0.000668"
+    },
+    {
+      "name": "EscapeUNIFRANZ.Tests.EditMode.ZoneCatalogTests.TryResolveScene_MissingZone_ReturnsClearError",
+      "result": "Passed",
+      "duration": "0.000194"
+    }
+  ]
+}

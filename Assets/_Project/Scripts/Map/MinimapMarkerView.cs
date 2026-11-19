@@ -56,7 +56,7 @@ namespace EscapeUNIFRANZ.Map
             if (accentPrimary != null)
             {
                 accentPrimary.gameObject.SetActive(true);
-                accentPrimary.color = new Color(0.025f, 0.06f, 0.09f, 1f);
+                accentPrimary.color = new Color(0.09f, 0.035f, 0.05f, 1f);
                 firstRect.localRotation = Quaternion.identity;
                 firstRect.anchoredPosition = Vector2.zero;
                 firstRect.sizeDelta = new Vector2(7f, 7f);
@@ -116,6 +116,25 @@ namespace EscapeUNIFRANZ.Map
                         secondRect.anchoredPosition = new Vector2(2f, -2f);
                     }
                     break;
+                case MinimapMarkerKind.Item:
+                    baseRect.sizeDelta = new Vector2(10f, 10f);
+                    if (firstRect != null) firstRect.sizeDelta = new Vector2(6f, 6f);
+                    if (secondRect != null) secondRect.sizeDelta = new Vector2(3f, 3f);
+                    break;
+                case MinimapMarkerKind.Camera:
+                    baseRect.sizeDelta = new Vector2(13f, 8f);
+                    if (firstRect != null) firstRect.sizeDelta = new Vector2(8f, 4f);
+                    if (secondRect != null)
+                    {
+                        secondRect.anchoredPosition = new Vector2(3f, 0f);
+                        secondRect.sizeDelta = new Vector2(3f, 2f);
+                    }
+                    break;
+                case MinimapMarkerKind.Point:
+                    baseRect.sizeDelta = new Vector2(6f, 6f);
+                    if (accentPrimary != null) accentPrimary.gameObject.SetActive(false);
+                    if (accentSecondary != null) accentSecondary.gameObject.SetActive(false);
+                    break;
             }
         }
 
@@ -123,17 +142,19 @@ namespace EscapeUNIFRANZ.Map
         {
             if (kind == MinimapMarkerKind.Exit)
             {
-                return exitState==MinimapExitState.Conditional ? new Color(1f,.78f,.28f) : exitState == MinimapExitState.Blocked
-                    ? new Color(1f, 0.32f, 0.39f, 1f)
-                    : new Color(0.3f, 0.89f, 0.54f, 1f);
+                return exitState == MinimapExitState.Available
+                    ? new Color(1f, .82f, .75f)
+                    : new Color(1f, .47f, .38f);
             }
 
             switch (kind)
             {
-                case MinimapMarkerKind.Objective: return new Color(1f, 0.72f, 0.29f, 1f);
-                case MinimapMarkerKind.Checkpoint: return new Color(0.3f, 0.89f, 0.54f, 1f);
-                case MinimapMarkerKind.Threat: return new Color(1f, 0.32f, 0.39f, 1f);
-                case MinimapMarkerKind.Point: return new Color(.55f,.8f,.95f,1f);
+                case MinimapMarkerKind.Objective: return new Color(1f, .77f, .53f);
+                case MinimapMarkerKind.Checkpoint: return new Color(.87f, .65f, .69f);
+                case MinimapMarkerKind.Threat: return new Color(1f, .17f, .26f);
+                case MinimapMarkerKind.Camera: return new Color(1f, .48f, .56f);
+                case MinimapMarkerKind.Item: return new Color(1f, .91f, .72f);
+                case MinimapMarkerKind.Point: return new Color(.89f, .61f, .64f);
                 default: return new Color(0.15f, 0.18f, 0.24f, 0.95f);
             }
         }

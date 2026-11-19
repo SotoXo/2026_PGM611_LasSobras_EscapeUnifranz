@@ -1,0 +1,27 @@
+Z00_Entrada / Recepción y panel de acceso: Dim; entry=True; full (0.94, 1.32) s; delay 0,55; blackout 0; defect 0; bounded fill/shadows/refs OK.
+Z00_Entrada / Sala dental y corredor de inspección: Blackout; entry=True; full (1.28, 1.80) s; delay 0,55; blackout 0,7; defect -1; bounded fill/shadows/refs OK.
+Z00_Entrada / Admisión al fondo: Blackout; entry=False; full (1.19, 1.68) s; delay 0,55; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Entrance: first terminal (3.950, 4.350, 0.000) at 1,34 from spawn; no initial E candidate; 2-room recovery, 3 s robot startup grace; checkpoints/hitbox configuration preserved.
+Z01_Hall / Hall de admisión: Dim; entry=True; full (1.70, 2.40) s; delay 0,61; blackout 0; defect 0; bounded fill/shadows/refs OK.
+Z01_Hall / Recepción: Normal; entry=False; full (1.19, 1.68) s; delay 0,61; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z01_Hall / Sala dental: Blackout; entry=False; full (1.19, 1.68) s; delay 0,61; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z02_ARCA / Control ARCA: Dim; entry=True; full (1.36, 1.92) s; delay 0,67; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z02_ARCA / Acceso de servicio: Normal; entry=False; full (1.19, 1.68) s; delay 0,67; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z03_Piso2 / Cocina de simulación: Dim; entry=True; full (1.02, 1.44) s; delay 0,73; blackout 0; defect 0; bounded fill/shadows/refs OK.
+Z03_Piso2 / Pasillo y caja de fusibles: Dim; entry=False; full (1.19, 1.68) s; delay 0,73; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z03_Piso2 / Sala del dispositivo de simulación: Blackout; entry=True; full (0.85, 1.20) s; delay 0,73; blackout 1,3; defect -1; bounded fill/shadows/refs OK.
+Z03_Piso2 / Sala de práctica: Blackout; entry=True; full (1.11, 1.56) s; delay 0,73; blackout 0,7; defect -1; bounded fill/shadows/refs OK.
+Z04_Piso3 / Pasillo de Tecnología: Dim; entry=False; full (1.19, 1.68) s; delay 0,79; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z04_Piso3 / Aula de equipos: Normal; entry=False; full (1.19, 1.68) s; delay 0,79; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z04_Piso3 / Sala de red: Blackout; entry=False; full (1.06, 1.50) s; delay 0,79; blackout 0,8; defect 0; bounded fill/shadows/refs OK.
+Z04_Piso3 / Sector de seguridad: Emergency; entry=False; full (1.19, 1.68) s; delay 0,79; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z05_LabSoftware / Pasillo del laboratorio: Dim; entry=False; full (1.19, 1.68) s; delay 0,85; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z05_LabSoftware / Laboratorio de pantallas: Dim; entry=True; full (1.11, 1.56) s; delay 0,85; blackout 0; defect 0; bounded fill/shadows/refs OK.
+Z05_LabSoftware / Cuarto de servicios: Blackout; entry=False; full (1.19, 1.68) s; delay 0,85; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z05_LabSoftware / Zona de brazos y parada de emergencia: Emergency; entry=False; full (1.19, 1.68) s; delay 0,85; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z06_NucleoIA / Corredor del núcleo: Dim; entry=False; full (1.19, 1.68) s; delay 0,91; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z06_NucleoIA / Aula del extremo: Blackout; entry=False; full (1.19, 1.68) s; delay 0,91; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z06_NucleoIA / Control de red: Dim; entry=True; full (0.85, 1.20) s; delay 0,91; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Z06_NucleoIA / Aula técnica del núcleo: Dim; entry=True; full (1.06, 1.50) s; delay 0,91; blackout 0,5; defect -1; bounded fill/shadows/refs OK.
+Z06_NucleoIA / Control de actuadores: Emergency; entry=False; full (1.19, 1.68) s; delay 0,91; blackout 0; defect -1; bounded fill/shadows/refs OK.
+Rooms=25; entry reading events=10; one entrance-only tutorial; no missing references or light ownership conflicts. Edit Mode; no visual review.

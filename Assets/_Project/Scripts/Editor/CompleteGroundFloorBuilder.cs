@@ -1,0 +1,418 @@
+#if UNITY_EDITOR
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using EscapeUNIFRANZ.World;
+using EscapeUNIFRANZ.Interaction;
+using EscapeUNIFRANZ.Hazards;
+using EscapeUNIFRANZ.Narrative;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEditor.U2D.Sprites;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
+
+namespace EscapeUNIFRANZ.EditorTools
+{
+    /// <summary>Imports the complete authored ground floor without rebuilding campaign logic.</summary>
+    public static class CompleteGroundFloorBuilder
+    {
+        const string Folder = "Assets/_Project/Art/Levels/nivel1_planta_baja/";
+        const string PrefabPath = Folder + "nivel1_planta_baja.prefab";
+        // Preserve the campaign's 30-unit width, using uniform scaling for the new artwork.
+        const float Ppu = 610f / 30f;
+        internal static readonly Color GroundAmbientColor = new Color(.55f, .28f, .32f, 1f);
+        internal const float GroundAmbientIntensity = .15f;
+        static readonly RectInt[] OpenPassages =
+        {
+            new RectInt(252, 89, 23, 34),  // Central staircase
+            new RectInt(435, 49, 20, 33),  // East staircase
+            new RectInt(262, 153, 14, 18), // Meeting room doorway
+            new RectInt(256, 169, 16, 7),  // Turn inside the meeting room
+            new RectInt(256, 176, 9, 17)   // Aisle between the tables
+        };
+        static int width, height;
+        static bool[] solid, reachable;
+        static Material material;
+
+        [MenuItem("Escape UNIFRANZ/Art/Replace Ground Floor With Mapa Completo")]
+        public static void Build()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Run in Edit Mode.");
+            if (!SavePendingSceneChanges()) return;
+            var setup = EditorSceneManager.GetSceneManagerSetup();
+            AssetDatabase.Refresh();
+            material = AssetDatabase.LoadAssetAtPath<Material>("Assets/_Project/Art/Levels/GroupWorldLit.mat");
+            var floor = Import("mapa_suelo");
+            var walls = Import("mapa_muros");
+            var objects = Import("mapa_objetos");
+            width = floor.width; height = floor.height;
+            if (width != 610 || height != 285 || walls.width != width || walls.height != height || objects.width != width || objects.height != height)
+                throw new InvalidOperationException("Expected three aligned 610 x 285 layers.");
+            var fp = floor.GetPixels32(); var wp = walls.GetPixels32(); var op = objects.GetPixels32();
+            solid = new bool[width * height];
+            for (int i = 0; i < solid.Length; i++) solid[i] = fp[i].a < 128 || wp[i].a >= 128;
+            var props = Components(op);
+            // Furniture collides at its base so the player can pass behind tall props.
+            foreach (var r in props)
+                for (int y = r.yMin; y < r.yMin + Mathf.Max(2, Mathf.RoundToInt(r.height * .4f)); y++)
+                    for (int x = r.xMin; x < r.xMax; x++) solid[y * width + x] = true;
+            // The artwork includes steps and door trim in the wall/object layers.
+            foreach (var passage in OpenPassages)
+                for (int y = passage.yMin; y < passage.yMax; y++)
+                    for (int x = passage.xMin; x < passage.xMax; x++)
+                        solid[y * width + x] = false;
+            FindReachable();
+            var root = PrefabUtility.LoadPrefabContents(PrefabPath);
+            try
+            {
+                foreach (Transform t in root.transform.Cast<Transform>().ToArray())
+                    if (t.name == "Suelo" || t.name == "Decals" || t.name.StartsWith("Wall_") || t.name.StartsWith("Prop_") || t.name == "WorldCollision_Authored" || t.name == "MapaCompleto")
+                        Object.DestroyImmediate(t.gameObject);
+                var visual = new GameObject("MapaCompleto").transform; visual.SetParent(root.transform, false);
+                Draw(visual, Slice("mapa_suelo", new[] { new RectInt(0, 0, width, height) }, "Suelo")[0], new RectInt(0, 0, width, height), "Ground");
+                var bands = new List<RectInt>();
+                for (int y = 0; y < height; y += 8) bands.Add(new RectInt(0, y, width, Math.Min(8, height-y)));
+                var wallSprites = Slice("mapa_muros", bands, "Wall");
+                for (int i = 0; i < bands.Count; i++) Draw(visual, wallSprites[i], bands[i], "World");
+                var propSprites = Slice("mapa_objetos", props, "Prop");
+                for (int i = 0; i < props.Count; i++) Draw(visual, propSprites[i], props[i], "World");
+                var collisions = new GameObject("WorldCollision_Authored").transform; collisions.SetParent(root.transform, false);
+                int count = 0;
+                // Merge equal pixel runs vertically into boxes; no colliders span open doorways.
+                var runs = new Dictionary<Vector2Int, RectInt>();
+                for (int y = 0; y <= height; y++)
+                {
+                    var next = new Dictionary<Vector2Int, RectInt>();
+                    for (int x = 0; y < height && x < width; x++)
+                    {
+                        if (!solid[y*width+x]) continue;
+                        int start = x; while (x+1 < width && solid[y*width+x+1]) x++;
+                        var key = new Vector2Int(start, x-start+1);
+                        next[key] = runs.TryGetValue(key, out var previous) ? new RectInt(start, previous.y, key.y, previous.height+1) : new RectInt(start,y,key.y,1);
+                    }
+                    foreach (var pair in runs) if (!next.ContainsKey(pair.Key))
+                    {
+                        var r = pair.Value; var go = new GameObject("Solid_" + count++); go.transform.SetParent(collisions, false);
+                        go.transform.localPosition = new Vector3(r.center.x/Ppu,r.center.y/Ppu,0);
+                        go.AddComponent<BoxCollider2D>().size = new Vector2(r.width/Ppu,r.height/Ppu);
+                    }
+                    runs = next;
+                }
+                foreach (Transform t in root.transform)
+                    if (t.name.StartsWith("ItemVisual_") || t.name.StartsWith("AuthoredLamp_"))
+                        t.localPosition = Safe(t.localPosition);
+                ConfigureCleanPrefab(root);
+                PrefabUtility.SaveAsPrefabAsset(root, PrefabPath);
+                Directory.CreateDirectory("reports");
+                File.WriteAllText("reports/mapa-completo-integration.txt", $"Artwork: {width} x {height}; {Ppu} pixels/unit; {width/Ppu} x {height/Ppu} units.\nProps: {props.Count}. Collision boxes: {count}.\n");
+            }
+            finally { PrefabUtility.UnloadPrefabContents(root); }
+            try
+            {
+                foreach (string name in new[] { "Z00_Entrada", "Z01_Hall", "Z02_ARCA" })
+                {
+                    var scene = EditorSceneManager.OpenScene("Assets/_Project/Scenes/Zones/" + name + ".unity", OpenSceneMode.Single);
+                    var zone = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<ZoneContext>(true)).First();
+                    var old = zone.transform.Find("GroupLevelArt");
+                    if (old == null) throw new InvalidOperationException("Missing level instance: " + name);
+                    Object.DestroyImmediate(old.gameObject);
+                    var art = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath), scene);
+                    art.name = "GroupLevelArt"; art.transform.SetParent(zone.transform, false);
+                    var targets = zone.GetComponentsInChildren<Transform>(true).Where(t => t.gameObject.activeInHierarchy && !t.IsChildOf(art.transform) &&
+                        (t.GetComponent<SpawnPoint>() != null || t.GetComponent<InteractableBehaviour>() != null || t.GetComponent<PatrolMover2D>() != null ||
+                         t.GetComponent<TimedHazardArea2D>() != null || (t.parent != null && t.parent.GetComponent<PatrolPath2D>() != null)))
+                        .Select(t => (transform:t, position:t.position)).ToArray();
+                    var occupied = new List<Vector3>();
+                    foreach (var target in targets)
+                    {
+                        var local = zone.transform.InverseTransformPoint(target.position);
+                        bool interactive = target.transform.GetComponent<InteractableBehaviour>() != null;
+                        var safe = Safe(local, interactive ? occupied : null);
+                        if (interactive) occupied.Add(safe);
+                        target.transform.position = zone.transform.TransformPoint(safe);
+                        File.AppendAllText("reports/mapa-completo-integration.txt", $"{name}/{target.transform.name}: {local} -> {safe}\n");
+                    }
+                    var data = new SerializedObject(zone);
+                    data.FindProperty("minimapCenter").vector2Value = new Vector2(width/Ppu/2,height/Ppu/2);
+                    data.FindProperty("minimapSize").vector2Value = new Vector2(width/Ppu,height/Ppu);
+                    data.FindProperty("minimapFloorMask").objectReferenceValue = floor;
+                    data.ApplyModifiedPropertiesWithoutUndo();
+                    foreach (var spawn in zone.GetComponentsInChildren<SpawnPoint>(true))
+                        if (!IsSafe(Mathf.RoundToInt(zone.transform.InverseTransformPoint(spawn.transform.position).x*Ppu), Mathf.RoundToInt(zone.transform.InverseTransformPoint(spawn.transform.position).y*Ppu)))
+                            throw new InvalidOperationException("Unsafe spawn: " + spawn.name);
+                    ConfigureCleanScene(zone, art);
+                    EditorSceneManager.SaveScene(scene);
+                }
+                AssetDatabase.SaveAssets();
+            }
+            finally
+            {
+                if (setup.Any(s => s.isLoaded && s.isActive)) EditorSceneManager.RestoreSceneManagerSetup(setup);
+                else EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            }
+            Debug.Log("MAPA_COMPLETO_OK: replaced ground floor in three scenes; all spawn positions validated on connected walkable floor.");
+        }
+
+        [MenuItem("Escape UNIFRANZ/Art/Clean And Light Complete Ground Floor")]
+        public static void CleanAndLight()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Run in Edit Mode.");
+            if (!SavePendingSceneChanges()) return;
+            var setup = EditorSceneManager.GetSceneManagerSetup();
+            var root = PrefabUtility.LoadPrefabContents(PrefabPath);
+            try { ConfigureCleanPrefab(root); PrefabUtility.SaveAsPrefabAsset(root, PrefabPath); }
+            finally { PrefabUtility.UnloadPrefabContents(root); }
+            var report = new List<string>();
+            try
+            {
+                foreach (string name in new[] { "Z00_Entrada", "Z01_Hall", "Z02_ARCA" })
+                {
+                    var scene = EditorSceneManager.OpenScene("Assets/_Project/Scenes/Zones/" + name + ".unity", OpenSceneMode.Single);
+                    var zone = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<ZoneContext>(true)).First();
+                    var art = zone.transform.Find("GroupLevelArt");
+                    if (art == null) throw new InvalidOperationException("Missing map in " + name);
+                    ConfigureCleanScene(zone, art.gameObject);
+                    var pickups = zone.GetComponentsInChildren<ItemPickupInteractable>().Where(p => p.gameObject.activeInHierarchy).ToArray();
+                    var expectedPickups = name == "Z00_Entrada" ? new[] { "battery", "flashlight", "key" } : new[] { "flashlight", "key" };
+                    if (!pickups.Select(p => p.ItemId).OrderBy(id => id).SequenceEqual(expectedPickups))
+                        throw new InvalidOperationException("Unexpected pickups in " + name);
+                    var overlays = zone.GetComponentsInChildren<SpriteRenderer>().Where(sr => sr.enabled && sr.gameObject.activeInHierarchy && !KeepRenderer(sr, art)).ToArray();
+                    if (overlays.Length != 0) throw new InvalidOperationException("Legacy renderers remain in " + name);
+                    EditorSceneManager.SaveScene(scene);
+                    report.Add(name + ": campaign pickups preserved; blackout lighting applied.");
+                }
+                AssetDatabase.SaveAssets();
+                Directory.CreateDirectory("reports"); File.WriteAllLines("reports/mapa-completo-cleanup.txt", report);
+            }
+            finally
+            {
+                if (setup.Any(s => s.isLoaded && s.isActive)) EditorSceneManager.RestoreSceneManagerSetup(setup);
+                else EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            }
+            Debug.Log("MAPA_COMPLETO_CLEAN_OK: three scenes validated; campaign pickups and stable lighting.");
+        }
+
+        static bool SavePendingSceneChanges()
+        {
+            var dirty = new List<string>();
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                var scene = SceneManager.GetSceneAt(i);
+                if (scene.isDirty) dirty.Add(string.IsNullOrEmpty(scene.path) ? "Escena sin guardar" : scene.path);
+            }
+            if (dirty.Count == 0) return true;
+            if (Application.isBatchMode)
+                throw new InvalidOperationException("Save modified scenes before batch integration: " + string.Join(", ", dirty));
+            if (!EditorUtility.DisplayDialog("Guardar escenas antes de continuar",
+                "El mapa necesita abrir otras escenas. Guarda primero los cambios pendientes:\n\n" + string.Join("\n", dirty),
+                "Guardar y continuar", "Cancelar")) return false;
+            if (!EditorSceneManager.SaveOpenScenes())
+            {
+                Debug.LogWarning("Integración cancelada: no se guardaron todas las escenas. No se aplicaron cambios al mapa.");
+                return false;
+            }
+            return true;
+        }
+
+        static void ConfigureCleanPrefab(GameObject root)
+        {
+            var battery = root.transform.Find("ItemVisual_bateria");
+            if (battery != null) Object.DestroyImmediate(battery.gameObject);
+            foreach (var id in new[] { "linterna", "llave" })
+            {
+                var item = root.transform.Find("ItemVisual_" + id);
+                if (item == null) throw new InvalidOperationException("Missing preserved item: " + id);
+                string itemId = id == "linterna" ? "flashlight" : "key";
+                var pickup = EnsureComponent<ItemPickupInteractable>(item.gameObject);
+                pickup.itemId = itemId;
+                pickup.item = AssetDatabase.LoadAssetAtPath<ItemData>("Assets/_Project/Data/Narrative/Items/" + itemId + ".asset");
+                // Shared across all three scenes, so collected items never reappear after changing zone.
+                pickup.pickupId = itemId == "flashlight" ? "entrada_linterna_personal" : "nivel1_mapa_completo_llave";
+                var trigger = EnsureComponent<CircleCollider2D>(item.gameObject);
+                trigger.enabled = true; trigger.isTrigger = true; trigger.radius = .4f;
+                var renderer = item.GetComponent<SpriteRenderer>();
+                if (renderer == null) throw new InvalidOperationException("Missing item sprite: " + item.name);
+                renderer.enabled = true;
+                renderer.sortingOrder = WorldYSort2D.Order(item.localPosition.y);
+                item.gameObject.SetActive(true);
+            }
+            ConfigureBlackoutPrefab(root);
+        }
+
+        internal static void ConfigureBlackoutPrefab(GameObject root)
+        {
+            foreach (var flicker in root.GetComponentsInChildren<GroupLampFlicker2D>(true))
+                flicker.enabled = false;
+            foreach (var lamp in root.GetComponentsInChildren<Light2D>(true))
+            {
+                var fixture = lamp.GetComponent<SpriteRenderer>();
+                if (fixture != null) fixture.enabled = false;
+                lamp.enabled = false;
+            }
+
+            var flashlight = root.transform.Find("ItemVisual_linterna");
+            flashlight.localPosition = new Vector3(4.62f, 7.37f, 0f);
+            flashlight.GetComponent<SpriteRenderer>().sortingOrder = WorldYSort2D.Order(flashlight.localPosition.y);
+            var beacon = flashlight.Find("PickupGlint");
+            if (beacon == null)
+            {
+                beacon = new GameObject("PickupGlint").transform;
+                beacon.SetParent(flashlight, false);
+            }
+            var glow = EnsureComponent<Light2D>(beacon.gameObject);
+            glow.lightType = Light2D.LightType.Point;
+            glow.color = new Color(1f, .66f, .48f, 1f);
+            glow.intensity = .26f;
+            glow.pointLightInnerRadius = .16f;
+            glow.pointLightOuterRadius = .48f;
+            glow.pointLightInnerAngle = glow.pointLightOuterAngle = 360f;
+            glow.targetSortingLayers = SortingLayer.layers.Select(l => l.id).ToArray();
+            glow.enabled = true;
+
+            var walls = root.transform.Find("WorldCollision_Authored");
+            // Long wall spans occlude the beam. Pixel-sized collider fragments do not need their own caster.
+            foreach (var box in walls.GetComponentsInChildren<BoxCollider2D>())
+                if (box.size.x * box.size.y >= .11f && box.GetComponent<ShadowCaster2D>() == null)
+                    GroupArtIntegrationBuilder.ConfigureShadow(box.gameObject, box.size);
+        }
+
+        static void ConfigureCleanScene(ZoneContext zone, GameObject art)
+        {
+            // The complete map supplies its own pickups. Keep the campaign's other interactions.
+            foreach (var pickup in zone.GetComponentsInChildren<ItemPickupInteractable>(true))
+                if (!pickup.transform.IsChildOf(art.transform) && pickup.ItemId != "battery")
+                    pickup.gameObject.SetActive(false);
+            foreach (var renderer in zone.GetComponentsInChildren<Renderer>(true))
+                if (!KeepRenderer(renderer, art.transform)) renderer.enabled = false;
+            foreach (var collider in zone.GetComponentsInChildren<Collider2D>(true))
+                if (!collider.transform.IsChildOf(art.transform) && !collider.isTrigger &&
+                    collider.GetComponentInParent<MiniAutoController>() == null &&
+                    collider.GetComponentInParent<DoorPanel2D>() == null) collider.enabled = false;
+            foreach (string name in new[] { "Hazards", "Environment", "WorldCollision", "PresentationDecor", "RoomLighting" })
+            { var old = zone.transform.Find(name); if (old != null) old.gameObject.SetActive(false); }
+            foreach (var controller in zone.GetComponentsInChildren<RoomLightingController>(true)) controller.gameObject.SetActive(false);
+            foreach (var sequence in zone.GetComponentsInChildren<LightSequenceTrigger>(true)) sequence.gameObject.SetActive(false);
+            foreach (var light in zone.gameObject.scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<Light2D>(true)))
+                if (!light.transform.IsChildOf(art.transform)) light.enabled = false;
+            var lightRoot = zone.transform.Find("MapaCompleto_GlobalLight");
+            if (lightRoot == null) { lightRoot = new GameObject("MapaCompleto_GlobalLight").transform; lightRoot.SetParent(zone.transform, false); }
+            var fill = EnsureComponent<Light2D>(lightRoot.gameObject);
+            fill.lightType = Light2D.LightType.Global; fill.color = GroundAmbientColor;
+            fill.intensity = GroundAmbientIntensity; fill.enabled = true;
+            fill.targetSortingLayers = SortingLayer.layers.Select(l => l.id).ToArray();
+        }
+
+        static bool KeepRenderer(Renderer renderer, Transform art) =>
+            renderer.transform.IsChildOf(art) || renderer.GetComponentInParent<MiniAutoController>() != null ||
+            renderer.name == "AccessSign" || renderer.transform.parent?.name == "AccessSign" ||
+            renderer.GetComponentInParent<DoorPanel2D>() != null ||
+            renderer.GetComponentInParent<ItemPickupInteractable>()?.ItemId == "battery";
+
+        static T EnsureComponent<T>(GameObject owner) where T : Component
+        {
+            // Unity's missing/destroyed components can retain a managed reference.
+            // Use Unity's overloaded null check; ?? would incorrectly reuse that reference.
+            var component = owner.GetComponent<T>();
+            if (component == null) component = owner.AddComponent<T>();
+            if (component == null)
+                throw new InvalidOperationException("Could not add " + typeof(T).Name + " to " + owner.name);
+            return component;
+        }
+
+        static Texture2D Import(string name)
+        {
+            string path = Folder + "MapaCompleto/" + name + ".png";
+            var ti = (TextureImporter)AssetImporter.GetAtPath(path);
+            ti.textureType = TextureImporterType.Sprite; ti.spriteImportMode = SpriteImportMode.Multiple;
+            ti.spritePixelsPerUnit = Ppu; ti.filterMode = FilterMode.Point; ti.mipmapEnabled = false;
+            ti.textureCompression = TextureImporterCompression.Uncompressed; ti.isReadable = true;
+            ti.npotScale = TextureImporterNPOTScale.None; ti.alphaIsTransparency = true;
+            ti.maxTextureSize = 2048; ti.wrapMode = TextureWrapMode.Clamp; ti.SaveAndReimport();
+            return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+        }
+        static Sprite[] Slice(string name, IList<RectInt> rects, string prefix)
+        {
+            string path = Folder + "MapaCompleto/" + name + ".png";
+            var factories = new SpriteDataProviderFactories(); factories.Init();
+            var provider = factories.GetSpriteEditorDataProviderFromObject(AssetImporter.GetAtPath(path)); provider.InitSpriteEditorDataProvider();
+            var old = provider.GetSpriteRects().ToDictionary(r => r.name, r => r.spriteID);
+            var slices = rects.Select((r,i) => { string n = prefix + "_" + i.ToString("D3"); return new SpriteRect { name=n, rect=new Rect(r.x,r.y,r.width,r.height), pivot=new Vector2(.5f,0), alignment=SpriteAlignment.Custom, spriteID=old.TryGetValue(n,out var id)?id:GUID.Generate() }; }).ToArray();
+            provider.SetSpriteRects(slices);
+            provider.GetDataProvider<ISpriteNameFileIdDataProvider>().SetNameFileIdPairs(slices.Select(s => new SpriteNameFileIdPair(s.name,s.spriteID)));
+            provider.Apply(); AssetImporter.GetAtPath(path).SaveAndReimport();
+            return AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>().OrderBy(s => s.name).ToArray();
+        }
+        static void Draw(Transform parent, Sprite sprite, RectInt r, string layer)
+        {
+            var go = new GameObject(sprite.name); go.transform.SetParent(parent,false);
+            go.transform.localPosition = new Vector3(r.center.x/Ppu,r.y/Ppu,0);
+            var sr = go.AddComponent<SpriteRenderer>(); sr.sprite=sprite; sr.sharedMaterial=material;
+            sr.sortingLayerName=layer; sr.sortingOrder=layer=="Ground"?0:WorldYSort2D.Order(r.y/Ppu);
+        }
+        static List<RectInt> Components(Color32[] pixels)
+        {
+            var seen = new bool[pixels.Length]; var result = new List<RectInt>(); var queue = new Queue<int>();
+            for (int i=0;i<pixels.Length;i++)
+            {
+                if (seen[i] || pixels[i].a<128) continue;
+                int minX=width,minY=height,maxX=0,maxY=0; seen[i]=true; queue.Enqueue(i);
+                while(queue.Count>0)
+                {
+                    int p=queue.Dequeue(),x=p%width,y=p/width; minX=Math.Min(minX,x); minY=Math.Min(minY,y); maxX=Math.Max(maxX,x); maxY=Math.Max(maxY,y);
+                    foreach(var d in new[]{Vector2Int.left,Vector2Int.right,Vector2Int.up,Vector2Int.down})
+                    { int nx=x+d.x,ny=y+d.y,n=ny*width+nx; if(nx>=0&&nx<width&&ny>=0&&ny<height&&!seen[n]&&pixels[n].a>=128){seen[n]=true;queue.Enqueue(n);} }
+                }
+                result.Add(new RectInt(minX,minY,maxX-minX+1,maxY-minY+1));
+            }
+            // Rectangular sprite slices must not render pixels from neighbouring components twice.
+            for (int a = 0; a < result.Count; a++)
+                for (int b = a + 1; b < result.Count; b++)
+                    if (result[a].Overlaps(result[b]))
+                    {
+                        var first = result[a]; var second = result[b];
+                        result[a] = new RectInt(Math.Min(first.xMin, second.xMin), Math.Min(first.yMin, second.yMin),
+                            Math.Max(first.xMax, second.xMax)-Math.Min(first.xMin, second.xMin),
+                            Math.Max(first.yMax, second.yMax)-Math.Min(first.yMin, second.yMin));
+                        result.RemoveAt(b); a = -1; break;
+                    }
+            return result;
+        }
+        static bool IsSafe(int x,int y)
+        {
+            if(x<5||y<5||x>=width-5||y>=height-5) return false;
+            for(int dy=-4;dy<=4;dy++) for(int dx=-4;dx<=4;dx++) if(solid[(y+dy)*width+x+dx]) return false;
+            return true;
+        }
+        static void FindReachable()
+        {
+            var seen=new bool[solid.Length]; var best=new List<int>(); var queue=new Queue<int>();
+            for(int i=0;i<seen.Length;i++)
+            {
+                if(seen[i]||!IsSafe(i%width,i/width)) continue;
+                var component=new List<int>(); seen[i]=true; queue.Enqueue(i);
+                while(queue.Count>0)
+                {
+                    int p=queue.Dequeue(); component.Add(p);
+                    foreach(int n in new[]{p-1,p+1,p-width,p+width})
+                        if(n>=0&&n<seen.Length&&!seen[n]&&IsSafe(n%width,n/width)){seen[n]=true;queue.Enqueue(n);}
+                }
+                if(component.Count>best.Count) best=component;
+            }
+            if(best.Count==0) throw new InvalidOperationException("No walkable floor.");
+            reachable=new bool[solid.Length]; foreach(int i in best) reachable[i]=true;
+        }
+        static Vector3 Safe(Vector3 desired, List<Vector3> occupied = null)
+        {
+            float distance=float.MaxValue; Vector3 best=default;
+            for(int i=0;i<reachable.Length;i++) if(reachable[i])
+            { var p=new Vector3((i%width)/Ppu,(i/width)/Ppu,desired.z); if (occupied != null && occupied.Any(o => (p-o).sqrMagnitude < .64f)) continue; float d=(p-desired).sqrMagnitude; if(d<distance){distance=d;best=p;} }
+            if (distance == float.MaxValue) throw new InvalidOperationException("No free walkable position.");
+            return best;
+        }
+    }
+}
+#endif

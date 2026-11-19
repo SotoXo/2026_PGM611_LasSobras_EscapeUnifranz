@@ -1,0 +1,19 @@
+{
+  "unity": "6000.3.16f1",
+  "engine_console_counts": {
+    "errors": 0,
+    "warnings": 0,
+    "logs": 5
+  },
+  "verification_method": "UnityEditor.LogEntries.GetCountsByType (read-only reflection)",
+  "compilation_complete": true,
+  "tests_mode": "EditMode",
+  "tests_passed": 154,
+  "tests_failed": 0,
+  "tests_skipped": 0,
+  "audit_reachability_issues": 0,
+  "play_mode_entered_by_agent": false,
+  "visual_review_performed": false,
+  "commit": false,
+  "push": false
+}

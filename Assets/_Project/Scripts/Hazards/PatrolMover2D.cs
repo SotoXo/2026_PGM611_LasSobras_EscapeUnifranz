@@ -21,6 +21,7 @@ namespace EscapeUNIFRANZ.Hazards
         private Vector2? investigationPoint;
         private readonly RaycastHit2D[] obstacles=new RaycastHit2D[12];
         public Vector2 Facing { get; private set; } = Vector2.down;
+        public bool IsMoving { get; private set; }
         private DetectionSensor2D[] facingSensors;
 
         private void Awake()
@@ -37,6 +38,7 @@ namespace EscapeUNIFRANZ.Hazards
 
         private void FixedUpdate()
         {
+            IsMoving = false;
             if (body == null || gameplayMode == null ||
                 (gameplayMode.CurrentMode != GameplayMode.Explore &&
                  gameplayMode.CurrentMode != GameplayMode.Encounter))
@@ -78,6 +80,7 @@ namespace EscapeUNIFRANZ.Hazards
                 allowed=Mathf.Min(allowed,Mathf.Max(0f,obstacles[i].distance-0.04f));
             if (allowed>0f)
             {
+                IsMoving = true;
                 Facing=direction; body.MovePosition(body.position+direction*allowed);
                 foreach(var detector in facingSensors) if (detector.transform!=transform) detector.Face(direction);
             }
@@ -100,6 +103,7 @@ namespace EscapeUNIFRANZ.Hazards
 
         public void ResetEncounter()
         {
+            IsMoving = false;
             chaseTarget = null;
             investigationPoint=null;
             route.Reset();

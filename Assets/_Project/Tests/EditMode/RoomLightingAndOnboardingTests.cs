@@ -7,6 +7,34 @@ namespace EscapeUNIFRANZ.Tests.EditMode
 {
     public sealed class RoomLightingAndOnboardingTests
     {
+        [Test] public void InactiveFixtureAcceptsAutomaticPowerBeforeOnEnable()
+        {
+            var owner = new GameObject("Inactive fixture");
+            owner.SetActive(false);
+            try
+            {
+                var fixture = owner.AddComponent<GroupLampFlicker2D>();
+                Assert.DoesNotThrow(() => fixture.SetAutomaticPower(.85f));
+                Assert.DoesNotThrow(() => fixture.ResumeFlicker());
+            }
+            finally { Object.DestroyImmediate(owner); }
+        }
+
+        [TestCase(false)][TestCase(true)]
+        public void DisabledLegacyRoomDoesNotInitializeLighting(bool inactiveOwner)
+        {
+            var owner = new GameObject("Legacy room");
+            try
+            {
+                var room = owner.AddComponent<RoomLightingController>();
+                if (inactiveOwner) owner.SetActive(false);
+                else room.enabled = false;
+                Assert.DoesNotThrow(() => room.Initialize(default(ZoneRuntimeContext)));
+                Assert.That(room.Initialized, Is.False);
+            }
+            finally { Object.DestroyImmediate(owner); }
+        }
+
         [Test] public void ReadingSequenceHoldsFullLightBeforeFailureAndSettles()
         {
             var timeline=new RoomLightingTimeline(RoomLightingLogic.Reading(.7f,1.5f,RoomFailurePattern.Strong,1f));

@@ -18,6 +18,7 @@ namespace EscapeUNIFRANZ.World
         [SerializeField, Min(0)] private int objectiveTotal;
         [SerializeField] private Vector2 minimapCenter = Vector2.zero;
         [SerializeField] private Vector2 minimapSize = new Vector2(16f, 9f);
+        [SerializeField] private Texture2D minimapFloorMask;
 
         private SpawnPoint[] spawnPoints;
         private readonly List<string> spawnIds = new List<string>();
@@ -35,6 +36,7 @@ namespace EscapeUNIFRANZ.World
             return defaultCheckpointSpawnId;
         }
         public Rect MinimapBounds => new Rect(minimapCenter - minimapSize * 0.5f, minimapSize);
+        public Texture2D MinimapFloorMask => minimapFloorMask;
 
         public bool Initialize(
             GameSessionController session,

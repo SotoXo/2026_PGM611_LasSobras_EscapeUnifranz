@@ -17,7 +17,11 @@ namespace EscapeUNIFRANZ.Map
         public KnownPointKind pointKind;
         private float cctvVisibleUntil;
         public void RevealThreatFor(float seconds) { cctvVisibleUntil=Time.time+seconds; }
-        public bool IsThreatVisible(EscapeUNIFRANZ.Player.PlayerVisionController vision)=>showAsThreat && gameObject.activeInHierarchy && (Time.time<cctvVisibleUntil || vision!=null && vision.CanSeePoint(transform.position,transform));
+        public bool IsThreatVisible(EscapeUNIFRANZ.Player.PlayerVisionController vision) =>
+            showAsThreat && isActiveAndEnabled &&
+            (Time.time < cctvVisibleUntil ||
+             (GetComponent<EscapeUNIFRANZ.Interaction.Scannable2D>()?.IsRevealed ?? false) ||
+             (vision != null && vision.CanSeePoint(transform.position, transform)));
         private Transform player;
 
         private GameState state;
@@ -29,6 +33,7 @@ namespace EscapeUNIFRANZ.Map
         public string ObjectiveId => objectiveId;
         public string CheckpointId => checkpointId;
         public bool ShowAsThreat => showAsThreat;
+        public bool IsSecret => secret;
         public Vector2 WorldPosition => transform.position;
         public bool IsDiscovered => initiallyDiscovered ||
             (state != null && state.IsWorldItemDiscovered(zoneId, markerId));

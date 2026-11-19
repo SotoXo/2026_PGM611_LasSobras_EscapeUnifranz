@@ -1,8 +1,12 @@
 using System.Collections.Generic;
 using EscapeUNIFRANZ.Core;
+using EscapeUNIFRANZ.Interaction;
+using EscapeUNIFRANZ.Narrative;
+using EscapeUNIFRANZ.Player;
 using EscapeUNIFRANZ.World;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace EscapeUNIFRANZ.Map
 {
@@ -11,6 +15,9 @@ namespace EscapeUNIFRANZ.Map
         private sealed class MarkerBinding
         {
             public MinimapTrackable2D Source;
+            public InteractableBehaviour Interaction;
+            public Scannable2D Scanner;
+            public Transform Target;
             public MinimapMarkerKind Kind;
             public MinimapMarkerView View;
         }
@@ -22,14 +29,19 @@ namespace EscapeUNIFRANZ.Map
         [SerializeField] private RectTransform playerMarker;
         [SerializeField] private MinimapMarkerView markerTemplate;
         [SerializeField] private TMP_Text zoneLabel;
+        [SerializeField] private RawImage floorPlan;
+        [SerializeField] private TMP_Text nearbyLabel;
         [SerializeField, Min(0.01f)] private float playerSmoothTime = 0.08f;
 
         private readonly List<MarkerBinding> markers = new List<MarkerBinding>();
-        private GameState state;
         private ZoneContext zone;
         private Rect bounds;
         private Vector2 displayedPlayerPosition;
         private Vector2 playerVelocity;
+        private Vector2 mapArea;
+        private PlayerVisionController vision;
+        private Texture2D planTexture;
+        private float nextMarkerRefresh;
 
         private void OnEnable()
         {
@@ -59,28 +71,74 @@ namespace EscapeUNIFRANZ.Map
             }
 
             UpdatePlayerMarker();
+            if (Time.unscaledTime < nextMarkerRefresh)
+                return;
+
+            nextMarkerRefresh = Time.unscaledTime + 0.1f;
+            MarkerBinding nearest = null;
+            float nearestDistance = float.PositiveInfinity;
+            int threats = 0;
+            int cameras = 0;
             for (int index = 0; index < markers.Count; index++)
             {
-                UpdateMarker(markers[index]);
+                MarkerBinding marker = markers[index];
+                if (!UpdateMarker(marker))
+                    continue;
+                if (marker.Kind == MinimapMarkerKind.Threat)
+                    threats++;
+                if (marker.Kind == MinimapMarkerKind.Camera)
+                    cameras++;
+                if (player == null || marker.Interaction == null)
+                    continue;
+
+                float distance = ((Vector2)(marker.Target.position - player.position)).sqrMagnitude;
+                if (distance < nearestDistance && distance <= 4.25f * 4.25f)
+                {
+                    nearest = marker;
+                    nearestDistance = distance;
+                }
             }
+
+            if (nearbyLabel != null)
+                RefreshStatus(nearest, threats, cameras);
         }
 
-        public void Bind(GameState gameState)
+        private void OnDestroy()
         {
-            state = gameState;
+            if (planTexture != null)
+                Destroy(planTexture);
         }
 
         public void SetZone(ZoneContext zoneContext)
         {
             ClearMarkers();
             zone = zoneContext;
+            if (planTexture != null)
+                Destroy(planTexture);
+            planTexture = null;
             if (zone == null)
             {
+                if (floorPlan != null) floorPlan.texture = null;
                 RefreshVisibility();
                 return;
             }
 
             bounds = zone.MinimapBounds;
+            vision = player != null ? player.GetComponent<PlayerVisionController>() : null;
+            nextMarkerRefresh = 0f;
+            if (nearbyLabel != null) nearbyLabel.text = "SIN CONTACTOS";
+            if (floorPlan != null && content != null)
+            {
+                if (mapArea == Vector2.zero) mapArea = content.rect.size;
+                if (bounds.width > 0f && bounds.height > 0f)
+                {
+                    float scale = Mathf.Min(mapArea.x / bounds.width, mapArea.y / bounds.height);
+                    content.sizeDelta = bounds.size * scale;
+                }
+                planTexture = MinimapFloorPlan.Build(zone, bounds);
+                floorPlan.texture = planTexture;
+            }
+
             if (zoneLabel != null)
             {
                 zoneLabel.text = zone.DisplayName.ToUpperInvariant();
@@ -90,29 +148,49 @@ namespace EscapeUNIFRANZ.Map
             for (int index = 0; index < sources.Length; index++)
             {
                 MinimapTrackable2D source = sources[index];
-                if (source.ShowAsExit) AddMarker(source, MinimapMarkerKind.Exit);
-                if (!string.IsNullOrWhiteSpace(source.ObjectiveId)) AddMarker(source, MinimapMarkerKind.Objective);
-                if (!string.IsNullOrWhiteSpace(source.CheckpointId)) AddMarker(source, MinimapMarkerKind.Checkpoint);
-                if (source.ShowAsThreat) AddMarker(source, MinimapMarkerKind.Threat);
-                if (!source.ShowAsThreat && !source.ShowAsExit && string.IsNullOrEmpty(source.ObjectiveId) && string.IsNullOrEmpty(source.CheckpointId)) AddMarker(source, MinimapMarkerKind.Point);
+                var interaction = source.GetComponent<InteractableBehaviour>();
+                if (source.ShowAsExit) AddMarker(source, interaction, MinimapMarkerKind.Exit);
+                if (!string.IsNullOrWhiteSpace(source.ObjectiveId)) AddMarker(source, interaction, MinimapMarkerKind.Objective);
+                if (!string.IsNullOrWhiteSpace(source.CheckpointId)) AddMarker(source, null, MinimapMarkerKind.Checkpoint);
+                if (source.ShowAsThreat)
+                    AddMarker(source, null, source.pointKind == KnownPointKind.Camera ? MinimapMarkerKind.Camera : MinimapMarkerKind.Threat);
+                else if (!source.ShowAsExit && string.IsNullOrEmpty(source.CheckpointId))
+                    AddMarker(source, interaction, KindFor(interaction));
             }
+            foreach (var interaction in zone.GetComponentsInChildren<InteractableBehaviour>(true))
+                if (interaction.GetComponent<MinimapTrackable2D>() == null)
+                    AddMarker(null, interaction, KindFor(interaction));
+
+            if (playerMarker != null) playerMarker.SetAsLastSibling();
 
             displayedPlayerPosition = GetPlayerPosition();
             playerVelocity = Vector2.zero;
             RefreshVisibility();
         }
 
-        private void AddMarker(MinimapTrackable2D source, MinimapMarkerKind kind)
+        private static MinimapMarkerKind KindFor(InteractableBehaviour interaction) => interaction switch
+        {
+            ZoneExitInteractable or InteriorDoorInteractable => MinimapMarkerKind.Exit,
+            ItemPickupInteractable => MinimapMarkerKind.Item,
+            _ => MinimapMarkerKind.Point
+        };
+
+        private void AddMarker(MinimapTrackable2D source, InteractableBehaviour interaction, MinimapMarkerKind kind)
         {
             if (markerTemplate == null || content == null)
             {
                 return;
             }
 
+            Transform target = source != null ? source.transform : interaction.transform;
             MinimapMarkerView view = Instantiate(markerTemplate, content);
-            view.name = kind + "_" + source.MarkerId;
+            view.name = kind + "_" + target.name;
             view.gameObject.SetActive(false);
-            markers.Add(new MarkerBinding { Source = source, Kind = kind, View = view });
+            markers.Add(new MarkerBinding
+            {
+                Source = source, Interaction = interaction, Scanner = target.GetComponent<Scannable2D>(),
+                Target = target, Kind = kind, View = view
+            });
         }
 
         private void UpdatePlayerMarker()
@@ -132,12 +210,9 @@ namespace EscapeUNIFRANZ.Map
                 Time.unscaledDeltaTime);
             playerMarker.anchoredPosition = displayedPlayerPosition;
 
-            Rigidbody2D body = player != null ? player.GetComponent<Rigidbody2D>() : null;
-            if (body != null && body.linearVelocity.sqrMagnitude > 0.01f)
-            {
-                float angle = Mathf.Atan2(body.linearVelocity.y, body.linearVelocity.x) * Mathf.Rad2Deg - 90f;
-                playerMarker.localRotation = Quaternion.Euler(0f, 0f, angle);
-            }
+            if (vision != null)
+                playerMarker.localRotation = Quaternion.Euler(0f, 0f,
+                    PlayerVisionController.ResolveRotationDegrees(vision.CurrentDirection));
         }
 
         private Vector2 GetPlayerPosition()
@@ -153,31 +228,57 @@ namespace EscapeUNIFRANZ.Map
                 (normalized.y - 0.5f) * content.rect.height);
         }
 
-        private void UpdateMarker(MarkerBinding binding)
+        private bool UpdateMarker(MarkerBinding binding)
         {
-            if (binding.Source == null || binding.View == null)
+            if (binding.View == null)
+                return false;
+            if (binding.Target == null || !binding.Target.gameObject.activeInHierarchy)
             {
-                return;
+                binding.View.Hide();
+                return false;
             }
 
             bool visible;
+            MinimapTrackable2D source = binding.Source;
             MinimapExitState exitState = MinimapExitState.Discovered;
             switch (binding.Kind)
             {
                 case MinimapMarkerKind.Exit:
-                    exitState = binding.Source.ExitState;
-                    visible = exitState != MinimapExitState.Unknown;
+                    if (binding.Interaction is InteriorDoorInteractable door)
+                    {
+                        visible = CanSeeNearby(binding);
+                        exitState = door.IsOpen ? MinimapExitState.Available : MinimapExitState.Conditional;
+                    }
+                    else if (source != null)
+                    {
+                        exitState = source.ExitState;
+                        if (exitState == MinimapExitState.Unknown && !source.IsSecret &&
+                            binding.Interaction is ZoneExitInteractable nearbyExit && CanSeeNearby(binding))
+                            exitState = nearbyExit.MapExitState;
+                        visible = exitState != MinimapExitState.Unknown;
+                    }
+                    else
+                    {
+                        var exit = binding.Interaction as ZoneExitInteractable;
+                        visible = exit != null && CanSeeNearby(binding);
+                        if (visible) exitState = exit.MapExitState;
+                    }
                     break;
                 case MinimapMarkerKind.Objective:
-                    visible = binding.Source.IsObjectiveActive && binding.Source.IsDiscovered;
+                    visible = source.IsObjectiveActive && source.IsDiscovered;
                     break;
                 case MinimapMarkerKind.Checkpoint:
-                    visible = binding.Source.IsCurrentCheckpoint && binding.Source.IsDiscovered;
+                    visible = source.IsCurrentCheckpoint && source.IsDiscovered;
                     break;
                 case MinimapMarkerKind.Threat:
-                    visible = binding.Source.IsThreatVisible(player!=null ? player.GetComponent<EscapeUNIFRANZ.Player.PlayerVisionController>() : null);
+                case MinimapMarkerKind.Camera:
+                    visible = source.IsThreatVisible(vision);
                     break;
-                case MinimapMarkerKind.Point: visible=binding.Source.IsDiscovered && binding.Source.gameObject.activeInHierarchy; break;
+                case MinimapMarkerKind.Point:
+                case MinimapMarkerKind.Item:
+                    visible = (source == null || (!source.IsSecret && !(source.IsObjectiveActive && source.IsDiscovered))) &&
+                        (binding.Interaction == null || binding.Interaction.CanInteract) && CanSeeNearby(binding);
+                    break;
                 default:
                     visible = false;
                     break;
@@ -186,14 +287,36 @@ namespace EscapeUNIFRANZ.Map
             if (!visible)
             {
                 binding.View.Hide();
-                return;
+                return false;
             }
 
             binding.View.Render(
                 binding.Kind,
                 exitState,
-                MinimapLogic.NormalizePosition(binding.Source.WorldPosition, bounds),
+                MinimapLogic.NormalizePosition(binding.Target.position, bounds),
                 content);
+            return true;
+        }
+
+        private bool CanSeeNearby(MarkerBinding binding)
+        {
+            if (binding.Scanner != null && binding.Scanner.IsRevealed)
+                return true;
+            return vision != null && ((Vector2)(binding.Target.position - player.position)).sqrMagnitude <= 4.25f * 4.25f &&
+                vision.CanSeePoint(binding.Target.position, binding.Target);
+        }
+
+        private void RefreshStatus(MarkerBinding nearby, int threats, int cameras)
+        {
+            string label = nearby?.Interaction switch
+            {
+                ItemPickupInteractable pickup => ItemData.Label(pickup.ItemId),
+                InteriorDoorInteractable => "Puerta",
+                _ => nearby?.Source?.displayName
+            };
+            string status = threats + cameras == 0 ? "SIN AMENAZAS DETECTADAS" : $"ENEMIGOS: {threats}  ·  CCTV: {cameras}";
+            string text = string.IsNullOrWhiteSpace(label) ? status : $"{status}  |  {label}";
+            if (nearbyLabel.text != text) nearbyLabel.text = text;
         }
 
         private void ClearMarkers()
