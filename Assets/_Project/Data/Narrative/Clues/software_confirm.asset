@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: software_confirm
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: software_confirm
-  title: Monitor de procesos
-  category: "Inspecci\xF3n ambiental"
-  text: "El monitor muestra: <b>SEGURIDAD \u2014 \xF3rdenes hostiles</b>; N\xDACLEO
-    \u2014 coordinaci\xF3n; PUERTAS \u2014 accesos. Esto confirma que debes detener
-    solo <b>SEGURIDAD</b>."
+  title: "Monitor de procesos"
+  category: "Registro de consola"
+  text: "SEGURIDAD distribuye \u00f3rdenes de contenci\u00f3n. El registro de audio anexo dice \u00abnadie queda dentro\u00bb. La c\u00e1mara del archivo enfoca una mano sobre el cristal.\n\nDet\u00e9n solo <b>SEGURIDAD</b>. N\u00daCLEO y PUERTAS siguen activos."
   associatedFlag: 0
+  electronic: 1

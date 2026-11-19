@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: core_protocolo
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: core_protocolo
-  title: Apagado coordinado
-  category: Redes / Hardware / Software
-  text: "Apagado seguro: <b>1 RED</b>, separa c\xE1maras y puertas del servidor.
-    <b>2 HARDWARE</b>, corta energ\xEDa, actuadores y seguridad. <b>3 SOFTWARE</b>,
-    AISLAR \u2192 VERIFICAR \u2192 APAGAR. Los pasos terminados quedan registrados."
+  title: "Procedimiento del operador"
+  category: "\u00daltima hoja del protocolo"
+  text: "La pantalla pregunta si queremos silenciar a las personas almacenadas. En el cuarto solo responde el ventilador.\n\n<b>RED</b> separa c\u00e1maras y puertas del servidor. <b>HARDWARE</b> corta Alimentaci\u00f3n, Actuadores y Seguridad, en orden. <b>SOFTWARE</b> exige AISLAR, VERIFICAR y APAGAR."
   associatedFlag: 0
+  electronic: 0

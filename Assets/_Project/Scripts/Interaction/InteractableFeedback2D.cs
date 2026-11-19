@@ -1,21 +1,40 @@
 using EscapeUNIFRANZ.UI;
 using TMPro;
 using UnityEngine;
+
 namespace EscapeUNIFRANZ.Interaction
 {
     [DisallowMultipleComponent]
     public sealed class InteractableFeedback2D : MonoBehaviour
     {
-        private TMP_Text cue;
-        private IInteractable interactable;
-        public void SetSelected(bool value)
+        private TMP_Text caption;
+
+        public void SetPrompt(string prompt)
         {
-            if (!value) { if(cue!=null) cue.gameObject.SetActive(false); return; }
-            foreach(var component in GetComponents<MonoBehaviour>()) if(component.isActiveAndEnabled && component is IInteractable candidate) { interactable=candidate; break; }
-            if(cue==null) { var obj=new GameObject("ProximityCue"); obj.transform.SetParent(transform,false); obj.transform.localPosition=new Vector3(0,1.05f,-.2f); cue=obj.AddComponent<TextMeshPro>(); cue.font=PresentationTheme.Font; cue.fontSize=1.5f; cue.alignment=TextAlignmentOptions.Center; cue.rectTransform.sizeDelta=new Vector2(4.2f,.65f); obj.GetComponent<MeshRenderer>().sortingOrder=81; }
-            cue.text=interactable?.Prompt; cue.gameObject.SetActive(true);
+            if (string.IsNullOrEmpty(prompt))
+            {
+                if (caption != null) caption.gameObject.SetActive(false);
+                return;
+            }
+
+            if (caption == null)
+            {
+                var holder = new GameObject("ProximityCue");
+                holder.transform.SetParent(transform, false);
+                holder.transform.localPosition = new Vector3(0, 1.05f, -.2f);
+                caption = holder.AddComponent<TextMeshPro>();
+                caption.font = PresentationTheme.Font;
+                caption.fontSize = 1.5f;
+                caption.alignment = TextAlignmentOptions.Center;
+                caption.rectTransform.sizeDelta = new Vector2(4.2f, .65f);
+                caption.color = new Color(1f, .9f, .6f, .92f);
+                holder.GetComponent<MeshRenderer>().sortingOrder = 81;
+            }
+
+            caption.text = prompt;
+            caption.gameObject.SetActive(true);
         }
-        private void Update() { if(cue!=null && cue.gameObject.activeSelf) { cue.text=interactable?.Prompt; cue.color=new Color(1f,.9f,.6f,.78f+.18f*Mathf.Sin(Time.time*4f)); } }
-        private void OnDisable() { SetSelected(false); }
+
+        private void OnDisable() => SetPrompt(null);
     }
 }

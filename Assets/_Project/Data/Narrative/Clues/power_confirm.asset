@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: power_confirm
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: power_confirm
-  title: Bornes del acceso
-  category: "Inspecci\xF3n ambiental"
-  text: "El hueco de la <b>bater\xEDa est\xE1 vac\xEDo</b>. Dos etiquetas siguen
-    visibles: <b>ENERG\xCDA</b> y <b>DATOS</b>. El cierre necesita ambas l\xEDneas
-    para responder."
+  title: "Etiquetas arrancadas"
+  category: "Bornes de recepci\u00f3n"
+  text: "Alguien arranc\u00f3 la etiqueta de la salida. Escribi\u00f3 \u00abmam\u00e1\u00bb encima. El esquema de mantenimiento sigue grabado bajo la tapa.\n\n<b>AUX</b> recibe la bater\u00eda. Une las l\u00edneas con la misma etiqueta: <b>ENERG\u00cdA</b> y <b>DATOS</b>."
   associatedFlag: 0
+  electronic: 0

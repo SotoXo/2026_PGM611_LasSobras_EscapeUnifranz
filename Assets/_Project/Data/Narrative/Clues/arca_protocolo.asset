@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: arca_protocolo
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: arca_protocolo
-  title: Protocolo de acceso local
-  category: Software
-  text: "Reinicia los interruptores <b>de izquierda a derecha</b>: <b>PRINCIPAL \u2192
-    CONTROL \u2192 SEGURIDAD</b>. PRINCIPAL alimenta el equipo; CONTROL coordina
-    sus \xF3rdenes; SEGURIDAD comprueba que el acceso sea seguro."
+  title: "Turno de admisi\u00f3n"
+  category: "Hoja de contingencia"
+  text: "El lector pidi\u00f3 que dej\u00e1ramos todos los nombres inscritos. Cuando retir\u00e9 el m\u00edo, volvi\u00f3 a escribirlo por el altavoz.\n\nRecuperaci\u00f3n local, de izquierda a derecha: <b>PRINCIPAL \u2192 CONTROL \u2192 SEGURIDAD</b>."
   associatedFlag: 0
+  electronic: 0

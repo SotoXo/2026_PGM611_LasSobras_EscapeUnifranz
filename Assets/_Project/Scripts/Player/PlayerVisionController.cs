@@ -36,11 +36,20 @@ namespace EscapeUNIFRANZ.Player
         private bool flashlightOn;
         private float interferenceUntil;
         private Collider2D bodyCollider;
+        private Vector3 lastEmitterOrigin;
+        private PlayerVisualController.FacingDirection lastFacing;
+        private bool lastBeam;
+        private float nextEmitterCheck;
         public bool FlashlightActive => flashlightEquipped && flashlightOn && Time.time>=interferenceUntil;
         private readonly List<RaycastHit2D> emitterHits=new List<RaycastHit2D>();
         public void SetFlashlightEquipped(bool equipped) { SetFlashlightState(equipped,equipped); }
         public void SetFlashlightState(bool owned,bool on) { flashlightEquipped=owned; flashlightOn=on; ApplyLightSettings(); }
-        public void InterfereFor(float seconds) { interferenceUntil=Time.time+Mathf.Clamp(seconds,0f,0.2f); ApplyLightSettings(); }
+        public void InterfereFor(float seconds)
+        {
+            if (EscapeUNIFRANZ.Core.GameOptions.ReduceFlashes) return;
+            interferenceUntil = Time.time + Mathf.Clamp(seconds, 0f, 0.2f);
+            ApplyLightSettings();
+        }
         public bool CanSeePoint(Vector2 point,Transform target=null)
         {
             Vector2 origin=transform.position; float distance=Vector2.Distance(origin,point);
@@ -67,10 +76,18 @@ namespace EscapeUNIFRANZ.Player
 
         private void LateUpdate()
         {
-            if (forwardLight!=null && forwardLight.enabled!=FlashlightActive) ApplyLightSettings();
-            if (immediateLight!=null) immediateLight.transform.localPosition=SafeEmitterPosition(emitterOrigin);
-            if (forwardLight != null && forwardLight.enabled)
-                ApplyDirection(CurrentDirection);
+            bool beam = FlashlightActive;
+            if (forwardLight != null && forwardLight.enabled != beam) ApplyLightSettings();
+            Vector3 origin = transform.position;
+            var facing = CurrentDirection;
+            if ((origin - lastEmitterOrigin).sqrMagnitude <= Mathf.Epsilon && (!beam || lastFacing == facing) &&
+                lastBeam == beam && Time.time < nextEmitterCheck) return;
+            lastEmitterOrigin = origin;
+            lastFacing = facing;
+            lastBeam = beam;
+            nextEmitterCheck = Time.time + .12f;
+            if (immediateLight != null) immediateLight.transform.localPosition = SafeEmitterPosition(emitterOrigin);
+            if (beam) ApplyDirection(facing);
         }
 
         private void OnValidate()

@@ -50,7 +50,8 @@ namespace EscapeUNIFRANZ.Hazards
             if (State == HazardWindowState.Telegraph && indicator != null)
             {
                 Color color = indicator.color;
-                color.a = Mathf.Lerp(0.28f, 0.72f, Mathf.PingPong(Time.time * 4f, 1f));
+                color.a = EscapeUNIFRANZ.Core.GameOptions.ReduceFlashes
+                    ? 0.5f : Mathf.Lerp(0.28f, 0.72f, Mathf.PingPong(Time.time * 4f, 1f));
                 indicator.color = color;
             }
         }

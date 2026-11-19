@@ -83,5 +83,43 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         {
             Assert.That(HazardContact2D.ShouldRequestRespawn(true, false), Is.False);
         }
+
+        [Test]
+        public void ChildSensorOverlapIsNotAnOverlapOfTheHazardHitbox()
+        {
+            var hazard = new GameObject("Hazard");
+            var player = new GameObject("Player body");
+            try
+            {
+                var body = hazard.AddComponent<Rigidbody2D>();
+                body.bodyType = RigidbodyType2D.Kinematic;
+                var hitbox = hazard.AddComponent<BoxCollider2D>();
+                hitbox.size = new Vector2(0.44f, 0.36f);
+                hitbox.isTrigger = true;
+                var sensorObject = new GameObject("Child detection field");
+                sensorObject.transform.SetParent(hazard.transform, false);
+                var sensor = sensorObject.AddComponent<CircleCollider2D>();
+                sensor.radius = 3.1f;
+                sensor.isTrigger = true;
+                var playerCollider = player.AddComponent<CircleCollider2D>();
+                playerCollider.radius = 0.19f;
+
+                var overlap = typeof(HazardContact2D).GetMethod("IsHitboxOverlap",
+                    BindingFlags.NonPublic | BindingFlags.Static);
+                player.transform.position = Vector2.right * 2.3f;
+                Physics2D.SyncTransforms();
+                Assert.That(sensor.Distance(playerCollider).isOverlapped, Is.True);
+                Assert.That(overlap.Invoke(null, new object[] { hitbox, playerCollider }), Is.False);
+
+                player.transform.position = Vector2.right * 0.3f;
+                Physics2D.SyncTransforms();
+                Assert.That(overlap.Invoke(null, new object[] { hitbox, playerCollider }), Is.True);
+            }
+            finally
+            {
+                Object.DestroyImmediate(player);
+                Object.DestroyImmediate(hazard);
+            }
+        }
     }
 }

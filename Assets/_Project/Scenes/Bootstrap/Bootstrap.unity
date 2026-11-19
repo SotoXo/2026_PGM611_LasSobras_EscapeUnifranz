@@ -5983,6 +5983,7 @@ RectTransform:
   - {fileID: 615775712}
   - {fileID: 66314224}
   - {fileID: 1389465121}
+  - {fileID: 1398148793}
   m_Father: {fileID: 1402877319}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7673,188 +7674,227 @@ MonoBehaviour:
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ProjectAudioHooks
   bindings:
   - cue: 0
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 73a0579c04fcafc4fbd729bd5ec11525, type: 3}
+    volume: 0.12
   - cue: 1
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 546b67f03ac3b4e48b9e7aa7bf19f61b, type: 3}
+    volume: 0.12
   - cue: 2
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: fc9940bf08b64404fa19db96099470ee, type: 3}
+    volume: 0.086
   - cue: 3
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 58c20b7f360dcd64e8b11b462e101c34, type: 3}
+    volume: 0.28
   - cue: 4
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 85564035550c80347a97a934cdd144fd, type: 3}
+    volume: 0.45
   - cue: 5
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: b63440faeb7c8444f9474abd12fcf96f, type: 3}
+    volume: 0.27
   - cue: 6
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: ea93c95e25234204ab37da0fcec6b8d8, type: 3}
+    volume: 0.24
   - cue: 7
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: cd60b8e91f5d9fa4d91bb3a10460ae23, type: 3}
+    volume: 0.19
   - cue: 8
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 7cf2929098aa42d459dd1e96fb75716e, type: 3}
+    volume: 0.28
   - cue: 9
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 15c112085e2d60c4fb32cfa3f37b0ebc, type: 3}
+    volume: 0.23
   - cue: 10
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 11e2018483ee6c64d8fc60994b1c5e68, type: 3}
+    volume: 0.37
   - cue: 11
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 804f21a7fb2c90e429dd5187d04aca6a, type: 3}
+    volume: 0.2
   - cue: 12
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 59be7ebd2a7694846b42bec079d22be5, type: 3}
+    volume: 0.35
   - cue: 13
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 11e2018483ee6c64d8fc60994b1c5e68, type: 3}
+    volume: 0.37
   - cue: 14
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 90082e4a9a7eef24ba93856cf9772c59, type: 3}
+    volume: 0.48
   - cue: 15
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 301e0f9d767812947855b4b910f8401d, type: 3}
+    volume: 0.25
   - cue: 16
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: a0ab2e16e8fb90c40a6132d9ceabe7f8, type: 3}
+    volume: 0.43
   - cue: 17
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: a0ab2e16e8fb90c40a6132d9ceabe7f8, type: 3}
+    volume: 0.43
   - cue: 18
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: a0ab2e16e8fb90c40a6132d9ceabe7f8, type: 3}
+    volume: 0.43
   - cue: 19
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 467b7b99e782fd14b9ec0d958997133e, type: 3}
+    volume: 0.43
   - cue: 20
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 467b7b99e782fd14b9ec0d958997133e, type: 3}
+    volume: 0.43
   - cue: 21
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 467b7b99e782fd14b9ec0d958997133e, type: 3}
+    volume: 0.43
   - cue: 22
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: a16d1d07b137b9d479eeca20d4b31ac4, type: 3}
+    volume: 0.52
   - cue: 23
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: a16d1d07b137b9d479eeca20d4b31ac4, type: 3}
+    volume: 0.52
   - cue: 24
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: cf75c0b77e7a6fb4da668577f560caf5, type: 3}
+    volume: 0.58
   - cue: 25
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 59be7ebd2a7694846b42bec079d22be5, type: 3}
+    volume: 0.35
   - cue: 26
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 467b7b99e782fd14b9ec0d958997133e, type: 3}
+    volume: 0.43
   - cue: 27
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 467b7b99e782fd14b9ec0d958997133e, type: 3}
+    volume: 0.43
   - cue: 28
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 58c20b7f360dcd64e8b11b462e101c34, type: 3}
+    volume: 0.28
   - cue: 29
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: a16d1d07b137b9d479eeca20d4b31ac4, type: 3}
+    volume: 0.52
   - cue: 30
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 58c20b7f360dcd64e8b11b462e101c34, type: 3}
+    volume: 0.28
   - cue: 31
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 59de785a8ef99444d98bfeeb339cf576, type: 3}
+    volume: 0.23
   - cue: 32
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: e05b97da260b2bc4fa0dbde707f0e014, type: 3}
+    volume: 0.33
   - cue: 33
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 301e0f9d767812947855b4b910f8401d, type: 3}
+    volume: 0.25
   - cue: 34
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: cd60b8e91f5d9fa4d91bb3a10460ae23, type: 3}
+    volume: 0.19
   - cue: 35
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 59de785a8ef99444d98bfeeb339cf576, type: 3}
+    volume: 0.23
   - cue: 36
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 11e2018483ee6c64d8fc60994b1c5e68, type: 3}
+    volume: 0.37
   - cue: 37
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: e05b97da260b2bc4fa0dbde707f0e014, type: 3}
+    volume: 0.33
   - cue: 38
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 85564035550c80347a97a934cdd144fd, type: 3}
+    volume: 0.45
   - cue: 39
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 85564035550c80347a97a934cdd144fd, type: 3}
+    volume: 0.45
   - cue: 40
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 58c20b7f360dcd64e8b11b462e101c34, type: 3}
+    volume: 0.28
   - cue: 41
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: e7d703a250e26fa4a98a3c39f7f41a68, type: 3}
+    volume: 0.53
   - cue: 42
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 85564035550c80347a97a934cdd144fd, type: 3}
+    volume: 0.45
   - cue: 43
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 0bbc511eb7b306b41ab9b3c3c116f3ec, type: 3}
+    volume: 0.72
   - cue: 44
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: ee96e78123290fb42b49d51a16c4bd96, type: 3}
+    volume: 0.49
   - cue: 45
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: b4e58fc672c68a74692af32d17c23376, type: 3}
+    volume: 0.42
   - cue: 46
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 84e16047020e29c4b8a0a29e7050e7ac, type: 3}
+    volume: 0.5
   - cue: 47
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 5bc3eec065c934844b503ee10d255a1b, type: 3}
+    volume: 0.58
   - cue: 48
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: fe2d10eb105dd5446a921fc94bca9d3e, type: 3}
+    volume: 0.26
   - cue: 49
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: fe2d10eb105dd5446a921fc94bca9d3e, type: 3}
+    volume: 0.26
   - cue: 50
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: cd60b8e91f5d9fa4d91bb3a10460ae23, type: 3}
+    volume: 0.19
   - cue: 51
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: cd60b8e91f5d9fa4d91bb3a10460ae23, type: 3}
+    volume: 0.19
   - cue: 52
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 59de785a8ef99444d98bfeeb339cf576, type: 3}
+    volume: 0.23
   - cue: 53
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 59de785a8ef99444d98bfeeb339cf576, type: 3}
+    volume: 0.23
   - cue: 54
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 7cf2929098aa42d459dd1e96fb75716e, type: 3}
+    volume: 0.28
   - cue: 55
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: e05b97da260b2bc4fa0dbde707f0e014, type: 3}
+    volume: 0.33
   - cue: 56
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 301e0f9d767812947855b4b910f8401d, type: 3}
+    volume: 0.25
   - cue: 57
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 804f21a7fb2c90e429dd5187d04aca6a, type: 3}
+    volume: 0.2
   - cue: 58
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 11e2018483ee6c64d8fc60994b1c5e68, type: 3}
+    volume: 0.37
   - cue: 59
-    clip: {fileID: 0}
-    volume: 0.7
+    clip: {fileID: 8300000, guid: 301e0f9d767812947855b4b910f8401d, type: 3}
+    volume: 0.25
+  - cue: 60
+    clip: {fileID: 8300000, guid: 15c112085e2d60c4fb32cfa3f37b0ebc, type: 3}
+    volume: 0.23
+  - cue: 61
+    clip: {fileID: 8300000, guid: a24414dc52abd974bb9e383f501ef908, type: 3}
+    volume: 0.58
+  - cue: 62
+    clip: {fileID: 8300000, guid: f11945a49c8b95c41aba68dcdc23beb1, type: 3}
+    volume: 0.46
+  - cue: 63
+    clip: {fileID: 8300000, guid: 09098eb5b12b06e44b6249b6b87fad69, type: 3}
+    volume: 0.55
+  - cue: 64
+    clip: {fileID: 8300000, guid: 0c49874b429445243a9f9d23b09239b6, type: 3}
+    volume: 0.26
+  - cue: 65
+    clip: {fileID: 8300000, guid: 748d8e3f537764d43af0a33547921328, type: 3}
+    volume: 0.35
+  - cue: 66
+    clip: {fileID: 8300000, guid: 29f6a290d15cdd445bfaf5d977c130fc, type: 3}
+    volume: 0.35
+  - cue: 67
+    clip: {fileID: 8300000, guid: cb683622e596a114bbafdeb5264a3478, type: 3}
+    volume: 0.48
+  - cue: 68
+    clip: {fileID: 8300000, guid: a9801ed5a4f2a7a4ca2aaafb6a78404d, type: 3}
+    volume: 0.42
+  - cue: 69
+    clip: {fileID: 8300000, guid: 849e42693ab15c9408d27cc07b5615da, type: 3}
+    volume: 0.56
+  - cue: 70
+    clip: {fileID: 8300000, guid: 6053d704cffc1274eb3d83d34c08e797, type: 3}
+    volume: 0.53
   effects: {fileID: 1409467493}
   ambience: {fileID: 944393606}
   music: {fileID: 1771306432}
+  mixer: {fileID: 24100000, guid: adc1ec7d9e7a1984aae627db37791e5e, type: 2}
+  musicBus: {fileID: -6251819239884669538, guid: adc1ec7d9e7a1984aae627db37791e5e, type: 2}
+  ambienceBus: {fileID: 1341275317537108890, guid: adc1ec7d9e7a1984aae627db37791e5e, type: 2}
+  sfxBus: {fileID: -7411293701424749927, guid: adc1ec7d9e7a1984aae627db37791e5e, type: 2}
+  uiBus: {fileID: -6135832773654888393, guid: adc1ec7d9e7a1984aae627db37791e5e, type: 2}
+  voicesBus: {fileID: 4392336241666923465, guid: adc1ec7d9e7a1984aae627db37791e5e, type: 2}
 --- !u!114 &537907019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13167,7 +13207,7 @@ AudioSource:
   m_GameObject: {fileID: 944393605}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1341275317537108890, guid: adc1ec7d9e7a1984aae627db37791e5e, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -15023,6 +15063,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1244469260}
+  - {fileID: 1549694444}
   - {fileID: 687509154}
   - {fileID: 1914912115}
   - {fileID: 442646167}
@@ -16221,6 +16262,7 @@ GameObject:
   - component: {fileID: 1162798974}
   - component: {fileID: 1162798975}
   - component: {fileID: 1162798976}
+  - component: {fileID: 1162798977}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -16353,6 +16395,14 @@ MonoBehaviour:
   target: {fileID: 168605702}
   smoothTime: 0.06
   teleportDistance: 3
+--- !u!81 &1162798977
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162798972}
+  m_Enabled: 1
 --- !u!1 &1165941210
 GameObject:
   m_ObjectHideFlags: 0
@@ -19432,6 +19482,144 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398021399}
   m_CullTransparentMesh: 1
+--- !u!1 &1398148792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1398148793}
+  - component: {fileID: 1398148795}
+  - component: {fileID: 1398148794}
+  m_Layer: 0
+  m_Name: Epilogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1398148793
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398148792}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 451654779}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 105}
+  m_SizeDelta: {x: 980, y: 74}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1398148794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398148792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "La puerta del laboratorio cedi\xF3. Por primera vez en la noche, el altavoz
+    guard\xF3 silencio."
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 0.84313726, g: 0.8901961, b: 0.89411765, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 30
+  m_fontSizeBase: 30
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 0
+  m_fontSizeMax: 0
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 00000000
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 0
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1398148795
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398148792}
+  m_CullTransparentMesh: 1
 --- !u!1 &1402877318
 GameObject:
   m_ObjectHideFlags: 0
@@ -19618,7 +19806,7 @@ AudioSource:
   m_GameObject: {fileID: 1409467492}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7411293701424749927, guid: adc1ec7d9e7a1984aae627db37791e5e, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -20197,6 +20385,8 @@ MonoBehaviour:
   closeButton: {fileID: 1228039739}
   resetButton: {fileID: 235891512}
   hintButton: {fileID: 1226613866}
+  documentSurface: {fileID: 1549694445}
+  paper: {fileID: 21300000, guid: c4831396b5b1dc64a90c8d07e7a0c272, type: 3}
 --- !u!1 &1467375370
 GameObject:
   m_ObjectHideFlags: 0
@@ -21264,6 +21454,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530874000}
+  m_CullTransparentMesh: 1
+--- !u!1 &1549694443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1549694444}
+  - component: {fileID: 1549694446}
+  - component: {fileID: 1549694445}
+  m_Layer: 0
+  m_Name: DocumentSurface
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1549694444
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549694443}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1102055767}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 38}
+  m_SizeDelta: {x: 910, y: 347}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1549694445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549694443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1549694446
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549694443}
   m_CullTransparentMesh: 1
 --- !u!1 &1574550787
 GameObject:
@@ -24411,7 +24676,7 @@ AudioSource:
   m_GameObject: {fileID: 1771306431}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6251819239884669538, guid: adc1ec7d9e7a1984aae627db37791e5e, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0

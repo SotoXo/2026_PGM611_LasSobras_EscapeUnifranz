@@ -39,7 +39,9 @@ namespace EscapeUNIFRANZ.World
 
         public string ScanStateText => Remaining() > 0 ? "[EXPENDEDORA]" : "[VACÍA]";
 
-        public override bool CanInteract => base.CanInteract && phase != Phase.Dispensing;
+        public override bool CanInteract => base.CanInteract && BoundSession != null &&
+            product != null && !string.IsNullOrWhiteSpace(product.id) &&
+            !string.IsNullOrWhiteSpace(machineId) && phase != Phase.Dispensing;
 
         public override string Prompt =>
             phase == Phase.ReadyToCollect ? "[E] Recoger " + ProductLabel :
@@ -67,7 +69,7 @@ namespace EscapeUNIFRANZ.World
         private IEnumerator Dispense()
         {
             phase = Phase.Dispensing;
-            ProjectAudioHooks.Emit(AudioCue.ObjectUsed);
+            ProjectAudioHooks.EmitAt(AudioCue.ElectronicDoor, transform.position);
             for (int i = 1; purchaseFrames != null && i < purchaseFrames.Length; i++)
             {
                 if (body != null) body.sprite = purchaseFrames[i];
@@ -75,6 +77,7 @@ namespace EscapeUNIFRANZ.World
                 if (!last) yield return new WaitForSeconds(frameSeconds != null && i - 1 < frameSeconds.Length ? frameSeconds[i - 1] : 0.1f);
             }
             phase = Phase.ReadyToCollect;
+            ProjectAudioHooks.EmitAt(AudioCue.CanImpact, transform.position);
         }
 
         private void Collect()

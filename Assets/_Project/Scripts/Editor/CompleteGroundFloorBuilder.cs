@@ -155,6 +155,7 @@ namespace EscapeUNIFRANZ.EditorTools
                     }
                     ConfigureCleanScene(zone, art);
                     ConfigureKeyedPassage(zone, art.transform);
+                    CampaignGroundFloor.Configure(zone, art);
                     if (name == "Z00_Entrada") ConfigureHallAccess(zone);
                     ConfigureElevator(zone, art.transform);
                     if (!EditorSceneManager.SaveScene(scene))
@@ -170,43 +171,7 @@ namespace EscapeUNIFRANZ.EditorTools
             Debug.Log("MAPA_COMPLETO_OK: replaced ground floor in three scenes; all spawn positions validated on connected walkable floor.");
         }
 
-        [MenuItem("Escape UNIFRANZ/Art/Clean And Light Complete Ground Floor")]
-        public static void CleanAndLight()
-        {
-            if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Run in Edit Mode.");
-            if (!SavePendingSceneChanges()) return;
-            var setup = EditorSceneManager.GetSceneManagerSetup();
-            var root = PrefabUtility.LoadPrefabContents(PrefabPath);
-            try { ConfigureCleanPrefab(root); PrefabUtility.SaveAsPrefabAsset(root, PrefabPath); }
-            finally { PrefabUtility.UnloadPrefabContents(root); }
-            var report = new List<string>();
-            try
-            {
-                foreach (string name in new[] { "Z00_Entrada", "Z01_Hall", "Z02_ARCA" })
-                {
-                    var scene = EditorSceneManager.OpenScene("Assets/_Project/Scenes/Zones/" + name + ".unity", OpenSceneMode.Single);
-                    var zone = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<ZoneContext>(true)).First();
-                    var art = zone.transform.Find("GroupLevelArt");
-                    if (art == null) throw new InvalidOperationException("Missing map in " + name);
-                    ConfigureCleanScene(zone, art.gameObject);
-                var pickups = zone.GetComponentsInChildren<ItemPickupInteractable>().Where(p => p.gameObject.activeInHierarchy && p.ItemId != ElevatorCircuit.ItemId).ToArray();
-                    if (pickups.Length != 2 || !pickups.Any(p => p.ItemId == "key") || !pickups.Any(p => p.ItemId == "flashlight"))
-                        throw new InvalidOperationException("Expected only a flashlight and key in " + name);
-                    var overlays = zone.GetComponentsInChildren<SpriteRenderer>().Where(sr => sr.enabled && sr.gameObject.activeInHierarchy && !sr.transform.IsChildOf(art)).ToArray();
-                    if (overlays.Length != 0) throw new InvalidOperationException("Legacy renderers remain in " + name);
-                    EditorSceneManager.SaveScene(scene);
-                    report.Add(name + ": only key + flashlight pickups; no legacy sprite overlays; low global light 0.06.");
-                }
-                AssetDatabase.SaveAssets();
-                Directory.CreateDirectory("reports"); File.WriteAllLines("reports/mapa-completo-cleanup.txt", report);
-            }
-            finally
-            {
-                if (setup.Any(s => s.isLoaded && s.isActive)) EditorSceneManager.RestoreSceneManagerSetup(setup);
-                else EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-            }
-            Debug.Log("MAPA_COMPLETO_CLEAN_OK: three scenes validated; only flashlight and key; low ambient lighting.");
-        }
+        public static void CleanAndLight() => CampaignGroundFloor.Apply();
 
         static CompositeCollider2D BuildGeometry(Transform parent, string name, bool[] mask,
             CompositeCollider2D.GeometryType geometryType, out int rectangleCount)
@@ -468,15 +433,11 @@ namespace EscapeUNIFRANZ.EditorTools
 
         static void ConfigureHallAccess(ZoneContext zone)
         {
-            // The old CCTV/power interactions are disabled on MapaCompleto.
+            // Keep the campaign's CCTV and power requirements alongside the key.
             var exit = zone.GetComponentsInChildren<ZoneExitInteractable>(true)
                 .Single(candidate => candidate.name == "AccesoHall");
             var data = new SerializedObject(exit);
-            data.FindProperty("requiredFlags").arraySize = 0;
-            data.FindProperty("requiredFlag").enumValueIndex = 0;
             data.FindProperty("requiredItem").stringValue = "key";
-            data.FindProperty("authorizationRequirement").enumValueIndex = 0;
-            data.FindProperty("energyRequirement").enumValueIndex = 0;
             data.ApplyModifiedPropertiesWithoutUndo();
         }
 

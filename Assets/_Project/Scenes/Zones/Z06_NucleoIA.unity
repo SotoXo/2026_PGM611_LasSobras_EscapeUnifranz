@@ -1293,7 +1293,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -2580,7 +2580,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -5886,6 +5886,11 @@ MonoBehaviour:
     text: "A\xEDsla, verifica y ejecuta el apagado seguro."
     untilItem: 
     sectorId: 
+    untilFlag: 19
+  - id: core_escape
+    text: Vuelve por el corredor y sal por la puerta del laboratorio.
+    untilItem: 
+    sectorId: nucleo_ia
     untilFlag: 20
 --- !u!43 &428247221
 Mesh:
@@ -7450,7 +7455,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -8077,7 +8082,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.85
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -9790,7 +9795,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.85
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -10905,7 +10910,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -11602,7 +11607,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.85
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -12279,7 +12284,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -12944,6 +12949,7 @@ MonoBehaviour:
   requirementMessage: "El dispositivo todav\xEDa no est\xE1 habilitado."
   targetZoneId: lab_software
   targetSpawnId: from_nucleo
+  escapesAfterShutdown: 1
   requiredFlag: 0
   lockState: 0
   lockedMessage: Acceso restringido.
@@ -13697,7 +13703,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.85
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -14011,7 +14017,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.85
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -14458,7 +14464,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.95
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -14577,7 +14583,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.85
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -18146,7 +18152,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -19127,7 +19133,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -20869,7 +20875,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.85
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -24811,7 +24817,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -25310,7 +25316,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.85
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -25991,7 +25997,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -26484,7 +26490,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.75
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -28657,7 +28663,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.85
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5
@@ -29925,7 +29931,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowsEnabled: 1
+  m_ShadowsEnabled: 0
   m_ShadowIntensity: 0.85
   m_ShadowSoftness: 0.3
   m_ShadowSoftnessFalloffIntensity: 0.5

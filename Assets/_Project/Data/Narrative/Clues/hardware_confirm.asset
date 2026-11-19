@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: hardware_confirm
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: hardware_confirm
-  title: Etiqueta del controlador
-  category: "Inspecci\xF3n ambiental"
-  text: "El z\xF3calo del <b>fusible</b> est\xE1 vac\xEDo. PWR = ENERG\xCDA; DATA
-    = DATOS; CTRL = CONTROL; GND = TIERRA. Tierra protege el circuito; control indica
-    qu\xE9 debe hacer. Une cada nombre con su pareja."
+  title: "Bajo la tapa del actuador"
+  category: "Etiqueta de seguridad"
+  text: "El supervisor escribi\u00f3 \u00abespera a que pare\u00bb. Debajo, otra letra a\u00f1adi\u00f3 \u00abesperar tambi\u00e9n es una orden\u00bb.\n\nZ\u00f3calo vac\u00edo. <b>PWR</b> energ\u00eda, <b>DATA</b> datos, <b>CTRL</b> control, <b>GND</b> tierra. Empareja cada etiqueta."
   associatedFlag: 0
+  electronic: 0

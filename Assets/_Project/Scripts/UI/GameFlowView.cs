@@ -15,16 +15,16 @@ namespace EscapeUNIFRANZ.UI
     {
         private static readonly string[] IntroTitles =
         {
-            "PRIMER DÍA",
+            "EL ÚLTIMO TURNO",
             "CORTE DE ENERGÍA",
-            "UN ACCESO CERRADO"
+            "SALIDA CANCELADA"
         };
 
         private static readonly string[] IntroBodies =
         {
-            "Primer día. Ingeniería de Sistemas. El edificio está casi vacío. Tú también estás empezando a aprender.",
-            "Un apagón. La terminal intenta reiniciarse: SISTEMA DE EMERGENCIA ACTIVO. Después: ERROR DE COMUNICACIÓN.",
-            "El acceso no responde. Una terminal permanece apagada junto a recepción. Busca una forma de devolverle energía."
+            "La última clase terminó hace una hora. Solo tu mochila sigue junto a las mesas de recepción.",
+            "Los fluorescentes se apagan. En el altavoz, una voz conocida lee tu nombre con una pausa que nunca le habías oído.",
+            "FRANCIS: Por favor, permanezca en el edificio. Su salida ha sido cancelada.\n\nBusca una linterna y el cuadro eléctrico de recepción."
         };
 
         [Header("Layers")]

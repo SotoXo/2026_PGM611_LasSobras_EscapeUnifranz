@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: hall_mantenimiento
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: hall_mantenimiento
-  title: Gabinete de mantenimiento
-  category: Objetos / backtracking
-  text: "<b>GABINETE DE COMUNICACIONES</b> \u2014 requiere <b>TARJETA DE MANTENIMIENTO</b>.
-    El personal la dej\xF3 en Simulaci\xF3n. Dentro hay un <b>M\xD3DULO DE RED</b>:
-    una pieza que falta en el distribuidor de Tecnolog\xEDa."
+  title: "En el sobre del gabinete"
+  category: "Tarjeta del personal de mantenimiento"
+  text: "La voz de Luc\u00eda volvi\u00f3 a pedir ayuda por el intercomunicador. Su tarjeta llevaba media hora sobre mi escritorio.\n\nEl gabinete pide <b>tarjeta de mantenimiento</b>. Est\u00e1 en <b>Simulaci\u00f3n</b>. Aqu\u00ed guardamos el <b>m\u00f3dulo de red</b> que falta en Tecnolog\u00eda."
   associatedFlag: 0
+  electronic: 0
