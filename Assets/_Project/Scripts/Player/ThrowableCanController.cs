@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using EscapeUNIFRANZ.Core;
 using EscapeUNIFRANZ.Hazards;
+using EscapeUNIFRANZ.Interaction;
 using EscapeUNIFRANZ.Narrative;
 using EscapeUNIFRANZ.World;
 using UnityEngine;
@@ -89,6 +90,7 @@ namespace EscapeUNIFRANZ.Player
             }
 
             if (!session.State.TryUseItem(itemId)) return;
+            if (visual != null) visual.PlayAction(PlayerVisualController.ActionPose.Throw);
             ProjectAudioHooks.Emit(AudioCue.CanThrow);
             StartCoroutine(Fly(origin, origin + dir * distance, distance));
         }
@@ -105,33 +107,70 @@ namespace EscapeUNIFRANZ.Player
             sr.sprite = canSprite; sr.sortingLayerName = "World";
             can.transform.localScale = Vector3.one * 0.7f;
 
-            float duration = Mathf.Max(0.15f, distance / flightSpeed), t = 0f;
-            while (t < 1f)
+            // Sombra en el piso: da profundidad al vuelo y al rebote.
+            var shadow = new GameObject("SombraLata");
+            shadow.transform.SetParent(can.transform.parent, true);
+            var shadowRenderer = shadow.AddComponent<SpriteRenderer>();
+            shadowRenderer.sprite = InteractionFx.Circle; shadowRenderer.sortingLayerName = "World";
+            shadowRenderer.color = new Color(0f, 0f, 0f, 0.35f);
+            shadow.transform.position = from;
+
+            try
             {
+                float duration = Mathf.Max(0.15f, distance / flightSpeed), t = 0f;
+                while (t < 1f)
+                {
+                    if (can == null) yield break;
+                    t += Time.deltaTime / duration;
+                    float k = Mathf.Clamp01(t);
+                    Vector2 ground = Vector2.Lerp(from, to, k);
+                    float height = Mathf.Sin(k * Mathf.PI);
+                    can.transform.position = ground + Vector2.up * height * 0.6f;
+                    can.transform.rotation = Quaternion.Euler(0f, 0f, 720f * k);
+                    sr.sortingOrder = WorldYSort2D.Order(ground.y);
+                    shadow.transform.position = ground;
+                    shadow.transform.localScale = new Vector3(0.45f - 0.15f * height, 0.2f - 0.07f * height, 1f);
+                    shadowRenderer.sortingOrder = sr.sortingOrder - 1;
+                    yield return null;
+                }
+
                 if (can == null) yield break;
-                t += Time.deltaTime / duration;
-                float k = Mathf.Clamp01(t);
-                Vector2 ground = Vector2.Lerp(from, to, k);
-                can.transform.position = ground + Vector2.up * Mathf.Sin(k * Mathf.PI) * 0.6f;
-                can.transform.rotation = Quaternion.Euler(0f, 0f, 720f * k);
-                sr.sortingOrder = WorldYSort2D.Order(ground.y);
-                yield return null;
+                can.transform.position = to;
+                can.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                sr.sortingOrder = WorldYSort2D.Order(to.y);
+                shadow.transform.position = to;
+                shadow.transform.localScale = new Vector3(0.45f, 0.2f, 1f);
+                shadowRenderer.sortingOrder = sr.sortingOrder - 1;
+                var trigger = can.AddComponent<BoxCollider2D>(); trigger.isTrigger = true; trigger.size = new Vector2(0.8f, 0.8f);
+                var pickup = can.AddComponent<ThrownCanPickup>(); pickup.itemId = itemId; pickup.BindSession(session);
+
+                // Golpe, polvo y distracción ocurren en el instante del impacto.
+                ProjectAudioHooks.EmitAt(AudioCue.CanImpact, to);
+                InteractionFx.Puff(to, new Color(0.8f, 0.8f, 0.8f, 1f));
+                foreach (var robot in FindObjectsByType<MiniAutoController>(FindObjectsSortMode.None))
+                {
+                    Vector2 eye = (Vector2)robot.transform.position + Vector2.up * 0.12f;
+                    if (Vector2.Distance(eye, to) <= noiseRadius &&
+                        DetectionSensor2D.HasLineOfSight(eye, to, ~0, robot.transform, null, hits))
+                        robot.DistractAt(to, distractSeconds);
+                }
+
+                // Pequeño rebote solo visual (sin sonido extra) para que el golpe se sienta.
+                const float bounceSeconds = 0.22f;
+                float bounce = 0f;
+                while (bounce < 1f)
+                {
+                    if (can == null) yield break;
+                    bounce += Time.deltaTime / bounceSeconds;
+                    can.transform.position = to + Vector2.up * Mathf.Sin(Mathf.Clamp01(bounce) * Mathf.PI) * 0.16f;
+                    yield return null;
+                }
+
+                if (can != null) can.transform.position = to;
             }
-
-            if (can == null) yield break;
-            can.transform.position = to;
-            can.transform.rotation = Quaternion.Euler(0f, 0f, 90f);
-            sr.sortingOrder = WorldYSort2D.Order(to.y);
-            var trigger = can.AddComponent<BoxCollider2D>(); trigger.isTrigger = true; trigger.size = new Vector2(0.8f, 0.8f);
-            var pickup = can.AddComponent<ThrownCanPickup>(); pickup.itemId = itemId; pickup.BindSession(session);
-
-            ProjectAudioHooks.EmitAt(AudioCue.CanImpact, to);
-            foreach (var robot in FindObjectsByType<MiniAutoController>(FindObjectsSortMode.None))
+            finally
             {
-                Vector2 eye = (Vector2)robot.transform.position + Vector2.up * 0.12f;
-                if (Vector2.Distance(eye, to) <= noiseRadius &&
-                    DetectionSensor2D.HasLineOfSight(eye, to, ~0, robot.transform, null, hits))
-                    robot.DistractAt(to, distractSeconds);
+                if (shadow != null) Destroy(shadow);
             }
         }
     }

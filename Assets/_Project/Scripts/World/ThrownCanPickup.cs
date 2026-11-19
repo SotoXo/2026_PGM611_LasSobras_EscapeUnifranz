@@ -14,6 +14,8 @@ namespace EscapeUNIFRANZ.World
         protected override void PerformInteraction()
         {
             if (BoundSession == null || !BoundSession.State.AddItem(itemId)) return;
+            var canRenderer = GetComponent<SpriteRenderer>();
+            InteractionFx.Pickup(canRenderer != null ? canRenderer.sprite : null, transform.position, ItemData.Label(itemId));
             gameObject.SetActive(false);
             ProjectAudioHooks.Emit(AudioCue.Pickup);
             BoundSession.GetComponent<NarrativeController>()?.NotifyPickup(itemId);
