@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "message": "Build Succeeded.",
+  "data": {
+    "job_id": "build-a695dd2ee0",
+    "result": "succeeded",
+    "platform": "StandaloneWindows64",
+    "output_path": "Builds/Integracion_Abril_Marco/Windows/EscapeUNIFRANZ.exe",
+    "started_at": "2026-11-19T19:22:05.5273338Z",
+    "duration_seconds": 39.5095192,
+    "completed_at": "2026-11-19T19:22:45.036853Z",
+    "total_size_mb": 105.59,
+    "errors": 0,
+    "warnings": 0
+  }
+}

@@ -1,0 +1,111 @@
+[
+  {
+    "scene": "Assets\\_Project\\Scenes\\Bootstrap\\Bootstrap.unity",
+    "scripts": 335,
+    "externalOrPackageScriptGuids": [
+      "f4688fdb7df04437aeb418b961361dc5",
+      "fe87c0e1cc204ed48ad3b37840f39efc",
+      "4e29b1a8efbd4b44bb3f3716e73f07ff",
+      "e19747de3f5aca642ab2be37e372fb86",
+      "fc1515ab76e54f068e2f2207940fab32",
+      "3312d7739989d2b4e91e6319e9a96d76",
+      "073797afb82c5a1438f328866b10b3f0",
+      "a79441f348de89743a2939f4d699eac1",
+      "86710e43de46f6f4bac7c8e50813a599",
+      "dc42784cf147c0c48a680349fa168899",
+      "0cd44c1031e13a943bb63640046fad76",
+      "39fa3d8997a24136984ca6e2c99902bc",
+      "01614664b831546d2ae94a42149d80ac",
+      "76c392e42b5098c458856cdf6ecaaaa1",
+      "1511ccae7919cfc46b603b9b337fdc94"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\UI\\MainMenu.unity",
+    "scripts": 136,
+    "externalOrPackageScriptGuids": [
+      "fc1515ab76e54f068e2f2207940fab32",
+      "fe87c0e1cc204ed48ad3b37840f39efc",
+      "4e29b1a8efbd4b44bb3f3716e73f07ff",
+      "f4688fdb7df04437aeb418b961361dc5",
+      "67db9e8f0e2ae9c40bc1e2b64352a6b4",
+      "86710e43de46f6f4bac7c8e50813a599",
+      "dc42784cf147c0c48a680349fa168899",
+      "0cd44c1031e13a943bb63640046fad76",
+      "01614664b831546d2ae94a42149d80ac",
+      "76c392e42b5098c458856cdf6ecaaaa1",
+      "39fa3d8997a24136984ca6e2c99902bc"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\Zones\\Z00_Entrada.unity",
+    "scripts": 131,
+    "externalOrPackageScriptGuids": [
+      "073797afb82c5a1438f328866b10b3f0",
+      "7db70e0ea77f5ac47a8f4565a9406397",
+      "9541d86e2fd84c1d9990edf0852d74ab"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\Zones\\Z01_Hall.unity",
+    "scripts": 100,
+    "externalOrPackageScriptGuids": [
+      "073797afb82c5a1438f328866b10b3f0",
+      "7db70e0ea77f5ac47a8f4565a9406397",
+      "9541d86e2fd84c1d9990edf0852d74ab"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\Zones\\Z02_ARCA.unity",
+    "scripts": 62,
+    "externalOrPackageScriptGuids": [
+      "7db70e0ea77f5ac47a8f4565a9406397",
+      "073797afb82c5a1438f328866b10b3f0",
+      "9541d86e2fd84c1d9990edf0852d74ab"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\Zones\\Z03_Piso2.unity",
+    "scripts": 181,
+    "externalOrPackageScriptGuids": [
+      "073797afb82c5a1438f328866b10b3f0",
+      "7db70e0ea77f5ac47a8f4565a9406397",
+      "9541d86e2fd84c1d9990edf0852d74ab"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\Zones\\Z04_Piso3.unity",
+    "scripts": 188,
+    "externalOrPackageScriptGuids": [
+      "073797afb82c5a1438f328866b10b3f0",
+      "7db70e0ea77f5ac47a8f4565a9406397",
+      "9541d86e2fd84c1d9990edf0852d74ab"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\Zones\\Z05_LabSoftware.unity",
+    "scripts": 131,
+    "externalOrPackageScriptGuids": [
+      "073797afb82c5a1438f328866b10b3f0",
+      "9541d86e2fd84c1d9990edf0852d74ab",
+      "7db70e0ea77f5ac47a8f4565a9406397"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\Zones\\Z06_NucleoIA.unity",
+    "scripts": 175,
+    "externalOrPackageScriptGuids": [
+      "9541d86e2fd84c1d9990edf0852d74ab",
+      "073797afb82c5a1438f328866b10b3f0",
+      "7db70e0ea77f5ac47a8f4565a9406397"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\Zones\\Z07_Aula2.unity",
+    "scripts": 196,
+    "externalOrPackageScriptGuids": [
+      "9541d86e2fd84c1d9990edf0852d74ab",
+      "073797afb82c5a1438f328866b10b3f0"
+    ]
+  }
+]
