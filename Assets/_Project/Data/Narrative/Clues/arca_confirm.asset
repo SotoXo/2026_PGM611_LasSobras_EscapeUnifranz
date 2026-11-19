@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: arca_confirm
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: arca_confirm
-  title: "Pantalla de admisi\xF3n"
-  category: "Inspecci\xF3n ambiental"
-  text: 'Tres interruptores numerados: <b>1 PRINCIPAL / 2 CONTROL / 3 SEGURIDAD</b>.
-    El aviso dice: reiniciar de izquierda a derecha.'
+  title: "\u00daltimo acceso registrado"
+  category: "Pantalla de admisi\u00f3n"
+  text: "SALIDA: 00. ENTRADA: 17. La consola firm\u00f3 ambas l\u00edneas con el mismo nombre.\n\nTres interruptores numerados: <b>1 PRINCIPAL \u00b7 2 CONTROL \u00b7 3 SEGURIDAD</b>. Reinicio de izquierda a derecha."
   associatedFlag: 0
+  electronic: 1

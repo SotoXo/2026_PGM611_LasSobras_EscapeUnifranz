@@ -1,0 +1,1 @@
+PASS: four elevator scenes; ten non-null frames and positive JSON timings per elevator; circuit puzzle retained; destination/spawn pairs valid; Aula 2 registered for builds.

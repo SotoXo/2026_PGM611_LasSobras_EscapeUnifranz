@@ -24,15 +24,23 @@ namespace EscapeUNIFRANZ.World
         private int burst;
         public RoomFailurePattern failurePattern=RoomFailurePattern.Double;
         private float weakUntil;
+        private float nextShimmer;
         public void SetAutomaticPower(float level) { intensity=Mathf.Max(0,level); ResumeFlicker(); }
         public void SetOverride(bool value,float level=0) { overridden=value; overrideIntensity=level; ApplyPower(); }
         public void SetExternalPower(float level,bool fault=false) { external=true; externalFault=fault; externalIntensity=Mathf.Max(0,level); ApplyPower(); }
         public void ResumeFlicker() { external=false; burst=0; nextTransitionAt=Time.time+Duration(); ApplyPower(); }
         private void OnEnable() { random=new System.Random(randomSeed!=0 ? randomSeed : unchecked(Mathf.RoundToInt(phase*1000)^GetInstanceID())); if(startsOff) { external=true; externalIntensity=0; } burst=0; nextTransitionAt=Time.time+Duration(); ApplyPower(); }
-        private float Duration()=>Mathf.Lerp(Mathf.Max(4.2f,onSeconds.x),Mathf.Max(4.2f,onSeconds.y),(float)random.NextDouble());
+        private float Duration()
+        {
+            // Zone initialization can set power before an inactive fixture receives OnEnable.
+            if(random==null)
+                random=new System.Random(randomSeed!=0 ? randomSeed : unchecked(Mathf.RoundToInt(phase*1000)^GetInstanceID()));
+            return Mathf.Lerp(Mathf.Max(4.2f,onSeconds.x),Mathf.Max(4.2f,onSeconds.y),(float)random.NextDouble());
+        }
         private void Update()
         {
-            if(!external && !overridden && Time.time>=nextTransitionAt)
+            if (external || overridden || (lamp != null && !lamp.enabled)) return;
+            if(Time.time>=nextTransitionAt)
             {
                 if(burst==0)
                 {
@@ -44,14 +52,18 @@ namespace EscapeUNIFRANZ.World
                 else if(burst==2) { burst=3; nextTransitionAt=Time.time+(failurePattern==RoomFailurePattern.Strong ? .18f : Mathf.Clamp(offSeconds.y,.05f,.08f)); }
                 else { burst=0; if(failurePattern==RoomFailurePattern.Strong) weakUntil=Time.time+6f; nextTransitionAt=Time.time+Duration()+briefCutChance; }
             }
+            if (Time.time < nextShimmer) return;
+            nextShimmer = Time.time + .065f;
             ApplyPower();
         }
         private void ApplyPower()
         {
             float level=overridden ? overrideIntensity : external ? externalIntensity : burst==1 || burst==3 ? Mathf.Min(0,minimumIntensity) : intensity*(Time.time<weakUntil ? .45f : 1f)*(1-Mathf.Clamp(shimmer,0,.03f)*Mathf.PerlinNoise(phase,Time.time*shimmerSpeed));
-            if(lamp!=null) lamp.intensity=level;
-            int frame=level<=0 ? 2 : external && externalFault && !overridden ? 0 : burst==2 && !external && !overridden ? 3 : 1;
-            if(lampRenderer!=null && frames!=null && frames.Length>frame) lampRenderer.sprite=frames[frame];
+            bool reduced = EscapeUNIFRANZ.Core.GameOptions.ReduceFlashes;
+            if (reduced && !external && !overridden) level = intensity;
+            if(lamp!=null && !Mathf.Approximately(lamp.intensity, level)) lamp.intensity=level;
+            int frame=level<=0 ? 2 : external && externalFault && !overridden ? 0 : burst==2 && !external && !overridden && !reduced ? 3 : 1;
+            if(lampRenderer!=null && frames!=null && frames.Length>frame && lampRenderer.sprite!=frames[frame]) lampRenderer.sprite=frames[frame];
         }
     }
 }

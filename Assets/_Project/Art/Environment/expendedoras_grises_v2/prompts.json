@@ -1,0 +1,10 @@
+[
+  {
+    "asset": "frituras_gris",
+    "prompt": "Use case precise-object-edit. Edit attached snack vending machine sprite with ONE MINIMAL COLOR CHANGE: replace ONLY its orange-red outer metal housing with neutral METALLIC STEEL GRAY. Light silver highlights at top and left edges, medium gray front panels, darker charcoal side shading. Keep EXACT same silhouette, dimensions, front camera, pixel placements, glass, product bags (yellow green red must STAY colored), right colored buttons, coin slot, dark navy outline, feet and lower empty tray. DO NOT redesign or add detail. This is a palette/material substitution only, no geometry changes. Preserve the entire existing transparent64x64canvas and same margins. Render nearest-neighbor enlarged64x64pixel art if native64 unavailable; hard squarepixels, no smoothing, actual transparentbackground. No labels,text,ground,shadows,glow or extra machines."
+  },
+  {
+    "asset": "bebidas_gris_compra",
+    "prompt": "Use case precise-object-edit. Recolor this existing6-frame beverage vending machine animation sheet. Change ONLY the BLUE OUTER METAL HOUSING on each of the6 machines to neutral METALLIC STEEL GRAY: silver upper-edge highlights, medium-gray front shell, darker-gray side shadows. Keep the exact same3columns x2rows layout, whole machine silhouette/size/placement, window geometry, shelves, control strip, coin slot and lower tray. All product cans MUST retain their vivid colors; especially the ORANGE can's position in each existing frame must be preserved EXACTLY, so the dispensing animation remains unchanged. Do NOT recolor blue product cans, dark navy outlines, glass or colored buttons. No redesign, extra buttons, changed stocked products or additional frames. Use the existing pixel clusters and replace shell palette only. Preserve existing transparency. Hard-edged pixel art, no antialiasing, no background, shadows, glow, text or labels. This is a material/color correction on the existing animation, not a new design."
+  }
+]

@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: software_servicios
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: software_servicios
-  title: Servicios del laboratorio
-  category: "Diagn\xF3stico de software"
-  text: "<b>No apagues el n\xFAcleo.</b> Necesitamos que puertas y luces sigan respondiendo.
-    A\xEDsla \xFAnicamente <b>SEGURIDAD</b>, el servicio que env\xEDa \xF3rdenes
-    hostiles. Despu\xE9s cruza el patr\xF3n de los brazos y alcanza <b>EMERGENCY
-    STOP</b>."
+  title: "Lo que queda en l\u00ednea"
+  category: "Recado junto al paro"
+  text: "Marqu\u00e9 el interruptor antes de que el brazo volviera a escribir mi n\u00famero de estudiante en el cristal.\n\nA\u00edsla solo <b>SEGURIDAD</b>. Conserva n\u00facleo y accesos. Espera a que cese el halo y acciona <b>EMERGENCY STOP</b>."
   associatedFlag: 0
+  electronic: 0

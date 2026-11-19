@@ -1,0 +1,1278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="187" result="Passed" total="187" passed="187" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0,4119066">
+  <test-suite type="TestSuite" id="1000" name="EscapeUNIFRANZ" fullname="EscapeUNIFRANZ" runstate="Runnable" testcasecount="187" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.411907" total="187" passed="187" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1231" name="EscapeUNIFRANZ.Tests.EditMode.dll" fullname="D:/Unity/EscapeGrupo/Builds/ElevatorIntegrationProject/Library/ScriptAssemblies/EscapeUNIFRANZ.Tests.EditMode.dll" runstate="Runnable" testcasecount="187" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.397248" total="187" passed="187" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23488" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1232" name="EscapeUNIFRANZ" fullname="EscapeUNIFRANZ" runstate="Runnable" testcasecount="187" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.393175" total="187" passed="187" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1233" name="Tests" fullname="EscapeUNIFRANZ.Tests" runstate="Runnable" testcasecount="187" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.390475" total="187" passed="187" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1234" name="EditMode" fullname="EscapeUNIFRANZ.Tests.EditMode" runstate="Runnable" testcasecount="187" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.387660" total="187" passed="187" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1001" name="AccessibleCounterplayTests" fullname="EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests" classname="EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.062073" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1003" name="EmergencyStopCanInterruptAnActiveArmSequence" fullname="EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests.EmergencyStopCanInterruptAnActiveArmSequence" methodname="EmergencyStopCanInterruptAnActiveArmSequence" classname="EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests" runstate="Runnable" seed="1877012344" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.015894" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1002" name="FuseReplacementIsADragConnection_AndOnlyCompletionAllowsConsumption" fullname="EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests.FuseReplacementIsADragConnection_AndOnlyCompletionAllowsConsumption" methodname="FuseReplacementIsADragConnection_AndOnlyCompletionAllowsConsumption" classname="EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests" runstate="Runnable" seed="1492006270" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.005972" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1005" name="SoftwareButtonsUseReadableActionsRatherThanRealCommands" fullname="EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests.SoftwareButtonsUseReadableActionsRatherThanRealCommands" methodname="SoftwareButtonsUseReadableActionsRatherThanRealCommands" classname="EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests" runstate="Runnable" seed="520600834" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.007348" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1004" name="SuspendingAMiniStopsMovementDetectionAndContact_WhileKeepingItsObject" fullname="EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests.SuspendingAMiniStopsMovementDetectionAndContact_WhileKeepingItsObject" methodname="SuspendingAMiniStopsMovementDetectionAndContact_WhileKeepingItsObject" classname="EscapeUNIFRANZ.Tests.EditMode.AccessibleCounterplayTests" runstate="Runnable" seed="65153464" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.015849" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1006" name="CampusMapProgressionTests" fullname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests" classname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.008579" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1011" name="CurrentZone_OverridesOtherVisualStates" fullname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests.CurrentZone_OverridesOtherVisualStates" methodname="CurrentZone_OverridesOtherVisualStates" classname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests" runstate="Runnable" seed="90307705" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001261" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1007" name="HiddenZone_IsUnknown" fullname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests.HiddenZone_IsUnknown" methodname="HiddenZone_IsUnknown" classname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests" runstate="Runnable" seed="1674046088" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000603" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1012" name="ResolvingMap_DoesNotMutateGameState" fullname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests.ResolvingMap_DoesNotMutateGameState" methodname="ResolvingMap_DoesNotMutateGameState" classname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests" runstate="Runnable" seed="320070223" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001708" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1008" name="RevealedButLockedZone_IsLocked" fullname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests.RevealedButLockedZone_IsLocked" methodname="RevealedButLockedZone_IsLocked" classname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests" runstate="Runnable" seed="1298832158" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001799" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1009" name="UnlockedZone_IsDiscovered" fullname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests.UnlockedZone_IsDiscovered" methodname="UnlockedZone_IsDiscovered" classname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests" runstate="Runnable" seed="1534369527" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000258" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1010" name="VisitedZone_IsCompleted" fullname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests.VisitedZone_IsCompleted" methodname="VisitedZone_IsCompleted" classname="EscapeUNIFRANZ.Tests.EditMode.CampusMapProgressionTests" runstate="Runnable" seed="142772258" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000214" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1013" name="CheckpointSaveTests" fullname="EscapeUNIFRANZ.Tests.EditMode.CheckpointSaveTests" classname="EscapeUNIFRANZ.Tests.EditMode.CheckpointSaveTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.117063" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1017" name="ContinueLoadsWithoutRunningTheIntro" fullname="EscapeUNIFRANZ.Tests.EditMode.CheckpointSaveTests.ContinueLoadsWithoutRunningTheIntro" methodname="ContinueLoadsWithoutRunningTheIntro" classname="EscapeUNIFRANZ.Tests.EditMode.CheckpointSaveTests" runstate="Runnable" seed="610994631" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.006694" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1015" name="InvalidPrimaryFallsBackToThePreviousCompleteSnapshot" fullname="EscapeUNIFRANZ.Tests.EditMode.CheckpointSaveTests.InvalidPrimaryFallsBackToThePreviousCompleteSnapshot" methodname="InvalidPrimaryFallsBackToThePreviousCompleteSnapshot" classname="EscapeUNIFRANZ.Tests.EditMode.CheckpointSaveTests" runstate="Runnable" seed="1531215697" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.068048" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1016" name="MissingCheckpointDoesNotCreateASave" fullname="EscapeUNIFRANZ.Tests.EditMode.CheckpointSaveTests.MissingCheckpointDoesNotCreateASave" methodname="MissingCheckpointDoesNotCreateASave" classname="EscapeUNIFRANZ.Tests.EditMode.CheckpointSaveTests" runstate="Runnable" seed="984260554" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.003150" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1014" name="RestoresFinalPhaseAndInventory" fullname="EscapeUNIFRANZ.Tests.EditMode.CheckpointSaveTests.RestoresFinalPhaseAndInventory" methodname="RestoresFinalPhaseAndInventory" classname="EscapeUNIFRANZ.Tests.EditMode.CheckpointSaveTests" runstate="Runnable" seed="144269137" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.036393" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1018" name="DoorPanelTests" fullname="EscapeUNIFRANZ.Tests.EditMode.DoorPanelTests" classname="EscapeUNIFRANZ.Tests.EditMode.DoorPanelTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.019332" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1019" name="DoorOpensThePassageAndCannotCloseOnAnOccupant" fullname="EscapeUNIFRANZ.Tests.EditMode.DoorPanelTests.DoorOpensThePassageAndCannotCloseOnAnOccupant" methodname="DoorOpensThePassageAndCannotCloseOnAnOccupant" classname="EscapeUNIFRANZ.Tests.EditMode.DoorPanelTests" runstate="Runnable" seed="1669330315" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.017437" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1020" name="ElevatorTravelTests" fullname="EscapeUNIFRANZ.Tests.EditMode.ElevatorTravelTests" classname="EscapeUNIFRANZ.Tests.EditMode.ElevatorTravelTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.014036" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1021" name="CircuitRequiresPieceAndRepairSurvivesRestoringSession" fullname="EscapeUNIFRANZ.Tests.EditMode.ElevatorTravelTests.CircuitRequiresPieceAndRepairSurvivesRestoringSession" methodname="CircuitRequiresPieceAndRepairSurvivesRestoringSession" classname="EscapeUNIFRANZ.Tests.EditMode.ElevatorTravelTests" runstate="Runnable" seed="872200655" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.012929" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1022" name="ExolegEncounterTests" fullname="EscapeUNIFRANZ.Tests.EditMode.ExolegEncounterTests" classname="EscapeUNIFRANZ.Tests.EditMode.ExolegEncounterTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.005163" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1024" name="DisabledState_DoesNotReset" fullname="EscapeUNIFRANZ.Tests.EditMode.ExolegEncounterTests.DisabledState_DoesNotReset" methodname="DisabledState_DoesNotReset" classname="EscapeUNIFRANZ.Tests.EditMode.ExolegEncounterTests" runstate="Runnable" seed="2025074399" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001641" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1023" name="FullStateFlow_ReachesDisabled" fullname="EscapeUNIFRANZ.Tests.EditMode.ExolegEncounterTests.FullStateFlow_ReachesDisabled" methodname="FullStateFlow_ReachesDisabled" classname="EscapeUNIFRANZ.Tests.EditMode.ExolegEncounterTests" runstate="Runnable" seed="1045260409" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000949" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1025" name="FrancisBossTests" fullname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests" classname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.013876" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1029" name="CompletedPhase_DoesNotRegressOnReset" fullname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.CompletedPhase_DoesNotRegressOnReset" methodname="CompletedPhase_DoesNotRegressOnReset" classname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests" runstate="Runnable" seed="308776112" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.004652" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1027" name="CorrectSequences_AdvanceAllPhases" fullname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.CorrectSequences_AdvanceAllPhases" methodname="CorrectSequences_AdvanceAllPhases" classname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests" runstate="Runnable" seed="1478272393" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002139" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1032" name="FailureInHardware_KeepsNetworkPhaseCompleted" fullname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.FailureInHardware_KeepsNetworkPhaseCompleted" methodname="FailureInHardware_KeepsNetworkPhaseCompleted" classname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests" runstate="Runnable" seed="601827337" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000823" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1033" name="FailureInShutdown_KeepsNetworkAndHardwareCompleted" fullname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.FailureInShutdown_KeepsNetworkAndHardwareCompleted" methodname="FailureInShutdown_KeepsNetworkAndHardwareCompleted" classname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests" runstate="Runnable" seed="1038270185" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000610" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1028" name="IncorrectNetworkSequence_DoesNotCompletePhase" fullname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.IncorrectNetworkSequence_DoesNotCompletePhase" methodname="IncorrectNetworkSequence_DoesNotCompletePhase" classname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests" runstate="Runnable" seed="83737462" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000731" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1026" name="Intro_ToPhaseOne" fullname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.Intro_ToPhaseOne" methodname="Intro_ToPhaseOne" classname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests" runstate="Runnable" seed="527607671" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000442" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1031" name="PhaseReset_DoesNotErasePreviousGlobalProgress" fullname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.PhaseReset_DoesNotErasePreviousGlobalProgress" methodname="PhaseReset_DoesNotErasePreviousGlobalProgress" classname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests" runstate="Runnable" seed="1705216516" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000484" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1030" name="ShutdownPersistsWithoutSkippingExtraction" fullname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests.ShutdownPersistsWithoutSkippingExtraction" methodname="ShutdownPersistsWithoutSkippingExtraction" classname="EscapeUNIFRANZ.Tests.EditMode.FrancisBossTests" runstate="Runnable" seed="667368459" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000505" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1048" name="GameplayModeStateTests" fullname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests" classname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.010800" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1053" name="Encounter_AllowsGameplayAndMap" fullname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.Encounter_AllowsGameplayAndMap" methodname="Encounter_AllowsGameplayAndMap" classname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests" runstate="Runnable" seed="1626268086" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001041" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1052" name="Map_BlocksMovementAndInteraction_ButCanBeClosed" fullname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.Map_BlocksMovementAndInteraction_ButCanBeClosed" methodname="Map_BlocksMovementAndInteraction_ButCanBeClosed" classname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests" runstate="Runnable" seed="1747634468" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000457" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1049" name="NewState_StartsInExplore" fullname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.NewState_StartsInExplore" methodname="NewState_StartsInExplore" classname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests" runstate="Runnable" seed="1942981632" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001067" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1059" name="PresentationModes_BlockGameplay" fullname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.PresentationModes_BlockGameplay" classname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.003945" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1054" name="PresentationModes_BlockGameplay(Presentation)" fullname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.PresentationModes_BlockGameplay(Presentation)" methodname="PresentationModes_BlockGameplay" classname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests" runstate="Runnable" seed="794718192" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000970" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1055" name="PresentationModes_BlockGameplay(Inventory)" fullname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.PresentationModes_BlockGameplay(Inventory)" methodname="PresentationModes_BlockGameplay" classname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests" runstate="Runnable" seed="611452885" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000244" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1056" name="PresentationModes_BlockGameplay(Pause)" fullname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.PresentationModes_BlockGameplay(Pause)" methodname="PresentationModes_BlockGameplay" classname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests" runstate="Runnable" seed="1832636237" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000196" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1057" name="PresentationModes_BlockGameplay(Defeat)" fullname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.PresentationModes_BlockGameplay(Defeat)" methodname="PresentationModes_BlockGameplay" classname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests" runstate="Runnable" seed="17847616" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000225" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1058" name="PresentationModes_BlockGameplay(Ending)" fullname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.PresentationModes_BlockGameplay(Ending)" methodname="PresentationModes_BlockGameplay" classname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests" runstate="Runnable" seed="1231216381" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000134" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1051" name="ReturningToExplore_EnablesGameplay" fullname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.ReturningToExplore_EnablesGameplay" methodname="ReturningToExplore_EnablesGameplay" classname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests" runstate="Runnable" seed="621187252" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000368" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1050" name="Transition_BlocksGameplay" fullname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests.Transition_BlocksGameplay" methodname="Transition_BlocksGameplay" classname="EscapeUNIFRANZ.Tests.EditMode.GameplayModeStateTests" runstate="Runnable" seed="412091370" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000364" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1034" name="GameSessionControllerTests" fullname="EscapeUNIFRANZ.Tests.EditMode.GameSessionControllerTests" classname="EscapeUNIFRANZ.Tests.EditMode.GameSessionControllerTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.003190" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1035" name="StartNewGame_HidesStaleBossPhaseBanner" fullname="EscapeUNIFRANZ.Tests.EditMode.GameSessionControllerTests.StartNewGame_HidesStaleBossPhaseBanner" methodname="StartNewGame_HidesStaleBossPhaseBanner" classname="EscapeUNIFRANZ.Tests.EditMode.GameSessionControllerTests" runstate="Runnable" seed="15264531" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002050" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1036" name="GameStateTests" fullname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests" classname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.007281" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1043" name="ActivatingRespawnPoints_UsesLatestStableId" fullname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests.ActivatingRespawnPoints_UsesLatestStableId" methodname="ActivatingRespawnPoints_UsesLatestStableId" classname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests" runstate="Runnable" seed="2090171073" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000594" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1041" name="ChangingZone_DoesNotRemoveFlags" fullname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests.ChangingZone_DoesNotRemoveFlags" methodname="ChangingZone_DoesNotRemoveFlags" classname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests" runstate="Runnable" seed="2039992210" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000348" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1046" name="DiscoveredThreat_IsScopedByZoneAndStableId" fullname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests.DiscoveredThreat_IsScopedByZoneAndStableId" methodname="DiscoveredThreat_IsScopedByZoneAndStableId" classname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests" runstate="Runnable" seed="1338635447" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000319" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1047" name="GameCompleted_RaisesOneCanonicalVictorySignal" fullname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests.GameCompleted_RaisesOneCanonicalVictorySignal" methodname="GameCompleted_RaisesOneCanonicalVictorySignal" classname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests" runstate="Runnable" seed="2049544765" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000420" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1040" name="HasFlag_ReturnsCorrectValue" fullname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests.HasFlag_ReturnsCorrectValue" methodname="HasFlag_ReturnsCorrectValue" classname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests" runstate="Runnable" seed="2020362630" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000293" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1037" name="NewState_StartsWithoutFlags" fullname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests.NewState_StartsWithoutFlags" methodname="NewState_StartsWithoutFlags" classname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests" runstate="Runnable" seed="19414873" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000562" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1045" name="RepeatingSameCheckpoint_DoesNotRaiseAnotherChange" fullname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests.RepeatingSameCheckpoint_DoesNotRaiseAnotherChange" methodname="RepeatingSameCheckpoint_DoesNotRaiseAnotherChange" classname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests" runstate="Runnable" seed="1207439467" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000501" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1042" name="SetCheckpoint_PreservesGlobalProgress" fullname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests.SetCheckpoint_PreservesGlobalProgress" methodname="SetCheckpoint_PreservesGlobalProgress" classname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests" runstate="Runnable" seed="56421415" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000284" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1038" name="SetFlag_AddsFlag" fullname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests.SetFlag_AddsFlag" methodname="SetFlag_AddsFlag" classname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests" runstate="Runnable" seed="589262725" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000206" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1039" name="SetFlag_IsIdempotent" fullname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests.SetFlag_IsIdempotent" methodname="SetFlag_IsIdempotent" classname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests" runstate="Runnable" seed="1920807786" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000194" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1044" name="UpdatingRespawnPoint_DoesNotEraseGlobalFlags" fullname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests.UpdatingRespawnPoint_DoesNotEraseGlobalFlags" methodname="UpdatingRespawnPoint_DoesNotEraseGlobalFlags" classname="EscapeUNIFRANZ.Tests.EditMode.GameStateTests" runstate="Runnable" seed="1716781742" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000170" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1060" name="HazardLogicTests" fullname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests" classname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.009359" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1067" name="ActiveHazard_PhysicalContactRequestsRespawn" fullname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.ActiveHazard_PhysicalContactRequestsRespawn" methodname="ActiveHazard_PhysicalContactRequestsRespawn" classname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests" runstate="Runnable" seed="815726033" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000170" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1069" name="ActiveHazard_PlayerSensorContactDoesNotRequestRespawn" fullname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.ActiveHazard_PlayerSensorContactDoesNotRequestRespawn" methodname="ActiveHazard_PlayerSensorContactDoesNotRequestRespawn" classname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests" runstate="Runnable" seed="630108946" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000131" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1070" name="ChildSensorOverlapIsNotAnOverlapOfTheHazardHitbox" fullname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.ChildSensorOverlapIsNotAnOverlapOfTheHazardHitbox" methodname="ChildSensorOverlapIsNotAnOverlapOfTheHazardHitbox" classname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests" runstate="Runnable" seed="2136966760" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.004305" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1063" name="Detection_InRange_ReturnsTrue" fullname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.Detection_InRange_ReturnsTrue" methodname="Detection_InRange_ReturnsTrue" classname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests" runstate="Runnable" seed="737624639" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000380" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1064" name="Detection_OutOfRange_ReturnsFalse" fullname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.Detection_OutOfRange_ReturnsFalse" methodname="Detection_OutOfRange_ReturnsFalse" classname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests" runstate="Runnable" seed="1115926177" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000213" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1066" name="DetectionSensor_HasNoRespawnDependency" fullname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.DetectionSensor_HasNoRespawnDependency" methodname="DetectionSensor_HasNoRespawnDependency" classname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests" runstate="Runnable" seed="165106059" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000830" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1065" name="DisableByFlag_ReflectsGameState" fullname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.DisableByFlag_ReflectsGameState" methodname="DisableByFlag_ReflectsGameState" classname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests" runstate="Runnable" seed="1272538436" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000302" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1068" name="InactiveHazard_PhysicalContactDoesNotRequestRespawn" fullname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.InactiveHazard_PhysicalContactDoesNotRequestRespawn" methodname="InactiveHazard_PhysicalContactDoesNotRequestRespawn" classname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests" runstate="Runnable" seed="1286425447" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000158" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1061" name="PatrolLoop_WrapsToFirstPoint" fullname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.PatrolLoop_WrapsToFirstPoint" methodname="PatrolLoop_WrapsToFirstPoint" classname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests" runstate="Runnable" seed="1452255383" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000391" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1062" name="PatrolPingPong_ReversesAtEnds" fullname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests.PatrolPingPong_ReversesAtEnds" methodname="PatrolPingPong_ReversesAtEnds" classname="EscapeUNIFRANZ.Tests.EditMode.HazardLogicTests" runstate="Runnable" seed="1059451572" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000287" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1071" name="InteractionCandidateResolverTests" fullname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests" classname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.007259" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1075" name="Resolve_EqualPriorityChoosesNearest" fullname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests.Resolve_EqualPriorityChoosesNearest" methodname="Resolve_EqualPriorityChoosesNearest" classname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests" runstate="Runnable" seed="186192636" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002188" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1077" name="Resolve_ExactTieUsesStableOrderIndependentlyOfListOrder" fullname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests.Resolve_ExactTieUsesStableOrderIndependentlyOfListOrder" methodname="Resolve_ExactTieUsesStableOrderIndependentlyOfListOrder" classname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests" runstate="Runnable" seed="637052036" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000691" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1074" name="Resolve_HigherPriorityWinsBeforeDistance" fullname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests.Resolve_HigherPriorityWinsBeforeDistance" methodname="Resolve_HigherPriorityWinsBeforeDistance" classname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests" runstate="Runnable" seed="1526231392" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000611" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1073" name="Resolve_OneCandidate_ReturnsCandidate" fullname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests.Resolve_OneCandidate_ReturnsCandidate" methodname="Resolve_OneCandidate_ReturnsCandidate" classname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests" runstate="Runnable" seed="1648594147" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000543" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1076" name="Resolve_RemovedCandidateIsIgnored" fullname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests.Resolve_RemovedCandidateIsIgnored" methodname="Resolve_RemovedCandidateIsIgnored" classname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests" runstate="Runnable" seed="1653759411" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000562" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1072" name="Resolve_ZeroCandidates_ReturnsNull" fullname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests.Resolve_ZeroCandidates_ReturnsNull" methodname="Resolve_ZeroCandidates_ReturnsNull" classname="EscapeUNIFRANZ.Tests.EditMode.InteractionCandidateResolverTests" runstate="Runnable" seed="1154574398" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000336" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1078" name="InventoryWorldInteractivityTests" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" testcasecount="17" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.024836" total="17" passed="17" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1094" name="CCTVIdentifiesSectorWithoutDiscoveringContents" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.CCTVIdentifiesSectorWithoutDiscoveringContents" methodname="CCTVIdentifiesSectorWithoutDiscoveringContents" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="1128476391" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000354" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1095" name="CheckpointAndLocationChangesPreserveInventoryAndKnowledge" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.CheckpointAndLocationChangesPreserveInventoryAndKnowledge" methodname="CheckpointAndLocationChangesPreserveInventoryAndKnowledge" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="1597445006" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000496" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1087" name="ContextConsumesExactlyOneObject" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ContextConsumesExactlyOneObject" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002042" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1085" name="ContextConsumesExactlyOneObject(&quot;fuse&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ContextConsumesExactlyOneObject(&quot;fuse&quot;)" methodname="ContextConsumesExactlyOneObject" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="1904983764" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001013" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1086" name="ContextConsumesExactlyOneObject(&quot;network_module&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ContextConsumesExactlyOneObject(&quot;network_module&quot;)" methodname="ContextConsumesExactlyOneObject" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="467486069" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000135" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1097" name="DoorRequiresCredentialAndSystemThenKeepsKey" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.DoorRequiresCredentialAndSystemThenKeepsKey" methodname="DoorRequiresCredentialAndSystemThenKeepsKey" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="103386272" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000598" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1092" name="EnteringZoneDiscoversOnlyThatZone" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.EnteringZoneDiscoversOnlyThatZone" methodname="EnteringZoneDiscoversOnlyThatZone" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="1443655296" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000475" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1090" name="FlashlightCannotToggleBeforePickupAndTogglesAfter" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.FlashlightCannotToggleBeforePickupAndTogglesAfter" methodname="FlashlightCannotToggleBeforePickupAndTogglesAfter" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="1815193312" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000391" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1091" name="ForwardLightDisabledWithoutOwnershipAndWhenSwitchedOff" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ForwardLightDisabledWithoutOwnershipAndWhenSwitchedOff" methodname="ForwardLightDisabledWithoutOwnershipAndWhenSwitchedOff" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="391326303" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.014211" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1080" name="InstalledConsumableCannotRespawnFromAnotherPickup" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.InstalledConsumableCannotRespawnFromAnotherPickup" methodname="InstalledConsumableCannotRespawnFromAnotherPickup" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="835580544" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000332" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1096" name="KnownDoorStatusUpdatesWithoutDuplicatingPoint" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.KnownDoorStatusUpdatesWithoutDuplicatingPoint" methodname="KnownDoorStatusUpdatesWithoutDuplicatingPoint" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="598385241" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000312" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1079" name="PickupRegistersItemAndRejectsRepeatedOrSharedDuplicate" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.PickupRegistersItemAndRejectsRepeatedOrSharedDuplicate" methodname="PickupRegistersItemAndRejectsRepeatedOrSharedDuplicate" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="1975320878" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000301" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1084" name="ReusableCredentialRemainsAfterContextUse" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ReusableCredentialRemainsAfterContextUse" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001300" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1081" name="ReusableCredentialRemainsAfterContextUse(&quot;key&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ReusableCredentialRemainsAfterContextUse(&quot;key&quot;)" methodname="ReusableCredentialRemainsAfterContextUse" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="853033323" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000233" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1082" name="ReusableCredentialRemainsAfterContextUse(&quot;lab_card&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ReusableCredentialRemainsAfterContextUse(&quot;lab_card&quot;)" methodname="ReusableCredentialRemainsAfterContextUse" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="148343176" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000084" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1083" name="ReusableCredentialRemainsAfterContextUse(&quot;maintenance_card&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.ReusableCredentialRemainsAfterContextUse(&quot;maintenance_card&quot;)" methodname="ReusableCredentialRemainsAfterContextUse" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="673838248" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000054" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1089" name="SelectionRejectsUnownedItems" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.SelectionRejectsUnownedItems" methodname="SelectionRejectsUnownedItems" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="37594032" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000257" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1093" name="UnlockFlagDoesNotRevealUnvisitedZone" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.UnlockFlagDoesNotRevealUnvisitedZone" methodname="UnlockFlagDoesNotRevealUnvisitedZone" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="437319034" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000177" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1088" name="WrongSelectionPreservesBothItems" fullname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests.WrongSelectionPreservesBothItems" methodname="WrongSelectionPreservesBothItems" classname="EscapeUNIFRANZ.Tests.EditMode.InventoryWorldInteractivityTests" runstate="Runnable" seed="615581014" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000415" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1098" name="MinimapLogicTests" fullname="EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests" classname="EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002176" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1100" name="CurrentCheckpoint_RequiresMatchingZoneAndSpawn" fullname="EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests.CurrentCheckpoint_RequiresMatchingZoneAndSpawn" methodname="CurrentCheckpoint_RequiresMatchingZoneAndSpawn" classname="EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests" runstate="Runnable" seed="834512011" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000298" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1099" name="CurrentZone_UsesStableZoneId" fullname="EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests.CurrentZone_UsesStableZoneId" methodname="CurrentZone_UsesStableZoneId" classname="EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests" runstate="Runnable" seed="459260334" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000240" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1101" name="LockedExit_ChangesToAvailableAfterFlag" fullname="EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests.LockedExit_ChangesToAvailableAfterFlag" methodname="LockedExit_ChangesToAvailableAfterFlag" classname="EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests" runstate="Runnable" seed="1662579924" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000426" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1102" name="UnknownOrSecretExit_IsNotShown" fullname="EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests.UnknownOrSecretExit_IsNotShown" methodname="UnknownOrSecretExit_IsNotShown" classname="EscapeUNIFRANZ.Tests.EditMode.MinimapLogicTests" runstate="Runnable" seed="1771156462" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000188" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1103" name="NarrativePuzzleLogicTests" fullname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests" classname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.005379" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1104" name="CableChain_RejectsReverseAndPrematureEdges_AndCompletesOnlyAllRequiredConnections" fullname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.CableChain_RejectsReverseAndPrematureEdges_AndCompletesOnlyAllRequiredConnections" methodname="CableChain_RejectsReverseAndPrematureEdges_AndCompletesOnlyAllRequiredConnections" classname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests" runstate="Runnable" seed="1949533771" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000956" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1110" name="CameraCone_DoesNotDetectBehindOrOutsideRange" fullname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.CameraCone_DoesNotDetectBehindOrOutsideRange" methodname="CameraCone_DoesNotDetectBehindOrOutsideRange" classname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests" runstate="Runnable" seed="379866743" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000618" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1111" name="CancellingOrResettingPuzzle_DoesNotResetPreviouslyCompletedBossPhases" fullname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.CancellingOrResettingPuzzle_DoesNotResetPreviouslyCompletedBossPhases" methodname="CancellingOrResettingPuzzle_DoesNotResetPreviouslyCompletedBossPhases" classname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests" runstate="Runnable" seed="2030085526" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000431" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1107" name="CommandError_ResetsScratchProgress_AndDoesNotChangeWorldState" fullname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.CommandError_ResetsScratchProgress_AndDoesNotChangeWorldState" methodname="CommandError_ResetsScratchProgress_AndDoesNotChangeWorldState" classname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests" runstate="Runnable" seed="2008614571" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000420" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1109" name="DoorNeedsBothCredentialAndCompletedSystem" fullname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.DoorNeedsBothCredentialAndCompletedSystem" methodname="DoorNeedsBothCredentialAndCompletedSystem" classname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests" runstate="Runnable" seed="423310089" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000314" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1106" name="IncompleteOrDanglingDefinitions_CannotAutomaticallySolve" fullname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.IncompleteOrDanglingDefinitions_CannotAutomaticallySolve" methodname="IncompleteOrDanglingDefinitions_CannotAutomaticallySolve" classname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests" runstate="Runnable" seed="534423625" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000335" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1105" name="NonOrderedTopology_AcceptsDeclaredEdgesInEitherOrder" fullname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.NonOrderedTopology_AcceptsDeclaredEdgesInEitherOrder" methodname="NonOrderedTopology_AcceptsDeclaredEdgesInEitherOrder" classname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests" runstate="Runnable" seed="12446875" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000320" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1108" name="SamePickupAcrossSharedScenes_IsCollectedOnce_AndBatteryCanBeConsumedOnce" fullname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests.SamePickupAcrossSharedScenes_IsCollectedOnce_AndBatteryCanBeConsumedOnce" methodname="SamePickupAcrossSharedScenes_IsCollectedOnce_AndBatteryCanBeConsumedOnce" classname="EscapeUNIFRANZ.Tests.EditMode.NarrativePuzzleLogicTests" runstate="Runnable" seed="481564023" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000350" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1112" name="NotificationQueueTests" fullname="EscapeUNIFRANZ.Tests.EditMode.NotificationQueueTests" classname="EscapeUNIFRANZ.Tests.EditMode.NotificationQueueTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001696" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1114" name="IdenticalCheckpointNotification_IsNotRepeated" fullname="EscapeUNIFRANZ.Tests.EditMode.NotificationQueueTests.IdenticalCheckpointNotification_IsNotRepeated" methodname="IdenticalCheckpointNotification_IsNotRepeated" classname="EscapeUNIFRANZ.Tests.EditMode.NotificationQueueTests" runstate="Runnable" seed="1115518004" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000648" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1113" name="Queue_PreservesOrderAndShowsOneAtATime" fullname="EscapeUNIFRANZ.Tests.EditMode.NotificationQueueTests.Queue_PreservesOrderAndShowsOneAtATime" methodname="Queue_PreservesOrderAndShowsOneAtATime" classname="EscapeUNIFRANZ.Tests.EditMode.NotificationQueueTests" runstate="Runnable" seed="1289249301" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000304" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1115" name="ObjectiveProgressTests" fullname="EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests" classname="EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002011" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1119" name="FormatsProgressFromZeroToComplete" fullname="EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests.FormatsProgressFromZeroToComplete" classname="EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001163" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1116" name="FormatsProgressFromZeroToComplete(0,&quot;Desconecta los nodos [0/2]&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests.FormatsProgressFromZeroToComplete(0,&quot;Desconecta los nodos [0/2]&quot;)" methodname="FormatsProgressFromZeroToComplete" classname="EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests" runstate="Runnable" seed="2071164660" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000528" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1117" name="FormatsProgressFromZeroToComplete(1,&quot;Desconecta los nodos [1/2]&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests.FormatsProgressFromZeroToComplete(1,&quot;Desconecta los nodos [1/2]&quot;)" methodname="FormatsProgressFromZeroToComplete" classname="EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests" runstate="Runnable" seed="1545087067" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000079" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1118" name="FormatsProgressFromZeroToComplete(2,&quot;Desconecta los nodos [2/2]&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests.FormatsProgressFromZeroToComplete(2,&quot;Desconecta los nodos [2/2]&quot;)" methodname="FormatsProgressFromZeroToComplete" classname="EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests" runstate="Runnable" seed="353504661" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000052" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1120" name="SimpleObjective_RemainsSimple" fullname="EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests.SimpleObjective_RemainsSimple" methodname="SimpleObjective_RemainsSimple" classname="EscapeUNIFRANZ.Tests.EditMode.ObjectiveProgressTests" runstate="Runnable" seed="1998692667" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000154" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1121" name="PerformanceBudgetTests" fullname="EscapeUNIFRANZ.Tests.EditMode.PerformanceBudgetTests" classname="EscapeUNIFRANZ.Tests.EditMode.PerformanceBudgetTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002580" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1126" name="MixerGainUsesDecibelsAndRetainsMute" fullname="EscapeUNIFRANZ.Tests.EditMode.PerformanceBudgetTests.MixerGainUsesDecibelsAndRetainsMute" classname="EscapeUNIFRANZ.Tests.EditMode.PerformanceBudgetTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001382" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1123" name="MixerGainUsesDecibelsAndRetainsMute(0.0f,-80.0f)" fullname="EscapeUNIFRANZ.Tests.EditMode.PerformanceBudgetTests.MixerGainUsesDecibelsAndRetainsMute(0.0f,-80.0f)" methodname="MixerGainUsesDecibelsAndRetainsMute" classname="EscapeUNIFRANZ.Tests.EditMode.PerformanceBudgetTests" runstate="Runnable" seed="856870722" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000594" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1124" name="MixerGainUsesDecibelsAndRetainsMute(0.5f,-6.0206f)" fullname="EscapeUNIFRANZ.Tests.EditMode.PerformanceBudgetTests.MixerGainUsesDecibelsAndRetainsMute(0.5f,-6.0206f)" methodname="MixerGainUsesDecibelsAndRetainsMute" classname="EscapeUNIFRANZ.Tests.EditMode.PerformanceBudgetTests" runstate="Runnable" seed="1872275578" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000192" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1125" name="MixerGainUsesDecibelsAndRetainsMute(1.0f,0.0f)" fullname="EscapeUNIFRANZ.Tests.EditMode.PerformanceBudgetTests.MixerGainUsesDecibelsAndRetainsMute(1.0f,0.0f)" methodname="MixerGainUsesDecibelsAndRetainsMute" classname="EscapeUNIFRANZ.Tests.EditMode.PerformanceBudgetTests" runstate="Runnable" seed="200251926" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000072" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1122" name="RoomLightingKeepsVisibleAndAdjacentRooms" fullname="EscapeUNIFRANZ.Tests.EditMode.PerformanceBudgetTests.RoomLightingKeepsVisibleAndAdjacentRooms" methodname="RoomLightingKeepsVisibleAndAdjacentRooms" classname="EscapeUNIFRANZ.Tests.EditMode.PerformanceBudgetTests" runstate="Runnable" seed="803683123" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000571" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1127" name="PlayerDirectionalVisualTests" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002869" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1132" name="ResolveDirection_CardinalInput_UsesMatchingDirection" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests.ResolveDirection_CardinalInput_UsesMatchingDirection" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001659" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1128" name="ResolveDirection_CardinalInput_UsesMatchingDirection(0.0f,-1.0f,Front)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests.ResolveDirection_CardinalInput_UsesMatchingDirection(0.0f,-1.0f,Front)" methodname="ResolveDirection_CardinalInput_UsesMatchingDirection" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests" runstate="Runnable" seed="1581454205" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000739" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1129" name="ResolveDirection_CardinalInput_UsesMatchingDirection(0.0f,1.0f,Back)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests.ResolveDirection_CardinalInput_UsesMatchingDirection(0.0f,1.0f,Back)" methodname="ResolveDirection_CardinalInput_UsesMatchingDirection" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests" runstate="Runnable" seed="1035320167" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000105" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1130" name="ResolveDirection_CardinalInput_UsesMatchingDirection(-1.0f,0.0f,Left)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests.ResolveDirection_CardinalInput_UsesMatchingDirection(-1.0f,0.0f,Left)" methodname="ResolveDirection_CardinalInput_UsesMatchingDirection" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests" runstate="Runnable" seed="1672378731" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000081" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1131" name="ResolveDirection_CardinalInput_UsesMatchingDirection(1.0f,0.0f,Right)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests.ResolveDirection_CardinalInput_UsesMatchingDirection(1.0f,0.0f,Right)" methodname="ResolveDirection_CardinalInput_UsesMatchingDirection" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests" runstate="Runnable" seed="1429582961" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000074" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1134" name="ResolveDirection_DiagonalInput_UsesDominantAxis" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests.ResolveDirection_DiagonalInput_UsesDominantAxis" methodname="ResolveDirection_DiagonalInput_UsesDominantAxis" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests" runstate="Runnable" seed="486006752" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000226" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1133" name="ResolveDirection_NoInput_PreservesLastDirection" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests.ResolveDirection_NoInput_PreservesLastDirection" methodname="ResolveDirection_NoInput_PreservesLastDirection" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerDirectionalVisualTests" runstate="Runnable" seed="1497196596" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000152" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1135" name="PlayerMovementLogicTests" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.003833" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1136" name="NormalizeMovementInput_DiagonalInput_HasUnitMagnitude" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests.NormalizeMovementInput_DiagonalInput_HasUnitMagnitude" methodname="NormalizeMovementInput_DiagonalInput_HasUnitMagnitude" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests" runstate="Runnable" seed="835317992" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000493" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1137" name="NormalizeMovementInput_ZeroInput_RemainsZero" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests.NormalizeMovementInput_ZeroInput_RemainsZero" methodname="NormalizeMovementInput_ZeroInput_RemainsZero" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests" runstate="Runnable" seed="51351033" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000911" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1139" name="ResolveFacing_NegativeHorizontal_FacesLeft" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests.ResolveFacing_NegativeHorizontal_FacesLeft" methodname="ResolveFacing_NegativeHorizontal_FacesLeft" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests" runstate="Runnable" seed="453566045" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000367" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1138" name="ResolveFacing_PositiveHorizontal_FacesRight" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests.ResolveFacing_PositiveHorizontal_FacesRight" methodname="ResolveFacing_PositiveHorizontal_FacesRight" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests" runstate="Runnable" seed="1682637181" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000171" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1142" name="ResolveFacing_VerticalMovement_PreservesPreviousFacing" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests.ResolveFacing_VerticalMovement_PreservesPreviousFacing" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000813" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1140" name="ResolveFacing_VerticalMovement_PreservesPreviousFacing(1.0f)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests.ResolveFacing_VerticalMovement_PreservesPreviousFacing(1.0f)" methodname="ResolveFacing_VerticalMovement_PreservesPreviousFacing" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests" runstate="Runnable" seed="195519780" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000294" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1141" name="ResolveFacing_VerticalMovement_PreservesPreviousFacing(-1.0f)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests.ResolveFacing_VerticalMovement_PreservesPreviousFacing(-1.0f)" methodname="ResolveFacing_VerticalMovement_PreservesPreviousFacing" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerMovementLogicTests" runstate="Runnable" seed="574617786" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000066" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+            <test-suite type="TestFixture" id="1143" name="PlayerVisionDirectionTests" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.004170" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1154" name="ConePositiveYAxis_AlignsWithSpriteFacing" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.ConePositiveYAxis_AlignsWithSpriteFacing" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002018" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1150" name="ConePositiveYAxis_AlignsWithSpriteFacing(Front,0.0f,-1.0f)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.ConePositiveYAxis_AlignsWithSpriteFacing(Front,0.0f,-1.0f)" methodname="ConePositiveYAxis_AlignsWithSpriteFacing" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests" runstate="Runnable" seed="1517950229" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001101" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1151" name="ConePositiveYAxis_AlignsWithSpriteFacing(Back,0.0f,1.0f)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.ConePositiveYAxis_AlignsWithSpriteFacing(Back,0.0f,1.0f)" methodname="ConePositiveYAxis_AlignsWithSpriteFacing" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests" runstate="Runnable" seed="2137997641" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000114" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1152" name="ConePositiveYAxis_AlignsWithSpriteFacing(Left,-1.0f,0.0f)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.ConePositiveYAxis_AlignsWithSpriteFacing(Left,-1.0f,0.0f)" methodname="ConePositiveYAxis_AlignsWithSpriteFacing" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests" runstate="Runnable" seed="924797814" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000080" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1153" name="ConePositiveYAxis_AlignsWithSpriteFacing(Right,1.0f,0.0f)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.ConePositiveYAxis_AlignsWithSpriteFacing(Right,1.0f,0.0f)" methodname="ConePositiveYAxis_AlignsWithSpriteFacing" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests" runstate="Runnable" seed="505580477" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000068" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1148" name="VisionRotation_UsesPlayerVisualDirection" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.VisionRotation_UsesPlayerVisualDirection" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001117" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1144" name="VisionRotation_UsesPlayerVisualDirection(Front,180.0f)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.VisionRotation_UsesPlayerVisualDirection(Front,180.0f)" methodname="VisionRotation_UsesPlayerVisualDirection" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests" runstate="Runnable" seed="102768937" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000297" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1145" name="VisionRotation_UsesPlayerVisualDirection(Back,0.0f)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.VisionRotation_UsesPlayerVisualDirection(Back,0.0f)" methodname="VisionRotation_UsesPlayerVisualDirection" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests" runstate="Runnable" seed="1710381690" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000080" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1146" name="VisionRotation_UsesPlayerVisualDirection(Left,90.0f)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.VisionRotation_UsesPlayerVisualDirection(Left,90.0f)" methodname="VisionRotation_UsesPlayerVisualDirection" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests" runstate="Runnable" seed="1588707281" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000071" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1147" name="VisionRotation_UsesPlayerVisualDirection(Right,-90.0f)" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.VisionRotation_UsesPlayerVisualDirection(Right,-90.0f)" methodname="VisionRotation_UsesPlayerVisualDirection" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests" runstate="Runnable" seed="1639793383" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000056" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1149" name="ZeroMovement_KeepsLastDirectionAndVisionRotation" fullname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests.ZeroMovement_KeepsLastDirectionAndVisionRotation" methodname="ZeroMovement_KeepsLastDirectionAndVisionRotation" classname="EscapeUNIFRANZ.Tests.EditMode.PlayerVisionDirectionTests" runstate="Runnable" seed="1238126497" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000212" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1155" name="PresentationFlowStateTests" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.005985" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1163" name="Controls_ReturnsToItsMainMenuOrPauseOrigin" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.Controls_ReturnsToItsMainMenuOrPauseOrigin" methodname="Controls_ReturnsToItsMainMenuOrPauseOrigin" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" seed="536761901" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000624" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1164" name="Defeat_DoesNotRespawnUntilRetryCompletesLoading" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.Defeat_DoesNotRespawnUntilRetryCompletesLoading" methodname="Defeat_DoesNotRespawnUntilRetryCompletesLoading" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" seed="389637947" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000400" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1162" name="EncounterMode_IsRestoredAfterPresentationOverlay" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.EncounterMode_IsRestoredAfterPresentationOverlay" methodname="EncounterMode_IsRestoredAfterPresentationOverlay" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" seed="1131583316" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000216" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1165" name="FailedRetry_ReturnsToDefeatPanel" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.FailedRetry_ReturnsToDefeatPanel" methodname="FailedRetry_ReturnsToDefeatPanel" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" seed="897809871" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000208" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1161" name="GameplayWithoutTransition_AllowsPauseAndDefeat" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.GameplayWithoutTransition_AllowsPauseAndDefeat" methodname="GameplayWithoutTransition_AllowsPauseAndDefeat" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" seed="1986644115" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000184" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1158" name="Intro_CanBeSkippedDirectlyToLoading" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.Intro_CanBeSkippedDirectlyToLoading" methodname="Intro_CanBeSkippedDirectlyToLoading" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" seed="1580926142" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000203" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1168" name="InvalidTransitions_AreRejected" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.InvalidTransitions_AreRejected" methodname="InvalidTransitions_AreRejected" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" seed="123976732" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000294" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1156" name="Launch_StartsAtMainMenuWithFrozenGameplayAndHiddenHud" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.Launch_StartsAtMainMenuWithFrozenGameplayAndHiddenHud" methodname="Launch_StartsAtMainMenuWithFrozenGameplayAndHiddenHud" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" seed="497496626" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000200" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1157" name="NewGame_TraversesThreeIntroPanelsBeforeLoadingAndGameplay" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.NewGame_TraversesThreeIntroPanelsBeforeLoadingAndGameplay" methodname="NewGame_TraversesThreeIntroPanelsBeforeLoadingAndGameplay" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" seed="1349726908" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000386" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1159" name="Pause_FreezesAndHidesHudUntilResume" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.Pause_FreezesAndHidesHudUntilResume" methodname="Pause_FreezesAndHidesHudUntilResume" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" seed="912148136" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000308" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1166" name="PauseCheckpointRestart_CanFailSafelyBackToPause" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.PauseCheckpointRestart_CanFailSafelyBackToPause" methodname="PauseCheckpointRestart_CanFailSafelyBackToPause" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" seed="1408771698" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000238" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1160" name="PendingVictory_BlocksPauseAndDefeatInterruptions" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.PendingVictory_BlocksPauseAndDefeatInterruptions" methodname="PendingVictory_BlocksPauseAndDefeatInterruptions" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" seed="1181723002" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000182" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1167" name="Victory_LeadsToCreditsAndThenMainMenu" fullname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests.Victory_LeadsToCreditsAndThenMainMenu" methodname="Victory_LeadsToCreditsAndThenMainMenu" classname="EscapeUNIFRANZ.Tests.EditMode.PresentationFlowStateTests" runstate="Runnable" seed="1468563096" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000396" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1169" name="RobotArmsEncounterTests" fullname="EscapeUNIFRANZ.Tests.EditMode.RobotArmsEncounterTests" classname="EscapeUNIFRANZ.Tests.EditMode.RobotArmsEncounterTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001658" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1172" name="DisabledArms_DoNotReset" fullname="EscapeUNIFRANZ.Tests.EditMode.RobotArmsEncounterTests.DisabledArms_DoNotReset" methodname="DisabledArms_DoNotReset" classname="EscapeUNIFRANZ.Tests.EditMode.RobotArmsEncounterTests" runstate="Runnable" seed="1267105657" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000311" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1170" name="FullStateFlow_ReachesDisabled" fullname="EscapeUNIFRANZ.Tests.EditMode.RobotArmsEncounterTests.FullStateFlow_ReachesDisabled" methodname="FullStateFlow_ReachesDisabled" classname="EscapeUNIFRANZ.Tests.EditMode.RobotArmsEncounterTests" runstate="Runnable" seed="1013408848" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000265" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1171" name="PanelCannotDisableOutsideVulnerableState" fullname="EscapeUNIFRANZ.Tests.EditMode.RobotArmsEncounterTests.PanelCannotDisableOutsideVulnerableState" methodname="PanelCannotDisableOutsideVulnerableState" classname="EscapeUNIFRANZ.Tests.EditMode.RobotArmsEncounterTests" runstate="Runnable" seed="133866319" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000168" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1173" name="RobotDogEncounterTests" fullname="EscapeUNIFRANZ.Tests.EditMode.RobotDogEncounterTests" classname="EscapeUNIFRANZ.Tests.EditMode.RobotDogEncounterTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001900" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1174" name="DetectionAndSearch_ReturnToPatrol" fullname="EscapeUNIFRANZ.Tests.EditMode.RobotDogEncounterTests.DetectionAndSearch_ReturnToPatrol" methodname="DetectionAndSearch_ReturnToPatrol" classname="EscapeUNIFRANZ.Tests.EditMode.RobotDogEncounterTests" runstate="Runnable" seed="1913773030" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000529" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1176" name="DisabledDog_DoesNotReturnToPatrol" fullname="EscapeUNIFRANZ.Tests.EditMode.RobotDogEncounterTests.DisabledDog_DoesNotReturnToPatrol" methodname="DisabledDog_DoesNotReturnToPatrol" classname="EscapeUNIFRANZ.Tests.EditMode.RobotDogEncounterTests" runstate="Runnable" seed="1847396383" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000346" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1175" name="TwoNetworkNodes_DisableDog" fullname="EscapeUNIFRANZ.Tests.EditMode.RobotDogEncounterTests.TwoNetworkNodes_DisableDog" methodname="TwoNetworkNodes_DisableDog" classname="EscapeUNIFRANZ.Tests.EditMode.RobotDogEncounterTests" runstate="Runnable" seed="1810820394" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000228" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1177" name="RoomLightingAndOnboardingTests" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.016305" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1198" name="BasicTutorialsCannotStartOutsideEntrance" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.BasicTutorialsCannotStartOutsideEntrance" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002314" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1192" name="BasicTutorialsCannotStartOutsideEntrance(&quot;hall&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.BasicTutorialsCannotStartOutsideEntrance(&quot;hall&quot;)" methodname="BasicTutorialsCannotStartOutsideEntrance" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1017550319" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001313" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1193" name="BasicTutorialsCannotStartOutsideEntrance(&quot;arca&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.BasicTutorialsCannotStartOutsideEntrance(&quot;arca&quot;)" methodname="BasicTutorialsCannotStartOutsideEntrance" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1534075173" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000091" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1194" name="BasicTutorialsCannotStartOutsideEntrance(&quot;piso2&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.BasicTutorialsCannotStartOutsideEntrance(&quot;piso2&quot;)" methodname="BasicTutorialsCannotStartOutsideEntrance" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1432723054" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000056" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1195" name="BasicTutorialsCannotStartOutsideEntrance(&quot;piso3&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.BasicTutorialsCannotStartOutsideEntrance(&quot;piso3&quot;)" methodname="BasicTutorialsCannotStartOutsideEntrance" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="159855983" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000047" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1196" name="BasicTutorialsCannotStartOutsideEntrance(&quot;lab_software&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.BasicTutorialsCannotStartOutsideEntrance(&quot;lab_software&quot;)" methodname="BasicTutorialsCannotStartOutsideEntrance" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1650515015" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000046" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1197" name="BasicTutorialsCannotStartOutsideEntrance(&quot;nucleo_ia&quot;)" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.BasicTutorialsCannotStartOutsideEntrance(&quot;nucleo_ia&quot;)" methodname="BasicTutorialsCannotStartOutsideEntrance" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1497429156" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000046" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1188" name="BlackoutExtinguishesPrimaryLightsAndRestorationIsPartial" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.BlackoutExtinguishesPrimaryLightsAndRestorationIsPartial" methodname="BlackoutExtinguishesPrimaryLightsAndRestorationIsPartial" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="2011888524" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000607" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1200" name="CompletedHintsDoNotRepeatOnReentryOrRespawn" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.CompletedHintsDoNotRepeatOnReentryOrRespawn" methodname="CompletedHintsDoNotRepeatOnReentryOrRespawn" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1030818598" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001047" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1181" name="DisabledLegacyRoomDoesNotInitializeLighting" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.DisabledLegacyRoomDoesNotInitializeLighting" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002619" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1179" name="DisabledLegacyRoomDoesNotInitializeLighting(False)" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.DisabledLegacyRoomDoesNotInitializeLighting(False)" methodname="DisabledLegacyRoomDoesNotInitializeLighting" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1991541828" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001864" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1180" name="DisabledLegacyRoomDoesNotInitializeLighting(True)" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.DisabledLegacyRoomDoesNotInitializeLighting(True)" methodname="DisabledLegacyRoomDoesNotInitializeLighting" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1176186188" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000196" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-suite type="ParameterizedMethod" id="1187" name="FailureSequencesHaveModerateIntervalsAndLimitedDuration" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.FailureSequencesHaveModerateIntervalsAndLimitedDuration" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002591" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1184" name="FailureSequencesHaveModerateIntervalsAndLimitedDuration(Mild)" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.FailureSequencesHaveModerateIntervalsAndLimitedDuration(Mild)" methodname="FailureSequencesHaveModerateIntervalsAndLimitedDuration" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1507080520" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001473" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1185" name="FailureSequencesHaveModerateIntervalsAndLimitedDuration(Double)" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.FailureSequencesHaveModerateIntervalsAndLimitedDuration(Double)" methodname="FailureSequencesHaveModerateIntervalsAndLimitedDuration" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1169457306" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000140" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1186" name="FailureSequencesHaveModerateIntervalsAndLimitedDuration(Strong)" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.FailureSequencesHaveModerateIntervalsAndLimitedDuration(Strong)" methodname="FailureSequencesHaveModerateIntervalsAndLimitedDuration" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1373181699" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000101" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1183" name="FrozenTimeDoesNotAdvanceRoomSequence" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.FrozenTimeDoesNotAdvanceRoomSequence" methodname="FrozenTimeDoesNotAdvanceRoomSequence" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1977454580" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000516" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1190" name="IlluminatedRoomExtendsVisibilityOnlyInsideItsBounds" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.IlluminatedRoomExtendsVisibilityOnlyInsideItsBounds" methodname="IlluminatedRoomExtendsVisibilityOnlyInsideItsBounds" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="369006189" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000443" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1178" name="InactiveFixtureAcceptsAutomaticPowerBeforeOnEnable" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.InactiveFixtureAcceptsAutomaticPowerBeforeOnEnable" methodname="InactiveFixtureAcceptsAutomaticPowerBeforeOnEnable" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="308420681" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001332" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1191" name="InteractionTutorialWaitsForRealMovement" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.InteractionTutorialWaitsForRealMovement" methodname="InteractionTutorialWaitsForRealMovement" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1459006080" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000692" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1199" name="InventoryFlashlightAndMapLessonsRequireProgression" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.InventoryFlashlightAndMapLessonsRequireProgression" methodname="InventoryFlashlightAndMapLessonsRequireProgression" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="259164221" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000418" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1182" name="ReadingSequenceHoldsFullLightBeforeFailureAndSettles" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.ReadingSequenceHoldsFullLightBeforeFailureAndSettles" methodname="ReadingSequenceHoldsFullLightBeforeFailureAndSettles" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="518495491" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000550" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1189" name="RoomEventsAreIndependentAndRecordedAcrossRespawn" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.RoomEventsAreIndependentAndRecordedAcrossRespawn" methodname="RoomEventsAreIndependentAndRecordedAcrossRespawn" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1236624875" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000287" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1201" name="ShownHintDoesNotRepeatEvenWhenItsActionIsSkipped" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.ShownHintDoesNotRepeatEvenWhenItsActionIsSkipped" methodname="ShownHintDoesNotRepeatEvenWhenItsActionIsSkipped" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="1946210759" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000208" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1202" name="ThreatWarningTakesPrecedenceOverOptionalScannerLesson" fullname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests.ThreatWarningTakesPrecedenceOverOptionalScannerLesson" methodname="ThreatWarningTakesPrecedenceOverOptionalScannerLesson" classname="EscapeUNIFRANZ.Tests.EditMode.RoomLightingAndOnboardingTests" runstate="Runnable" seed="915463758" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000189" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1203" name="ScannerLogicTests" fullname="EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests" classname="EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002259" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1205" name="LockedSecret_IsNotRevealed" fullname="EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests.LockedSecret_IsNotRevealed" methodname="LockedSecret_IsNotRevealed" classname="EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests" runstate="Runnable" seed="1044805013" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000241" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1206" name="ScanEndsAfterLogicalDuration" fullname="EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests.ScanEndsAfterLogicalDuration" methodname="ScanEndsAfterLogicalDuration" classname="EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests" runstate="Runnable" seed="2102412978" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000406" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1207" name="ScanRespectsCooldown" fullname="EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests.ScanRespectsCooldown" methodname="ScanRespectsCooldown" classname="EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests" runstate="Runnable" seed="1532600893" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000175" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1204" name="ValidElement_CanBeRevealed" fullname="EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests.ValidElement_CanBeRevealed" methodname="ValidElement_CanBeRevealed" classname="EscapeUNIFRANZ.Tests.EditMode.ScannerLogicTests" runstate="Runnable" seed="1484676364" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000137" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1208" name="SceneFlowControllerTests" fullname="EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests" classname="EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.003312" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1210" name="ResolveCheckpointEncounter_IgnoresCompletedEncounter" fullname="EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests.ResolveCheckpointEncounter_IgnoresCompletedEncounter" methodname="ResolveCheckpointEncounter_IgnoresCompletedEncounter" classname="EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests" runstate="Runnable" seed="1490165418" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001108" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1209" name="ResolveCheckpointEncounter_SelectsMatchingResetBoundary" fullname="EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests.ResolveCheckpointEncounter_SelectsMatchingResetBoundary" methodname="ResolveCheckpointEncounter_SelectsMatchingResetBoundary" classname="EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests" runstate="Runnable" seed="2074054914" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000373" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1211" name="ResolveCheckpointEncounter_UsesActiveEncounterForPhaseCheckpoint" fullname="EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests.ResolveCheckpointEncounter_UsesActiveEncounterForPhaseCheckpoint" methodname="ResolveCheckpointEncounter_UsesActiveEncounterForPhaseCheckpoint" classname="EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests" runstate="Runnable" seed="2146897561" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000473" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1212" name="ResolveCheckpointEncounter_UsesSoleInactiveBoundaryForRepeatedPhaseRespawn" fullname="EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests.ResolveCheckpointEncounter_UsesSoleInactiveBoundaryForRepeatedPhaseRespawn" methodname="ResolveCheckpointEncounter_UsesSoleInactiveBoundaryForRepeatedPhaseRespawn" classname="EscapeUNIFRANZ.Tests.EditMode.SceneFlowControllerTests" runstate="Runnable" seed="406595752" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000306" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1213" name="SpawnIdResolverTests" fullname="EscapeUNIFRANZ.Tests.EditMode.SpawnIdResolverTests" classname="EscapeUNIFRANZ.Tests.EditMode.SpawnIdResolverTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002214" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1214" name="TryResolveIndex_ExistingSpawn_ReturnsIndex" fullname="EscapeUNIFRANZ.Tests.EditMode.SpawnIdResolverTests.TryResolveIndex_ExistingSpawn_ReturnsIndex" methodname="TryResolveIndex_ExistingSpawn_ReturnsIndex" classname="EscapeUNIFRANZ.Tests.EditMode.SpawnIdResolverTests" runstate="Runnable" seed="1677351546" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000641" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1215" name="TryResolveIndex_MissingSpawn_ReturnsClearError" fullname="EscapeUNIFRANZ.Tests.EditMode.SpawnIdResolverTests.TryResolveIndex_MissingSpawn_ReturnsClearError" methodname="TryResolveIndex_MissingSpawn_ReturnsClearError" classname="EscapeUNIFRANZ.Tests.EditMode.SpawnIdResolverTests" runstate="Runnable" seed="1116634814" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000672" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1216" name="TechnologicalHorrorTests" fullname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests" classname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.012825" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1219" name="EnergyOrderWrongSwitchPreservesValidatedStages" fullname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests.EnergyOrderWrongSwitchPreservesValidatedStages" methodname="EnergyOrderWrongSwitchPreservesValidatedStages" classname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests" runstate="Runnable" seed="820484514" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000805" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1221" name="EveryMajorRepairHasWrittenAndEnvironmentalEvidence" fullname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests.EveryMajorRepairHasWrittenAndEnvironmentalEvidence" methodname="EveryMajorRepairHasWrittenAndEnvironmentalEvidence" classname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests" runstate="Runnable" seed="966425240" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002659" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1217" name="FirstCablesOnlyNeedEnergyAndData_AndMistakesPreserveProgress" fullname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests.FirstCablesOnlyNeedEnergyAndData_AndMistakesPreserveProgress" methodname="FirstCablesOnlyNeedEnergyAndData_AndMistakesPreserveProgress" classname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests" runstate="Runnable" seed="428667330" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001539" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1220" name="ProgressionRequiresCCTV_AndAllowsMaintenanceBacktrackingBeforeTechnology" fullname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests.ProgressionRequiresCCTV_AndAllowsMaintenanceBacktrackingBeforeTechnology" methodname="ProgressionRequiresCCTV_AndAllowsMaintenanceBacktrackingBeforeTechnology" classname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests" runstate="Runnable" seed="1428717598" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001131" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1218" name="SecondCablesKeepFourSignalsAndAcceptAnyOrder" fullname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests.SecondCablesKeepFourSignalsAndAcceptAnyOrder" methodname="SecondCablesKeepFourSignalsAndAcceptAnyOrder" classname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests" runstate="Runnable" seed="1181233965" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000341" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1222" name="SolidWallsBlockLineOfSight_AndTriggerVolumesDoNot" fullname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests.SolidWallsBlockLineOfSight_AndTriggerVolumesDoNot" methodname="SolidWallsBlockLineOfSight_AndTriggerVolumesDoNot" classname="EscapeUNIFRANZ.Tests.EditMode.TechnologicalHorrorTests" runstate="Runnable" seed="1759477598" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.004926" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1223" name="ThreatAlertIndicatorTests" fullname="EscapeUNIFRANZ.Tests.EditMode.ThreatAlertIndicatorTests" classname="EscapeUNIFRANZ.Tests.EditMode.ThreatAlertIndicatorTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.001820" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1225" name="Alert_ShowsDetectionIndicator" fullname="EscapeUNIFRANZ.Tests.EditMode.ThreatAlertIndicatorTests.Alert_ShowsDetectionIndicator" methodname="Alert_ShowsDetectionIndicator" classname="EscapeUNIFRANZ.Tests.EditMode.ThreatAlertIndicatorTests" runstate="Runnable" seed="1348283108" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000300" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1226" name="Disabled_ClearsIndicator" fullname="EscapeUNIFRANZ.Tests.EditMode.ThreatAlertIndicatorTests.Disabled_ClearsIndicator" methodname="Disabled_ClearsIndicator" classname="EscapeUNIFRANZ.Tests.EditMode.ThreatAlertIndicatorTests" runstate="Runnable" seed="1829994868" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000204" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1224" name="Patrol_HasNoIndicator" fullname="EscapeUNIFRANZ.Tests.EditMode.ThreatAlertIndicatorTests.Patrol_HasNoIndicator" methodname="Patrol_HasNoIndicator" classname="EscapeUNIFRANZ.Tests.EditMode.ThreatAlertIndicatorTests" runstate="Runnable" seed="1035898258" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000150" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1227" name="ZoneCatalogTests" fullname="EscapeUNIFRANZ.Tests.EditMode.ZoneCatalogTests" classname="EscapeUNIFRANZ.Tests.EditMode.ZoneCatalogTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.002618" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1230" name="TryCreateLookup_DuplicateId_ReturnsClearError" fullname="EscapeUNIFRANZ.Tests.EditMode.ZoneCatalogTests.TryCreateLookup_DuplicateId_ReturnsClearError" methodname="TryCreateLookup_DuplicateId_ReturnsClearError" classname="EscapeUNIFRANZ.Tests.EditMode.ZoneCatalogTests" runstate="Runnable" seed="1484431648" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000878" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1228" name="TryCreateLookup_ValidZone_ResolvesScene" fullname="EscapeUNIFRANZ.Tests.EditMode.ZoneCatalogTests.TryCreateLookup_ValidZone_ResolvesScene" methodname="TryCreateLookup_ValidZone_ResolvesScene" classname="EscapeUNIFRANZ.Tests.EditMode.ZoneCatalogTests" runstate="Runnable" seed="437251833" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000520" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1229" name="TryResolveScene_MissingZone_ReturnsClearError" fullname="EscapeUNIFRANZ.Tests.EditMode.ZoneCatalogTests.TryResolveScene_MissingZone_ReturnsClearError" methodname="TryResolveScene_MissingZone_ReturnsClearError" classname="EscapeUNIFRANZ.Tests.EditMode.ZoneCatalogTests" runstate="Runnable" seed="1959593102" result="Passed" start-time="2026-11-19 13:39:34Z" end-time="2026-11-19 13:39:34Z" duration="0.000392" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/victus/AppData/LocalLow/UNIFRANZ/EscapeUNIFRANZ\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

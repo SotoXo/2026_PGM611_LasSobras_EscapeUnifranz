@@ -13,7 +13,8 @@ namespace EscapeUNIFRANZ.Narrative
         protected override void PerformInteraction()
         {
             if (clue==null || controller==null) return;
-            BoundSession.State.DiscoverWorldItem("clue",clue.id);
+            bool firstRead = BoundSession.State.DiscoverWorldItem("clue",clue.id);
+            if (firstRead) ProjectAudioHooks.AlertMusic(AudioCue.MusicDiscovery, 10f);
             BoundSession.State.SetFlag(clue.associatedFlag);
             GetComponent<MinimapTrackable2D>()?.Discover();
             controller.ShowClue(clue);

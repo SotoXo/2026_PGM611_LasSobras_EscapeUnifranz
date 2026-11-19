@@ -27,12 +27,15 @@ namespace EscapeUNIFRANZ.Narrative
         private float[] originalIntensity;
         private bool sequenceRunning;
         private GameplayModeController mode;
+        private Camera playerCamera;
         public void Initialize(ZoneRuntimeContext context)
         {
             session=context.Session; mode=context.GameplayMode; glitch=session.GetComponentInChildren<ScreenGlitchController>(true);
-            ProjectAudioHooks.Emit(AudioCue.ElectricalHum); ProjectAudioHooks.Emit(context.Zone.ZoneId=="nucleo_ia" ? AudioCue.MusicCore : AudioCue.MusicExplore);
+            ProjectAudioHooks.SetSceneMusic(context.Zone.ZoneId == "nucleo_ia" ? AudioCue.MusicCore : AudioCue.MusicExplore, true);
             if (ambientAudio!=null && electricalBuzz!=null) { ambientAudio.clip=electricalBuzz; ambientAudio.loop=true; ambientAudio.Play(); }
             if ((context.Zone.ZoneId=="piso3" || context.Zone.ZoneId=="nucleo_ia") && session.State.DiscoverWorldItem("event","corruption_enter_"+context.Zone.ZoneId)) StartCoroutine(ArrivalPulse());
+            if (context.Zone.ZoneId != "entrada" && context.Zone.ZoneId != "nucleo_ia")
+                StartCoroutine(PlayDistantEvent());
             originalColors=new Color[alarmLights.Length]; originalIntensity=new float[alarmLights.Length];
             for(int i=0;i<alarmLights.Length;i++) if (alarmLights[i]!=null) { originalColors[i]=alarmLights[i].color; originalIntensity[i]=alarmLights[i].intensity; }
             session.State.FlagChanged+=Changed;
@@ -46,14 +49,47 @@ namespace EscapeUNIFRANZ.Narrative
                 else if (!active) StartCoroutine(PowerSequence());
             }
         }
+        private IEnumerator PlayDistantEvent()
+        {
+            float remaining = Random.Range(24f, 52f);
+            while (remaining > 0f)
+            {
+                yield return null;
+                if (mode != null && mode.CurrentMode == GameplayMode.Explore && alarmUntil <= Time.time)
+                    remaining -= Time.deltaTime;
+            }
+            if (playerCamera == null) playerCamera = Camera.main;
+            if (playerCamera == null) yield break;
+            bool metallic = Random.value > .55f;
+            Vector2 offset = new Vector2(Random.value < .5f ? -4.8f : 4.8f, 2.4f);
+            ProjectAudioHooks.EmitAt(metallic ? AudioCue.MetalCreak : AudioCue.DistantImpact,
+                (Vector2)playerCamera.transform.position + offset);
+        }
+
         private void Changed(GameFlagId flag)
         {
             if (flag==GameFlagId.PowerEntranceRestored && firstRobot!=null && !sequenceRunning) StartCoroutine(PowerSequence());
             else if (flag==localPowerFlag && localPowerFlag!=GameFlagId.None) StartCoroutine(RestoreSector());
-            else if (flag==GameFlagId.FrancisEncounterStarted || flag==GameFlagId.FrancisNetworkPhaseComplete || flag==GameFlagId.FrancisHardwarePhaseComplete || flag==GameFlagId.TechnologyNetworkRestored) glitch?.Pulse();
+            else if (flag == GameFlagId.FrancisNetworkPhaseComplete)
+            {
+                glitch?.Pulse();
+                foreach (var room in alarmRooms) if (room != null) room.EmergencyFor(4f);
+            }
+            else if (flag == GameFlagId.FrancisHardwarePhaseComplete || flag == GameFlagId.FrancisShutdownPhaseComplete)
+            {
+                foreach (var room in alarmRooms) if (room != null) room.BeginRestorationReading();
+            }
+            else if (flag == GameFlagId.FrancisEncounterStarted || flag == GameFlagId.TechnologyNetworkRestored)
+                glitch?.Pulse();
         }
         private IEnumerator ArrivalPulse()
-        { while(mode!=null && !mode.AllowsMovement) yield return null; yield return new WaitForSeconds(0.8f); glitch?.Pulse(); }
+        {
+            while (mode != null && !mode.AllowsMovement) yield return null;
+            yield return new WaitForSeconds(0.8f);
+            glitch?.Pulse();
+            ProjectAudioHooks.Emit(AudioCue.FrancisBroadcast);
+            session.ShowMessage("FRANCIS: Reconozco esa voz. Por favor, acércate.");
+        }
         private IEnumerator RestoreSector()
         {
             Play(powerSound);
@@ -63,15 +99,15 @@ namespace EscapeUNIFRANZ.Narrative
         private IEnumerator PowerSequence()
         {
             sequenceRunning=true;
-            while(mode!=null && !mode.AllowsMovement || System.Array.Exists(revealRooms,r=>r!=null && !r.Initialized)) yield return null;
+            while(mode!=null && !mode.AllowsMovement || System.Array.Exists(revealRooms,r=>r!=null && r.isActiveAndEnabled && !r.Initialized)) yield return null;
             Play(powerSound);
             ProjectAudioHooks.Emit(AudioCue.Electricity);
-            foreach(var room in revealRooms) if(room!=null) room.BeginRestorationReading();
+            foreach(var room in revealRooms) if(room!=null && room.isActiveAndEnabled) room.BeginRestorationReading();
             foreach(var light in powerLights) if (light!=null) { SetPower(light,0.42f); yield return new WaitForSeconds(0.25f); }
             session.ShowMessage("Las luces responden. Ahora puedes reconocer la habitación.");
             if(revealRooms.Length>0) { while(System.Array.Exists(revealRooms,r=>r!=null && r.SequenceRunning)) yield return null; }
             else yield return new WaitForSeconds(1f);
-            glitch?.Pulse(); session.ShowMessage("ACTIVIDAD HUMANA DETECTADA.");
+            glitch?.Pulse(); session.ShowMessage("FRANCIS: Actividad humana detectada. Permanece donde estás.");
             session.State.SetFlag(GameFlagId.FirstThreatActivated); firstRobot.SetOperational(true,false,3f);
             firstEncounter?.BeginEncounter(); Play(robotSound); Alarm(false); sequenceRunning=false;
         }
@@ -80,7 +116,7 @@ namespace EscapeUNIFRANZ.Narrative
             if (session==null) return;
             alarmUntil=Time.time+5f; glitch?.Pulse(true); Play(alarmSound);
             foreach(var room in alarmRooms) if(room!=null) room.EmergencyFor(5f);
-            ProjectAudioHooks.Emit(AudioCue.RedAlarm); ProjectAudioHooks.Emit(AudioCue.MusicTension);
+            ProjectAudioHooks.Emit(AudioCue.RedAlarm); ProjectAudioHooks.AlertMusic(AudioCue.MusicTension, 5f);
             foreach(var door in alarmDoors) if (door!=null) door.LockForAlarm(5f);
             if (activateDog && alarmDog!=null) alarmDog.ActivateFromAlarm();
             for(int i=0;i<alarmLights.Length;i++) if (alarmLights[i]!=null)

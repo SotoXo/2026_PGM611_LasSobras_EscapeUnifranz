@@ -32,6 +32,7 @@ namespace EscapeUNIFRANZ.UI
 
         private void OnEnable()
         {
+            if (blendImage != null) blendImage.color = Color.white;
             ShowImmediately(0);
             flickerRoutine = StartCoroutine(FlickerLoop());
         }
@@ -53,11 +54,12 @@ namespace EscapeUNIFRANZ.UI
             {
                 yield return new WaitForSecondsRealtime(RandomRange(restingDuration));
 
+                if (EscapeUNIFRANZ.Core.GameOptions.ReduceFlashes) continue;
                 int firstFailure = RandomFailureState(1);
                 yield return CrossfadeTo(firstFailure);
                 yield return new WaitForSecondsRealtime(RandomRange(shortFailureDuration));
 
-                if (random.NextDouble() <= rapidBurstChance)
+                if (!EscapeUNIFRANZ.Core.GameOptions.ReduceFlashes && random.NextDouble() <= rapidBurstChance)
                 {
                     int secondFailure = RandomFailureState(firstFailure);
                     yield return CrossfadeTo(secondFailure);
@@ -152,9 +154,7 @@ namespace EscapeUNIFRANZ.UI
 
         private static void SetAlpha(Graphic graphic, float alpha)
         {
-            Color color = graphic.color;
-            color.a = alpha;
-            graphic.color = color;
+            graphic.canvasRenderer.SetAlpha(alpha);
         }
     }
 }

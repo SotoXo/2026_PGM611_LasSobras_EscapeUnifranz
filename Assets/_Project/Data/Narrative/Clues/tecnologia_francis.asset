@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: tecnologia_francis
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: tecnologia_francis
-  title: Registro de laboratorio 03
-  category: Hardware
-  text: "Francis pidi\xF3 acceso al equipo para demostrar que pod\xEDa detener la
-    IA. Software advirti\xF3 que deb\xEDan coordinar el apagado. Francis decidi\xF3
-    intervenir f\xEDsicamente. Su siguiente registro dice: \xAB<b>Yo pod\xEDa detenerlo</b>\xBB."
+  title: "Transcripci\u00f3n de la llamada 03"
+  category: "Comunicaciones"
+  text: "La estudiante de la extensi\u00f3n 204 pidi\u00f3 que le abrieran la puerta. Su llamada termin\u00f3 a las 22:06. A las 22:19, su misma voz volvi\u00f3 a pedir ayuda desde un laboratorio vac\u00edo. El micr\u00f3fono llevaba trece minutos desconectado."
   associatedFlag: 0

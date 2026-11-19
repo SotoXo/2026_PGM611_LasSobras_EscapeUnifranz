@@ -24,10 +24,14 @@ namespace EscapeUNIFRANZ.Core
 
         public bool IsTransitioning { get; private set; }
         public GameplayModeController ModeController => gameplayMode;
+        public Rigidbody2D PlayerBody => playerBody;
         public event Action<bool> ZoneTransitionFinished;
         public event Action<bool> RespawnFinished;
 
-        public bool GoToZone(string zoneId, string spawnId)
+        public bool CanLoadZone(string zoneId) =>
+            zoneCatalog != null && zoneCatalog.TryResolveScene(zoneId, out _, out _);
+
+        public bool GoToZone(string zoneId, string spawnId, bool allowCheckpointFallback = false)
         {
             if (IsTransitioning)
             {
@@ -50,7 +54,7 @@ namespace EscapeUNIFRANZ.Core
                 return false;
             }
 
-            StartCoroutine(TransitionRoutine(zoneId, spawnId, scenePath));
+            StartCoroutine(TransitionRoutine(zoneId, spawnId, scenePath, allowCheckpointFallback));
             return true;
         }
 
@@ -152,6 +156,7 @@ namespace EscapeUNIFRANZ.Core
             {
                 playerBody.position = spawnPoint.Position;
                 playerBody.linearVelocity = Vector2.zero;
+                playerMovement.SetCover(null);
                 encounter?.ResetLocalState();
                 succeeded = true;
             }
@@ -162,7 +167,8 @@ namespace EscapeUNIFRANZ.Core
             RespawnFinished?.Invoke(succeeded);
         }
 
-        private IEnumerator TransitionRoutine(string zoneId, string spawnId, string scenePath)
+        private IEnumerator TransitionRoutine(
+            string zoneId, string spawnId, string scenePath, bool allowCheckpointFallback)
         {
             IsTransitioning = true;
             gameplayMode.SetMode(GameplayMode.Transition);
@@ -207,7 +213,9 @@ namespace EscapeUNIFRANZ.Core
                 yield break;
             }
 
-            if (!zoneContext.TryGetSpawn(spawnId, out SpawnPoint spawnPoint, out string spawnError))
+            if (!zoneContext.TryGetSpawn(spawnId, out SpawnPoint spawnPoint, out string spawnError) &&
+                (!allowCheckpointFallback || !zoneContext.TryGetSpawn(
+                    zoneContext.ResolveCheckpointSpawnId(session.State), out spawnPoint, out spawnError)))
             {
                 Debug.LogError(spawnError, zoneContext);
                 yield return fadeView.FadeIn();
@@ -219,7 +227,13 @@ namespace EscapeUNIFRANZ.Core
 
             playerBody.position = spawnPoint.Position;
             playerBody.linearVelocity = Vector2.zero;
-            session.State.SetLocation(zoneId, spawnId);
+            ElevatorDoorAnimation arrivalDoor = null;
+            foreach (var exit in zoneContext.GetComponentsInChildren<ZoneExitInteractable>(true))
+                if (exit.elevatorAnimation != null && exit.elevatorAnimation.cabinBounds.Contains(spawnPoint.Position))
+                { arrivalDoor = exit.elevatorAnimation; arrivalDoor.BeginArrival(); break; }
+            GetComponentInChildren<PlayerCameraFollow2D>(true)?.SetZoneBounds(zoneContext.MinimapBounds);
+            playerMovement.SetZoneSurface(zoneId);
+            session.State.SetLocation(zoneId, spawnPoint.SpawnId);
             string resolvedCheckpoint=zoneContext.ResolveCheckpointSpawnId(session.State);
             string checkpointId = string.IsNullOrWhiteSpace(resolvedCheckpoint)
                 ? spawnId
@@ -229,6 +243,8 @@ namespace EscapeUNIFRANZ.Core
             Debug.Log($"Loaded zone: {zoneId} | Spawn: {spawnId}", zoneContext);
 
             yield return fadeView.FadeIn();
+
+            if (arrivalDoor != null) yield return arrivalDoor.Arrive();
 
             gameplayMode.SetMode(GameplayMode.Explore);
             IsTransitioning = false;

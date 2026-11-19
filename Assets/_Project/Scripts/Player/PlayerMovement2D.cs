@@ -18,11 +18,25 @@ namespace EscapeUNIFRANZ.Player
         private Rigidbody2D body;
         private Vector2 movementInput;
         private bool movementEnabled = true;
+        private Transform cover;
+
+        public bool IsConcealed => cover != null &&
+            ((Vector2)(cover.position - transform.position)).sqrMagnitude <= 1.25f * 1.25f;
+        public bool IsUsingCover(Transform target) => cover == target && IsConcealed;
+        public void SetCover(Transform target) => cover = target;
         [SerializeField] private AudioSource optionalFootsteps;
         [SerializeField] private AudioClip footstepSound;
         [SerializeField] private float stepInterval=0.38f;
         private float nextStepAt;
         [SerializeField] private bool tiledSurface;
+        private bool kitchenFloor;
+        private Vector2 lastPosition;
+
+        public void SetZoneSurface(string zoneId)
+        {
+            tiledSurface = zoneId == "entrada" || zoneId == "hall" || zoneId == "arca";
+            kitchenFloor = zoneId == "piso2";
+        }
 
         public Vector2 MovementInput => movementInput;
         public bool MovementEnabled => movementEnabled;
@@ -46,8 +60,18 @@ namespace EscapeUNIFRANZ.Player
             movementInput = movementEnabled && inputReader != null
                 ? NormalizeMovementInput(inputReader.MoveInput)
                 : Vector2.zero;
-            if (IsMoving && Time.time>=nextStepAt)
-            { if (optionalFootsteps!=null && footstepSound!=null) optionalFootsteps.PlayOneShot(footstepSound); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(tiledSurface ? EscapeUNIFRANZ.Narrative.AudioCue.FootstepTile : EscapeUNIFRANZ.Narrative.AudioCue.FootstepFloor); nextStepAt=Time.time+stepInterval; }
+            if (IsMoving) cover = null;
+            Vector2 position = body.position;
+            bool displaced = (position - lastPosition).sqrMagnitude > 0.0001f;
+            lastPosition = position;
+            if (IsMoving && displaced && Time.time >= nextStepAt)
+            {
+                if (optionalFootsteps != null && footstepSound != null) optionalFootsteps.PlayOneShot(footstepSound);
+                bool tile = tiledSurface || (kitchenFloor && position.x < 10f);
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(tile
+                    ? EscapeUNIFRANZ.Narrative.AudioCue.FootstepTile : EscapeUNIFRANZ.Narrative.AudioCue.FootstepFloor);
+                nextStepAt = Time.time + stepInterval;
+            }
         }
 
         private void FixedUpdate()

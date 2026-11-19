@@ -15,6 +15,8 @@ namespace EscapeUNIFRANZ.Player
 
         private IInteractable currentTarget;
         private bool interactionEnabled = true;
+        private float nextPromptCheck;
+        private string activePrompt;
 
         public IInteractable CurrentTarget => currentTarget;
         public bool InteractionEnabled => interactionEnabled;
@@ -35,6 +37,8 @@ namespace EscapeUNIFRANZ.Player
 
         private void Update()
         {
+            if (!interactionEnabled || Time.unscaledTime < nextPromptCheck) return;
+            nextPromptCheck = Time.unscaledTime + .065f;
             RefreshTarget();
         }
 
@@ -77,6 +81,18 @@ namespace EscapeUNIFRANZ.Player
                 return;
             }
 
+            // El personaje se gira hacia lo que va a usar y hace un pulso de acción.
+            PlayerVisualController visual = PlayerVisualController.Active;
+            if (visual != null)
+            {
+                if (target is MonoBehaviour targetBehaviour && targetBehaviour != null)
+                {
+                    visual.FaceTowards(targetBehaviour.transform.position);
+                }
+
+                visual.PlayAction(PlayerVisualController.ActionPose.Interact);
+            }
+
             target.Interact();
             RefreshTarget();
         }
@@ -94,20 +110,32 @@ namespace EscapeUNIFRANZ.Player
         {
             if (ReferenceEquals(currentTarget, target))
             {
-                if (currentTarget!=null && currentTarget.CanInteract) promptView.Show(currentTarget.Prompt);
+                if (currentTarget != null && currentTarget.CanInteract)
+                {
+                    string prompt = currentTarget.Prompt;
+                    if (prompt != activePrompt)
+                    {
+                        activePrompt = prompt;
+                        promptView.Show(prompt);
+                        if (currentTarget is MonoBehaviour component)
+                            component.GetComponent<InteractableFeedback2D>()?.SetPrompt(prompt);
+                    }
+                }
                 return;
             }
 
-            if (currentTarget is MonoBehaviour previous && previous!=null) previous.GetComponent<InteractableFeedback2D>()?.SetSelected(false);
+            if (currentTarget is MonoBehaviour previous && previous!=null) previous.GetComponent<InteractableFeedback2D>()?.SetPrompt(null);
             currentTarget = target;
 
             if (currentTarget != null && currentTarget.CanInteract)
             {
-                promptView.Show(currentTarget.Prompt);
-                if (currentTarget is MonoBehaviour owner) { owner.GetComponent<InteractableFeedback2D>()?.SetSelected(true); owner.GetComponent<EscapeUNIFRANZ.Map.MinimapTrackable2D>()?.Discover(); if(owner is InteractableBehaviour interactive) interactive.NoticeNearby(); }
+                activePrompt = currentTarget.Prompt;
+                promptView.Show(activePrompt);
+                if (currentTarget is MonoBehaviour owner) { owner.GetComponent<InteractableFeedback2D>()?.SetPrompt(activePrompt); owner.GetComponent<EscapeUNIFRANZ.Map.MinimapTrackable2D>()?.Discover(); if(owner is InteractableBehaviour interactive) interactive.NoticeNearby(); }
             }
             else
             {
+                activePrompt = null;
                 promptView.Hide();
             }
         }

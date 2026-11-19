@@ -1,0 +1,10 @@
+Elevador al tamaño de ELEVADOTAMANO.png
+Lienzo de 80 × 80 px por fotograma.
+Puerta y marco de 20 × 20 px, en x=29, y=31, igual que la referencia.
+10 fotogramas de apertura. Fondo transparente.
+elevador.ase contiene las capas Puertas y Marco.
+sprites.png tiene 10 columnas de 80 × 80 px, sin recortar.
+sprites.json contiene posiciones y duraciones.
+apertura.gif se muestra a tamaño real.
+vista_previa_4x.gif está ampliado únicamente para revisar los píxeles.
+cerrado.png coincide píxel por píxel con el PNG enviado.

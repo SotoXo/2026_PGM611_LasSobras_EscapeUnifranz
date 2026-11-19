@@ -18,6 +18,10 @@ namespace EscapeUNIFRANZ.Narrative
         public static void Register(IEnumerable<ItemData> items)
         { catalog.Clear(); foreach(var item in items) if (item!=null) catalog[item.id]=item; }
         public static ItemData Find(string id)=>id!=null && catalog.TryGetValue(id,out var item) ? item : null;
+        public static void RegisterItem(ItemData item)
+        {
+            if (item != null) catalog[item.id] = item;
+        }
         public static string Label(string id)=>Find(id)?.displayName ?? "Objeto";
         public string CategoryLabel=>category==ItemCategory.Tool ? "HERRAMIENTA" : category==ItemCategory.Consumable ? "CONSUMIBLE" : "OBJETO CLAVE";
     }

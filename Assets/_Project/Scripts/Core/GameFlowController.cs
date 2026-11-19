@@ -68,7 +68,11 @@ namespace EscapeUNIFRANZ.Core
             BindState(session != null ? session.State : null);
             ApplyScreen();
 
-            if (MainMenuController.ConsumeNewGameRequest())
+            if (MainMenuController.ConsumeContinueRequest())
+            {
+                ContinueSavedGame();
+            }
+            else if (MainMenuController.ConsumeNewGameRequest())
             {
                 NewGame();
             }
@@ -154,12 +158,28 @@ namespace EscapeUNIFRANZ.Core
             flow.StartNewGame();
         }
 
+        private void ContinueSavedGame()
+        {
+            if (sceneFlow == null || !CheckpointSave.TryLoad(out GameState saved) ||
+                saved.HasFlag(GameFlagId.GameCompleted) || !sceneFlow.CanLoadZone(saved.CheckpointZoneId) ||
+                !flow.LoadSavedGame())
+            {
+                ReturnToMainMenu();
+                return;
+            }
+
+            session.RestoreState(saved);
+            if (!sceneFlow.GoToZone(saved.CheckpointZoneId, saved.CheckpointSpawnId, true))
+                ReturnToMainMenu();
+        }
+
         public void ContinueIntro()
         {
-            if (flow.AdvanceIntro() && flow.Current == PresentationScreen.Loading)
-            {
+            if (!flow.AdvanceIntro()) return;
+            if (flow.Current == PresentationScreen.Loading)
                 LoadInitialZone();
-            }
+            else if (flow.IntroPanelIndex == flow.IntroPanelCount - 1)
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.FrancisBroadcast);
         }
 
         public void SkipIntro()
@@ -230,6 +250,7 @@ namespace EscapeUNIFRANZ.Core
                 resumeMode = PresentationFlowState.ResolveResumeMode(
                     gameplayMode != null ? gameplayMode.CurrentMode : GameplayMode.Explore);
                 DefeatReason = acceptedReason;
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.PlayOutcome(EscapeUNIFRANZ.Narrative.AudioCue.MusicDefeat);
                 ApplyScreen();
                 StartOutcomeTransition();
             }
@@ -272,6 +293,7 @@ namespace EscapeUNIFRANZ.Core
                 return;
             }
 
+            session?.FlushSave();
             returningToMainMenu = true;
             campusMap?.CloseIfOpen();
             pendingEncounter = null;
@@ -321,6 +343,7 @@ namespace EscapeUNIFRANZ.Core
             else
             {
                 flow.FailLoading();
+                ReturnToMainMenu();
             }
         }
 
@@ -334,6 +357,7 @@ namespace EscapeUNIFRANZ.Core
             if (succeeded)
             {
                 pendingEncounter = null;
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.RestoreSceneMusic();
                 flow.CompleteLoading();
             }
             else
@@ -393,6 +417,7 @@ namespace EscapeUNIFRANZ.Core
             if (boundState != null && boundState.HasFlag(GameFlagId.GameCompleted) &&
                 flow.ShowVictory())
             {
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.PlayOutcome(EscapeUNIFRANZ.Narrative.AudioCue.MusicVictory);
                 StartOutcomeTransition();
             }
         }

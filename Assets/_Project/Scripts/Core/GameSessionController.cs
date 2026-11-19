@@ -29,6 +29,8 @@ namespace EscapeUNIFRANZ.Core
         [SerializeField] private bool startNewGameOnStart = true;
 
         private GameState state;
+        private bool saveDirty;
+        private float retrySaveAt;
 
         public GameState State => state;
         public ObjectiveController Objectives => objectiveController;
@@ -51,15 +53,21 @@ namespace EscapeUNIFRANZ.Core
             sceneFlow.GoToZone(initialZoneId, initialSpawnId);
         }
 
-        public void StartNewGame()
-        {
-            if (state != null)
-            {
-                state.CheckpointChanged -= OnCheckpointChanged;
-            }
+        public void StartNewGame() => BindState(new GameState());
 
-            state = new GameState();
+        public void RestoreState(GameState savedState) => BindState(savedState);
+
+        private void BindState(GameState next)
+        {
+            UnsubscribeState();
+            state = next;
+            saveDirty = false;
+            retrySaveAt = 0f;
             state.CheckpointChanged += OnCheckpointChanged;
+            state.FlagChanged += OnFlagChanged;
+            state.InventoryChanged += MarkSaveDirty;
+            state.MapKnowledgeChanged += MarkSaveDirty;
+            state.LocationChanged += MarkSaveDirty;
             objectiveController?.Bind(state);
             minimapController?.Bind(state);
             objectiveMarkerController?.Bind(state);
@@ -99,16 +107,47 @@ namespace EscapeUNIFRANZ.Core
             zoneTitleView?.Show(zone != null ? zone.DisplayName : string.Empty);
         }
 
-        private void OnDestroy()
+        private void LateUpdate()
         {
-            if (state != null)
-            {
-                state.CheckpointChanged -= OnCheckpointChanged;
-            }
+            if (Time.unscaledTime >= retrySaveAt) FlushSave();
+        }
+
+        private void OnApplicationPause(bool paused)
+        {
+            if (paused) FlushSave();
+        }
+
+        private void OnApplicationQuit() => FlushSave();
+
+        public void FlushSave()
+        {
+            if (!saveDirty || !state.HasCheckpoint || sceneFlow == null || sceneFlow.IsTransitioning)
+                return;
+
+            if (CheckpointSave.TryWrite(state))
+                saveDirty = false;
+            else
+                retrySaveAt = Time.unscaledTime + 10f;
+        }
+
+        private void MarkSaveDirty() => saveDirty = true;
+        private void OnFlagChanged(GameFlagId _) => MarkSaveDirty();
+
+        private void OnDestroy() => UnsubscribeState();
+
+        private void UnsubscribeState()
+        {
+            if (state == null) return;
+            state.CheckpointChanged -= OnCheckpointChanged;
+            state.FlagChanged -= OnFlagChanged;
+            state.InventoryChanged -= MarkSaveDirty;
+            state.MapKnowledgeChanged -= MarkSaveDirty;
+            state.LocationChanged -= MarkSaveDirty;
         }
 
         private void OnCheckpointChanged(string _, string __)
         {
+            MarkSaveDirty();
             ShowMessage("CHECKPOINT ACTUALIZADO");
             EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.Checkpoint);
         }

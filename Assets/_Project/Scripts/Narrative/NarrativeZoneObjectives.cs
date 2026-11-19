@@ -5,7 +5,7 @@ using UnityEngine;
 namespace EscapeUNIFRANZ.Narrative
 {
     [Serializable] public class NarrativeObjectiveStep
-    { public string id,text,untilItem,sectorId; public GameFlagId untilFlag; }
+    { public string id,text,untilItem,sectorId; public GameFlagId untilFlag, requiresFlag; }
     public sealed class NarrativeZoneObjectives : MonoBehaviour, IZoneRuntimeInitializable
     {
         public NarrativeObjectiveStep[] steps;
@@ -19,6 +19,7 @@ namespace EscapeUNIFRANZ.Narrative
             if (session==null || steps==null) return;
             foreach(var step in steps)
             {
+                if (step.requiresFlag != GameFlagId.None && !session.State.HasFlag(step.requiresFlag)) continue;
                 bool complete=step.untilFlag!=GameFlagId.None && session.State.HasFlag(step.untilFlag) ||
                     !string.IsNullOrWhiteSpace(step.untilItem) && session.State.HasItem(step.untilItem);
                 if (!complete) { session.State.SetObjectiveSector(string.IsNullOrEmpty(step.sectorId) ? zoneId : step.sectorId); session.Objectives.SetCurrent(step.id,step.text); return; }

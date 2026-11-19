@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: entrada_manual
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: entrada_manual
-  title: Nota del personal de acceso
-  category: Infraestructura
-  text: "Para abrir el acceso hace falta la <b>bater\xEDa</b> de la zona dental.
-    Despu\xE9s une <b>ENERG\xCDA con ENERG\xCDA</b> y <b>DATOS con DATOS</b>. Son
-    solo dos cables. La energ\xEDa volver\xE1 parcialmente."
+  title: "La \u00faltima persona en admisi\u00f3n"
+  category: "Nota doblada bajo el teclado"
+  text: "22:11. La auxiliar me pidi\u00f3 que abriera. Gir\u00e9 la llave y la vi en la acera con el abrigo puesto. La voz sigui\u00f3 pidiendo desde dentro.\n\nDej\u00e9 una <b>bater\u00eda</b> en Dental. En el panel une <b>ENERG\u00cdA con ENERG\u00cdA</b> y <b>DATOS con DATOS</b>."
   associatedFlag: 21
+  electronic: 0

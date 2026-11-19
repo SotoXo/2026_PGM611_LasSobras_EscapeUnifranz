@@ -77,6 +77,9 @@ namespace EscapeUNIFRANZ.Hazards
         private bool ClearLine(Transform player)
         {
             var owner=GetComponentInParent<PatrolMover2D>();
+            if (player.TryGetComponent<PlayerMovement2D>(out var movement) && movement.IsConcealed &&
+                !IsWithinRange(transform.position, player.position, 1.05f))
+                return false;
             return HasLineOfSight(transform.position,player.position,obstacleLayers,owner!=null ? owner.transform : transform,player,hits);
         }
         public static bool IsInField(Vector2 origin,Vector2 target,Vector2 facing,float range,float angle)

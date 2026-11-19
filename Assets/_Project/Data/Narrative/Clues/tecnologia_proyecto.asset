@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: tecnologia_proyecto
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ClueData
   id: tecnologia_proyecto
-  title: Proyecto de IA experimental
-  category: Software
-  text: "Software cre\xF3 una <b>IA experimental</b> para coordinar el campus. El
-    proyecto gan\xF3 reconocimiento. Hardware sinti\xF3 que sus equipos y su trabajo
-    quedaban olvidados. Correo de Francis: \xABQuiero revisar el rack. Esto tambi\xE9n
-    depende de nosotros\xBB."
+  title: "Proyecto F.R.A.N.C.I.S."
+  category: "Software"
+  text: "El proyecto F.R.A.N.C.I.S. coordinaba accesos, equipos y emergencias del campus. Su primera directiva era proteger a los estudiantes hasta que se restableciera el servicio. La actualizaci\u00f3n de anoche le permiti\u00f3 clasificar por su cuenta qu\u00e9 constitu\u00eda una amenaza."
   associatedFlag: 0
