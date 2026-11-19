@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Failed(Child)" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-19 14:46:12Z" end-time="2026-11-19 14:46:13Z" duration="0,5454232">
+  <test-suite type="TestSuite" id="1000" name="EscapeUNIFRANZ" fullname="EscapeUNIFRANZ" runstate="Runnable" testcasecount="190" result="Failed" site="Child" start-time="2026-11-19 14:46:12Z" end-time="2026-11-19 14:46:13Z" duration="0.545423" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1235" name="EscapeUNIFRANZ.Tests.EditMode.dll" fullname="D:/Unity/EscapeGrupo/Builds/ElevatorIntegrationProject/Library/ScriptAssemblies/EscapeUNIFRANZ.Tests.EditMode.dll" runstate="Runnable" testcasecount="190" result="Failed" site="Child" start-time="2026-11-19 14:46:12Z" end-time="2026-11-19 14:46:13Z" duration="0.449987" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="11688" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1236" name="EscapeUNIFRANZ" fullname="EscapeUNIFRANZ" runstate="Runnable" testcasecount="190" result="Failed" site="Child" start-time="2026-11-19 14:46:12Z" end-time="2026-11-19 14:46:13Z" duration="0.448054" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1237" name="Tests" fullname="EscapeUNIFRANZ.Tests" runstate="Runnable" testcasecount="190" result="Failed" site="Child" start-time="2026-11-19 14:46:12Z" end-time="2026-11-19 14:46:13Z" duration="0.446856" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestSuite" id="1238" name="EditMode" fullname="EscapeUNIFRANZ.Tests.EditMode" runstate="Runnable" testcasecount="190" result="Failed" site="Child" start-time="2026-11-19 14:46:12Z" end-time="2026-11-19 14:46:13Z" duration="0.445629" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="1020" name="ElevatorCabinAndOcclusionTests" fullname="EscapeUNIFRANZ.Tests.EditMode.ElevatorCabinAndOcclusionTests" classname="EscapeUNIFRANZ.Tests.EditMode.ElevatorCabinAndOcclusionTests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2026-11-19 14:46:12Z" end-time="2026-11-19 14:46:13Z" duration="0.435748" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="1022" name="ArrivalOpensDoorsAndRequiresLeavingCabinBeforeReboarding" fullname="EscapeUNIFRANZ.Tests.EditMode.ElevatorCabinAndOcclusionTests.ArrivalOpensDoorsAndRequiresLeavingCabinBeforeReboarding" methodname="ArrivalOpensDoorsAndRequiresLeavingCabinBeforeReboarding" classname="EscapeUNIFRANZ.Tests.EditMode.ElevatorCabinAndOcclusionTests" runstate="Runnable" seed="417737659" result="Passed" start-time="2026-11-19 14:46:08Z" end-time="2026-11-19 14:46:08Z" duration="0.019721" asserts="0">
+                <properties />
+              </test-case>
+              <test-case id="1021" name="BoardingMovesDisabledPlayerInsideAndDoesNotCloseWhenBlocked" fullname="EscapeUNIFRANZ.Tests.EditMode.ElevatorCabinAndOcclusionTests.BoardingMovesDisabledPlayerInsideAndDoesNotCloseWhenBlocked" methodname="BoardingMovesDisabledPlayerInsideAndDoesNotCloseWhenBlocked" classname="EscapeUNIFRANZ.Tests.EditMode.ElevatorCabinAndOcclusionTests" runstate="Runnable" seed="63821144" result="Failed" start-time="2026-11-19 14:46:08Z" end-time="2026-11-19 14:46:13Z" duration="4.952183" asserts="0">
+                <properties>
+                  <property name="_JOINTYPE" value="UnityCombinatorial" />
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <failure>
+                  <message><![CDATA[  Scripted boarding must work with input disabled: position=(0.00, 1.36), playing=True, physics=FixedUpdate, simulated=True.
+  Expected: True
+  But was:  False
+]]></message>
+                  <stack-trace><![CDATA[at EscapeUNIFRANZ.Tests.EditMode.ElevatorCabinAndOcclusionTests+<BoardingMovesDisabledPlayerInsideAndDoesNotCloseWhenBlocked>d__0.MoveNext () [0x0027f] in D:\Unity\EscapeGrupo\Builds\ElevatorIntegrationProject\Assets\_Project\Tests\EditMode\ElevatorCabinAndOcclusionTests.cs:33
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@aebcb98460c6\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case id="1023" name="FurnitureOcclusionIgnoresTransparentPixelsAndBackgroundSprites" fullname="EscapeUNIFRANZ.Tests.EditMode.ElevatorCabinAndOcclusionTests.FurnitureOcclusionIgnoresTransparentPixelsAndBackgroundSprites" methodname="FurnitureOcclusionIgnoresTransparentPixelsAndBackgroundSprites" classname="EscapeUNIFRANZ.Tests.EditMode.ElevatorCabinAndOcclusionTests" runstate="Runnable" seed="1599071242" result="Passed" start-time="2026-11-19 14:46:13Z" end-time="2026-11-19 14:46:13Z" duration="0.011685" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: C:/Users/victus/AppData/LocalLow/UNIFRANZ/EscapeUNIFRANZ\TestResults.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
