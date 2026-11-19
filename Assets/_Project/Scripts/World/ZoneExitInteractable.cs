@@ -10,7 +10,7 @@ namespace EscapeUNIFRANZ.World
     /// <summary>
     /// Reusable contextual exit configured with stable destination IDs.
     /// </summary>
-    public sealed class ZoneExitInteractable : InteractableBehaviour, IScanStateProvider
+    public sealed class ZoneExitInteractable : InteractableBehaviour, IScanStateProvider, EscapeUNIFRANZ.Encounters.IEncounterResettable
     {
         [SerializeField] private string targetZoneId;
         [SerializeField] private string targetSpawnId;
@@ -57,7 +57,10 @@ namespace EscapeUNIFRANZ.World
         public string TargetZoneId => targetZoneId;
         public string TargetSpawnId => targetSpawnId;
         public bool EscapesAfterShutdown => escapesAfterShutdown;
-        private bool CanEscape => escapesAfterShutdown && Meets(GameFlagId.FrancisShutdownPhaseComplete);
+        private bool CanEscape => escapesAfterShutdown && Meets(GameFlagId.FrancisNetworkPhaseComplete) && Meets(GameFlagId.FrancisHardwarePhaseComplete) && Meets(GameFlagId.FrancisShutdownPhaseComplete);
+        public void ResetEncounter() { alarmLockUntil = 0f; }
+        private void OnRespawnFinished(bool success) { if(success) ResetEncounter(); }
+        private void OnDestroy() { if(sceneFlow!=null) sceneFlow.RespawnFinished-=OnRespawnFinished; }
         public bool IsUnlocked => Time.time>=alarmLockUntil && lockState != DoorLockState.Locked && RequirementsMet &&
             (HasCircuit ? CircuitSolved : requiredFlag == GameFlagId.None || (session != null && session.State.HasFlag(requiredFlag)));
         private bool Meets(GameFlagId flag)=>flag==GameFlagId.None || session?.State.HasFlag(flag)==true;
@@ -75,8 +78,10 @@ namespace EscapeUNIFRANZ.World
 
         public void Bind(SceneFlowController controller, GameSessionController gameSession)
         {
+            if(sceneFlow!=null) sceneFlow.RespawnFinished-=OnRespawnFinished;
             sceneFlow = controller;
             session = gameSession;
+            if(controller!=null) controller.RespawnFinished+=OnRespawnFinished;
             BindSession(gameSession);
             ItemData.RegisterItem(elevatorPiece);
         }

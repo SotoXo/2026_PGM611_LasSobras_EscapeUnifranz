@@ -17,9 +17,10 @@ namespace EscapeUNIFRANZ.Hazards
         private readonly Collider2D[] overlapResults = new Collider2D[8];
         private Collider2D hitbox;
         private bool armed = true;
+        private float graceUntil;
         private bool contactAllowed=true;
         public void SetContactAllowed(bool value) { contactAllowed=value; }
-        public bool CanDealContactDamage => isActiveAndEnabled && armed && contactAllowed && IsDangerous;
+        public bool CanDealContactDamage => isActiveAndEnabled && Time.time >= graceUntil && armed && contactAllowed && IsDangerous;
 
         public bool IsDangerous => activationSource == null || activationSource.IsActive;
 
@@ -81,6 +82,8 @@ namespace EscapeUNIFRANZ.Hazards
             if (encounter != null && encounter.RequestRespawn(defeatReason))
             {
                 armed = false;
+                GetComponentInParent<MiniAutoController>()?.PlayImpact();
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotAlert,transform.position);
                 EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.AttackImpact);
             }
         }
@@ -93,6 +96,7 @@ namespace EscapeUNIFRANZ.Hazards
         public void ResetEncounter()
         {
             armed = true;
+            graceUntil = Time.time + 1.25f;
         }
 
         private void OnDrawGizmosSelected()
