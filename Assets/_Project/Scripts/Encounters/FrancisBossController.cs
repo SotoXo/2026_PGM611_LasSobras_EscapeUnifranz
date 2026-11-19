@@ -26,6 +26,7 @@ namespace EscapeUNIFRANZ.Encounters
 
         private FrancisBossStateMachine machine = new FrancisBossStateMachine();
         private GameSessionController session;
+        private GameplayModeController gameplayMode;
         private float introEndsAt;
         private float nextInterferenceAt;
         private bool started;
@@ -42,7 +43,7 @@ namespace EscapeUNIFRANZ.Encounters
 
         public void Initialize(ZoneRuntimeContext context)
         {
-            session = context.Session;
+            session = context.Session; gameplayMode=context.GameplayMode;
             if (phaseView == null)
             {
                 phaseView = session.BossPhaseView;
@@ -71,7 +72,7 @@ namespace EscapeUNIFRANZ.Encounters
 
         private void Update()
         {
-            if (!started || State == FrancisBossState.Completed)
+            if (session == null || gameplayMode == null || !gameplayMode.AllowsMovement || !started || State == FrancisBossState.Completed)
             {
                 return;
             }
@@ -116,9 +117,9 @@ namespace EscapeUNIFRANZ.Encounters
             SequenceSubmissionResult result = machine.SubmitShutdown(step);
             if (result == SequenceSubmissionResult.Incorrect)
             {
-                phaseProgress = 0;
-                session.Objectives?.SetProgress(0, 3);
-                session.ShowMessage("Sistema aún no seguro.");
+                phaseProgress = machine.CurrentProgress;
+                session.Objectives?.SetProgress(phaseProgress, 3);
+                session.ShowMessage("Sistema aún no seguro. Sigue: CONEXIÓN FINAL → CORTAR ACTUADORES → SHUTDOWN.");
                 return false;
             }
 
@@ -130,7 +131,7 @@ namespace EscapeUNIFRANZ.Encounters
             if (result == SequenceSubmissionResult.Completed)
             {
                 FrancisProgression.ApplyCompletedPhase(session.State, FrancisBossState.PhaseShutdown);
-                interferenceHazard?.SetHazardActive(false);
+                StopThreats();
                 phaseView?.Show(FrancisBossState.Completed);
                 session.ShowMessage("FRANCIS: Si abandono mi función, ¿quién los protegerá?");
                 ProjectAudioHooks.Emit(AudioCue.FrancisFarewell);
@@ -209,13 +210,25 @@ namespace EscapeUNIFRANZ.Encounters
             if (started && State != FrancisBossState.Completed)
             {
                 encounter?.BeginEncounter();
+                session.State.SetCheckpoint(session.State.CurrentZoneId, State==FrancisBossState.PhaseShutdown ? phaseThreeRespawnId : State==FrancisBossState.PhaseHardware ? phaseTwoRespawnId : encounter.CheckpointSpawnId);
                 phaseView?.Show(State);
                 nextInterferenceAt = Time.time + interferenceInterval;
             }
             else if (State == FrancisBossState.Completed)
             {
+                StopThreats();
                 phaseView?.Show(State);
             }
+        }
+
+        private void StopThreats()
+        {
+            interferenceHazard?.SetHazardActive(false);
+            if (encounter == null) return;
+            foreach(var h in encounter.GetComponentsInChildren<TimedHazardArea2D>(true)) h.SetHazardActive(false);
+            foreach(var h in encounter.GetComponentsInChildren<HazardContact2D>(true)) h.SetContactAllowed(false);
+            foreach(var m in encounter.GetComponentsInChildren<PatrolMover2D>(true)) { m.ResumePatrol(); m.enabled=false; }
+            foreach(var sensor in encounter.GetComponentsInChildren<DetectionSensor2D>(true)) sensor.enabled=false;
         }
 
         public void ResetEncounter()

@@ -884,6 +884,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+  - component: {fileID: 81363434}
   - component: {fileID: 81363430}
   - component: {fileID: 81363428}
   - component: {fileID: 81363427}
@@ -8370,6 +8371,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+  - component: {fileID: 686508121}
   - component: {fileID: 686508117}
   - component: {fileID: 686508115}
   - component: {fileID: 686508114}
@@ -11164,6 +11166,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+  - component: {fileID: 1022778273}
   - component: {fileID: 1022778269}
   - component: {fileID: 1022778267}
   - component: {fileID: 1022778266}
@@ -27064,3 +27067,57 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 568442865}
+
+--- !u!114 &81363434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81363426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0db93b1551b5a5248af71363c293f467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Hazards.ThreatMotionView2D
+  visual: {fileID: 1781934952}
+  mover: {fileID: 0}
+  feedback: {fileID: 0}
+  hazards:
+  - {fileID: 81363427}
+
+--- !u!114 &686508121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686508113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0db93b1551b5a5248af71363c293f467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Hazards.ThreatMotionView2D
+  visual: {fileID: 409817009}
+  mover: {fileID: 0}
+  feedback: {fileID: 0}
+  hazards:
+  - {fileID: 686508114}
+
+--- !u!114 &1022778273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022778265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0db93b1551b5a5248af71363c293f467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Hazards.ThreatMotionView2D
+  visual: {fileID: 382330296}
+  mover: {fileID: 0}
+  feedback: {fileID: 0}
+  hazards:
+  - {fileID: 1022778266}

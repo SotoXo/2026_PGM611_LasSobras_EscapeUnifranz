@@ -19490,6 +19490,8 @@ MonoBehaviour:
   path: {fileID: 491549432}
   patrolSpeed: 1.4
   arrivalDistance: 0.08
+  navigationCellSize: 0.4
+  waypointPauseSeconds: 0.25
 --- !u!50 &1377542831
 Rigidbody2D:
   serializedVersion: 5

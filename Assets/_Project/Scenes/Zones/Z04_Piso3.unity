@@ -4367,6 +4367,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+  - component: {fileID: 409817019}
   - component: {fileID: 409817014}
   - component: {fileID: 409817013}
   - component: {fileID: 409817012}
@@ -4418,6 +4419,8 @@ MonoBehaviour:
   path: {fileID: 1781934952}
   patrolSpeed: 1.8
   arrivalDistance: 0.08
+  navigationCellSize: 0.4
+  waypointPauseSeconds: 0.25
 --- !u!50 &409817011
 Rigidbody2D:
   serializedVersion: 5
@@ -21796,6 +21799,8 @@ MonoBehaviour:
   sensor: {fileID: 85148780}
   chaseSpeed: 2.6
   chaseSeconds: 1.5
+  reactionSeconds: 0.75
+  maxChaseSeconds: 9
   optionalAudio: {fileID: 1496424300}
   alertSound: {fileID: 0}
   feedback: {fileID: 1496424296}
@@ -21819,6 +21824,8 @@ MonoBehaviour:
   path: {fileID: 1692929203}
   patrolSpeed: 1.1
   arrivalDistance: 0.08
+  navigationCellSize: 0.4
+  waypointPauseSeconds: 0.25
 --- !u!70 &1496424303
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -23505,7 +23512,7 @@ Transform:
   m_GameObject: {fileID: 1737453718}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.625, y: 6, z: 0}
+  m_LocalPosition: {x: 10.701537, y: 6.184776, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26269,6 +26276,8 @@ MonoBehaviour:
   sensor: {fileID: 1676105911}
   chaseSpeed: 3.5
   chaseSeconds: 1.5
+  reactionSeconds: 0.75
+  maxChaseSeconds: 9
   optionalAudio: {fileID: 0}
   alertSound: {fileID: 0}
   feedback: {fileID: 1878117289}
@@ -26292,6 +26301,8 @@ MonoBehaviour:
   path: {fileID: 34783590}
   patrolSpeed: 2
   arrivalDistance: 0.08
+  navigationCellSize: 0.4
+  waypointPauseSeconds: 0.25
 --- !u!50 &1878117283
 Rigidbody2D:
   serializedVersion: 5
@@ -30341,3 +30352,20 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 568442865}
+
+--- !u!114 &409817019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 409817008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0db93b1551b5a5248af71363c293f467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Hazards.ThreatMotionView2D
+  visual: {fileID: 78161221}
+  mover: {fileID: 409817010}
+  feedback: {fileID: 409817018}
+  hazards: []

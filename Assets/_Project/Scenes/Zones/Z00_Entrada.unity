@@ -252,6 +252,8 @@ MonoBehaviour:
   sensor: {fileID: 718470826}
   chaseSpeed: 3.2
   chaseSeconds: 1.5
+  reactionSeconds: 0.75
+  maxChaseSeconds: 9
   optionalAudio: {fileID: 2463709}
   alertSound: {fileID: 0}
   feedback: {fileID: 2463707}
@@ -408,6 +410,8 @@ MonoBehaviour:
   path: {fileID: 580126346}
   patrolSpeed: 1.35
   arrivalDistance: 0.08
+  navigationCellSize: 0.4
+  waypointPauseSeconds: 0.25
 --- !u!114 &2463711
 MonoBehaviour:
   m_ObjectHideFlags: 0
