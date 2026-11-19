@@ -1,0 +1,37 @@
+Assets/_Project/Scenes/Zones\Z00_Entrada.unity
+ROUTE MiniAuto_Inspection points=3
+EXIT AccesoHall to=hall flag=PowerEntranceRestored
+EXIT ExitToPiso2 to=piso2 flag=None
+Assets/_Project/Scenes/Zones\Z01_Hall.unity
+EXIT ExitToARCA to=arca flag=None
+EXIT ExitToEntrada to=entrada flag=None
+EXIT ExitToPiso2 to=piso2 flag=Piso2Unlocked
+Assets/_Project/Scenes/Zones\Z02_ARCA.unity
+EXIT ExitToHall to=hall flag=None
+EXIT ExitToPiso2 to=piso2 flag=None
+Assets/_Project/Scenes/Zones\Z03_Piso2.unity
+ROUTE MiniAuto points=3
+EXIT ExitToHall to=hall flag=None
+EXIT ExitToPiso3 to=piso3 flag=Piso3Unlocked
+Assets/_Project/Scenes/Zones\Z04_Piso3.unity
+ROUTE MiniAutoPiso3 points=2
+ROUTE RobotDog points=3
+ROUTE SurveillanceRobot points=3
+BLOCKED WAYPOINT 1 (10.63, 6.00) by Solid_017
+EXIT ExitToPiso2 to=piso2 flag=None
+EXIT ExitToLab to=lab_software flag=LabSoftwareUnlocked
+Assets/_Project/Scenes/Zones\Z05_LabSoftware.unity
+EXIT ExitToPiso3 to=piso3 flag=None
+EXIT ExitToNucleo to=nucleo_ia flag=NucleoUnlocked
+Assets/_Project/Scenes/Zones\Z06_NucleoIA.unity
+ROUTE FrancisPlaceholder points=3
+EXIT ExitToLab to=lab_software flag=None
+NODE Francis_0_0_Cámaras phase=0 step=0
+NODE Francis_0_1_Accesos phase=0 step=1
+NODE Francis_0_2_Servidor phase=0 step=2
+NODE Francis_1_0_Alimentación phase=1 step=0
+NODE Francis_1_1_Actuadores phase=1 step=1
+NODE Francis_1_2_Seguridad phase=1 step=2
+NODE Francis_2_0_Conexión final phase=2 step=0
+NODE Francis_2_1_Cortar actuadores phase=2 step=1
+NODE Francis_2_2_Shutdown phase=2 step=2

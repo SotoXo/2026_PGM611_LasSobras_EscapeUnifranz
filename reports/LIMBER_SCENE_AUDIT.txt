@@ -1,0 +1,21 @@
+Assets/_Project/Scenes/Zones\Z00_Entrada.unity
+PatrolMover2D MiniAuto_Inspection active=True pos=(12.59, 6.00, 0.00) m_Script=PatrolMover2D path=InspectionEncounter
+MiniAutoController MiniAuto_Inspection active=True pos=(12.59, 6.00, 0.00) m_Script=MiniAutoController mover=MiniAuto_Inspection sensor=DetectionField optionalAudio=MiniAuto_Inspection alertSound=NULL feedback=MiniAuto_Inspection carVisual=CarPixelArt movementArt=garra_movimiento verticalArt=garra_vertical impactArt=garra_impacto
+Assets/_Project/Scenes/Zones\Z01_Hall.unity
+Assets/_Project/Scenes/Zones\Z02_ARCA.unity
+Assets/_Project/Scenes/Zones\Z03_Piso2.unity
+PatrolMover2D MiniAuto active=True pos=(5.00, 2.40, 0.00) m_Script=PatrolMover2D path=MiniAutoPath
+MiniAutoController MiniAuto active=True pos=(5.00, 2.40, 0.00) m_Script=MiniAutoController mover=MiniAuto sensor=DetectionSensor optionalAudio=NULL alertSound=NULL feedback=MiniAuto carVisual=CarPixelArt movementArt=rampa_movimiento verticalArt=rampa_vertical impactArt=rampa_impacto
+ExolegEncounterController ExolegArena active=True pos=(18.94, 7.06, 0.00) m_Script=ExolegEncounterController encounter=ExolegEncounter data=HazardLeft data=HazardRight data=HazardCenter feedback=ExolegArena
+Assets/_Project/Scenes/Zones\Z04_Piso3.unity
+PatrolMover2D MiniAutoPiso3 active=True pos=(8.00, 2.50, 0.00) m_Script=PatrolMover2D path=MiniAutoPiso3Path
+MiniAutoController MiniAutoPiso3 active=True pos=(8.00, 2.50, 0.00) m_Script=MiniAutoController mover=MiniAutoPiso3 sensor=DetectionSensor optionalAudio=NULL alertSound=NULL feedback=MiniAutoPiso3 carVisual=CarPixelArt movementArt=sierra_movimiento verticalArt=sierra_vertical impactArt=sierra_impacto
+PatrolMover2D RobotDog active=True pos=(16.00, 2.50, 0.00) m_Script=PatrolMover2D path=DogPatrolPath
+RobotDogEncounterController RobotDog active=True pos=(16.00, 2.50, 0.00) m_Script=RobotDogEncounterController encounter=RobotDogEncounter mover=RobotDog sensor=DetectionSensor feedback=RobotDog
+PatrolMover2D SurveillanceRobot active=True pos=(12.00, 6.00, 0.00) m_Script=PatrolMover2D path=InspectionEncounter
+MiniAutoController SurveillanceRobot active=True pos=(12.00, 6.00, 0.00) m_Script=MiniAutoController mover=SurveillanceRobot sensor=DetectionField optionalAudio=SurveillanceRobot alertSound=NULL feedback=SurveillanceRobot carVisual=CarPixelArt movementArt=garra_movimiento verticalArt=garra_vertical impactArt=garra_impacto
+Assets/_Project/Scenes/Zones\Z05_LabSoftware.unity
+RobotArmsEncounterController ArmsArena active=True pos=(6.00, 6.70, 0.00) m_Script=RobotArmsEncounterController encounter=RobotArmsEncounter data=ArmHazard_1 data=ArmHazard_2 data=ArmHazard_3 feedback=ArmsArena
+Assets/_Project/Scenes/Zones\Z06_NucleoIA.unity
+FrancisBossController FrancisArenaTrigger active=True pos=(14.00, 2.50, 0.00) m_Script=FrancisBossController encounter=FrancisEncounter phaseView=NULL interferenceHazard=FrancisInterference
+PatrolMover2D FrancisPlaceholder active=True pos=(21.00, 3.00, 0.00) m_Script=PatrolMover2D path=FrancisPath
