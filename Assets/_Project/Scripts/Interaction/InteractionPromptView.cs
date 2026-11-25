@@ -13,6 +13,7 @@ namespace EscapeUNIFRANZ.Interaction
 
         private void Awake()
         {
+            EscapeUNIFRANZ.UI.PresentationTheme.StyleText(promptLabel);
             Hide();
         }
 
@@ -24,7 +25,10 @@ namespace EscapeUNIFRANZ.Interaction
                 return;
             }
 
-            if (promptLabel.text != prompt) promptLabel.text = prompt;
+            string display = Application.isMobilePlatform
+                ? prompt.Replace("[E] ", "").Replace("[E]", "").Replace("Mantén E", "Mantén Interactuar")
+                : prompt;
+            if (promptLabel.text != display) promptLabel.text = display;
             if (!promptRoot.activeSelf) promptRoot.SetActive(true);
         }
 

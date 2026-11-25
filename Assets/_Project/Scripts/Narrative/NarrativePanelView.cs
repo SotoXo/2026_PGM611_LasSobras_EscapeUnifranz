@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using EscapeUNIFRANZ.Puzzles;
+using EscapeUNIFRANZ.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -25,6 +26,11 @@ namespace EscapeUNIFRANZ.Narrative
         private TextAlignmentOptions defaultBodyAlignment;
         private void Awake()
         {
+            foreach (var label in overlay.GetComponentsInChildren<TMP_Text>(true))
+                PresentationTheme.StyleText(label);
+            var card = title.transform.parent;
+            PresentationTheme.StylePanel(card.GetComponent<Image>());
+            if (card.GetComponent<SafeAreaPanel>() == null) card.gameObject.AddComponent<SafeAreaPanel>();
             defaultBodyAlignment = body.alignment;
             panelBodyColor = body.color;
             Hide();
@@ -196,7 +202,7 @@ namespace EscapeUNIFRANZ.Narrative
             line.localRotation=Quaternion.Euler(0f,0f,Mathf.Atan2(delta.y,delta.x)*Mathf.Rad2Deg);
         }
         public void Feedback(string message,bool error) { var target=inventoryFeedback!=null ? inventoryFeedback : feedback; target.text=message; target.color=error ? new Color(1f,0.45f,0.35f) : new Color(0.65f,0.95f,0.85f); }
-        public void Hide() { ClearInventoryVisuals(); menuItemId=null; equipmentTab=false; inventoryCategory=0; inventoryPage=0; if (overlay!=null) overlay.SetActive(false); SelectPort(null); }
+        public void Hide() { ClearInventoryVisuals(); equipmentTab=false; inventoryCategory=0; inventoryPage=0; if (overlay!=null) overlay.SetActive(false); SelectPort(null); }
         private void Clear()
         {
             if (documentSurface != null) documentSurface.gameObject.SetActive(false);

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using EscapeUNIFRANZ.Core;
+using EscapeUNIFRANZ.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +14,6 @@ namespace EscapeUNIFRANZ.Narrative
         private TMP_Text inventoryFeedback;
         private bool equipmentTab;
         private int inventoryCategory, inventoryPage;
-        private string menuItemId;
 
         public void ShowInventory(ItemData[] items, GameState state, string inspected,
             Action<string> inspect, Action select, Action examine, Action use, Action clear)
@@ -22,15 +22,14 @@ namespace EscapeUNIFRANZ.Narrative
             title.transform.parent.gameObject.SetActive(false);
             if (inventorySkin == null) inventorySkin = Resources.Load<InventorySkin>("InventorySkin");
             inventoryRoot = InvRect(overlay.transform, "Inventory", 0, 0, 940, 540, false);
-            var available = ((RectTransform)overlay.transform).rect.size;
-            inventoryRoot.localScale = Vector3.one * Mathf.Max(0.01f, Mathf.Min(1f, available.x / 940f, available.y / 540f));
+            inventoryRoot.gameObject.AddComponent<SafeAreaPanel>();
             Action redraw = () => ShowInventory(items, state, inspected, inspect, select, examine, use, clear);
             InvImage(inventoryRoot, "GridPanel", "panel_inventario", 100, 96, 472, 400);
             InvImage(inventoryRoot, "PreviewPanel", "panel_vista_previa", 572, 96, 344, 400);
             InvButton(inventoryRoot, "InventoryTab", equipmentTab ? "pestana_normal" : "pestana_seleccionada",
-                100, 44, 220, 52, "INVENTARIO", () => { equipmentTab = false; inventoryPage = 0; menuItemId = null; redraw(); }, 22);
+                100, 44, 220, 52, "INVENTARIO", () => { equipmentTab = false; inventoryPage = 0; redraw(); }, 22);
             InvButton(inventoryRoot, "EquipmentTab", equipmentTab ? "pestana_seleccionada" : "pestana_normal",
-                324, 44, 220, 52, "EQUIPAMIENTO", () => { equipmentTab = true; inventoryCategory = 0; inventoryPage = 0; menuItemId = null; redraw(); }, 21);
+                324, 44, 220, 52, "EQUIPAMIENTO", () => { equipmentTab = true; inventoryCategory = 0; inventoryPage = 0; redraw(); }, 21);
             InvButton(inventoryRoot, "Close", "boton_cerrar", 868, 44, 48, 48, "", () => controller.HandleClose());
             string[] labels = { "TODOS", "OBJETOS", "LLAVES" };
             string[] icons = { "icono_liquidos", "icono_objetos", "icono_llaves" };
@@ -39,7 +38,7 @@ namespace EscapeUNIFRANZ.Narrative
                 int category = i;
                 var tab = InvButton(inventoryRoot, "Category_" + i,
                     inventoryCategory == i ? "categoria_seleccionada" : "categoria_normal",
-                    16, 104 + i * 100, 88, 92, "", () => { inventoryCategory = category; inventoryPage = 0; menuItemId = null; redraw(); });
+                    16, 104 + i * 100, 88, 92, "", () => { inventoryCategory = category; inventoryPage = 0; redraw(); });
                 InvImage(tab, "Icon", icons[i], 12, 2, 64, 64);
                 InvLabel(tab, "Label", labels[i], 3, 65, 82, 22, 13);
             }
@@ -56,39 +55,40 @@ namespace EscapeUNIFRANZ.Narrative
                 var item = index < visible.Length ? visible[index] : null;
                 var slot = InvButton(inventoryRoot, "Slot_" + i,
                     item != null && item == current ? "casilla_seleccionada" : "casilla_normal",
-                    118 + i % 5 * 90, 118 + i / 5 * 90, 80, 80, "",
-                    () => { if (item != null) { menuItemId = item.id; inspect(item.id); } });
+                    118 + i % 5 * 90, 116 + i / 5 * 84, 80, 76, "",
+                    () => { if (item != null) inspect(item.id); });
                 slot.GetComponent<Button>().interactable = item != null;
                 if (item == null) continue;
                 InvItem(slot, item, 12, 10, 56, 56);
                 int quantity = state.CarriedItems.Count(id => id == item.id);
-                if (quantity > 1) InvLabel(slot, "Quantity", "×" + quantity, 40, 57, 36, 20, 14);
-                if (state.SelectedItemId == item.id) InvLabel(slot, "Selected", "•", 4, 2, 16, 20, 18);
+                InvLabel(slot, "Quantity", "×" + quantity, 40, 55, 36, 20, 15);
+                if (state.SelectedItemId == item.id) InvImage(slot, "Equipped", "casilla_seleccionada", 4, 3, 13, 13);
             }
             InvLabel(inventoryRoot, "ItemName", current == null ? "SIN OBJETOS" : current.displayName.ToUpperInvariant(), 592, 124, 304, 58, 23);
             if (current != null)
             {
-                InvItem(inventoryRoot, current, 660, 204, 168, 168);
-                InvLabel(inventoryRoot, "Description", current.description, 596, 386, 296, 82, 20);
-                if (state.SelectedItemId == current.id) InvLabel(inventoryRoot, "Selected", "SELECCIONADO", 596, 468, 296, 20, 13);
+                bool selected = state.SelectedItemId == current.id;
+                bool immediate = current.immediateUse != ImmediateItemUse.None;
+                InvItem(inventoryRoot, current, 692, 177, 104, 104);
+                string info = selected ? "SELECCIONADO" : "";
+                if (immediate) info += (selected ? " · " : "") + (state.FlashlightOn ? "ENCENDIDA" : "APAGADA");
+                InvLabel(inventoryRoot, "State", info, 596, 286, 296, 24, 17);
+                var description = InvLabel(inventoryRoot, "Description", current.description, 596, 310, 296, 106, 20);
+                description.fontSizeMin = 15;
+                InvButton(inventoryRoot, "Select", "boton_menu_seleccionado", 590, 432, 152, 44,
+                    selected ? "DESELECCIONAR" : "SELECCIONAR", selected ? clear : select, 16);
+                InvButton(inventoryRoot, "Examine", "boton_menu_normal", 748, 432, 152, 44, "EXAMINAR", examine, 18);
+                if (immediate)
+                    InvButton(inventoryRoot, "ToggleItem", "boton_menu_normal", 748, 246, 145, 34,
+                        state.FlashlightOn ? "APAGAR" : "ENCENDER", use, 15);
             }
             else InvLabel(inventoryRoot, "Empty", "No llevas objetos en esta categoría.", 606, 230, 276, 130, 22);
-            inventoryFeedback = InvLabel(inventoryRoot, "Feedback", "Selecciona un objeto · Esc para cerrar", 100, 500, 816, 30, 15);
+            inventoryFeedback = InvLabel(inventoryRoot, "Feedback", Application.isMobilePlatform ? "Toca una casilla para revisar su contenido" : "Selecciona un objeto · Esc para cerrar", 100, 500, 816, 30, 15);
             if (pages > 1)
             {
-                InvButton(inventoryRoot, "Previous", "boton_menu_normal", 118, 468, 80, 24, "<", () => { inventoryPage = (inventoryPage + pages - 1) % pages; menuItemId = null; redraw(); });
+                InvButton(inventoryRoot, "Previous", "boton_menu_normal", 118, 468, 80, 24, "<", () => { inventoryPage = (inventoryPage + pages - 1) % pages; redraw(); });
                 InvLabel(inventoryRoot, "Page", (inventoryPage + 1) + " / " + pages, 220, 468, 200, 24, 14);
-                InvButton(inventoryRoot, "Next", "boton_menu_normal", 478, 468, 80, 24, ">", () => { inventoryPage = (inventoryPage + 1) % pages; menuItemId = null; redraw(); });
-            }
-            if (current != null && menuItemId == current.id)
-            {
-                var menu = InvImage(inventoryRoot, "Actions", "panel_menu", 352, 206, 144, 156);
-                bool immediate = current.immediateUse != ImmediateItemUse.None;
-                InvButton(menu, "Use", "boton_menu_seleccionado", 6, 6, 132, 36,
-                    immediate ? (state.FlashlightOn ? "APAGAR" : "ENCENDER") : "SELECCIONAR", immediate ? use : select, 15);
-                InvButton(menu, "Examine", "boton_menu_normal", 6, 42, 132, 36, "EXAMINAR", examine, 17);
-                InvButton(menu, "Deselect", "boton_menu_normal", 6, 78, 132, 36, "DESELECCIONAR", clear, 13);
-                InvButton(menu, "Cancel", "boton_menu_normal", 6, 114, 132, 36, "CANCELAR", () => { menuItemId = null; menu.gameObject.SetActive(false); }, 17);
+                InvButton(inventoryRoot, "Next", "boton_menu_normal", 478, 468, 80, 24, ">", () => { inventoryPage = (inventoryPage + 1) % pages; redraw(); });
             }
         }
         private static bool IsInventoryKey(ItemData item) => item.id == "key" || item.id.EndsWith("_card", StringComparison.Ordinal);
@@ -129,7 +129,7 @@ namespace EscapeUNIFRANZ.Narrative
         {
             var rect = InvRect(parent, name, x, y, width, height);
             var text = rect.gameObject.AddComponent<TextMeshProUGUI>();
-            text.font = body.font; text.text = caption; text.fontSize = fontSize;
+            text.font = PresentationTheme.PixelFont; text.text = caption; text.fontSize = fontSize;
             text.enableAutoSizing = true; text.fontSizeMin = Mathf.Min(12, fontSize); text.fontSizeMax = fontSize;
             text.alignment = TextAlignmentOptions.Center; text.color = new Color32(230, 230, 230, 255); text.raycastTarget = false;
             return text;

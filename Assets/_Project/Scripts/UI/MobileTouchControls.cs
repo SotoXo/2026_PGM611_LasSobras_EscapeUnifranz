@@ -34,7 +34,7 @@ namespace EscapeUNIFRANZ.UI
 
         private void Awake()
         {
-            font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
+            font = PresentationTheme.PixelFont;
             var canvasObject = new GameObject("TouchCanvas", typeof(RectTransform),
                 typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             canvasObject.transform.SetParent(transform, false);
@@ -88,7 +88,7 @@ namespace EscapeUNIFRANZ.UI
                     session.State.HasItem("flashlight"));
                 mapButton.SetInteractable(flow.HasMapAccess);
                 bool hasCan = ThrowableCanController.ChooseCan(session?.State) != null;
-                tossButton.gameObject.SetActive(hasCan);
+                if (tossButton.gameObject.activeSelf != hasCan) tossButton.gameObject.SetActive(hasCan);
             }
             if (Screen.safeArea != lastSafeArea ||
                 lastScreenSize != new Vector2Int(Screen.width, Screen.height)) ApplySafeArea();

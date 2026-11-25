@@ -20,6 +20,14 @@ namespace EscapeUNIFRANZ.UI
         private static readonly string[] BusNames = { "General", "Música", "Ambiente", "Efectos", "Interfaz", "Voces" };
         private UnityAction<float>[] listeners;
 
+        private void Awake()
+        {
+            if (GetComponent<SafeAreaPanel>() == null) gameObject.AddComponent<SafeAreaPanel>();
+            PresentationTheme.StylePanel(GetComponent<Image>());
+            foreach (var label in GetComponentsInChildren<TMP_Text>(true))
+                PresentationTheme.StyleText(label);
+        }
+
         private void OnEnable()
         {
             listeners ??= new UnityAction<float>[volumeSliders.Length];

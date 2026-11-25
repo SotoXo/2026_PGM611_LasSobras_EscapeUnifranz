@@ -75,6 +75,24 @@ namespace EscapeUNIFRANZ.UI
         private GameFlowController controller;
         private Coroutine selectionRoutine;
         private GameObject pauseSelection;
+        private static void StyleInterface(GameObject screen, string cardName)
+        {
+            if (screen == null) return;
+            foreach (var label in screen.GetComponentsInChildren<TMP_Text>(true))
+                if (label.gameObject.activeSelf) PresentationTheme.StyleText(label);
+            var card = screen.transform.Find(cardName);
+            if (card != null && card.GetComponent<SafeAreaPanel>() == null)
+                card.gameObject.AddComponent<SafeAreaPanel>();
+        }
+
+        private void Awake()
+        {
+            StyleInterface(pauseRoot, "PauseCard");
+            StyleInterface(controlsRoot, "ControlsCard");
+            if (gameplayHudRoot == null) return;
+            foreach (var label in gameplayHudRoot.GetComponentsInChildren<TMP_Text>(true))
+                PresentationTheme.StyleText(label);
+        }
 
         private void LateUpdate()
         {

@@ -104,11 +104,12 @@ namespace EscapeUNIFRANZ.Player
             if (thrownItem==null || !session.State.TryUseItem(thrownItem)) return;
             if (visual != null) visual.PlayAction(PlayerVisualController.ActionPose.Throw);
             ProjectAudioHooks.Emit(AudioCue.CanThrow);
-            StartCoroutine(Fly(origin, origin + dir * distance, distance, hitRobot, thrownItem==itemId));
+            StartCoroutine(Fly(origin, origin + dir * distance, distance, hitRobot, thrownItem));
         }
 
-        private IEnumerator Fly(Vector2 from, Vector2 to, float distance, MiniAutoController hitRobot, bool spill)
+        private IEnumerator Fly(Vector2 from, Vector2 to, float distance, MiniAutoController hitRobot, string thrownItem)
         {
+            bool spill = thrownItem == itemId;
             var can = new GameObject("LataLanzada");
             var zone = FindFirstObjectByType<ZoneContext>();
             if (zone != null)
@@ -116,7 +117,8 @@ namespace EscapeUNIFRANZ.Player
             else
                 can.transform.SetParent(transform.parent, true);
             var sr = can.AddComponent<SpriteRenderer>();
-            sr.sprite = canSprite; sr.sortingLayerName = "World";
+            sr.sprite = ItemData.Find(thrownItem)?.icon ?? canSprite;
+            sr.sortingLayerName = "World";
             can.transform.localScale = Vector3.one * 0.7f;
 
             // Sombra en el piso: da profundidad al vuelo y al rebote.
@@ -200,6 +202,7 @@ namespace EscapeUNIFRANZ.Player
                     Destroy(can); // An empty can is spent when it successfully damages a robot.
                     yield break;
                 }
+                sr.sprite = ItemData.Find(EmptyCanItemId)?.icon ?? sr.sprite;
                 var trigger = can.AddComponent<BoxCollider2D>(); trigger.isTrigger = true; trigger.size = new Vector2(0.8f, 0.8f);
                 var pickup = can.AddComponent<ThrownCanPickup>(); pickup.itemId = EmptyCanItemId; pickup.BindSession(session);
 
