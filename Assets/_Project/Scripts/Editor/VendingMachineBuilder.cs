@@ -25,6 +25,13 @@ namespace EscapeUNIFRANZ.EditorTools
         private const string V2 = "Assets/_Project/Art/Environment/expendedoras_grises_v2/";
         private const string CanArt = "Assets/_Project/Art/Items/lata_naranja.png";
         private const string SodaAsset = "Assets/_Project/Data/Narrative/Items/soda.asset";
+        private const string EmptyCanAsset = "Assets/_Project/Data/Narrative/Items/empty_can.asset";
+        [MenuItem("Escape UNIFRANZ/Expendedoras/Configurar latas y derrame")]
+        public static void ConfigureCanCombatItems()
+        {
+            var soda=MakeSoda();AssetDatabase.SaveAssets();PrepareBootstrap(soda);
+            AssetDatabase.SaveAssets();Debug.Log("CAN_SPILL_ITEMS_OK: full and empty cans registered; maximum three per dispenser.");
+        }
         private const string Bootstrap = "Assets/_Project/Scenes/Bootstrap/Bootstrap.unity";
         private const string LitMaterial = "Assets/_Project/Art/Levels/GroupWorldLit.mat";
         private const string RootName = "VendingMachines";
@@ -54,7 +61,7 @@ namespace EscapeUNIFRANZ.EditorTools
             ImportSprite(V2+"expendedora_bebidas_reposo_64.png",SpriteAlignment.BottomCenter);
             ImportSprite(CanArt,SpriteAlignment.Center);
             var soda=MakeSoda();AssetDatabase.SaveAssets();PrepareBootstrap(soda);
-            Vector2 position=Aula2MapBuilder.FindOpenPosition(new Vector2(414f/32f,(576f-320f)/32f));
+            Vector2 position=new Vector2(21.26f,4.84f);
             PlaceFloor("Z07_Aula2",new[]{new Spot("Expendedora_Prueba_Abril","aula2_abril_prueba",true,position.x*64,position.y*64)},soda);
             var scene=SceneManager.GetSceneByPath("Assets/_Project/Scenes/Zones/Z07_Aula2.unity");
             var machine=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<VendingMachineInteractable>()).Single();
@@ -182,13 +189,24 @@ namespace EscapeUNIFRANZ.EditorTools
             var item = AssetDatabase.LoadAssetAtPath<ItemData>(SodaAsset);
             if (item == null) { item = ScriptableObject.CreateInstance<ItemData>(); AssetDatabase.CreateAsset(item, SodaAsset); }
             item.id = "soda"; item.displayName = "Lata de refresco";
-            item.description = "Lánzala con [G] para distraer a los carritos. Se puede recoger de nuevo.";
-            item.examineText = "Una lata naranja, todavía fría. Si la lanzas lejos, el ruido atraerá a los carritos hacia ese punto. Luego puedes ir a recogerla.";
+            item.description = "G: lanzar. Derrama refresco y deja un charco que detiene robots. Recoge la lata vacía con E para volver a atacar.";
+            item.examineText = "El líquido puede detener durante cuatro segundos a cada robot que cruce el charco. La lata vacía se recoge y sirve para golpear robots. Cada expendedora entrega como máximo tres latas.";
             item.icon = AssetDatabase.LoadAssetAtPath<Sprite>(CanArt);
             item.fallbackIcon = "SOD"; item.consumable = true; item.stackable = true; item.placeholderIcon = false;
             item.category = ItemCategory.Consumable; item.immediateUse = ImmediateItemUse.None;
             EditorUtility.SetDirty(item);
             return item;
+        }
+        private static ItemData MakeEmptyCan()
+        {
+            var item=AssetDatabase.LoadAssetAtPath<ItemData>(EmptyCanAsset);
+            if(item==null){item=ScriptableObject.CreateInstance<ItemData>();AssetDatabase.CreateAsset(item,EmptyCanAsset);}
+            item.id="empty_can";item.displayName="Lata vacía";
+            item.description="G: lanzar para dañar robots. Se consume al acertar; si cae al suelo puedes recogerla con E. No deja charcos.";
+            item.examineText="Tres impactos de latas vacías derrotan a un robot. Cada impacto consume la lata. Las latas llenas solo inmovilizan y dejan líquido.";
+            item.icon=AssetDatabase.LoadAssetAtPath<Sprite>(CanArt);item.fallbackIcon="LATA";
+            item.consumable=true;item.stackable=true;item.placeholderIcon=false;item.category=ItemCategory.Consumable;
+            EditorUtility.SetDirty(item);return item;
         }
 
         private static void PrepareBootstrap(ItemData soda)
@@ -206,6 +224,10 @@ namespace EscapeUNIFRANZ.EditorTools
             bool present = false;
             for (int i = 0; i < catalog.arraySize; i++) if (catalog.GetArrayElementAtIndex(i).objectReferenceValue == soda) present = true;
             if (!present) { catalog.arraySize++; catalog.GetArrayElementAtIndex(catalog.arraySize - 1).objectReferenceValue = soda; }
+            var emptyCan=MakeEmptyCan();
+            bool hasEmpty=false;
+            for(int i=0;i<catalog.arraySize;i++)if(catalog.GetArrayElementAtIndex(i).objectReferenceValue==emptyCan)hasEmpty=true;
+            if(!hasEmpty){catalog.arraySize++;catalog.GetArrayElementAtIndex(catalog.arraySize-1).objectReferenceValue=emptyCan;}
             so.ApplyModifiedProperties();
 
             var player = scene.GetRootGameObjects().SelectMany(g => g.GetComponentsInChildren<PlayerMovement2D>(true)).FirstOrDefault();
@@ -238,6 +260,7 @@ namespace EscapeUNIFRANZ.EditorTools
                 obj.transform.localPosition = new Vector3(spot.centerPx / 64f, spot.feetPx / 64f, 0f);
 
                 var sr = obj.AddComponent<SpriteRenderer>();
+                obj.AddComponent<WorldYSort2D>();
                 sr.sprite = spot.drinks ? idle : AssetDatabase.LoadAssetAtPath<Sprite>(V2 + "expendedora_frituras_64.png");
                 if (lit != null) sr.sharedMaterial = lit;
                 sr.sortingLayerName = "World"; sr.sortingOrder = WorldYSort2D.Order(spot.feetPx / 64f);

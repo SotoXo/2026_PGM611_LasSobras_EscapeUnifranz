@@ -78,10 +78,9 @@ namespace EscapeUNIFRANZ.Hazards
                 return;
             }
 
-            if (encounter != null && encounter.RequestRespawn(defeatReason))
+            if (encounter != null && encounter.RequestContactDamage(defeatReason))
             {
                 armed = false;
-                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.AttackImpact);
             }
         }
 

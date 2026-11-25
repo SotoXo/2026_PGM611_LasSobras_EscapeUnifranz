@@ -24,6 +24,7 @@ namespace EscapeUNIFRANZ.EditorTools
         private const float Ppu = 32f;
         private const int Cell = 1;
         private static bool[,] walkable;
+        private static bool[,] solidMask, wallOnly;
         private static Vector2 Entry;
         private static Vector2 Return;
         // Door-frame highlights protrude into several authored gaps (7–14 px).
@@ -32,7 +33,55 @@ namespace EscapeUNIFRANZ.EditorTools
             Portal(229,248,265),Portal(282,248,265),Portal(374,248,265),Portal(469,248,265),Portal(582,248,265),Portal(727,248,265),
             Portal(254,280,299),Portal(539,280,299),Portal(576,280,299),Portal(634,280,299),Portal(720,390,408)
         };
-        private static RectInt Portal(int center,int top,int bottom)=>new RectInt(center-8,576-bottom,16,bottom-top);
+        private static RectInt Portal(int center,int top,int bottom)=>new RectInt(center-12,576-bottom-4,24,bottom-top+8);
+
+        [MenuItem("Escape UNIFRANZ/Art/Actualizar colisiones y patrullas conservando posiciones")]
+        public static void UpdateCollisionAndPatrols()
+            => UpdateAuthoredScene(true);
+        public static void UpdatePassageCollision()
+            => UpdateAuthoredScene(false);
+        private static void UpdateAuthoredScene(bool updatePatrols)
+        {
+            if(EditorApplication.isPlayingOrWillChangePlaymode)throw new InvalidOperationException("Actualizar en Edit Mode.");
+            var scene=SceneManager.GetSceneByPath(ScenePath);bool opened=!scene.isLoaded;
+            if(opened)scene=EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Additive);
+            if(scene.isDirty)throw new InvalidOperationException("Guardar la escena antes de actualizar.");
+            try
+            {
+                var floor=Import("PisoActual.png");var walls=Import("murosActuall.png");var objects=Import("ObjetosActual.png");
+                var door=ElevatorMapIntegration.FindDoor(objects,true);
+                objects=ElevatorMapIntegration.WithoutDoor(objects,door);
+                walls=ElevatorMapIntegration.WithoutDoor(walls,new RectInt(door.x,door.y,door.width,door.height+8),"MurosSinPuerta");
+                solidMask=CollisionMask(floor,walls,objects);walkable=WalkableMask(solidMask);
+                var zone=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<ZoneContext>()).Single();
+                Entry=zone.GetComponentsInChildren<SpawnPoint>().Single(p=>p.SpawnId=="from_elevator").Position;
+                var old=zone.transform.Find("WorldCollision_Authored");if(old!=null)Object.DestroyImmediate(old.gameObject);
+                var geometry=new GameObject("WorldCollision_Authored").transform;geometry.SetParent(zone.transform,false);BuildColliders(geometry,solidMask);
+                if(updatePatrols)foreach(var robot in zone.GetComponentsInChildren<EscapeUNIFRANZ.Hazards.MiniAutoController>())
+                {
+                    var data=new SerializedObject(robot);var visual=(SpriteRenderer)data.FindProperty("carVisual").objectReferenceValue;
+                    Vector2 authored=visual.transform.position;
+                    Vector2 center=FindOpenPosition(authored);
+                    if(Vector2.Distance(center,authored)>.3f)throw new InvalidOperationException("Robot location overlaps the map: "+robot.name);
+                    robot.transform.position=center;visual.transform.localPosition=Vector3.zero;
+                    Vector2 axis=robot.name.EndsWith("rampa")?Vector2.right:Vector2.up;
+                    var mover=(EscapeUNIFRANZ.Hazards.PatrolMover2D)data.FindProperty("mover").objectReferenceValue;
+                    var path=(EscapeUNIFRANZ.Hazards.PatrolPath2D)new SerializedObject(mover).FindProperty("path").objectReferenceValue;
+                    var routeData=new SerializedObject(path);var points=routeData.FindProperty("points");
+                    for(int i=0;i<2;i++)((Transform)points.GetArrayElementAtIndex(i).objectReferenceValue).position=PatrolEndAlong(center,axis*(i==0?-1:1));
+                    ValidateWalkable(solidMask,Entry,center);
+                }
+                foreach(var machine in zone.GetComponentsInChildren<VendingMachineInteractable>())
+                {
+                    if(machine.GetComponent<WorldYSort2D>()==null)machine.gameObject.AddComponent<WorldYSort2D>();
+                    machine.GetComponent<SpriteRenderer>().sortingOrder=WorldYSort2D.Order(machine.transform.position.y);
+                    ValidateWalkable(solidMask,Entry,(Vector2)machine.transform.position+Vector2.down*.4f);
+                }
+                EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();
+                Debug.Log(updatePatrols ? "AUTHORED_LAYOUT_OK: visual and physical robots aligned, side corridors patrolled, machine position preserved." : "PASSAGE_COLLISION_OK: corridor bench supports moved behind the walking lane; authored positions preserved.");
+            }
+            finally{if(opened)EditorSceneManager.CloseScene(scene,true);}
+        }
 
         [MenuItem("Escape UNIFRANZ/Art/Integrate Aula 2 New Map")]
         public static void Build()
@@ -66,7 +115,7 @@ namespace EscapeUNIFRANZ.EditorTools
                 Set(zone, "zoneId", "aula2"); Set(zone, "displayName", "Aula 2 · Nuevo mapa");
                 Set(zone, "defaultCheckpointSpawnId", "from_nucleo");
                 Set(zone, "objectiveId", "aula2_explore");
-                Set(zone, "objectiveText", "Explora el aula 2. Regresa por el acceso junto a las escaleras.");
+                Set(zone, "objectiveText", "Evita las patrullas del pasillo. E: comprar y recoger latas; G: lanzar. Tres impactos desactivan un robot. Regresa por el ascensor.");
                 Set(zone, "minimapCenter", new Vector2(15f, 9f));
                 Set(zone, "minimapSize", new Vector2(30f, 18f));
                 var art = new GameObject("GroupLevelArt").transform; art.SetParent(root.transform, false);
@@ -81,10 +130,24 @@ namespace EscapeUNIFRANZ.EditorTools
                     if (furniture[i].height >= 10) sprite.gameObject.AddComponent<WorldObjectOcclusion2D>();
                 }
                 var blocked = CollisionMask(floor, walls, objects);
+                solidMask = blocked;
+                wallOnly = new bool[floor.width,floor.height];
+                var wallPixels = walls.GetPixels32();
+                for(int y=0;y<floor.height;y++) for(int x=0;x<floor.width;x++) wallOnly[x,y]=wallPixels[y*floor.width+x].a>128;
+                foreach(var door in DoorClearances)
+                    for(int y=Math.Max(0,door.yMin);y<Math.Min(floor.height,door.yMax);y++)
+                        for(int x=Math.Max(0,door.xMin);x<Math.Min(floor.width,door.xMax);x++) wallOnly[x,y]=false;
                 walkable = WalkableMask(blocked);
                 var collision = new GameObject("WorldCollision_Authored").transform;
                 collision.SetParent(root.transform, false);
                 BuildColliders(collision, blocked);
+                var shadows=new GameObject("WallShadows").transform;shadows.SetParent(root.transform,false);
+                var outline=BuildColliders(shadows,wallOnly,true);outline.isTrigger=true;outline.excludeLayers=~0;
+                var caster=shadows.gameObject.AddComponent<ShadowCaster2D>();
+                caster.castingOption=ShadowCaster2D.ShadowCastingOptions.CastAndSelfShadow;caster.trimEdge=0;
+                var shadowData=new SerializedObject(caster);
+                shadowData.FindProperty("m_ShadowShape2DProvider").managedReferenceValue=new StaticWallShadowProvider();
+                shadowData.ApplyModifiedPropertiesWithoutUndo();
                 Spawn(root.transform, "from_nucleo", Entry);
                 var cabin = ElevatorMapIntegration.CabinCenter(elevatorDoor, Ppu);
                 Spawn(root.transform, "from_elevator", cabin);
@@ -92,7 +155,7 @@ namespace EscapeUNIFRANZ.EditorTools
                 ElevatorMapIntegration.Configure(elevator, art, elevatorDoor, Ppu, true);
                 var ambient = new GameObject("Ambient_Aula2"); ambient.transform.SetParent(root.transform, false);
                 var light = ambient.AddComponent<Light2D>(); light.lightType = Light2D.LightType.Global;
-                light.intensity = .65f; light.color = new Color(.8f, .88f, 1f);
+                light.intensity = .06f; light.color = new Color(1f, .98f, .95f);
                 light.targetSortingLayers = SortingLayer.layers.Select(l => l.id).ToArray();
                 ValidateWalkable(blocked, Entry, Return);
                 ValidateWalkable(blocked, cabin, Return);
@@ -116,6 +179,7 @@ namespace EscapeUNIFRANZ.EditorTools
                 EditorBuildSettings.scenes = builds.ToArray();
                 AssetDatabase.SaveAssets();
                 VendingMachineBuilder.InstallInAula2();
+                Aula2TrashBinBuilder.PlaceInAula2();
                 Directory.CreateDirectory("reports");
                 File.WriteAllText("reports/AULA2_MAPA.md", "# Aula 2\n\nMapa independiente: Z07_Aula2.\n" +
                     "Fuente: nivel4_aulas/NuevoMapa; capas PisoActual, murosActuall y ObjetosActual.\n" +
@@ -188,9 +252,15 @@ namespace EscapeUNIFRANZ.EditorTools
             var furniture = Furniture(objects);
             var bases = new bool[o.Length];
             foreach (var rect in furniture)
-                for (int y = (int)rect.y; y < (int)rect.y + Mathf.Max(2, Mathf.RoundToInt(rect.height * .4f)); y++)
-                    for (int x = (int)rect.x; x < rect.xMax; x++)
+            {
+                bool bench=IsHallBench(rect);
+                int inset=bench?2:0;
+                int baseHeight=bench?2:Mathf.Max(2,Mathf.RoundToInt(rect.height*.4f));
+                int supportY=bench ? (int)rect.yMax-baseHeight : (int)rect.y;
+                for (int y = supportY; y < supportY + baseHeight; y++)
+                    for (int x = (int)rect.x+inset; x < rect.xMax-inset; x++)
                         if (o[y * floor.width + x].a > 128) bases[y * floor.width + x] = true;
+            }
             var mask = new bool[floor.width / Cell, floor.height / Cell];
             for (int y = 0; y < mask.GetLength(1); y++)
                 for (int x = 0; x < mask.GetLength(0); x++)
@@ -204,8 +274,14 @@ namespace EscapeUNIFRANZ.EditorTools
                     }
                     mask[x, y] = solid > 0 || outside > 0;
                 }
+            // Door passages must also clear furniture-base pixels and painted threshold pixels.
+            foreach(var door in DoorClearances)
+                for(int y=Math.Max(0,door.yMin);y<Math.Min(floor.height,door.yMax);y++)
+                    for(int x=Math.Max(0,door.xMin);x<Math.Min(floor.width,door.xMax);x++) mask[x,y]=false;
             return mask;
         }
+        private static bool IsHallBench(Rect rect) => rect.width>=20 && rect.width>rect.height*1.7f &&
+            (new Rect(296,302,38,22).Overlaps(rect) || new Rect(605,302,38,22).Overlaps(rect));
 
         private static List<Rect> Furniture(Texture2D texture)
         {
@@ -275,12 +351,69 @@ namespace EscapeUNIFRANZ.EditorTools
             return result;
         }
 
-        private static void BuildColliders(Transform parent, bool[,] mask)
+        public static Vector2 PatrolEnd(Vector2 center, float direction)
+            => PatrolEndAlong(center,Vector2.right*direction);
+        public static Vector2 PatrolEndAlong(Vector2 center,Vector2 direction)
+        {
+            Vector2 result = center;
+            for (float d=.0625f; d<=1.5f; d+=.0625f)
+            {
+                Vector2 p=center+direction*d;
+                int x=Mathf.RoundToInt(p.x*Ppu), y=Mathf.RoundToInt(p.y*Ppu);
+                if (x<0 || y<0 || x>=walkable.GetLength(0) || y>=walkable.GetLength(1) || !walkable[x,y]) break;
+                result=p;
+            }
+            if (Vector2.Distance(result,center)<.25f) throw new InvalidOperationException("Robot patrol has no clearance at "+center);
+            return result;
+        }
+
+        public static Vector2 FindMachinePosition(Vector2 desired)
+        {
+            float best=float.MaxValue;Vector2 chosen=default;
+            bool Solid(int x,int y)=>x<0||y<0||x>=solidMask.GetLength(0)||y>=solidMask.GetLength(1)||solidMask[x,y];
+            // The back of the .3-unit base touches a real wall. Keep the front and sides accessible.
+            int cx=Mathf.RoundToInt(desired.x*Ppu),cy=Mathf.RoundToInt(desired.y*Ppu);
+            for(int y=Math.Max(25,cy-128);y<Math.Min(walkable.GetLength(1)-15,cy+129);y++)
+                for(int x=Math.Max(22,cx-128);x<Math.Min(walkable.GetLength(0)-22,cx+129);x++)
+                {
+                    if(!wallOnly[x-10,y+10]||!wallOnly[x,y+10]||!wallOnly[x+10,y+10])continue;
+                    bool free=true;
+                    for(int dx=-15;dx<=15 && free;dx++)for(int dy=0;dy<10;dy++)if(Solid(x+dx,y+dy)){free=false;break;}
+                    for(int dx=-20;dx<=20 && free;dx+=2)for(int dy=-22;dy<=-9;dy+=2)if(!walkable[x+dx,y+dy]){free=false;break;}
+                    if(!free)continue;
+                    float score=(x-cx)*(x-cx)+(y-cy)*(y-cy);
+                    if(score<best){best=score;chosen=new Vector2(x/Ppu,y/Ppu);}
+                }
+            if(best<float.MaxValue) {ValidateWalkable(solidMask,Entry,chosen+Vector2.down*.4f);return chosen;}
+            throw new InvalidOperationException("No vending location with a clear approach near "+desired);
+        }
+        public static Vector2 FindBinPosition(Vector2 desired, System.Collections.Generic.IEnumerable<Vector2> occupied)
+        {
+            var avoid=occupied.ToArray();float best=float.MaxValue;Vector2 result=default;
+            int cx=Mathf.RoundToInt(desired.x*Ppu),cy=Mathf.RoundToInt(desired.y*Ppu);
+            for(int y=Math.Max(21,cy-160);y<Math.Min(walkable.GetLength(1)-13,cy+161);y++)
+                for(int x=Math.Max(14,cx-160);x<Math.Min(walkable.GetLength(0)-14,cx+161);x++)
+                {
+                    bool byWall=wallOnly[x-4,y+8]&&wallOnly[x,y+8]&&wallOnly[x+4,y+8];
+                    Vector2 point=new Vector2(x/Ppu,y/Ppu);
+                    if(avoid.Any(p=>Vector2.Distance(p,point)<1.1f))continue;
+                    bool free=true;
+                    for(int dx=-8;dx<=8&&free;dx++)for(int dy=0;dy<8;dy++)if(solidMask[x+dx,y+dy]){free=false;break;}
+                    for(int dx=-2;dx<=2&&free;dx+=2)for(int dy=-14;dy<=-12;dy++)if(!walkable[x+dx,y+dy]){free=false;break;}
+                    if(!free)continue;
+                    float score=(x-cx)*(x-cx)+(y-cy)*(y-cy)+(byWall?0:1024);
+                    if(score<best){best=score;result=point;}
+                }
+            if(best==float.MaxValue)throw new InvalidOperationException("No accessible bin location near "+desired);
+            ValidateWalkable(solidMask,Entry,result+Vector2.down*.4f);return result;
+        }
+
+        private static CompositeCollider2D BuildColliders(Transform parent, bool[,] mask, bool outline=false)
         {
             parent.gameObject.AddComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             var composite = parent.gameObject.AddComponent<CompositeCollider2D>();
             composite.generationType = CompositeCollider2D.GenerationType.Manual;
-            composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
+            composite.geometryType = outline ? CompositeCollider2D.GeometryType.Outlines : CompositeCollider2D.GeometryType.Polygons;
             composite.vertexDistance = .001f; composite.offsetDistance = 0;
             var paths = new List<Vector2[]>();
             var used = new bool[mask.GetLength(0), mask.GetLength(1)];
@@ -303,6 +436,7 @@ namespace EscapeUNIFRANZ.EditorTools
             composite.GenerateGeometry();
             if (composite.pathCount == 0) throw new InvalidOperationException("Aula 2 collision geometry is empty.");
             composite.generationType = CompositeCollider2D.GenerationType.Synchronous;
+            return composite;
         }
 
         private static void ValidateWalkable(bool[,] mask, Vector2 start, Vector2 destination)

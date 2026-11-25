@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ItemData
   id: soda
   displayName: Lata de refresco
-  description: "L\xE1nzala con [G] para distraer a los carritos. Se puede recoger
-    de nuevo."
-  examineText: "Una lata naranja, todav\xEDa fr\xEDa. Si la lanzas lejos, el ruido
-    atraer\xE1 a los carritos hacia ese punto. Luego puedes ir a recogerla."
+  description: "G: lanzar. Derrama refresco y deja un charco que detiene robots.
+    Recoge la lata vac\xEDa con E para volver a atacar."
+  examineText: "El l\xEDquido puede detener durante cuatro segundos a cada robot
+    que cruce el charco. La lata vac\xEDa se recoge y sirve para golpear robots.
+    Cada expendedora entrega como m\xE1ximo tres latas."
   icon: {fileID: 21300000, guid: a0fa858e7cd6a5945ae45587a9048758, type: 3}
   fallbackIcon: SOD
   consumable: 1

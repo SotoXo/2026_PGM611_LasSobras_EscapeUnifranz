@@ -15,6 +15,11 @@ namespace EscapeUNIFRANZ.Hazards
         [SerializeField] private bool directional;
         [SerializeField, Range(1f,179f)] private float fieldOfView=75f;
         [SerializeField] private LayerMask obstacleLayers=~0;
+        [SerializeField] private bool reactToPlayerGaze;
+        [SerializeField] private float noticeRange = 2.5f;
+        [SerializeField] private float pursuitRange = 4.5f;
+        public bool IsTargetVisible { get; private set; }
+        public static bool RetainPursuit(bool withinReach, bool visible) => withinReach || visible;
         private readonly HashSet<PlayerMovement2D> candidates=new HashSet<PlayerMovement2D>();
         private readonly List<RaycastHit2D> hits=new List<RaycastHit2D>();
 
@@ -58,27 +63,51 @@ namespace EscapeUNIFRANZ.Hazards
             PlayerMovement2D player = other.GetComponent<PlayerMovement2D>();
             if (player!=null) candidates.Add(player);
         }
+        private void OnTriggerStay2D(Collider2D other) => OnTriggerEnter2D(other);
 
         private void FixedUpdate()
         {
             Transform visible=null;
+            IsTargetVisible = false;
+            // Keep the remembered target when nearby, but never expose its position through walls.
+            if (reactToPlayerGaze && CanSense() && CurrentTarget != null)
+            {
+                bool line = ClearLine(CurrentTarget);
+                bool inSight = line && IsWithinRange(transform.position, CurrentTarget.position, sensor.radius);
+                if (RetainPursuit(IsWithinRange(transform.position, CurrentTarget.position, pursuitRange), inSight))
+                { IsTargetVisible = inSight; return; }
+            }
             if (CanSense()) foreach(var player in candidates)
             {
                 if (player==null || !player.isActiveAndEnabled) continue;
                 float range=sensor.radius*Mathf.Max(transform.lossyScale.x,transform.lossyScale.y);
                 if (!IsWithinRange(transform.position,player.transform.position,range)) continue;
-                if ((directional && !IsInField(transform.position,player.transform.position,transform.up,range,fieldOfView)) || !ClearLine(player.transform)) continue;
+                bool noticed = !directional || IsInField(transform.position,player.transform.position,transform.up,
+                    reactToPlayerGaze ? noticeRange : range,fieldOfView);
+                if (reactToPlayerGaze)
+                {
+                    var vision=player.GetComponentInChildren<PlayerVisionController>();
+                    var owner=GetComponentInParent<PatrolMover2D>();
+                    if (vision != null) noticed |=
+                        (vision.IsLookingAt(transform.position) && vision.CanSeePoint(transform.position, owner != null ? owner.transform : transform)) ||
+                        vision.IlluminatesPoint(transform.position, owner != null ? owner.transform : transform);
+                }
+                if (!noticed || !ClearLine(player.transform)) continue;
                 visible=player.transform; break;
             }
+            IsTargetVisible = visible != null;
             if (visible==CurrentTarget) return;
             ClearTarget(); CurrentTarget=visible;
+            IsTargetVisible = visible != null;
             if (visible!=null) TargetDetected?.Invoke(visible);
         }
         private bool ClearLine(Transform player)
         {
             var owner=GetComponentInParent<PatrolMover2D>();
+            var vision=reactToPlayerGaze ? player.GetComponentInChildren<PlayerVisionController>() : null;
+            bool exposedByBeam=vision != null && vision.IlluminatesPoint(transform.position,owner!=null ? owner.transform : transform);
             if (player.TryGetComponent<PlayerMovement2D>(out var movement) && movement.IsConcealed &&
-                !IsWithinRange(transform.position, player.position, 1.05f))
+                !exposedByBeam && !IsWithinRange(transform.position, player.position, 1.05f))
                 return false;
             return HasLineOfSight(transform.position,player.position,obstacleLayers,owner!=null ? owner.transform : transform,player,hits);
         }
@@ -88,6 +117,7 @@ namespace EscapeUNIFRANZ.Hazards
         private void OnTriggerExit2D(Collider2D other)
         {
             var player=other.GetComponent<PlayerMovement2D>(); if (player!=null) candidates.Remove(player);
+            if (reactToPlayerGaze) return; // FixedUpdate evaluates both range and line of sight.
             if (CurrentTarget == null ||
                 !PlayerPhysicsContact2D.IsPlayerBody(other) ||
                 other.GetComponent<PlayerMovement2D>()?.transform != CurrentTarget)
@@ -102,6 +132,7 @@ namespace EscapeUNIFRANZ.Hazards
 
         public void ClearTarget()
         {
+            IsTargetVisible = false;
             if (CurrentTarget == null)
             {
                 return;

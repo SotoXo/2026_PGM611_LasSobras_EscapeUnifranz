@@ -1,0 +1,25 @@
+Basureros repletos con papeles abajo y latas arriba
+Dos versiones independientes en las carpetas 6_latas y 9_latas.
+Todos los cuadros miden 64 × 64 px y conservan transparencia.
+
+En ambas versiones, las latas se descuentan de una en una.
+Al llegar a cero latas, los papeles permanecen en la cesta.
+Los editables de LibreSprite contienen una capa de Papeles, una capa por lata, Cesta fondo y Malla y borde.
+
+Cada carpeta contiene
+basurero_6_latas.ase o basurero_9_latas.ase, editable.
+basurero_N_latas.png, cada cantidad disponible como imagen separada.
+sprites.png y sprites.json, hoja de sprites y datos.
+descontar_latas.gif, secuencia a tamaño original.
+vista_previa_4x.gif, vista ampliada para revisar.
+
+Versión de 6 latas
+7 cuadros, de 6 a 0.
+Hoja de 448 × 64 px.
+
+Versión de 9 latas
+10 cuadros, de 9 a 0.
+Hoja de 640 × 64 px.
+
+comparacion.png muestra el basurero de 6 latas a la izquierda y el de 9 latas a la derecha.
+Los GIF se repiten para mostrar la secuencia. En el juego, avanzar un cuadro al retirar cada lata.

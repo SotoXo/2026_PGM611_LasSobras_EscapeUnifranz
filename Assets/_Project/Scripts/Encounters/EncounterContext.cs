@@ -50,6 +50,8 @@ namespace EscapeUNIFRANZ.Encounters
 
             return false;
         }
+        public bool RequestContactDamage(string reason) =>
+            initialized && !IsCompleted && runtime.Session.RequestContactDamage(this,reason);
 
         public void ResetLocalState()
         {

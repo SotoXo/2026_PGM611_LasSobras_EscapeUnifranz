@@ -87,7 +87,7 @@ namespace EscapeUNIFRANZ.UI
                 flashlightButton.SetInteractable(session != null && session.State != null &&
                     session.State.HasItem("flashlight"));
                 mapButton.SetInteractable(flow.HasMapAccess);
-                bool hasCan = session?.State?.HasItem("soda") == true;
+                bool hasCan = ThrowableCanController.ChooseCan(session?.State) != null;
                 tossButton.gameObject.SetActive(hasCan);
             }
             if (Screen.safeArea != lastSafeArea ||

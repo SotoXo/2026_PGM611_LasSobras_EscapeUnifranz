@@ -40,7 +40,7 @@ namespace EscapeUNIFRANZ.Narrative
             if(id=="battery") { message="BATERÍA PORTÁTIL OBTENIDA"; tutorial?.Offer(EscapeUNIFRANZ.UI.TutorialAction.Inventory); }
             if(id=="flashlight") { message="LINTERNA OBTENIDA"; tutorial?.Offer(EscapeUNIFRANZ.UI.TutorialAction.Flashlight); }
             if (id == "soda" && state.DiscoverWorldItem("onboarding", "soda_throw"))
-                session.ShowMessage("G / Lanzar: distrae a un carrito. Puedes recoger la lata donde caiga.");
+                session.ShowMessage("G / Lanzar: derrama refresco para detener robots. E: recoge la lata vacía y vuelve a lanzarla para causar daño.");
             if (pickupLabel!=null) { pickupLabel.text=message; pickupLabel.gameObject.SetActive(true); }
             else session.ShowMessage(message);
             if (pickupIcon!=null) { pickupIcon.sprite=data?.icon; pickupIcon.gameObject.SetActive(data?.icon!=null); }

@@ -14,6 +14,8 @@ namespace EscapeUNIFRANZ.World
     public sealed class VendingMachineInteractable : InteractableBehaviour, IScanStateProvider
     {
         private const string StateZone = "vending";
+        public const int MaximumStock = 3;
+        private int Capacity => Mathf.Clamp(stock,1,MaximumStock);
         private enum Phase { Idle, Dispensing, ReadyToCollect }
 
         [SerializeField] private string machineId;
@@ -33,10 +35,10 @@ namespace EscapeUNIFRANZ.World
 
         private int Remaining()
         {
-            if (BoundSession == null) return Mathf.Max(0, stock);
+            if (BoundSession == null) return Capacity;
 
             int count = 0;
-            for (int i = 0; i < stock; i++)
+            for (int i = 0; i < Capacity; i++)
                 if (!BoundSession.State.IsWorldItemDiscovered(StateZone, SlotKey(i)))
                     count++;
 
@@ -60,7 +62,7 @@ namespace EscapeUNIFRANZ.World
         {
             if (body == null) body = GetComponent<SpriteRenderer>();
             if (body != null && idleSprite != null) body.sprite = idleSprite;
-            stock = Mathf.Max(1, stock);
+            stock = Capacity;
         }
 
         private Vector2 TrayPoint()
@@ -150,7 +152,7 @@ namespace EscapeUNIFRANZ.World
 
             bool collected = false;
 
-            for (int i = 0; i < stock; i++)
+            for (int i = 0; i < Capacity; i++)
             {
                 if (!BoundSession.State.DiscoverWorldItem(StateZone, SlotKey(i)))
                     continue;

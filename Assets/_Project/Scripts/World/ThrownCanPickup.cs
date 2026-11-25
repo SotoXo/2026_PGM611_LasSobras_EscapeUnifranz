@@ -7,7 +7,7 @@ namespace EscapeUNIFRANZ.World
     /// <summary>Lata ya lanzada que quedó en el piso: [E] la vuelve a meter al inventario.</summary>
     public sealed class ThrownCanPickup : InteractableBehaviour
     {
-        public string itemId = "soda";
+        public string itemId = "empty_can";
 
         public override string Prompt => "[E] Recoger " + ItemData.Label(itemId);
 

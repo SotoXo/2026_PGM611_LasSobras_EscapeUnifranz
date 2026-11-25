@@ -35,9 +35,33 @@ namespace EscapeUNIFRANZ.Hazards
         private float movementTime;
         private float impactTime = -1f;
         private float nextServoAt;
+        [SerializeField, Min(0)] private int maxHits;
+        private int hitsRemaining;
+        private bool destroyedByHits;
+        private float nextHitAt;
+        public int HitsRemaining => hitsRemaining;
+        public bool CanBeStunned => operational && !destroyedByHits && startupUntil <= 0f && isActiveAndEnabled;
+        public bool ReceiveCanHit()
+        {
+            if (maxHits <= 0 || destroyedByHits || (!operational && disabledUntil <= 0f) || Time.time < nextHitAt) return false;
+            nextHitAt = Time.time + .6f;
+            hitsRemaining = Mathf.Max(0, hitsRemaining - 1);
+            wear = hitsRemaining <= 1 ? MiniAutoWear.Heavy : MiniAutoWear.Light;
+            if (hitsRemaining == 0)
+            {
+                destroyedByHits = true;
+                disabledUntil = 0f;
+                SetOperational(false);
+                impactTime = 0f;
+                gameObject.SetActive(false);
+            }
+            else SuspendFor(3f);
+            return true;
+        }
 
         private void Awake()
         {
+            hitsRemaining = maxHits;
             if (carVisual != null)
                 spriteSet = MiniAutoSpriteSet.Create(movementArt, verticalArt, impactArt);
 
@@ -73,7 +97,7 @@ namespace EscapeUNIFRANZ.Hazards
         public void SuspendFor(float seconds)
         {
             bool wasOperational = operational;
-            disabledUntil = Time.time + Mathf.Max(1f, seconds);
+            disabledUntil = Mathf.Max(disabledUntil,Time.time + Mathf.Max(1f, seconds));
             SetOperational(false);
             if (wasOperational && spriteSet != null)
                 impactTime = 0f;
@@ -127,13 +151,18 @@ namespace EscapeUNIFRANZ.Hazards
             }
             if (sensor.transform!=mover.transform && mover.Facing.sqrMagnitude>0f)
                 sensor.transform.localRotation=Quaternion.Euler(0f,0f,Vector2.SignedAngle(Vector2.up,mover.Facing));
-            if (visibleTarget!=null) lastSeen=visibleTarget.position;
-            if (State==MobileThreatState.Chase && visibleTarget!=null) return;
+            if (visibleTarget!=null && sensor.IsTargetVisible) lastSeen=visibleTarget.position;
+            if (State==MobileThreatState.Chase && visibleTarget!=null)
+            {
+                if (sensor.IsTargetVisible) mover.SetChaseTarget(visibleTarget,chaseSpeed);
+                else mover.Investigate(lastSeen,chaseSpeed);
+                return;
+            }
             if (Time.time<transitionAt) return;
             if (State==MobileThreatState.Suspicious && visibleTarget!=null)
             { State=MobileThreatState.Alert; transitionAt=Time.time+0.65f; feedback?.Show(ThreatVisualState.Alert); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotAlert, transform.position); if (optionalAudio!=null && alertSound!=null) optionalAudio.PlayOneShot(alertSound); }
             else if (State==MobileThreatState.Alert && visibleTarget!=null)
-            { State=MobileThreatState.Chase; Contact(true); feedback?.Show(ThreatVisualState.Attack); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotChase, transform.position); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.AlertMusic(EscapeUNIFRANZ.Narrative.AudioCue.MusicChase, 6f); mover.SetChaseTarget(visibleTarget,chaseSpeed); }
+            { State=MobileThreatState.Chase; Contact(true); feedback?.Show(ThreatVisualState.Attack); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotChase, transform.position); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.AlertMusic(EscapeUNIFRANZ.Narrative.AudioCue.MusicChase, 6f); if(sensor.IsTargetVisible) mover.SetChaseTarget(visibleTarget,chaseSpeed); else mover.Investigate(lastSeen,chaseSpeed); }
             else if (State==MobileThreatState.Search)
             { State=MobileThreatState.Return; Contact(false); feedback?.Show(ThreatVisualState.Patrol); mover.ResumePatrol(); transitionAt=Time.time+0.5f; }
             else if (State==MobileThreatState.Return) State=MobileThreatState.Patrol;
@@ -148,6 +177,11 @@ namespace EscapeUNIFRANZ.Hazards
         }
         public void ResetEncounter()
         {
+            if (destroyedByHits || disabledUntil > 0f) { destroyedByHits = false; gameObject.SetActive(true); SetOperational(true); }
+            hitsRemaining = maxHits;
+            disabledUntil = 0f;
+            nextHitAt = 0f;
+            if (maxHits > 0) wear = MiniAutoWear.Healthy;
             impactTime = -1f;
             movementTime = 0f;
             visibleTarget = null;
