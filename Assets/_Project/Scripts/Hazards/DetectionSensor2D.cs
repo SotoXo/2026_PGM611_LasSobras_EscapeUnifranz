@@ -13,6 +13,8 @@ namespace EscapeUNIFRANZ.Hazards
         private CircleCollider2D sensor;
         private GameplayModeController gameplayMode;
         private PatrolMover2D owner;
+        private Transform visionPlayer;
+        private PlayerVisionController playerVision;
         private float nextSenseAt;
         [SerializeField, Min(0.02f)] private float sensingInterval = 0.1f;
         [SerializeField] private bool directional;
@@ -92,7 +94,7 @@ namespace EscapeUNIFRANZ.Hazards
                     reactToPlayerGaze ? noticeRange : range,fieldOfView);
                 if (reactToPlayerGaze)
                 {
-                    var vision=player.GetComponentInChildren<PlayerVisionController>();
+                    var vision = ResolveVision(player.transform);
                     if (vision != null) noticed |=
                         (vision.IsLookingAt(transform.position) && vision.CanSeePoint(transform.position, owner != null ? owner.transform : transform)) ||
                         vision.IlluminatesPoint(transform.position, owner != null ? owner.transform : transform);
@@ -108,12 +110,22 @@ namespace EscapeUNIFRANZ.Hazards
         }
         private bool ClearLine(Transform player)
         {
-            var vision=reactToPlayerGaze ? player.GetComponentInChildren<PlayerVisionController>() : null;
+            var vision = reactToPlayerGaze ? ResolveVision(player) : null;
             bool exposedByBeam=vision != null && vision.IlluminatesPoint(transform.position,owner!=null ? owner.transform : transform);
             if (player.TryGetComponent<PlayerMovement2D>(out var movement) && movement.IsConcealed &&
                 !exposedByBeam && !IsWithinRange(transform.position, player.position, 1.05f))
                 return false;
             return HasLineOfSight(transform.position,player.position,obstacleLayers,owner!=null ? owner.transform : transform,player,hits);
+        }
+
+        private PlayerVisionController ResolveVision(Transform player)
+        {
+            if (visionPlayer != player)
+            {
+                visionPlayer = player;
+                playerVision = player.GetComponentInChildren<PlayerVisionController>();
+            }
+            return playerVision;
         }
         public static bool IsInField(Vector2 origin,Vector2 target,Vector2 facing,float range,float angle)
         { return IsWithinRange(origin,target,range) && Vector2.Angle(facing,target-origin)<=angle*0.5f; }
@@ -131,7 +143,7 @@ namespace EscapeUNIFRANZ.Hazards
 
             ClearTarget();
         }
-        private void OnDisable() { candidates.Clear(); ClearTarget(); }
+        private void OnDisable() { visionPlayer = null; playerVision = null; candidates.Clear(); ClearTarget(); }
 
         public void ClearTarget()
         {

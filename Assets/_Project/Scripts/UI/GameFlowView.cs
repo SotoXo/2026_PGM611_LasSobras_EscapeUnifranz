@@ -89,6 +89,15 @@ namespace EscapeUNIFRANZ.UI
         {
             StyleInterface(pauseRoot, "PauseCard");
             StyleInterface(controlsRoot, "ControlsCard");
+            if (Application.isMobilePlatform && controlsRoot != null)
+            {
+                string[] touch = { "PALANCA", "INTERACTUAR", "LINTERNA", "INVENTARIO", "DIARIO", "ESCÁNER", "MAPA", "PAUSA" };
+                for (int i = 0; i < touch.Length; i++)
+                {
+                    var key = controlsRoot.transform.Find($"ControlsCard/Row_{i}/Key")?.GetComponent<TMP_Text>();
+                    if (key != null) key.text = touch[i];
+                }
+            }
             if (gameplayHudRoot == null) return;
             foreach (var label in gameplayHudRoot.GetComponentsInChildren<TMP_Text>(true))
                 PresentationTheme.StyleText(label);

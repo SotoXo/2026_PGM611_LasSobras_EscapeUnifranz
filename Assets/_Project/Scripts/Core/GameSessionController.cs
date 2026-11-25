@@ -38,6 +38,7 @@ namespace EscapeUNIFRANZ.Core
         public BossPhaseView BossPhaseView => bossPhaseView;
         public bool IsPractice { get; private set; }
         public EntranceTutorialController Tutorial { get; private set; }
+        public ZoneContext ActiveZone { get; private set; }
         public event Action<GameState> StateChanged;
 
         private void Awake()
@@ -134,6 +135,7 @@ namespace EscapeUNIFRANZ.Core
 
         public void BindZonePresentation(ZoneContext zone)
         {
+            ActiveZone = zone;
             Tutorial?.SetZone(zone!=null ? zone.ZoneId : null);
             minimapController?.SetZone(zone);
             scannerController?.SetZone(zone);

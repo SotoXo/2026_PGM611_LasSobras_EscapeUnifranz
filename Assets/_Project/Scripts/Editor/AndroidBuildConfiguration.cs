@@ -16,20 +16,9 @@ namespace EscapeUNIFRANZ.Editor
         [MenuItem("EscapeUNIFRANZ/Build/Configure Android APK")]
         public static void Configure()
         {
-            string[] scenes = {
-                "Assets/_Project/Scenes/UI/MainMenu.unity",
-                "Assets/_Project/Scenes/Bootstrap/Bootstrap.unity",
-                "Assets/_Project/Scenes/Zones/Z00_Entrada.unity",
-                "Assets/_Project/Scenes/Zones/Z01_Hall.unity",
-                "Assets/_Project/Scenes/Zones/Z02_ARCA.unity",
-                "Assets/_Project/Scenes/Zones/Z03_Piso2.unity",
-                "Assets/_Project/Scenes/Zones/Z04_Piso3.unity",
-                "Assets/_Project/Scenes/Zones/Z05_LabSoftware.unity",
-                "Assets/_Project/Scenes/Zones/Z06_NucleoIA.unity"
-            };
+            string[] scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
             foreach (string scene in scenes)
                 if (!File.Exists(scene)) throw new FileNotFoundException("Missing build scene", scene);
-            EditorBuildSettings.scenes = scenes.Select(s => new EditorBuildSettingsScene(s, true)).ToArray();
             PlayerSettings.productName = "EscapeUNIFRANZ";
             PlayerSettings.companyName = "UNIFRANZ";
             PlayerSettings.bundleVersion = "1.0.1";
@@ -53,7 +42,7 @@ namespace EscapeUNIFRANZ.Editor
             EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
             EditorUserBuildSettings.development = false;
             AssetDatabase.SaveAssets();
-            Debug.Log("Android APK configured: ARM64, landscape, IL2CPP, nine scenes.");
+            Debug.Log($"Android APK configurado: ARM64, horizontal, IL2CPP, {scenes.Length} escenas habilitadas.");
         }
 
         [MenuItem("EscapeUNIFRANZ/Build/Build Android APK")]

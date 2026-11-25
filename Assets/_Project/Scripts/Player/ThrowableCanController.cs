@@ -112,7 +112,7 @@ namespace EscapeUNIFRANZ.Player
         {
             bool spill = thrownItem == itemId;
             var can = new GameObject("LataLanzada");
-            var zone = FindFirstObjectByType<ZoneContext>();
+            var zone = session.ActiveZone;
             if (zone != null)
                 can.transform.SetParent(zone.transform, true);
             else
@@ -188,12 +188,17 @@ namespace EscapeUNIFRANZ.Player
                     robotAffected = ApplyRobotImpact(hitRobot, spill);
                 if (robotAffected && session.IsPractice) session.Tutorial?.PracticeCanHit(spill, selected);
                 if (spill) CanSpill2D.Create(to, can.transform.parent, mode, robotAffected ? hitRobot : null);
-                foreach (var dog in FindObjectsByType<RobotDogEncounterController>(FindObjectsSortMode.None))
-                    if ((dog.UnitPosition - to).sqrMagnitude <= noiseRadius * noiseRadius &&
+                IReadOnlyList<RobotDogEncounterController> dogs = zone != null ? zone.RobotDogs :
+                    FindObjectsByType<RobotDogEncounterController>(FindObjectsSortMode.None);
+                foreach (var dog in dogs)
+                    if (dog != null && dog.isActiveAndEnabled && (dog.UnitPosition - to).sqrMagnitude <= noiseRadius * noiseRadius &&
                         DetectionSensor2D.HasLineOfSight(dog.UnitPosition, to, ~0, dog.UnitTransform, null, hits))
                         dog.DistractAt(to, distractSeconds);
-                foreach (var robot in FindObjectsByType<MiniAutoController>(FindObjectsSortMode.None))
+                IReadOnlyList<MiniAutoController> robots = zone != null ? zone.Robots :
+                    FindObjectsByType<MiniAutoController>(FindObjectsSortMode.None);
+                foreach (var robot in robots)
                 {
+                    if (robot == null || !robot.isActiveAndEnabled) continue;
                     Vector2 eye = (Vector2)robot.transform.position + Vector2.up * 0.12f;
                     if (Vector2.Distance(eye, to) <= noiseRadius &&
                         DetectionSensor2D.HasLineOfSight(eye, to, ~0, robot.transform, null, hits))

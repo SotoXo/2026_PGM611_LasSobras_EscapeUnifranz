@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.OnScreen;
 using UnityEngine.UI;
+using EscapeUNIFRANZ.Core;
 
 namespace EscapeUNIFRANZ.UI
 {
@@ -61,7 +62,10 @@ namespace EscapeUNIFRANZ.UI
             if (eventData != null && eventData.pointerId == pointer) Release();
         }
 
-        private void Update() => Render();
+        private void Update()
+        {
+            if (frames != null && interactable) Render();
+        }
 
         private void Render()
         {
@@ -75,13 +79,14 @@ namespace EscapeUNIFRANZ.UI
             float elapsed = Time.unscaledTime - pulseStarted;
             int frame;
             if (!interactable) frame = 8;
+            else if (GameOptions.ReduceFlashes) frame = pointer != NoPointer ? 4 : 0;
             else if (elapsed < 0.07f) frame = 4;
             else if (elapsed < 0.15f) frame = 5;
             else if (elapsed < 0.24f) frame = 6;
             else if (elapsed < 0.36f) frame = 7;
             else if (pointer != NoPointer) frame = 4;
             else frame = Mathf.FloorToInt(Time.unscaledTime / 0.18f) % 4;
-            image.sprite = frames[frame];
+            if (image.sprite != frames[frame]) image.sprite = frames[frame];
         }
 
         private void Release()

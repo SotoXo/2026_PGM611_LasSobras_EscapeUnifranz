@@ -1,5 +1,6 @@
 using EscapeUNIFRANZ.Core;
 using EscapeUNIFRANZ.Narrative;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -57,6 +58,15 @@ namespace EscapeUNIFRANZ.UI
             Add(quitButton, QuitGame);
             Add(controlsBackButton, ShowMain);
             Add(creditsBackButton, ShowMain);
+            if (Application.isMobilePlatform && controlsPanel != null)
+            {
+                var actions = controlsPanel.transform.Find("ControlsCard/Actions")?.GetComponent<TMP_Text>();
+                if (actions != null)
+                {
+                    PresentationTheme.StyleText(actions);
+                    actions.text = "Palanca táctil · Moverse\nInteractuar · Acércate primero al objeto\nLinterna · Lanzar\nInventario · Diario\nMapa · Escáner\nPausa · Pulsa Volver en los paneles";
+                }
+            }
             ShowMain();
         }
 

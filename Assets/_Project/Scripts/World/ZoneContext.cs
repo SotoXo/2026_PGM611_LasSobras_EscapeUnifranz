@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using EscapeUNIFRANZ.Core;
+using EscapeUNIFRANZ.Encounters;
+using EscapeUNIFRANZ.Hazards;
 using EscapeUNIFRANZ.UI;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -24,6 +26,10 @@ namespace EscapeUNIFRANZ.World
         private SpawnPoint[] spawnPoints;
         private readonly List<string> spawnIds = new List<string>();
         private readonly Dictionary<Light2D, float> ambientLights = new Dictionary<Light2D, float>();
+        private readonly List<MiniAutoController> robots = new List<MiniAutoController>();
+        private readonly List<RobotDogEncounterController> dogs = new List<RobotDogEncounterController>();
+        public IReadOnlyList<MiniAutoController> Robots => robots;
+        public IReadOnlyList<RobotDogEncounterController> RobotDogs => dogs;
 
         public string ZoneId => zoneId;
         public string DisplayName => string.IsNullOrWhiteSpace(displayName) ? zoneId : displayName;
@@ -72,11 +78,15 @@ namespace EscapeUNIFRANZ.World
                 sceneFlow.ModeController,
                 this);
             MonoBehaviour[] behaviours = GetComponentsInChildren<MonoBehaviour>(true);
+            robots.Clear();
+            dogs.Clear();
             objectiveController?.SetCurrent(objectiveId, objectiveText, 0, objectiveTotal);
             for (int index = 0; index < behaviours.Length; index++)
             {
                 if (behaviours[index] is EscapeUNIFRANZ.Interaction.InteractableBehaviour interactive)
                     interactive.BindSession(session);
+                if (behaviours[index] is MiniAutoController robot) robots.Add(robot);
+                if (behaviours[index] is RobotDogEncounterController dog) dogs.Add(dog);
                 if (behaviours[index] is IZoneRuntimeInitializable initializable)
                 {
                     initializable.Initialize(runtime);

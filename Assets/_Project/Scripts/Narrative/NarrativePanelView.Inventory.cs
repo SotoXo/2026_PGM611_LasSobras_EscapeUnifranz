@@ -4,6 +4,7 @@ using EscapeUNIFRANZ.Core;
 using EscapeUNIFRANZ.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 namespace EscapeUNIFRANZ.Narrative
 {
@@ -49,6 +50,7 @@ namespace EscapeUNIFRANZ.Narrative
             var current = visible.FirstOrDefault(item => item.id == inspected) ?? visible.FirstOrDefault();
             // Filters must also update the controller's action target.
             if (current != null && current.id != inspected) { inspect(current.id); return; }
+            Button selection = null;
             for (int i = 0; i < 20; i++)
             {
                 int index = inventoryPage * 20 + i;
@@ -59,6 +61,7 @@ namespace EscapeUNIFRANZ.Narrative
                     () => { if (item != null) inspect(item.id); });
                 slot.GetComponent<Button>().interactable = item != null;
                 if (item == null) continue;
+                if (selection == null || current == item) selection = slot.GetComponent<Button>();
                 InvItem(slot, item, 12, 10, 56, 56);
                 int quantity = state.CarriedItems.Count(id => id == item.id);
                 InvLabel(slot, "Quantity", "×" + quantity, 40, 55, 36, 20, 15);
@@ -90,6 +93,8 @@ namespace EscapeUNIFRANZ.Narrative
                 InvLabel(inventoryRoot, "Page", (inventoryPage + 1) + " / " + pages, 220, 468, 200, 24, 14);
                 InvButton(inventoryRoot, "Next", "boton_menu_normal", 478, 468, 80, 24, ">", () => { inventoryPage = (inventoryPage + 1) % pages; redraw(); });
             }
+            if (!Application.isMobilePlatform && selection != null && EventSystem.current != null)
+                EventSystem.current.SetSelectedGameObject(selection.gameObject);
         }
         private static bool IsInventoryKey(ItemData item) => item.id == "key" || item.id.EndsWith("_card", StringComparison.Ordinal);
         private void ClearInventoryVisuals()
@@ -145,7 +150,8 @@ namespace EscapeUNIFRANZ.Narrative
             Clear(); overlay.SetActive(true); title.text = item.displayName + " — EXAMINAR";
             body.rectTransform.sizeDelta = new Vector2(850, 330); body.rectTransform.anchoredPosition = new Vector2(0, 38); body.text = item.examineText;
             portsRoot.gameObject.SetActive(false); resetButton.gameObject.SetActive(false); hintButton.gameObject.SetActive(false);
-            closeButton.GetComponentInChildren<TMP_Text>(true).text = "VOLVER AL INVENTARIO"; feedback.text = "Esc para volver al inventario.";
+            closeButton.GetComponentInChildren<TMP_Text>(true).text = "VOLVER AL INVENTARIO";
+            feedback.text = Application.isMobilePlatform ? "Toca Volver para cerrar." : "Esc para volver al inventario.";
         }
     }
 }
