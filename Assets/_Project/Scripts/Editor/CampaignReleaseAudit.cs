@@ -23,7 +23,9 @@ namespace EscapeUNIFRANZ.EditorTools
         private const string CatalogPath = "Assets/_Project/Data/Zones/ZoneCatalog.asset";
 
         [MenuItem("Escape UNIFRANZ/Campaña/Auditar recorrido")]
-        public static void Run()
+        public static void Run() => Run(true);
+
+        public static void Run(bool includeFinalDecoration)
         {
             var setup = EditorSceneManager.GetSceneManagerSetup();
             var lines = new List<string>();
@@ -144,6 +146,7 @@ namespace EscapeUNIFRANZ.EditorTools
 
                     var solids = Components<Collider2D>(scene)
                         .Where(c => Active(c) && IsMapCollider(c) && !Physics2D.GetIgnoreLayerCollision(layer, c.gameObject.layer)
+                            && (includeFinalDecoration || c.transform.parent == null || c.transform.parent.name != "Ambientación · Abandono")
                             && c.GetComponentInParent<PatrolMover2D>() == null &&
                             c.GetComponentInParent<DoorPanel2D>() == null &&
                             c.GetComponentInParent<KeyedPassage>() == null).ToArray();

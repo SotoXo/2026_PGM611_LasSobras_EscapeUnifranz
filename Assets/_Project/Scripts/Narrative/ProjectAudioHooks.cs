@@ -41,6 +41,8 @@ namespace EscapeUNIFRANZ.Narrative
         private static ProjectAudioHooks instance;
         private readonly Dictionary<AudioCue, AudioCueBinding> catalog = new();
         private readonly Dictionary<AudioCue, AudioSource> beds = new();
+        private Vector3 bedGains = Vector3.one;
+        private bool bedsFading;
         private readonly AudioSource[] positional = new AudioSource[8];
         private AudioSource fadingMusic;
         private AudioSource uiSource, voiceSource;
@@ -69,12 +71,14 @@ namespace EscapeUNIFRANZ.Narrative
             if (instance == this) instance = null;
         }
 
-        public static void SetSceneMusic(AudioCue cue, bool withAmbience = false)
+        public static void SetSceneMusic(AudioCue cue, bool withAmbience = false, Vector3? ambienceGains = null)
         {
             if (instance == null) return;
             instance.defaultMusic = cue;
             instance.alertUntil = 0f;
             instance.Play(cue);
+            instance.bedGains = withAmbience ? ambienceGains ?? Vector3.one : Vector3.zero;
+            instance.bedsFading = true;
             if (!withAmbience) return;
             instance.Play(AudioCue.ElectricalHum);
             instance.Play(AudioCue.HVAC);
@@ -142,8 +146,9 @@ namespace EscapeUNIFRANZ.Narrative
                 case AudioCue.BuildingAmbience:
                     if (beds.ContainsKey(cue)) return;
                     var source = cue == AudioCue.ElectricalHum && ambience != null ? ambience : CreateSource(ambienceBus);
-                    StartLoop(source, entry.clip, entry.volume);
+                    StartLoop(source, entry.clip, 0f);
                     beds[cue] = source;
+                    bedsFading = true;
                     break;
                 case AudioCue.MusicMenu:
                 case AudioCue.MusicExplore:
@@ -201,6 +206,19 @@ namespace EscapeUNIFRANZ.Narrative
             {
                 fadingMusic.volume = Mathf.MoveTowards(fadingMusic.volume, 0f, step);
                 if (fadingMusic.volume <= 0f) fadingMusic.Stop();
+            }
+            if (!bedsFading) return;
+            bedsFading = false;
+            foreach (var bed in beds)
+            {
+                float gain = bed.Key == AudioCue.ElectricalHum ? bedGains.x :
+                    bed.Key == AudioCue.HVAC ? bedGains.y : bedGains.z;
+                float target = catalog[bed.Key].volume * Mathf.Clamp01(gain);
+                float current = bed.Value.volume;
+                if (Mathf.Approximately(current, target)) continue;
+                float next = Mathf.MoveTowards(current, target, step);
+                bed.Value.volume = next;
+                bedsFading |= !Mathf.Approximately(next, target);
             }
         }
 

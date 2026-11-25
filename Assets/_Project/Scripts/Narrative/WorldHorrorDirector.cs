@@ -31,7 +31,21 @@ namespace EscapeUNIFRANZ.Narrative
         public void Initialize(ZoneRuntimeContext context)
         {
             session=context.Session; mode=context.GameplayMode; glitch=session.GetComponentInChildren<ScreenGlitchController>(true);
-            ProjectAudioHooks.SetSceneMusic(context.Zone.ZoneId == "nucleo_ia" ? AudioCue.MusicCore : AudioCue.MusicExplore, true);
+            switch (context.Zone.ZoneId)
+            {
+                case "piso2":
+                    ProjectAudioHooks.SetSceneMusic(AudioCue.MusicExplore, true, new Vector3(.65f, .75f, .45f));
+                    break;
+                case "piso3":
+                    ProjectAudioHooks.SetSceneMusic(AudioCue.MusicTension, true, new Vector3(1f, .25f, .55f));
+                    break;
+                case "nucleo_ia":
+                    ProjectAudioHooks.SetSceneMusic(AudioCue.MusicCore, true);
+                    break;
+                default:
+                    ProjectAudioHooks.SetSceneMusic(AudioCue.MusicExplore, true, new Vector3(.8f, .4f, .65f));
+                    break;
+            }
             if (ambientAudio!=null && electricalBuzz!=null) { ambientAudio.clip=electricalBuzz; ambientAudio.loop=true; ambientAudio.Play(); }
             if ((context.Zone.ZoneId=="piso3" || context.Zone.ZoneId=="nucleo_ia") && session.State.DiscoverWorldItem("event","corruption_enter_"+context.Zone.ZoneId)) StartCoroutine(ArrivalPulse());
             if (context.Zone.ZoneId != "entrada" && context.Zone.ZoneId != "nucleo_ia")
