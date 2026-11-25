@@ -1,0 +1,22 @@
+Unity 6000.3.16f1 | Edit Mode | 13 escenas, 4 prefabs, 78 ScriptableObjects, 3070 GameObjects
+Missing Script=0 | referencias sin resolver=6 | escenas habilitadas=11 | rutas o GUID inválidos=0
+Windows x64=True | Android=True
+Z03_Piso2 | GO 215 (187 activos), luces 26 (4 con sombra), ShadowCaster 20, col. sólidos 23, audios 9, Canvas 0, Animator 0, partículas 0
+Z04_Piso3 | GO 241 (212 activos), luces 26 (4 con sombra), ShadowCaster 34, col. sólidos 39, audios 11, Canvas 0, Animator 0, partículas 0
+MainMenu | GO 115 (22 activos), luces 0 (0 con sombra), ShadowCaster 0, col. sólidos 0, audios 2, Canvas 2, Animator 0, partículas 0
+Z01_Hall | GO 318 (287 activos), luces 24 (3 con sombra), ShadowCaster 1, col. sólidos 7, audios 7, Canvas 0, Animator 0, partículas 0
+Z06_NucleoIA | GO 232 (204 activos), luces 25 (5 con sombra), ShadowCaster 35, col. sólidos 36, audios 7, Canvas 0, Animator 0, partículas 0
+Z07_Aula2 | GO 296 (296 activos), luces 1 (1 con sombra), ShadowCaster 1, col. sólidos 10, audios 0, Canvas 0, Animator 0, partículas 0
+Z05_LabSoftware | GO 196 (167 activos), luces 23 (4 con sombra), ShadowCaster 34, col. sólidos 34, audios 11, Canvas 0, Animator 0, partículas 0
+Z00_Entrada | GO 331 (297 activos), luces 25 (3 con sombra), ShadowCaster 1, col. sólidos 8, audios 6, Canvas 0, Animator 0, partículas 0
+Z00_Practica | GO 18 (18 activos), luces 4 (0 con sombra), ShadowCaster 0, col. sólidos 6, audios 0, Canvas 0, Animator 0, partículas 0
+URP2DSceneTemplate | GO 2 (2 activos), luces 1 (0 con sombra), ShadowCaster 0, col. sólidos 0, audios 0, Canvas 0, Animator 0, partículas 0
+SampleScene | GO 14 (12 activos), luces 1 (0 con sombra), ShadowCaster 0, col. sólidos 8, audios 0, Canvas 1, Animator 1, partículas 0
+Bootstrap | GO 319 (27 activos), luces 1 (1 con sombra), ShadowCaster 0, col. sólidos 1, audios 6, Canvas 1, Animator 1, partículas 0
+Z02_ARCA | GO 296 (264 activos), luces 15 (2 con sombra), ShadowCaster 1, col. sólidos 7, audios 3, Canvas 0, Animator 0, partículas 0
+Assets/Settings/Renderer2D.asset / Renderer2D / probeVolumeResources.probeVolumeDebugShader
+Assets/Settings/Renderer2D.asset / Renderer2D / probeVolumeResources.probeVolumeFragmentationDebugShader
+Assets/Settings/Renderer2D.asset / Renderer2D / probeVolumeResources.probeVolumeOffsetDebugShader
+Assets/Settings/Renderer2D.asset / Renderer2D / probeVolumeResources.probeVolumeSamplingDebugShader
+Assets/Settings/Renderer2D.asset / Renderer2D / probeVolumeResources.probeSamplingDebugMesh
+Assets/Settings/Renderer2D.asset / Renderer2D / probeVolumeResources.probeSamplingDebugTexture

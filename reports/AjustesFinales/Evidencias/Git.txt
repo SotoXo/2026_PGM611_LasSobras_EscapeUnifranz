@@ -1,0 +1,29 @@
+Rama: feature/limber-ajustes-finales
+Base preservada: 83bfae7
+Último commit de implementación: ee337e1
+Referencia de respaldo: codex/respaldo-ajustes-finales-2026-11-24-214118
+main local: 2f024d5
+Archivos nuevos: 65. Modificados: 43. Eliminados: 0.
+Metas originales: 1092. Modificados o eliminados: 0.
+Renderer2D.asset: 3f68c7a8b37ddde8eedff7612911e224da6ca541 / 3f68c7a8b37ddde8eedff7612911e224da6ca541
+git diff --check: 0. Entradas en conflicto: 0. Marcadores: 0.
+209 archivos locales verificados contra su manifiesto SHA-256.
+Archivos rastreados pendientes: 0.
+
+Commits de implementación
+f2afeaf Completa los ajustes de audio, iluminación y rendimiento
+37174d1 Unifica la interfaz y distingue las latas del inventario
+0ca650a Incorpora el tutorial interactivo antes de la campaña
+3430719 Refuerza el abandono y la ambientación de los tres pisos
+9919e14 Corrige el abordaje del ascensor y limpia recepción
+1c5dcf1 Ajusta los controles táctiles y reduce búsquedas durante el juego
+2c58906 Mejora el contraste de ajustes y la lectura de la práctica
+ee337e1 Incluye la licencia de la tipografía en el juego
+
+Estado antes del commit de documentación
+## feature/limber-ajustes-finales
+?? .playwright-mcp/
+?? ejecutablew.zip
+?? ejecutablew/
+?? reports/AjustesFinales/
+?? tatus

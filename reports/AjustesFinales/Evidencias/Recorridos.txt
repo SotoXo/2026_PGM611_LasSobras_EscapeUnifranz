@@ -1,0 +1,13 @@
+Comparación de recorrido con y sin escombros agregados
+Sin observaciones nuevas por la decoración.
+Observaciones de la campaña
+Z00_Entrada/ExitToPiso2: falta indicador
+Z02_ARCA/ExitToPiso2: falta indicador
+Z06_NucleoIA/Aula2AnnexAccess: falta indicador
+Z07_Aula2/Ascensor a planta baja: falta indicador
+Z07_Aula2: no hay puzles activos
+Z07_Aula2: faltan luces de habitación activas
+hall/ExitToPiso2: acceso sin retorno
+arca/ExitToPiso2: acceso sin retorno
+piso2/ExitToHall: acceso sin retorno
+nucleo_ia/Aula2AnnexAccess: acceso sin retorno
