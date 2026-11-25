@@ -4,6 +4,7 @@
     "references": [
         "EscapeUNIFRANZ.Runtime",
         "EscapeUNIFRANZ.Editor",
+        "Unity.TextMeshPro",
         "Unity.RenderPipelines.Universal.Runtime",
         "Unity.RenderPipelines.Universal.2D.Runtime"
     ],

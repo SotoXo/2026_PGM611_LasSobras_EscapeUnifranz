@@ -17,14 +17,14 @@ namespace EscapeUNIFRANZ.Narrative
         private int inventoryCategory, inventoryPage;
 
         public void ShowInventory(ItemData[] items, GameState state, string inspected,
-            Action<string> inspect, Action select, Action examine, Action use, Action clear)
+            Action<string> inspect, Action select, Action examine, Action clear)
         {
             Clear(); overlay.SetActive(true);
             title.transform.parent.gameObject.SetActive(false);
             if (inventorySkin == null) inventorySkin = Resources.Load<InventorySkin>("InventorySkin");
             inventoryRoot = InvRect(overlay.transform, "Inventory", 0, 0, 940, 540, false);
             inventoryRoot.gameObject.AddComponent<SafeAreaPanel>();
-            Action redraw = () => ShowInventory(items, state, inspected, inspect, select, examine, use, clear);
+            Action redraw = () => ShowInventory(items, state, inspected, inspect, select, examine, clear);
             InvImage(inventoryRoot, "GridPanel", "panel_inventario", 100, 96, 472, 400);
             InvImage(inventoryRoot, "PreviewPanel", "panel_vista_previa", 572, 96, 344, 400);
             InvButton(inventoryRoot, "InventoryTab", equipmentTab ? "pestana_normal" : "pestana_seleccionada",
@@ -71,19 +71,18 @@ namespace EscapeUNIFRANZ.Narrative
             if (current != null)
             {
                 bool selected = state.SelectedItemId == current.id;
-                bool immediate = current.immediateUse != ImmediateItemUse.None;
+                bool flashlight = current.immediateUse == ImmediateItemUse.Flashlight;
                 InvItem(inventoryRoot, current, 692, 177, 104, 104);
                 string info = selected ? "SELECCIONADO" : "";
-                if (immediate) info += (selected ? " · " : "") + (state.FlashlightOn ? "ENCENDIDA" : "APAGADA");
+                if (flashlight) info += (selected ? " · " : "") + (state.FlashlightOn ? "ENCENDIDA" : "APAGADA");
                 InvLabel(inventoryRoot, "State", info, 596, 286, 296, 24, 17);
-                var description = InvLabel(inventoryRoot, "Description", current.description, 596, 310, 296, 106, 20);
+                string details = current.description;
+                if (flashlight) details += Application.isMobilePlatform ? "\nEn juego, toca el botón Linterna." : "\nEn juego, pulsa F.";
+                var description = InvLabel(inventoryRoot, "Description", details, 596, 310, 296, 106, 20);
                 description.fontSizeMin = 15;
                 InvButton(inventoryRoot, "Select", "boton_menu_seleccionado", 590, 432, 152, 44,
                     selected ? "DESELECCIONAR" : "SELECCIONAR", selected ? clear : select, 16);
                 InvButton(inventoryRoot, "Examine", "boton_menu_normal", 748, 432, 152, 44, "EXAMINAR", examine, 18);
-                if (immediate)
-                    InvButton(inventoryRoot, "ToggleItem", "boton_menu_normal", 748, 246, 145, 34,
-                        state.FlashlightOn ? "APAGAR" : "ENCENDER", use, 15);
             }
             else InvLabel(inventoryRoot, "Empty", "No llevas objetos en esta categoría.", 606, 230, 276, 130, 22);
             inventoryFeedback = InvLabel(inventoryRoot, "Feedback", Application.isMobilePlatform ? "Toca una casilla para revisar su contenido" : "Selecciona un objeto · Esc para cerrar", 100, 500, 816, 30, 15);

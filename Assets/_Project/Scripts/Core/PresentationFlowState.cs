@@ -71,29 +71,31 @@ namespace EscapeUNIFRANZ.Core
                 return true;
             }
 
-            return BeginLoading(PresentationScreen.MainMenu);
+            return SetScreen(PresentationScreen.StartChoice);
         }
 
         public bool SkipIntro()
         {
             return Current == PresentationScreen.Intro &&
-                BeginLoading(PresentationScreen.MainMenu);
+                SetScreen(PresentationScreen.StartChoice);
         }
+
+        public bool BeginStartRoute() => Current == PresentationScreen.StartChoice &&
+            BeginLoading(PresentationScreen.StartChoice);
 
         public bool LoadSavedGame()
         {
-            return Current == PresentationScreen.MainMenu && SetScreen(PresentationScreen.Loading);
+            return Current == PresentationScreen.MainMenu && BeginLoading(PresentationScreen.MainMenu);
         }
 
-        public bool BeginLoading(PresentationScreen failureScreen)
+        public bool LoadCampaignFromPractice()
         {
-            if (Current != PresentationScreen.Intro &&
-                Current != PresentationScreen.Pause &&
-                Current != PresentationScreen.Defeat)
-            {
-                return false;
-            }
+            return (Current == PresentationScreen.Gameplay || Current == PresentationScreen.Pause) &&
+                BeginLoading(PresentationScreen.MainMenu);
+        }
 
+        private bool BeginLoading(PresentationScreen failureScreen)
+        {
             loadingFailureScreen = failureScreen;
             return SetScreen(PresentationScreen.Loading);
         }

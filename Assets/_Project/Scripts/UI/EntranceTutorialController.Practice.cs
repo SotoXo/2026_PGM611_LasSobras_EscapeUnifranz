@@ -51,7 +51,7 @@ namespace EscapeUNIFRANZ.UI
             {
                 case PracticeStage.Movement: return "Muévete por la sala de calibración";
                 case PracticeStage.Pickup: return "Recoge la linterna de práctica";
-                case PracticeStage.Inventory: return "Examina y selecciona la linterna";
+                case PracticeStage.Inventory: return "Practica examinar y seleccionar en el inventario";
                 case PracticeStage.Flashlight: return "Enciende y apaga la linterna";
                 case PracticeStage.Cans: return "Prueba las dos latas con el robot";
                 case PracticeStage.Instructions: return "Consulta la terminal de emergencia";
@@ -68,7 +68,7 @@ namespace EscapeUNIFRANZ.UI
                 case PracticeStage.Pickup: return touch ? "Acércate a la linterna y toca Interactuar" : "Acércate a la linterna y pulsa E";
                 case PracticeStage.Inventory: return touch ? "Toca Inventario. Examina, vuelve, selecciona y cierra."
                     : "Abre con I. Examina, vuelve, selecciona y cierra.";
-                case PracticeStage.Flashlight: return (touch ? "Toca Linterna" : "Pulsa F") +
+                case PracticeStage.Flashlight: return (touch ? "Toca el botón Linterna" : "Pulsa F") +
                     (practice.TurnedOn ? " para apagarla" : " para ver el rincón oscuro");
                 case PracticeStage.Cans:
                     return (!practice.SawFullImpact ? "Selecciona la llena: inmoviliza. " : "Selecciona la vacía: daña. ") +

@@ -43,7 +43,7 @@ namespace EscapeUNIFRANZ.World
             else if (Stage == PracticeStage.Instructions)
                 narrative?.ShowTrainingBriefing();
             else
-                BoundSession.ShowMessage("Completa la acción indicada en el HUD.");
+                BoundSession.ShowMessage("Sigue el objetivo del HUD o elige Ir al nivel 1 en Pausa.");
         }
     }
 }

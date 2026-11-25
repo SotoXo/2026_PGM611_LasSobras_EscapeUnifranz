@@ -18,6 +18,7 @@ namespace EscapeUNIFRANZ.UI
         private GameSessionController session;
         private PlayerInteraction interaction;
         private MobileControlButton pickupButton, flashlightButton, mapButton, tossButton;
+        private TMP_Text flashlightStatus;
         private Rect lastSafeArea;
         private Vector2Int lastScreenSize;
         private TMP_FontAsset font;
@@ -55,6 +56,11 @@ namespace EscapeUNIFRANZ.UI
             pickupButton = ArtButton("recoger", "e", new Vector2(-180, 210), 224);
             ArtButton("inventario", "i", new Vector2(-180, 425), 176);
             flashlightButton = ArtButton("linterna", "f", new Vector2(-395, 195), 176);
+            flashlightStatus = CreateLabel(flashlightButton.transform, "", 22);
+            var statusRect = flashlightStatus.rectTransform;
+            statusRect.anchorMin = statusRect.anchorMax = new Vector2(0.5f, 0f);
+            statusRect.anchoredPosition = new Vector2(0, -18);
+            statusRect.sizeDelta = new Vector2(178, 56);
             ArtButton("pausa", "escape", new Vector2(-440, -95), 136, true);
             TextButton("ESCÁNER", "tab", new Vector2(-185, 180));
             mapButton = TextButton("MAPA", "m", new Vector2(0, 180));
@@ -84,8 +90,17 @@ namespace EscapeUNIFRANZ.UI
             {
                 pickupButton.SetInteractable(interaction != null && interaction.InteractionEnabled &&
                     interaction.CurrentTarget != null && interaction.CurrentTarget.CanInteract);
-                flashlightButton.SetInteractable(session != null && session.State != null &&
-                    session.State.HasItem("flashlight"));
+                var state = session?.State;
+                bool hasFlashlight = state?.HasItem("flashlight") == true;
+                bool lightOn = hasFlashlight && state.FlashlightOn;
+                flashlightButton.SetInteractable(hasFlashlight && mode.AllowsInteraction);
+                string lampStatus = !hasFlashlight ? "LINTERNA\nSIN RECOGER" :
+                    lightOn ? "LINTERNA\nENCENDIDA" : "LINTERNA\nAPAGADA";
+                if (flashlightStatus.text != lampStatus)
+                {
+                    flashlightStatus.text = lampStatus;
+                    flashlightStatus.color = lightOn ? new Color32(255, 224, 166, 255) : new Color32(239, 216, 216, 255);
+                }
                 mapButton.SetInteractable(flow.HasMapAccess);
                 bool hasCan = ThrowableCanController.ChooseCan(session?.State) != null;
                 if (tossButton.gameObject.activeSelf != hasCan) tossButton.gameObject.SetActive(hasCan);
@@ -155,20 +170,26 @@ namespace EscapeUNIFRANZ.UI
             image.color = new Color(0.14f, 0.025f, 0.04f, 0.85f);
             var button = rect.gameObject.AddComponent<MobileControlButton>();
             button.Configure(image, null, key);
+            CreateLabel(rect, label, 27);
+            return button;
+        }
+
+        private TMP_Text CreateLabel(Transform parent, string label, float fontSize)
+        {
             var labelObject = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
             var labelRect = labelObject.GetComponent<RectTransform>();
-            labelRect.SetParent(rect, false);
+            labelRect.SetParent(parent, false);
             labelRect.anchorMin = Vector2.zero;
             labelRect.anchorMax = Vector2.one;
             labelRect.offsetMin = labelRect.offsetMax = Vector2.zero;
             var text = labelObject.GetComponent<TextMeshProUGUI>();
             text.font = font;
             text.text = label;
-            text.fontSize = 27;
+            text.fontSize = fontSize;
             text.color = new Color(1f, 0.52f, 0.51f);
             text.alignment = TextAlignmentOptions.Center;
             text.raycastTarget = false;
-            return button;
+            return text;
         }
     }
 }

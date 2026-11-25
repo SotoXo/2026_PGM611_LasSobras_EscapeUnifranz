@@ -75,6 +75,7 @@ namespace EscapeUNIFRANZ.UI
         private GameFlowController controller;
         private Coroutine selectionRoutine;
         private GameObject pauseSelection;
+        private Button pausePracticeExitButton;
         private static void StyleInterface(GameObject screen, string cardName)
         {
             if (screen == null) return;
@@ -153,14 +154,26 @@ namespace EscapeUNIFRANZ.UI
                 return;
             }
 
-            Add(introNextButton, controller.ContinueIntro);
-            Add(introSkipButton, controller.SkipIntro);
+            Add(introNextButton, OnIntroNext);
+            Add(introSkipButton, OnIntroSkip);
             Add(resumeButton, controller.ResumeGame);
             Add(pauseRestartButton, controller.RestartCheckpointFromPause);
             Add(pauseControlsButton, controller.OpenControls);
             Add(pauseMenuButton, controller.ReturnToMainMenu);
             Add(pauseInventoryButton, controller.OpenInventory);
             Add(pauseMapButton, controller.OpenMap);
+            if (pauseMapButton != null && pausePracticeExitButton == null)
+            {
+                // Practice has no campus map. Use that slot for its own action.
+                pausePracticeExitButton = Instantiate(pauseMapButton, pauseMapButton.transform.parent);
+                pausePracticeExitButton.name = "PausePracticeExit";
+                pausePracticeExitButton.onClick = new Button.ButtonClickedEvent();
+                pausePracticeExitButton.interactable = true;
+                pausePracticeExitButton.gameObject.SetActive(false);
+                var label = pausePracticeExitButton.GetComponentInChildren<TMP_Text>(true);
+                if (label != null) label.text = "IR AL NIVEL 1";
+            }
+            Add(pausePracticeExitButton, controller.SkipPracticeFromPause);
             Add(pauseJournalButton, controller.OpenJournal);
             Add(controlsBackButton, controller.CloseControls);
             Add(pauseOptionsButton, controller.OpenOptions);
@@ -180,14 +193,15 @@ namespace EscapeUNIFRANZ.UI
                 return;
             }
 
-            Remove(introNextButton, controller.ContinueIntro);
-            Remove(introSkipButton, controller.SkipIntro);
+            Remove(introNextButton, OnIntroNext);
+            Remove(introSkipButton, OnIntroSkip);
             Remove(resumeButton, controller.ResumeGame);
             Remove(pauseRestartButton, controller.RestartCheckpointFromPause);
             Remove(pauseControlsButton, controller.OpenControls);
             Remove(pauseMenuButton, controller.ReturnToMainMenu);
             Remove(pauseInventoryButton, controller.OpenInventory);
             Remove(pauseMapButton, controller.OpenMap);
+            Remove(pausePracticeExitButton, controller.SkipPracticeFromPause);
             Remove(pauseJournalButton, controller.OpenJournal);
             Remove(controlsBackButton, controller.CloseControls);
             Remove(pauseOptionsButton, controller.OpenOptions);
@@ -206,7 +220,8 @@ namespace EscapeUNIFRANZ.UI
             int introPanelCount,
             string reason)
         {
-            SetActive(introRoot, screen == PresentationScreen.Intro);
+            bool choosingRoute = screen == PresentationScreen.StartChoice;
+            SetActive(introRoot, screen == PresentationScreen.Intro || choosingRoute);
             SetActive(loadingRoot, screen == PresentationScreen.Loading);
             SetActive(pauseRoot, screen == PresentationScreen.Pause);
             SetActive(controlsRoot, screen == PresentationScreen.Controls);
@@ -217,16 +232,8 @@ namespace EscapeUNIFRANZ.UI
             SetActive(gameplayHudRoot, screen == PresentationScreen.Gameplay);
             if (screen == PresentationScreen.Pause) RefreshPauseActions();
 
-            if (screen == PresentationScreen.Intro)
-            {
-                int index = Mathf.Clamp(introPanelIndex, 0, IntroBodies.Length - 1);
-                if (introTitle != null) introTitle.text = IntroTitles[index];
-                if (introBody != null) introBody.text = IntroBodies[index];
-                if (introCounter != null)
-                {
-                    introCounter.text = $"REGISTRO {index + 1:00} / {introPanelCount:00}";
-                }
-            }
+            if (screen == PresentationScreen.Intro || choosingRoute)
+                RenderIntro(introPanelIndex, introPanelCount, choosingRoute);
 
             if (defeatReason != null)
             {
@@ -236,6 +243,34 @@ namespace EscapeUNIFRANZ.UI
             }
 
             SelectDefaultButton(screen);
+        }
+
+        private void RenderIntro(int panelIndex, int panelCount, bool choosingRoute)
+        {
+            int index = Mathf.Clamp(panelIndex, 0, IntroBodies.Length - 1);
+            if (introTitle != null) introTitle.text = choosingRoute ? "ELIGE CÓMO EMPEZAR" : IntroTitles[index];
+            if (introBody != null) introBody.text = choosingRoute
+                ? "Practica los controles en la sala de calibración o empieza la campaña en Recepción."
+                : IntroBodies[index];
+            if (introCounter != null) introCounter.text = choosingRoute ? "NUEVA PARTIDA" : $"REGISTRO {index + 1:00} / {panelCount:00}";
+
+            SetActive(introRoot?.transform.Find("IntroCard/Hint")?.gameObject, !choosingRoute);
+            SetButtonLabel(introNextButton, choosingRoute ? "JUGAR TUTORIAL" : "CONTINUAR");
+            SetButtonLabel(introSkipButton, choosingRoute ? "IR AL PRIMER NIVEL" : "OMITIR INTRO");
+            if (introNextButton != null)
+                introNextButton.interactable = !choosingRoute || controller?.CanStartTutorial == true;
+        }
+
+        private void OnIntroNext()
+        {
+            if (controller.CurrentScreen == PresentationScreen.StartChoice) controller.StartTutorial();
+            else controller.ContinueIntro();
+        }
+
+        private void OnIntroSkip()
+        {
+            if (controller.CurrentScreen == PresentationScreen.StartChoice) controller.StartCampaign();
+            else controller.SkipIntro();
         }
 
         public void SetPauseContentVisible(bool visible)
@@ -266,8 +301,11 @@ namespace EscapeUNIFRANZ.UI
 
         private void RefreshPauseActions()
         {
+            bool practicing = controller?.IsPractice == true;
+            SetActive(pausePracticeExitButton != null ? pausePracticeExitButton.gameObject : null, practicing);
             if (pauseMapButton != null)
             {
+                SetActive(pauseMapButton.gameObject, !practicing);
                 pauseMapButton.interactable = controller != null && controller.HasMapAccess;
                 TMP_Text label = pauseMapButton.GetComponentInChildren<TMP_Text>(true);
                 if (label != null) label.text = pauseMapButton.interactable ? "MAPA" : "MAPA NO DISPONIBLE";
@@ -276,13 +314,14 @@ namespace EscapeUNIFRANZ.UI
             {
                 pauseRestartButton.interactable = controller != null && (controller.HasCheckpoint || controller.IsPractice);
                 TMP_Text label = pauseRestartButton.GetComponentInChildren<TMP_Text>(true);
-                if (label != null) label.text = controller?.IsPractice == true ? "REINICIAR PRÁCTICA" :
+                if (label != null) label.text = practicing ? "REINICIAR PRÁCTICA" :
                     pauseRestartButton.interactable ? "REINICIAR CHECKPOINT" : "SIN CHECKPOINT";
             }
 
             // Explicit navigation must skip actions disabled by progression/checkpoint availability.
             Button[] actions = { resumeButton, pauseRestartButton, pauseControlsButton,
-                pauseInventoryButton, pauseMapButton, pauseJournalButton, pauseOptionsButton, pauseMenuButton };
+                pauseInventoryButton, practicing ? pausePracticeExitButton : pauseMapButton,
+                pauseJournalButton, pauseOptionsButton, pauseMenuButton };
             for (int index = 0; index < actions.Length; index++)
             {
                 Button button = actions[index];
@@ -327,6 +366,9 @@ namespace EscapeUNIFRANZ.UI
                 case PresentationScreen.Intro:
                     target = introNextButton;
                     break;
+                case PresentationScreen.StartChoice:
+                    target = introNextButton != null && introNextButton.interactable ? introNextButton : introSkipButton;
+                    break;
                 case PresentationScreen.Pause:
                     target = resumeButton;
                     break;
@@ -366,6 +408,12 @@ namespace EscapeUNIFRANZ.UI
         private static void SetActive(GameObject target, bool active)
         {
             target?.SetActive(active);
+        }
+
+        private static void SetButtonLabel(Button button, string caption)
+        {
+            var label = button?.GetComponentInChildren<TMP_Text>(true);
+            if (label != null) label.text = caption;
         }
 
         private static void Add(Button button, UnityEngine.Events.UnityAction action)

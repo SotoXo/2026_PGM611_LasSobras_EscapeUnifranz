@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Narrative.ItemData
   id: flashlight
   displayName: Linterna
-  description: "Ilumina en la direcci\xF3n en que miras. F \u2014 Encender / apagar."
+  description: "Ilumina en la direcci\xF3n en que miras."
   examineText: "Linterna del personal. El foco frontal permite explorar m\xE1s all\xE1
     del peque\xF1o radio cercano. Energ\xEDa ilimitada en esta versi\xF3n. Apagada:
     conservas visi\xF3n cercana y las luces del escenario."

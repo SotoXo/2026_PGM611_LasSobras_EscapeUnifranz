@@ -32,6 +32,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
             Assert.That(flow.OpenOptions(), Is.False);
             flow.StartNewGame();
             flow.SkipIntro();
+            flow.BeginStartRoute();
             flow.CompleteLoading();
             flow.Pause();
             Assert.That(flow.OpenOptions(), Is.True);

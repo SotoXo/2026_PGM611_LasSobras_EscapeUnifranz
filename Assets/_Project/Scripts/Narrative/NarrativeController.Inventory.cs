@@ -24,10 +24,9 @@ namespace EscapeUNIFRANZ.Narrative
             view.ShowInventory(items,state,inspectingItem,id=>{inspectingItem=id; InventoryPage();},
                 ()=>{if (state.SelectItem(inspectingItem)) session.Tutorial?.PracticeSelectItem(); InventoryPage();},
                 ()=>{ var data=ItemData.Find(inspectingItem); if (data==null) return; examiningItem=true; session.Tutorial?.PracticeExamineItem(); view.ShowItemExamination(data); },
-                ()=>{ var data=ItemData.Find(inspectingItem); if (data?.immediateUse==ImmediateItemUse.Flashlight) ToggleFlashlight(); InventoryPage(); },
                 ()=>{state.SelectItem(null); InventoryPage();});
         }
-        public void ToggleFlashlight()
+        private void ToggleFlashlight()
         {
             if (state==null || !state.ToggleFlashlight()) { session.ShowMessage("No llevas una linterna."); return; }
             session.Tutorial?.PracticeFlashlight(state.FlashlightOn);
@@ -42,7 +41,8 @@ namespace EscapeUNIFRANZ.Narrative
             if(id=="battery") { message="BATERÍA PORTÁTIL OBTENIDA"; tutorial?.Offer(EscapeUNIFRANZ.UI.TutorialAction.Inventory); }
             if(id=="flashlight")
             {
-                message="LINTERNA OBTENIDA";
+                message=Application.isMobilePlatform ? "LINTERNA OBTENIDA\nUSA EL BOTÓN LINTERNA" :
+                    "LINTERNA OBTENIDA\nF PARA ENCENDER O APAGAR";
                 if (session.IsPractice && state.FlashlightOn) state.ToggleFlashlight();
                 tutorial?.PracticeCollectFlashlight();
                 tutorial?.Offer(EscapeUNIFRANZ.UI.TutorialAction.Flashlight);

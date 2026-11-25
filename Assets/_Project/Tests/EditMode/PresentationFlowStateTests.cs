@@ -16,7 +16,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         }
 
         [Test]
-        public void NewGame_TraversesThreeIntroPanelsBeforeLoadingAndGameplay()
+        public void NewGame_TraversesThreeIntroPanelsBeforeOfferingTheStartChoice()
         {
             var flow = new PresentationFlowState(3);
 
@@ -30,6 +30,9 @@ namespace EscapeUNIFRANZ.Tests.EditMode
             Assert.That(flow.IntroPanelIndex, Is.EqualTo(2));
             flow.AdvanceIntro();
 
+            Assert.That(flow.Current, Is.EqualTo(PresentationScreen.StartChoice));
+            Assert.That(flow.CompleteLoading(), Is.False);
+            Assert.That(flow.BeginStartRoute(), Is.True);
             Assert.That(flow.Current, Is.EqualTo(PresentationScreen.Loading));
             Assert.That(flow.ShouldFreezeTime, Is.True);
             Assert.That(flow.CompleteLoading(), Is.True);
@@ -38,13 +41,18 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         }
 
         [Test]
-        public void Intro_CanBeSkippedDirectlyToLoading()
+        public void SkippingTheIntroStillOffersTheStartChoice()
         {
             var flow = new PresentationFlowState();
             flow.StartNewGame();
 
+            Assert.That(flow.BeginStartRoute(), Is.False);
             Assert.That(flow.SkipIntro(), Is.True);
-            Assert.That(flow.Current, Is.EqualTo(PresentationScreen.Loading));
+            Assert.That(flow.Current, Is.EqualTo(PresentationScreen.StartChoice));
+            Assert.That(flow.SkipIntro(), Is.False);
+            Assert.That(flow.BeginStartRoute(), Is.True);
+            Assert.That(flow.FailLoading(), Is.True);
+            Assert.That(flow.Current, Is.EqualTo(PresentationScreen.StartChoice));
         }
 
         [Test]
@@ -156,6 +164,22 @@ namespace EscapeUNIFRANZ.Tests.EditMode
             Assert.That(flow.Current, Is.EqualTo(PresentationScreen.Pause));
         }
 
+        [TestCase(false)]
+        [TestCase(true)]
+        public void PracticeExitLoadsCampaignFromGameplayOrPause(bool paused)
+        {
+            var flow = ReachGameplay();
+            if (paused) flow.Pause();
+
+            Assert.That(flow.LoadCampaignFromPractice(), Is.True);
+            Assert.That(flow.Current, Is.EqualTo(PresentationScreen.Loading));
+            Assert.That(flow.ShouldFreezeTime, Is.True);
+            Assert.That(flow.LoadCampaignFromPractice(), Is.False);
+            Assert.That(flow.CompleteLoading(), Is.True);
+            Assert.That(flow.Current, Is.EqualTo(PresentationScreen.Gameplay));
+            Assert.That(flow.ShouldFreezeTime, Is.False);
+        }
+
         [Test]
         public void Victory_LeadsToCreditsAndThenMainMenu()
         {
@@ -187,6 +211,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
             var flow = new PresentationFlowState(1);
             flow.StartNewGame();
             flow.AdvanceIntro();
+            flow.BeginStartRoute();
             flow.CompleteLoading();
             return flow;
         }

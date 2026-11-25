@@ -53,9 +53,19 @@ namespace EscapeUNIFRANZ.Narrative
         }
         private void ApplyEquipment()
         {
-            vision?.SetFlashlightState(state!=null&&state.HasItem("flashlight"),state!=null&&state.FlashlightOn);
-            if (equipmentLabel!=null) equipmentLabel.text=(state!=null && !string.IsNullOrEmpty(state.SelectedItemId) ? "OBJETO: "+ItemData.Label(state.SelectedItemId)+"   •   " : "")+(state!=null && state.HasItem("flashlight") ? "LINTERNA "+(state.FlashlightOn ? "ON" : "OFF") : "");
-            if(equipmentLabel!=null) equipmentLabel.gameObject.SetActive(!string.IsNullOrEmpty(equipmentLabel.text));
+            bool hasFlashlight = state?.HasItem("flashlight") == true;
+            bool lightOn = hasFlashlight && state.FlashlightOn;
+            vision?.SetFlashlightState(hasFlashlight, lightOn);
+            if (equipmentLabel == null) return;
+
+            string status = string.IsNullOrEmpty(state?.SelectedItemId) ? "" : "OBJETO: " + ItemData.Label(state.SelectedItemId);
+            if (hasFlashlight && !Application.isMobilePlatform)
+            {
+                if (status.Length > 0) status += "   •   ";
+                status += lightOn ? "<color=#FFE0A6>[F] LINTERNA · ENCENDIDA</color>" : "[F] LINTERNA · APAGADA";
+            }
+            equipmentLabel.text = status;
+            equipmentLabel.gameObject.SetActive(status.Length > 0);
         }
         private bool Open(GameplayMode next)
         {
@@ -74,11 +84,12 @@ namespace EscapeUNIFRANZ.Narrative
             if (!session.IsPractice || !Open(GameplayMode.Dialogue)) return;
             view.Options("CANAL DE EMERGENCIA",
                 "FRANCIS • Enlace parcial. El objetivo del HUD indica la acción pendiente. Acércate a dispositivos para ver qué puedes hacer. Lee cada panel antes de actuar.",
-                new[] { "Entendido" }, _ =>
+                new[] { "Ir al primer nivel" }, _ =>
                 {
                     Close();
                     session.Tutorial?.PracticeConfirmBriefing();
-                }, Application.isMobilePlatform ? "Toca Entendido para continuar" : "Esc para volver");
+                    session.GetComponent<GameFlowController>()?.CompletePractice();
+                }, Application.isMobilePlatform ? "Confirma para ir a Recepción" : "Esc para volver");
         }
         public void ShowPuzzle(PuzzleInteractable owner)
         {

@@ -30,7 +30,6 @@ namespace EscapeUNIFRANZ.Core
         private GameplayMode resumeMode = GameplayMode.Explore;
         private Coroutine outcomeTransition;
         private bool returningToMainMenu;
-        private bool leavingPractice;
 
         public PresentationScreen CurrentScreen => flow.Current;
         public bool ShowsGameplayHud => flow.ShowsGameplayHud;
@@ -38,6 +37,7 @@ namespace EscapeUNIFRANZ.Core
         public bool HasMapAccess => session?.State?.HasFlag(GameFlagId.CampusPlanRecovered)==true;
         public bool HasCheckpoint => session?.State?.HasCheckpoint == true;
         public bool IsPractice => session?.IsPractice == true;
+        public bool CanStartTutorial => sceneFlow?.CanLoadZone(EntranceTutorialController.PracticeZoneId) == true;
         public string DefeatReason { get; private set; } = string.Empty;
 
         private void Awake()
@@ -180,19 +180,21 @@ namespace EscapeUNIFRANZ.Core
 
         public void ContinueIntro()
         {
-            if (!flow.AdvanceIntro()) return;
-            if (flow.Current == PresentationScreen.Loading)
-                LoadInitialZone();
-            else if (flow.IntroPanelIndex == flow.IntroPanelCount - 1)
+            if (flow.AdvanceIntro() && flow.Current == PresentationScreen.Intro &&
+                flow.IntroPanelIndex == flow.IntroPanelCount - 1)
                 EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.FrancisBroadcast);
         }
 
-        public void SkipIntro()
+        public void SkipIntro() => flow.SkipIntro();
+
+        public void StartTutorial()
         {
-            if (flow.SkipIntro())
-            {
-                LoadInitialZone();
-            }
+            if (CanStartTutorial && flow.BeginStartRoute()) LoadPractice();
+        }
+
+        public void StartCampaign()
+        {
+            if (flow.BeginStartRoute() && !GoToCampaignStart()) flow.FailLoading();
         }
 
         public void PauseGame()
@@ -333,19 +335,8 @@ namespace EscapeUNIFRANZ.Core
 #endif
         }
 
-        private void LoadInitialZone()
-        {
-            resumeMode = GameplayMode.Explore;
-            if (sceneFlow != null && sceneFlow.CanLoadZone(EntranceTutorialController.PracticeZoneId))
-            {
-                LoadPractice();
-                return;
-            }
-            if (sceneFlow == null || !sceneFlow.GoToZone(initialZoneId, initialSpawnId))
-            {
-                flow.FailLoading();
-            }
-        }
+        private bool GoToCampaignStart() => sceneFlow != null && !sceneFlow.IsTransitioning &&
+            sceneFlow.GoToZone(initialZoneId, initialSpawnId);
 
         private void LoadPractice()
         {
@@ -356,23 +347,27 @@ namespace EscapeUNIFRANZ.Core
 
         public bool CompletePractice()
         {
-            if (!IsPractice || session.Tutorial?.TrainingStage != PracticeStage.Exit ||
-                flow.Current != PresentationScreen.Gameplay || sceneFlow.IsTransitioning)
+            return flow.Current == PresentationScreen.Gameplay &&
+                session?.Tutorial?.TrainingStage == PracticeStage.Exit && StartCampaignFromPractice();
+        }
+
+        public void SkipPracticeFromPause()
+        {
+            if (flow.Current == PresentationScreen.Pause && gameplayMode?.CurrentMode == GameplayMode.Pause)
+                StartCampaignFromPractice();
+        }
+
+        private bool StartCampaignFromPractice()
+        {
+            if (!IsPractice || !GoToCampaignStart())
                 return false;
-            if (!sceneFlow.GoToZone(initialZoneId, initialSpawnId)) return false;
-            leavingPractice = true;
+
             session.StartNewGame();
-            return true;
+            return flow.LoadCampaignFromPractice();
         }
 
         private void OnZoneTransitionFinished(bool succeeded)
         {
-            if (leavingPractice)
-            {
-                leavingPractice = false;
-                if (!succeeded) ReturnToMainMenu();
-                return;
-            }
             if (flow.Current != PresentationScreen.Loading)
             {
                 return;
