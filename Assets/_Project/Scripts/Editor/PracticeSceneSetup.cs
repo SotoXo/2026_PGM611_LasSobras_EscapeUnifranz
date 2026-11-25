@@ -16,6 +16,7 @@ namespace EscapeUNIFRANZ.EditorTools
     {
         public const string ScenePath = "Assets/_Project/Scenes/Zones/Z00_Practica.unity";
         private const string Floor = "Assets/_Project/Art/Levels/PisoPractica.png";
+        private const string Terminal = "Assets/_Project/Art/Levels/TerminalPractica.png";
         private const string Tiles = "Assets/_Project/Art/Environment/Tiles/";
         private const string Items = "Assets/_Project/Data/Narrative/Items/";
 
@@ -36,6 +37,18 @@ namespace EscapeUNIFRANZ.EditorTools
                 finally { EditorSceneManager.RestoreSceneManagerSetup(setup); }
             }
             RegisterScene();
+        }
+
+        public static void RefinePresentation()
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+                if (SceneManager.GetSceneAt(i).isDirty) throw new InvalidOperationException("Guarda las escenas abiertas.");
+            var setup = EditorSceneManager.GetSceneManagerSetup();
+            try
+            {
+                CampaignReleaseSetup.Edit(ScenePath, scene => ApplyPresentation(scene.GetRootGameObjects().Single().transform));
+            }
+            finally { EditorSceneManager.RestoreSceneManagerSetup(setup); }
         }
 
         private static void BuildRoom()
@@ -90,6 +103,43 @@ namespace EscapeUNIFRANZ.EditorTools
                 new Color32(255, 179, 140, 255));
             MakeLight(root, "Terminal", Light2D.LightType.Point, new Vector2(5.3f, 2.3f), 1.8f, .67f,
                 new Color32(145, 247, 204, 255));
+            ApplyPresentation(root);
+        }
+
+        private static void ApplyPresentation(Transform room)
+        {
+            FinalUiAssets.WriteSprite(Terminal, 30, 24, 32, Vector4.zero, (x, y) =>
+            {
+                if (x < 2 || x > 27 || y < 2 || y > 21 || (x + y < 6)) return Color.clear;
+                if (x <= 3 || x >= 26 || y <= 3 || y >= 20) return new Color32(29, 39, 45, 255);
+                if (x >= 5 && x <= 23 && y >= 10 && y <= 18)
+                {
+                    if (x >= 7 && x <= 21 && (y == 13 || y == 16) && x + (y % 6) <= 24)
+                        return new Color32(108, 220, 168, 255);
+                    return new Color32(21, 64, 60, 255);
+                }
+                if (y >= 5 && y <= 7 && x >= 7 && x <= 23 && x % 4 != 0)
+                    return x > 20 ? new Color32(228, 159, 69, 255) : new Color32(50, 65, 67, 255);
+                return new Color32(97, 112, 108, 255);
+            });
+
+            var terminal = room.Find("Terminal de emergencia").GetComponent<SpriteRenderer>();
+            terminal.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(Terminal);
+            terminal.color = Color.white;
+            SizeAsSingle(terminal, 1.15f);
+            SizeAsSingle(room.Find("Linterna de práctica").GetComponent<SpriteRenderer>(), .7f);
+            SizeAsSingle(room.Find("Bandeja de latas").GetComponent<SpriteRenderer>(), .62f);
+            room.Find("Luz ambiental").GetComponent<Light2D>().intensity = .15f;
+            foreach (var light in room.GetComponentsInChildren<Light2D>()) light.shadowsEnabled = false;
+        }
+
+        private static void SizeAsSingle(SpriteRenderer renderer, float size)
+        {
+            renderer.drawMode = SpriteDrawMode.Simple;
+            Vector3 bounds = renderer.sprite.bounds.size;
+            renderer.transform.localScale = Vector3.one * (size / Mathf.Max(bounds.x, bounds.y));
+            var trigger = renderer.GetComponent<BoxCollider2D>();
+            trigger.size = Vector2.one / renderer.transform.localScale.x;
         }
 
         private static MiniAutoController CreateRobot(Transform root)

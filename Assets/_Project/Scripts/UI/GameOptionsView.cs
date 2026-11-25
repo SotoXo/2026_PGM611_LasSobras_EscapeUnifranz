@@ -23,9 +23,25 @@ namespace EscapeUNIFRANZ.UI
         private void Awake()
         {
             if (GetComponent<SafeAreaPanel>() == null) gameObject.AddComponent<SafeAreaPanel>();
+            ApplyPresentation();
+        }
+
+        public void ApplyPresentation()
+        {
             PresentationTheme.StylePanel(GetComponent<Image>());
             foreach (var label in GetComponentsInChildren<TMP_Text>(true))
                 PresentationTheme.StyleText(label);
+            foreach (var button in GetComponentsInChildren<Button>(true))
+            {
+                var label = button.GetComponentInChildren<TMP_Text>(true);
+                if (label == null) continue;
+                label.margin = new Vector4(21, 0, 21, 0);
+                label.color = new Color32(243, 211, 195, 255);
+                label.enableAutoSizing = true;
+                label.fontSizeMin = 17;
+                label.fontSizeMax = 33;
+                button.GetComponent<MenuButtonFeedback>()?.UseReadableText();
+            }
         }
 
         private void OnEnable()

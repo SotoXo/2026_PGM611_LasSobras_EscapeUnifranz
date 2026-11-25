@@ -48,9 +48,8 @@ namespace EscapeUNIFRANZ.Tests.EditMode
             const string muteKey = "EscapeUNIFRANZ.Muted";
             bool hadBrightness = PlayerPrefs.HasKey(brightnessKey), hadMute = PlayerPrefs.HasKey(muteKey);
             float brightness = PlayerPrefs.GetFloat(brightnessKey), listenerVolume = AudioListener.volume;
-            int mute = PlayerPrefs.GetInt(muteKey), frameRate = Application.targetFrameRate;
-            int vSync = QualitySettings.vSyncCount;
-            var load = typeof(GameOptions).GetMethod("Load", BindingFlags.Static | BindingFlags.NonPublic);
+            int mute = PlayerPrefs.GetInt(muteKey);
+            var load = typeof(GameOptions).GetMethod("ReadPreferences", BindingFlags.Static | BindingFlags.NonPublic);
             try
             {
                 GameOptions.SetBrightness(.73f);
@@ -67,8 +66,6 @@ namespace EscapeUNIFRANZ.Tests.EditMode
                 PlayerPrefs.Save();
                 load.Invoke(null, null);
                 AudioListener.volume = listenerVolume;
-                Application.targetFrameRate = frameRate;
-                QualitySettings.vSyncCount = vSync;
             }
         }
     }

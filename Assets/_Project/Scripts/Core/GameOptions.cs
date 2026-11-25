@@ -24,6 +24,12 @@ namespace EscapeUNIFRANZ.Core
         private static void Load()
         {
             mixer = null;
+            ReadPreferences();
+            ApplyFrameSettings();
+        }
+
+        private static void ReadPreferences()
+        {
             for (int i = 0; i < gains.Length; i++)
             {
                 var bus = (VolumeBus)i;
@@ -35,7 +41,6 @@ namespace EscapeUNIFRANZ.Core
             VSync = PlayerPrefs.GetInt(Prefix + "VSync", 1) == 1;
             FrameLimit = PlayerPrefs.GetInt(Prefix + "FrameLimit", 60);
             if (FrameLimit != 30 && FrameLimit != 60 && FrameLimit != 120 && FrameLimit != -1) FrameLimit = 60;
-            ApplyFrameSettings();
         }
 
         private static float DefaultVolume(VolumeBus bus) => bus == VolumeBus.Master ? .8f : 1f;

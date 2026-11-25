@@ -14,6 +14,13 @@ namespace EscapeUNIFRANZ.UI
         private Button button;
         private bool pointed;
         private bool selected;
+        private bool readable;
+
+        public void UseReadableText()
+        {
+            readable = true;
+            Refresh();
+        }
 
         private void Awake()
         {
@@ -60,6 +67,12 @@ namespace EscapeUNIFRANZ.UI
         public void Refresh()
         {
             if (label == null || button == null) return;
+            if (readable)
+            {
+                label.color = !button.IsInteractable() ? new Color32(170, 151, 151, 255) :
+                    pointed || selected ? new Color32(255, 237, 223, 255) : new Color32(243, 211, 195, 255);
+                return;
+            }
             label.color = !button.IsInteractable() ? new Color32(135, 113, 109, 255) :
                 pointed || selected ? new Color32(255, 128, 106, 255) : new Color32(220, 67, 54, 255);
         }
