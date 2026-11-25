@@ -11,6 +11,7 @@ namespace EscapeUNIFRANZ.Narrative
         public void ShowInventory()
         {
             if (!Open(GameplayMode.Inventory)) return;
+            session.Tutorial?.PracticeOpenInventory();
             inspectingItem=state.SelectedItemId; examiningItem=false; InventoryPage(); ProjectAudioHooks.Emit(AudioCue.InventoryOpen);
             session.GetComponent<EscapeUNIFRANZ.UI.EntranceTutorialController>()?.Complete(EscapeUNIFRANZ.UI.TutorialAction.Inventory);
             if(state.CurrentZoneId=="entrada" && state.DiscoverWorldItem("onboarding","inventory_first_open")) { view.Feedback("Selecciona un objeto para examinarlo.",false); inventoryExplanationUntil=Time.unscaledTime+4f; }
@@ -21,14 +22,15 @@ namespace EscapeUNIFRANZ.Narrative
             var items=state.CarriedItems.Distinct().Select(ItemData.Find).Where(i=>i!=null).ToArray();
             if (!items.Any(i=>i.id==inspectingItem)) inspectingItem=items.FirstOrDefault()?.id;
             view.ShowInventory(items,state,inspectingItem,id=>{inspectingItem=id; InventoryPage();},
-                ()=>{state.SelectItem(inspectingItem); InventoryPage();},
-                ()=>{ var data=ItemData.Find(inspectingItem); if (data==null) return; examiningItem=true; view.ShowItemExamination(data); },
+                ()=>{if (state.SelectItem(inspectingItem)) session.Tutorial?.PracticeSelectItem(); InventoryPage();},
+                ()=>{ var data=ItemData.Find(inspectingItem); if (data==null) return; examiningItem=true; session.Tutorial?.PracticeExamineItem(); view.ShowItemExamination(data); },
                 ()=>{ var data=ItemData.Find(inspectingItem); if (data?.immediateUse==ImmediateItemUse.Flashlight) ToggleFlashlight(); InventoryPage(); },
                 ()=>{state.SelectItem(null); InventoryPage();});
         }
         public void ToggleFlashlight()
         {
             if (state==null || !state.ToggleFlashlight()) { session.ShowMessage("No llevas una linterna."); return; }
+            session.Tutorial?.PracticeFlashlight(state.FlashlightOn);
             session.GetComponent<EscapeUNIFRANZ.UI.EntranceTutorialController>()?.Complete(EscapeUNIFRANZ.UI.TutorialAction.Flashlight);
             ProjectAudioHooks.Emit(state.FlashlightOn ? AudioCue.FlashlightOn : AudioCue.FlashlightOff);
         }
@@ -38,9 +40,17 @@ namespace EscapeUNIFRANZ.Narrative
             string message="OBJETO OBTENIDO: "+ItemData.Label(id).ToUpperInvariant();
             var tutorial=session.GetComponent<EscapeUNIFRANZ.UI.EntranceTutorialController>();
             if(id=="battery") { message="BATERÍA PORTÁTIL OBTENIDA"; tutorial?.Offer(EscapeUNIFRANZ.UI.TutorialAction.Inventory); }
-            if(id=="flashlight") { message="LINTERNA OBTENIDA"; tutorial?.Offer(EscapeUNIFRANZ.UI.TutorialAction.Flashlight); }
+            if(id=="flashlight")
+            {
+                message="LINTERNA OBTENIDA";
+                if (session.IsPractice && state.FlashlightOn) state.ToggleFlashlight();
+                tutorial?.PracticeCollectFlashlight();
+                tutorial?.Offer(EscapeUNIFRANZ.UI.TutorialAction.Flashlight);
+            }
             if (id == "soda" && state.DiscoverWorldItem("onboarding", "soda_throw"))
-                session.ShowMessage("G / Lanzar: derrama refresco para detener robots. E: recoge la lata vacía y vuelve a lanzarla para causar daño.");
+                session.ShowMessage(Application.isMobilePlatform
+                    ? "Toca Lanzar para detener robots. Recoge y lanza la lata vacía para causar daño."
+                    : "G: derrama refresco para detener robots. E: recoge la lata vacía y vuelve a lanzarla para causar daño.");
             if (pickupLabel!=null) { pickupLabel.text=message; pickupLabel.gameObject.SetActive(true); }
             else session.ShowMessage(message);
             if (pickupIcon!=null) { pickupIcon.sprite=data?.icon; pickupIcon.gameObject.SetActive(data?.icon!=null); }

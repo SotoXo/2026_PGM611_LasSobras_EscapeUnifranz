@@ -37,7 +37,7 @@ namespace EscapeUNIFRANZ.UI
         }
     }
     [DefaultExecutionOrder(200)]
-    public sealed class EntranceTutorialController : MonoBehaviour
+    public sealed partial class EntranceTutorialController : MonoBehaviour
     {
         [SerializeField] private GameSessionController session;
         [SerializeField] private GameplayModeController mode;
@@ -57,6 +57,7 @@ namespace EscapeUNIFRANZ.UI
         public void SetZone(string id)
         {
             zoneId=id; progress?.SetZone(id); current=TutorialAction.None; positionReady=false; Hide();
+            SetPracticeZone(id);
             if(IsEntrance) progress?.Offer(TutorialAction.Movement);
         }
         public void Offer(TutorialAction action)
@@ -67,6 +68,7 @@ namespace EscapeUNIFRANZ.UI
         public void Complete(TutorialAction action) { progress?.Complete(action); if(current==action) { current=TutorialAction.None; Hide(); } }
         private void Update()
         {
+            if (practice != null) { UpdatePractice(); return; }
             if(!IsEntrance || progress==null || mode==null || !mode.AllowsMovement) { Hide(); return; }
             if(!positionReady) { initialPosition=player.transform.position; positionReady=true; }
             if(Vector2.Distance(initialPosition,player.transform.position)>.4f) Complete(TutorialAction.Movement);
@@ -84,6 +86,19 @@ namespace EscapeUNIFRANZ.UI
         }
         private static string Caption(TutorialAction action)
         {
+            if (Application.isMobilePlatform)
+            {
+                switch (action)
+                {
+                    case TutorialAction.Movement: return "Mueve la palanca táctil";
+                    case TutorialAction.Interaction: return "Toca Interactuar al acercarte";
+                    case TutorialAction.Inventory: return "Toca Inventario y revisa la batería";
+                    case TutorialAction.Flashlight: return "Toca Linterna para encender o apagar";
+                    case TutorialAction.Journal: return "Toca Diario para consultar las pistas";
+                    case TutorialAction.Scanner: return "Toca Escáner para resaltar dispositivos";
+                    case TutorialAction.Map: return "Toca Mapa para consultar el campus";
+                }
+            }
             switch(action)
             {
                 case TutorialAction.Movement:return "WASD / Flechas — Moverse\nEsc — Pausa";

@@ -36,10 +36,13 @@ namespace EscapeUNIFRANZ.Core
         public GameState State => state;
         public ObjectiveController Objectives => objectiveController;
         public BossPhaseView BossPhaseView => bossPhaseView;
+        public bool IsPractice { get; private set; }
+        public EntranceTutorialController Tutorial { get; private set; }
         public event Action<GameState> StateChanged;
 
         private void Awake()
         {
+            Tutorial = GetComponent<EntranceTutorialController>();
             StartNewGame();
         }
 
@@ -54,10 +57,21 @@ namespace EscapeUNIFRANZ.Core
             sceneFlow.GoToZone(initialZoneId, initialSpawnId);
         }
 
-        public void StartNewGame() => BindState(new GameState());
+        public void StartNewGame()
+        {
+            IsPractice = false;
+            BindState(new GameState());
+        }
+
+        public void StartPractice()
+        {
+            IsPractice = true;
+            BindState(new GameState());
+        }
 
         public void RestoreState(GameState savedState)
         {
+            IsPractice = false;
             if (savedState != null && savedState.Lives == 0) savedState.RestoreLives();
             BindState(savedState);
         }
@@ -120,7 +134,7 @@ namespace EscapeUNIFRANZ.Core
 
         public void BindZonePresentation(ZoneContext zone)
         {
-            GetComponent<EntranceTutorialController>()?.SetZone(zone!=null ? zone.ZoneId : null);
+            Tutorial?.SetZone(zone!=null ? zone.ZoneId : null);
             minimapController?.SetZone(zone);
             scannerController?.SetZone(zone);
             objectiveMarkerController?.SetZone(zone);
@@ -141,7 +155,7 @@ namespace EscapeUNIFRANZ.Core
 
         public void FlushSave()
         {
-            if (!saveDirty || !state.HasCheckpoint || sceneFlow == null || sceneFlow.IsTransitioning)
+            if (IsPractice || !saveDirty || !state.HasCheckpoint || sceneFlow == null || sceneFlow.IsTransitioning)
                 return;
 
             if (CheckpointSave.TryWrite(state))

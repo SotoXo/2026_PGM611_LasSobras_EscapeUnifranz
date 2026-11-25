@@ -69,6 +69,17 @@ namespace EscapeUNIFRANZ.Narrative
             if (!Open(GameplayMode.Dialogue)) return;
             activePuzzle=null; model=null; selectedPort=null; view.ShowClue(clue);
         }
+        public void ShowTrainingBriefing()
+        {
+            if (!session.IsPractice || !Open(GameplayMode.Dialogue)) return;
+            view.Options("CANAL DE EMERGENCIA",
+                "FRANCIS • Enlace parcial. El objetivo del HUD indica la acción pendiente. Acércate a dispositivos para ver qué puedes hacer. Lee cada panel antes de actuar.",
+                new[] { "Entendido" }, _ =>
+                {
+                    Close();
+                    session.Tutorial?.PracticeConfirmBriefing();
+                }, Application.isMobilePlatform ? "Toca Entendido para continuar" : "Esc para volver");
+        }
         public void ShowPuzzle(PuzzleInteractable owner)
         {
             if (!PuzzleModel.Validate(owner.puzzle,out string error)) { Debug.LogError(error,owner); return; }
@@ -132,7 +143,11 @@ namespace EscapeUNIFRANZ.Narrative
         public void Close()
         {
             if (!modalOpen) return;
-            if (modalMode==GameplayMode.Inventory) ProjectAudioHooks.Emit(AudioCue.InventoryClose);
+            if (modalMode==GameplayMode.Inventory)
+            {
+                session.Tutorial?.PracticeCloseInventory();
+                ProjectAudioHooks.Emit(AudioCue.InventoryClose);
+            }
             modalOpen=false; activePuzzle=null; model=null; selectedPort=null; view.Hide();
             Time.timeScale=previousTimeScale; Cursor.visible=previousCursor; Cursor.lockState=previousLock;
             if (mode.CurrentMode==modalMode) mode.SetMode(returnMode);

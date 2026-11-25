@@ -101,13 +101,14 @@ namespace EscapeUNIFRANZ.Player
             }
 
             string thrownItem=ChooseCan(session.State);
+            bool selected = session.State.SelectedItemId == thrownItem;
             if (thrownItem==null || !session.State.TryUseItem(thrownItem)) return;
             if (visual != null) visual.PlayAction(PlayerVisualController.ActionPose.Throw);
             ProjectAudioHooks.Emit(AudioCue.CanThrow);
-            StartCoroutine(Fly(origin, origin + dir * distance, distance, hitRobot, thrownItem));
+            StartCoroutine(Fly(origin, origin + dir * distance, distance, hitRobot, thrownItem, selected));
         }
 
-        private IEnumerator Fly(Vector2 from, Vector2 to, float distance, MiniAutoController hitRobot, string thrownItem)
+        private IEnumerator Fly(Vector2 from, Vector2 to, float distance, MiniAutoController hitRobot, string thrownItem, bool selected)
         {
             bool spill = thrownItem == itemId;
             var can = new GameObject("LataLanzada");
@@ -185,6 +186,7 @@ namespace EscapeUNIFRANZ.Player
                 if (hitRobot != null && Vector2.Distance(hitRobot.transform.position, to) < .7f &&
                     DetectionSensor2D.HasLineOfSight(to, hitRobot.transform.position, ~0, can.transform, hitRobot.transform, hits))
                     robotAffected = ApplyRobotImpact(hitRobot, spill);
+                if (robotAffected && session.IsPractice) session.Tutorial?.PracticeCanHit(spill, selected);
                 if (spill) CanSpill2D.Create(to, can.transform.parent, mode, robotAffected ? hitRobot : null);
                 foreach (var dog in FindObjectsByType<RobotDogEncounterController>(FindObjectsSortMode.None))
                     if ((dog.UnitPosition - to).sqrMagnitude <= noiseRadius * noiseRadius &&

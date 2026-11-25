@@ -238,7 +238,7 @@ namespace EscapeUNIFRANZ.Core
             string checkpointId = string.IsNullOrWhiteSpace(resolvedCheckpoint)
                 ? spawnId
                 : resolvedCheckpoint;
-            session.State.SetCheckpoint(zoneId, checkpointId);
+            if (!session.IsPractice) session.State.SetCheckpoint(zoneId, checkpointId);
 
             Debug.Log($"Loaded zone: {zoneId} | Spawn: {spawnId}", zoneContext);
 

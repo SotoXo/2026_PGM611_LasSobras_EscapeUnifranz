@@ -81,7 +81,7 @@ namespace EscapeUNIFRANZ.EditorTools
             });
         }
 
-        private static void WriteSprite(string path, int width, int height, int ppu, Vector4 border,
+        internal static void WriteSprite(string path, int width, int height, int ppu, Vector4 border,
             System.Func<int, int, Color> pixel)
         {
             if (AssetDatabase.LoadAssetAtPath<Sprite>(path) != null) return;

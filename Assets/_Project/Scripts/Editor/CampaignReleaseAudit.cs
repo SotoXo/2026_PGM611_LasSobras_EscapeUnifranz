@@ -76,6 +76,14 @@ namespace EscapeUNIFRANZ.EditorTools
                 foreach (var definition in definitions)
                 {
                     var scene = Open(definition.ScenePath, errors);
+                    if (definition.ZoneId == EntranceTutorialController.PracticeZoneId)
+                    {
+                        Require(Components<ZoneContext>(scene).Length == 1 && Components<SpawnPoint>(scene).Length == 1 &&
+                            Components<PracticeStation>(scene).Length == 2 && Components<MiniAutoController>(scene).Length == 1 &&
+                            Components<HazardContact2D>(scene).Length == 0 && Components<PlayerMovement2D>(scene).Length == 0,
+                            "Sala de práctica incompleta o insegura", errors);
+                        continue;
+                    }
                     var zone = Components<ZoneContext>(scene).Single();
                     Require(zone.ZoneId == definition.ZoneId, $"ZoneId incorrecto en {scene.name}", errors);
                     Require(Components<PlayerMovement2D>(scene).Length == 0, $"Jugador duplicado en {scene.name}", errors);

@@ -29,3 +29,5 @@ MonoBehaviour:
     scenePath: Assets/_Project/Scenes/Zones/Z06_NucleoIA.unity
   - zoneId: aula2
     scenePath: Assets/_Project/Scenes/Zones/Z07_Aula2.unity
+  - zoneId: practica
+    scenePath: Assets/_Project/Scenes/Zones/Z00_Practica.unity

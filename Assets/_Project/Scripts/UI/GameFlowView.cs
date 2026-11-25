@@ -265,9 +265,10 @@ namespace EscapeUNIFRANZ.UI
             }
             if (pauseRestartButton != null)
             {
-                pauseRestartButton.interactable = controller != null && controller.HasCheckpoint;
+                pauseRestartButton.interactable = controller != null && (controller.HasCheckpoint || controller.IsPractice);
                 TMP_Text label = pauseRestartButton.GetComponentInChildren<TMP_Text>(true);
-                if (label != null) label.text = pauseRestartButton.interactable ? "REINICIAR CHECKPOINT" : "SIN CHECKPOINT";
+                if (label != null) label.text = controller?.IsPractice == true ? "REINICIAR PRÁCTICA" :
+                    pauseRestartButton.interactable ? "REINICIAR CHECKPOINT" : "SIN CHECKPOINT";
             }
 
             // Explicit navigation must skip actions disabled by progression/checkpoint availability.

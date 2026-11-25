@@ -30,12 +30,14 @@ namespace EscapeUNIFRANZ.Core
         private GameplayMode resumeMode = GameplayMode.Explore;
         private Coroutine outcomeTransition;
         private bool returningToMainMenu;
+        private bool leavingPractice;
 
         public PresentationScreen CurrentScreen => flow.Current;
         public bool ShowsGameplayHud => flow.ShowsGameplayHud;
         public bool IsTimeFrozen => flow.ShouldFreezeTime;
         public bool HasMapAccess => session?.State?.HasFlag(GameFlagId.CampusPlanRecovered)==true;
         public bool HasCheckpoint => session?.State?.HasCheckpoint == true;
+        public bool IsPractice => session?.IsPractice == true;
         public string DefeatReason { get; private set; } = string.Empty;
 
         private void Awake()
@@ -219,13 +221,18 @@ namespace EscapeUNIFRANZ.Core
 
         public void RestartCheckpointFromPause()
         {
-            if (session?.State == null || !session.State.HasCheckpoint ||
+            if (session?.State == null || (!IsPractice && !session.State.HasCheckpoint) ||
                 !flow.RestartFromPause())
             {
                 return;
             }
 
             pendingEncounter = null;
+            if (IsPractice)
+            {
+                LoadPractice();
+                return;
+            }
             if (sceneFlow == null || !sceneFlow.RequestRespawn())
             {
                 flow.FailLoading();
@@ -329,14 +336,43 @@ namespace EscapeUNIFRANZ.Core
         private void LoadInitialZone()
         {
             resumeMode = GameplayMode.Explore;
+            if (sceneFlow != null && sceneFlow.CanLoadZone(EntranceTutorialController.PracticeZoneId))
+            {
+                LoadPractice();
+                return;
+            }
             if (sceneFlow == null || !sceneFlow.GoToZone(initialZoneId, initialSpawnId))
             {
                 flow.FailLoading();
             }
         }
 
+        private void LoadPractice()
+        {
+            session.StartPractice();
+            if (!sceneFlow.GoToZone(EntranceTutorialController.PracticeZoneId, EntranceTutorialController.PracticeSpawnId))
+                flow.FailLoading();
+        }
+
+        public bool CompletePractice()
+        {
+            if (!IsPractice || session.Tutorial?.TrainingStage != PracticeStage.Exit ||
+                flow.Current != PresentationScreen.Gameplay || sceneFlow.IsTransitioning)
+                return false;
+            if (!sceneFlow.GoToZone(initialZoneId, initialSpawnId)) return false;
+            leavingPractice = true;
+            session.StartNewGame();
+            return true;
+        }
+
         private void OnZoneTransitionFinished(bool succeeded)
         {
+            if (leavingPractice)
+            {
+                leavingPractice = false;
+                if (!succeeded) ReturnToMainMenu();
+                return;
+            }
             if (flow.Current != PresentationScreen.Loading)
             {
                 return;
