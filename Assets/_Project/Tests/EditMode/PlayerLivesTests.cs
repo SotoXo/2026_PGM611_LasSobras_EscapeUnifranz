@@ -1,11 +1,10 @@
 using EscapeUNIFRANZ.Core;
+using EscapeUNIFRANZ.EditorTools;
 using EscapeUNIFRANZ.UI;
 using NUnit.Framework;
 using UnityEngine;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.SceneManagement;
-using UnityEngine.SceneManagement;
 
 namespace EscapeUNIFRANZ.Tests.EditMode
 {
@@ -15,22 +14,17 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         public void BootstrapContainsPixelArtLivesHudInBottomRight()
         {
             const string path="Assets/_Project/Scenes/Bootstrap/Bootstrap.unity";
-            var scene=SceneManager.GetSceneByPath(path);bool opened=!scene.isLoaded;
-            if(opened)scene=EditorSceneManager.OpenScene(path,OpenSceneMode.Additive);
-            try
-            {
-                var view=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<LivesHudView>(true)).Single();
-                var rect=(RectTransform)view.transform;
-                Assert.That(rect.anchorMin,Is.EqualTo(new Vector2(1,0)));
-                Assert.That(rect.anchorMax,Is.EqualTo(new Vector2(1,0)));
-                Assert.That(view.GetComponent<UnityEngine.UI.Image>().raycastTarget,Is.False);
-                var data=new SerializedObject(view);
-                var atlas=(Texture2D)data.FindProperty("atlas").objectReferenceValue;
-                Assert.That(atlas.width,Is.EqualTo(1280));Assert.That(atlas.height,Is.EqualTo(288));
-                Assert.That(atlas.filterMode,Is.EqualTo(FilterMode.Point));
-                Assert.That(data.FindProperty("milliseconds").arraySize,Is.EqualTo(32));
-            }
-            finally{if(opened)EditorSceneManager.CloseScene(scene,true);}
+            using var inspection = SceneInspection.Open(path);
+            var view=inspection.Scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<LivesHudView>(true)).Single();
+            var rect=(RectTransform)view.transform;
+            Assert.That(rect.anchorMin,Is.EqualTo(new Vector2(1,0)));
+            Assert.That(rect.anchorMax,Is.EqualTo(new Vector2(1,0)));
+            Assert.That(view.GetComponent<UnityEngine.UI.Image>().raycastTarget,Is.False);
+            var data=new SerializedObject(view);
+            var atlas=(Texture2D)data.FindProperty("atlas").objectReferenceValue;
+            Assert.That(atlas.width,Is.EqualTo(1280));Assert.That(atlas.height,Is.EqualTo(288));
+            Assert.That(atlas.filterMode,Is.EqualTo(FilterMode.Point));
+            Assert.That(data.FindProperty("milliseconds").arraySize,Is.EqualTo(32));
         }
         [Test]
         public void FiveHitsReachZeroAndRetryRestoresFive()

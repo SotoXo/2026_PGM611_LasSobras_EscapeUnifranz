@@ -1,12 +1,11 @@
 using System.Linq;
 using EscapeUNIFRANZ.Core;
+using EscapeUNIFRANZ.EditorTools;
 using EscapeUNIFRANZ.Player;
 using EscapeUNIFRANZ.World;
 using NUnit.Framework;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace EscapeUNIFRANZ.Tests.EditMode
 {
@@ -16,8 +15,8 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         public void ThreeBinsSupplySixEmptyCansEachAndRememberWhatWasTaken()
         {
             const string path="Assets/_Project/Scenes/Zones/Z07_Aula2.unity";
-            var scene=SceneManager.GetSceneByPath(path);bool opened=!scene.isLoaded;
-            if(opened)scene=EditorSceneManager.OpenScene(path,OpenSceneMode.Additive);
+            using var inspection = SceneInspection.Open(path);
+            var scene = inspection.Scene;
             var obj=new GameObject("TrashBinSession");
             try
             {
@@ -43,7 +42,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
                 foreach(var bin in bins)Assert.That(bin.Remaining,Is.Zero);
                 foreach(var a in bins)foreach(var b in bins)if(a!=b)Assert.That(Vector2.Distance(a.transform.position,b.transform.position),Is.GreaterThan(1));
             }
-            finally{Object.DestroyImmediate(obj);if(opened)EditorSceneManager.CloseScene(scene,true);}
+            finally{Object.DestroyImmediate(obj);}
         }
     }
 }

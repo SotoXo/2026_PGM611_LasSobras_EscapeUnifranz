@@ -2,6 +2,8 @@
 
 24 de noviembre de 2026 · Unity 6000.3.16f1 · Rama `feature/limber-ajustes-finales`
 
+La revisión posterior encontró 35 errores de URP registrados durante la auditoría de escenas. Las 257 pruebas aprobadas y los resultados de build que se informan aquí correspondían a comprobaciones distintas de la consola. La corrección y la nueva verificación se documentan en el [informe de estabilización](Estabilizacion/Informe.md).
+
 ## Punto de partida
 
 La base fue `83bfae7`, con la integración de Marco ya hecha. Se creó la rama local de respaldo `codex/respaldo-ajustes-finales-2026-11-24-214118`. La guía de trabajo se contrastó con `Tareas_Limber.html`.
@@ -46,7 +48,7 @@ Antes de los ajustes, el menú principal ya disponía de seis buses, reducción 
 
 - **257 de 257 pruebas de Edit Mode aprobadas**, incluidas las de preferencias, inventario, dos tipos de lata, tutorial, patrullas y ascensor. La prueba que antes entraba en Play Mode se convirtió en una prueba de cápsula y secuencia en modo de edición. [Resultados XML](Evidencias/EditMode.xml)
 - Las builds locales están en `.utmp/verificacion-ajustes/`. La licencia tipográfica acompaña a cada build local y está en `StreamingAssets` para las siguientes compilaciones.
-- La revisión de 13 escenas, cuatro prefabs y 78 ScriptableObjects encontró cero componentes con scripts faltantes y 11 entradas de build con ruta y GUID válidos. `Renderer2D.asset` conserva seis referencias de depuración de volumen de sondas que ya faltaban en la base.
+- La primera revisión de 13 escenas, cuatro prefabs y 78 ScriptableObjects encontró cero componentes con scripts faltantes y 11 entradas de build con ruta y GUID válidos. Las seis referencias obsoletas de volumen de sondas que se detectaron en `Renderer2D.asset` se corrigieron durante la estabilización.
 - El recorrido estático conserva observaciones preexistentes sobre indicadores, enlaces de retorno y contenido de Aula 2. Desactivar la llave aislada de Entrada retiró su aviso. La decoración no añadió observaciones al comparar el recorrido con y sin sus colliders. [Comparación de recorridos](Evidencias/Recorridos.txt)
 - Las imágenes se generaron desde el editor y muestran la composición. La resolución de 1560×720 representa un formato horizontal ancho. La zona segura física se comprobará en Android. [1920×1080](Evidencias/limber-ajustes-1920x1080.png) · [1366×768](Evidencias/limber-ajustes-1366x768.png) · [2560×1080](Evidencias/limber-ajustes-2560x1080.png) · [1560×720](Evidencias/limber-ajustes-1560x720.png) · [Sala de práctica](Evidencias/limber-practica-1600x900.png)
 - [Guía de pruebas manuales](Guia-pruebas.md) · [Archivos de implementación](Archivos-de-implementacion.txt) · [Historial y estado de Git](Evidencias/Git.txt)

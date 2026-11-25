@@ -1,0 +1,194 @@
+{
+  "unity": "6000.3.16f1",
+  "inspeccionEscenas": [
+    "Z03_Piso2 | nuevos errores=0 | Global Light 2D [Z03_Piso2] activo=False estilo=0 capas=Default,Ground,Decals,World,Characters,Foreground,Effects intensidad=0,16",
+    "Z04_Piso3 | nuevos errores=0 | Global Light 2D [Z04_Piso3] activo=False estilo=0 capas=Default,Ground,Decals,World,Characters,Foreground,Effects intensidad=0,16",
+    "MainMenu | nuevos errores=0 | ",
+    "Z01_Hall | nuevos errores=0 | Global Light 2D [Z01_Hall] activo=False estilo=0 capas=Default,Ground,Decals,World,Characters,Foreground,Effects intensidad=0,16 ; MapaCompleto_GlobalLight [Z01_Hall] activo=True estilo=0 capas=Default,Ground,Decals,World,Characters,Foreground,Effects intensidad=0,17",
+    "Z06_NucleoIA | nuevos errores=0 | Global Light 2D [Z06_NucleoIA] activo=False estilo=0 capas=Default,Ground,Decals,World,Characters,Foreground,Effects intensidad=0,16",
+    "Z07_Aula2 | nuevos errores=0 | Ambient_Aula2 [Zone_Aula2] activo=True estilo=0 capas=Default,Ground,Decals,World,Characters,Foreground,Effects intensidad=0,06",
+    "Z05_LabSoftware | nuevos errores=0 | Global Light 2D [Z05_LabSoftware] activo=False estilo=0 capas=Default,Ground,Decals,World,Characters,Foreground,Effects intensidad=0,16",
+    "Z00_Entrada | nuevos errores=0 | Global Light 2D [Z00_Entrada] activo=False estilo=0 capas=Default,Ground,Decals,World,Characters,Foreground,Effects intensidad=0,16 ; MapaCompleto_GlobalLight [Z00_Entrada] activo=True estilo=0 capas=Default,Ground,Decals,World,Characters,Foreground,Effects intensidad=0,12",
+    "Z00_Practica | nuevos errores=0 | Luz ambiental [Sala de calibración] activo=True estilo=0 capas=Default,Ground,Decals,World,Characters,Foreground,Effects intensidad=0,15",
+    "URP2DSceneTemplate | nuevos errores=0 | Global Light 2D [Global Light 2D] activo=True estilo=0 capas=Default intensidad=1",
+    "SampleScene | nuevos errores=0 | Global Light 2D [Global Light 2D] activo=True estilo=0 capas=Default intensidad=1",
+    "Bootstrap | nuevos errores=0 | ",
+    "Z02_ARCA | nuevos errores=0 | Global Light 2D [Z02_ARCA] activo=False estilo=0 capas=Default,Ground,Decals,World,Characters,Foreground,Effects intensidad=0,16 ; MapaCompleto_GlobalLight [Z02_ARCA] activo=True estilo=0 capas=Default,Ground,Decals,World,Characters,Foreground,Effects intensidad=0,17"
+  ],
+  "auditoriaRecursos": {
+    "scenes": 13,
+    "prefabs": 4,
+    "enabledScenes": 11,
+    "scriptableAssets": 122,
+    "probeResources": [
+      {
+        "field": "probeVolumeDebugShader",
+        "path": "Packages/com.unity.render-pipelines.core/Runtime/Debug/ProbeVolumeDebug.shader"
+      },
+      {
+        "field": "probeVolumeFragmentationDebugShader",
+        "path": "Packages/com.unity.render-pipelines.core/Runtime/Debug/ProbeVolumeFragmentationDebug.shader"
+      },
+      {
+        "field": "probeVolumeSamplingDebugShader",
+        "path": "Packages/com.unity.render-pipelines.core/Runtime/Debug/ProbeVolumeSamplingDebug.shader"
+      },
+      {
+        "field": "probeVolumeOffsetDebugShader",
+        "path": "Packages/com.unity.render-pipelines.core/Runtime/Debug/ProbeVolumeOffsetDebug.shader"
+      },
+      {
+        "field": "probeSamplingDebugMesh",
+        "path": "Packages/com.unity.render-pipelines.core/Runtime/Debug/ProbeSamplingDebugMesh.fbx"
+      },
+      {
+        "field": "numbersDisplayTex",
+        "path": "Packages/com.unity.render-pipelines.core/Runtime/Debug/ProbeVolumeNumbersDisplayTex.png"
+      }
+    ],
+    "font": {
+      "asset": true,
+      "atlas": true,
+      "material": true,
+      "source": "Assets/_Project/Art/UI/Fonts/PixelifySans-Regular.ttf"
+    },
+    "decoration": {
+      "files": 11,
+      "sprites": 11
+    },
+    "features": {
+      "Bootstrap/Bootstrap": {
+        "audio": [
+          {
+            "cues": 71,
+            "assignedClips": 71,
+            "mixer": "Assets/_Project/Audio/EscapeUNIFRANZ.mixer",
+            "buses": 5
+          }
+        ],
+        "menus": [
+          {
+            "sliders": 6,
+            "labels": 6,
+            "mute": true,
+            "brightness": true,
+            "defaults": true
+          }
+        ],
+        "practiceStations": 0,
+        "elevators": 0
+      },
+      "UI/MainMenu": {
+        "audio": [
+          {
+            "cues": 3,
+            "assignedClips": 3,
+            "mixer": "Assets/_Project/Audio/EscapeUNIFRANZ.mixer",
+            "buses": 5
+          }
+        ],
+        "menus": [
+          {
+            "sliders": 6,
+            "labels": 6,
+            "mute": true,
+            "brightness": true,
+            "defaults": true
+          }
+        ],
+        "practiceStations": 0,
+        "elevators": 0
+      },
+      "Zones/Z00_Practica": {
+        "audio": [],
+        "menus": [],
+        "practiceStations": 2,
+        "elevators": 0
+      },
+      "Zones/Z00_Entrada": {
+        "audio": [],
+        "menus": [],
+        "practiceStations": 0,
+        "elevators": 1
+      },
+      "Zones/Z07_Aula2": {
+        "audio": [],
+        "menus": [],
+        "practiceStations": 0,
+        "elevators": 1
+      }
+    }
+  },
+  "editMode": {
+    "android": {
+      "total": 260,
+      "passed": 260,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 6.6765062,
+      "resultState": "Passed"
+    },
+    "windows": {
+      "start": "2026-11-25 02:52:44Z",
+      "end": "2026-11-25 02:52:47Z",
+      "total": "260",
+      "passed": "260",
+      "failed": "0",
+      "skipped": "0",
+      "result": "Passed"
+    }
+  },
+  "build": {
+    "android": {
+      "job_id": "build-f89b5f6afe",
+      "result": "succeeded",
+      "platform": "Android",
+      "output_path": "C:/Users/Usuario/EscapeUNIFRANZ/.utmp/verificacion-estabilizacion/Android/EscapeUNIFRANZ.apk",
+      "started_at": "2026-11-25T02:49:26.0135212Z",
+      "duration_seconds": 56.1399471,
+      "completed_at": "2026-11-25T02:50:22.1534683Z",
+      "total_size_mb": 994.63,
+      "errors": 0,
+      "warnings": 1
+    },
+    "windows": {
+      "job_id": "build-a05c919113",
+      "result": "succeeded",
+      "platform": "StandaloneWindows64",
+      "output_path": "C:/Users/Usuario/EscapeUNIFRANZ/.utmp/verificacion-estabilizacion/Windows/EscapeUNIFRANZ.exe",
+      "started_at": "2026-11-25T02:51:31.3796895Z",
+      "duration_seconds": 20.671669899999998,
+      "completed_at": "2026-11-25T02:51:52.0513594Z",
+      "total_size_mb": 209.37,
+      "errors": 0,
+      "warnings": 0
+    }
+  },
+  "refrescoFinal": {
+    "refresh_triggered": true,
+    "compile_requested": false,
+    "resulting_state": "idle",
+    "hint": "Unity refresh completed; editor should be ready."
+  },
+  "consolaFinalNativa": {
+    "errors": 0,
+    "warnings": 0,
+    "messages": 0,
+    "unity": "6000.3.16f1",
+    "editorPlatform": "Android",
+    "compiling": false,
+    "importing": false,
+    "play": false,
+    "scene": "Assets/_Project/Scenes/Zones/Z00_Entrada.unity",
+    "dirty": false
+  },
+  "lectorConsoleMCPEntradas": 0,
+  "archivosLocales": {
+    "LocalFiles": 209,
+    "ChangedLocalFiles": 0,
+    "OriginalErrors": 35,
+    "TableRows": 35,
+    "Head": "c915aa5",
+    "Main": "2f024d5"
+  }
+}

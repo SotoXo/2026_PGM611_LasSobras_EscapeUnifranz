@@ -1,10 +1,9 @@
+using EscapeUNIFRANZ.EditorTools;
 using System.Linq;
 using EscapeUNIFRANZ.Hazards;
 using NUnit.Framework;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace EscapeUNIFRANZ.Tests.EditMode
 {
@@ -21,42 +20,37 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         public void SceneHasValidEnemyRoutesAndVisualBindings(string zone)
         {
             var path="Assets/_Project/Scenes/Zones/"+zone+".unity";
-            var scene=SceneManager.GetSceneByPath(path);
-            bool opened=!scene.isLoaded;
-            if(opened) scene=EditorSceneManager.OpenScene(path,OpenSceneMode.Additive);
-            try
+            using var inspection = SceneInspection.Open(path);
+            var scene = inspection.Scene;
+            Physics2D.SyncTransforms();
+            foreach(var root in scene.GetRootGameObjects())
             {
-                Physics2D.SyncTransforms();
-                foreach(var root in scene.GetRootGameObjects())
+                Assert.That(root.GetComponentsInChildren<MonoBehaviour>(true).All(c=>c!=null),Is.True,"Missing script in "+zone);
+                foreach(var mover in root.GetComponentsInChildren<PatrolMover2D>(true))
                 {
-                    Assert.That(root.GetComponentsInChildren<MonoBehaviour>(true).All(c=>c!=null),Is.True,"Missing script in "+zone);
-                    foreach(var mover in root.GetComponentsInChildren<PatrolMover2D>(true))
+                    Assert.That(mover.GetComponent<Rigidbody2D>(),Is.Not.Null);
+                    var route=(PatrolPath2D)new SerializedObject(mover).FindProperty("path").objectReferenceValue;
+                    Assert.That(route,Is.Not.Null,mover.name); Assert.That(route.Count,Is.GreaterThan(0));
+                    var points=new SerializedObject(route).FindProperty("points");
+                    for(int i=0;i<points.arraySize;i++)
                     {
-                        Assert.That(mover.GetComponent<Rigidbody2D>(),Is.Not.Null);
-                        var route=(PatrolPath2D)new SerializedObject(mover).FindProperty("path").objectReferenceValue;
-                        Assert.That(route,Is.Not.Null,mover.name); Assert.That(route.Count,Is.GreaterThan(0));
-                        var points=new SerializedObject(route).FindProperty("points");
-                        for(int i=0;i<points.arraySize;i++)
-                        {
-                            Assert.That(points.GetArrayElementAtIndex(i).objectReferenceValue,Is.Not.Null);
-                            var blockers=Physics2D.OverlapCircleAll(route.GetPoint(i),.18f).Where(c=>c.gameObject.scene==scene&&!c.isTrigger&&!c.transform.IsChildOf(mover.transform));
-                            Assert.That(blockers.Count(),Is.Zero,zone+" "+mover.name+" waypoint "+i);
-                        }
-                    }
-                    foreach(var robot in root.GetComponentsInChildren<MiniAutoController>(true))
-                    {
-                        var so=new SerializedObject(robot);
-                        foreach(var field in new[]{"mover","sensor","carVisual","movementArt","verticalArt","impactArt"})
-                            Assert.That(so.FindProperty(field).objectReferenceValue,Is.Not.Null,robot.name+" "+field);
-                    }
-                    foreach(var view in root.GetComponentsInChildren<ThreatMotionView2D>(true))
-                    {
-                        var visual=(Transform)new SerializedObject(view).FindProperty("visual").objectReferenceValue;
-                        Assert.That(visual,Is.Not.Null); Assert.That(visual,Is.Not.EqualTo(view.transform));
+                        Assert.That(points.GetArrayElementAtIndex(i).objectReferenceValue,Is.Not.Null);
+                        var blockers=Physics2D.OverlapCircleAll(route.GetPoint(i),.18f).Where(c=>c.gameObject.scene==scene&&!c.isTrigger&&!c.transform.IsChildOf(mover.transform));
+                        Assert.That(blockers.Count(),Is.Zero,zone+" "+mover.name+" waypoint "+i);
                     }
                 }
+                foreach(var robot in root.GetComponentsInChildren<MiniAutoController>(true))
+                {
+                    var so=new SerializedObject(robot);
+                    foreach(var field in new[]{"mover","sensor","carVisual","movementArt","verticalArt","impactArt"})
+                        Assert.That(so.FindProperty(field).objectReferenceValue,Is.Not.Null,robot.name+" "+field);
+                }
+                foreach(var view in root.GetComponentsInChildren<ThreatMotionView2D>(true))
+                {
+                    var visual=(Transform)new SerializedObject(view).FindProperty("visual").objectReferenceValue;
+                    Assert.That(visual,Is.Not.Null); Assert.That(visual,Is.Not.EqualTo(view.transform));
+                }
             }
-            finally { if(opened) EditorSceneManager.CloseScene(scene,true); }
         }
     }
 }

@@ -1,3 +1,4 @@
+using EscapeUNIFRANZ.EditorTools;
 using System;
 using System.Collections;
 using System.Linq;
@@ -7,9 +8,7 @@ using EscapeUNIFRANZ.Hazards;
 using EscapeUNIFRANZ.World;
 using NUnit.Framework;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Object=UnityEngine.Object;
 
 namespace EscapeUNIFRANZ.Tests.EditMode
@@ -69,26 +68,22 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         public void PlayerBodyCanCrossTheHallUnderEitherBench(float startPixel,float endPixel)
         {
             const string path="Assets/_Project/Scenes/Zones/Z07_Aula2.unity";
-            var scene=SceneManager.GetSceneByPath(path);bool opened=!scene.isLoaded;
-            if(opened)scene=EditorSceneManager.OpenScene(path,OpenSceneMode.Additive);
-            try
-            {
-                var geometry=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<CompositeCollider2D>()).Single(c=>!c.isTrigger);
-                Physics2D.SyncTransforms();
-                Vector2 from=new Vector2(startPixel/32f,(576-275)/32f)+Vector2.up*.13f;
-                var hits=Physics2D.BoxCastAll(from,new Vector2(.38f,.22f),0,Vector2.right,(endPixel-startPixel)/32f);
-                Assert.That(hits.Any(h=>h.collider!=null&&h.collider.transform.IsChildOf(geometry.transform)),Is.False,
-                    "The exact player feet box must fit through the corridor below the bench.");
-            }
-            finally{if(opened)EditorSceneManager.CloseScene(scene,true);}
+            using var inspection = SceneInspection.Open(path);
+            var scene = inspection.Scene;
+            var geometry=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<CompositeCollider2D>()).Single(c=>!c.isTrigger);
+            Physics2D.SyncTransforms();
+            Vector2 from=new Vector2(startPixel/32f,(576-275)/32f)+Vector2.up*.13f;
+            var hits=Physics2D.BoxCastAll(from,new Vector2(.38f,.22f),0,Vector2.right,(endPixel-startPixel)/32f);
+            Assert.That(hits.Any(h=>h.collider!=null&&h.collider.transform.IsChildOf(geometry.transform)),Is.False,
+                "The exact player feet box must fit through the corridor below the bench.");
         }
 
         [Test]
         public void NewFloorContainsLimberRobotsAndAprilsWorkingDispenser()
         {
             const string path="Assets/_Project/Scenes/Zones/Z07_Aula2.unity";
-            var scene=SceneManager.GetSceneByPath(path);bool opened=!scene.isLoaded;
-            if(opened)scene=EditorSceneManager.OpenScene(path,OpenSceneMode.Additive);
+            using var inspection = SceneInspection.Open(path);
+            var scene = inspection.Scene;
             var sessionObject=new GameObject("DispenserTestSession");
             try
             {
@@ -131,7 +126,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
                 var ambient=zone.GetComponentsInChildren<UnityEngine.Rendering.Universal.Light2D>().Single(l=>l.lightType==UnityEngine.Rendering.Universal.Light2D.LightType.Global);
                 Assert.That(ambient.intensity,Is.EqualTo(.06f).Within(.001f));
             }
-            finally{Object.DestroyImmediate(sessionObject);if(opened)EditorSceneManager.CloseScene(scene,true);}
+            finally{Object.DestroyImmediate(sessionObject);}
         }
 
         [Test]
@@ -195,25 +190,21 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         public void SideRobotsHavePhysicalBodiesAndVerticalPatrolsInTheirDesignatedCorridors()
         {
             const string path="Assets/_Project/Scenes/Zones/Z07_Aula2.unity";
-            var scene=SceneManager.GetSceneByPath(path);bool opened=!scene.isLoaded;
-            if(opened)scene=EditorSceneManager.OpenScene(path,OpenSceneMode.Additive);
-            try
+            using var inspection = SceneInspection.Open(path);
+            var scene = inspection.Scene;
+            var robots=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<MiniAutoController>()).ToArray();
+            foreach(var robot in robots)
             {
-                var robots=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<MiniAutoController>()).ToArray();
-                foreach(var robot in robots)
-                {
-                    var data=new SerializedObject(robot);var visual=(SpriteRenderer)data.FindProperty("carVisual").objectReferenceValue;
-                    Assert.That(Vector2.Distance(robot.transform.position,visual.transform.position),Is.LessThan(.001f));
-                    var mover=(PatrolMover2D)data.FindProperty("mover").objectReferenceValue;
-                    var route=(PatrolPath2D)new SerializedObject(mover).FindProperty("path").objectReferenceValue;
-                    Vector2 delta=route.GetPoint(1)-route.GetPoint(0);
-                    if(robot.name.EndsWith("rampa")){Assert.That(Mathf.Abs(delta.x),Is.GreaterThan(.5f));continue;}
-                    Assert.That(Mathf.Abs(delta.x),Is.LessThan(.01f));Assert.That(Mathf.Abs(delta.y),Is.GreaterThan(.5f));
-                    if(robot.name.EndsWith("garra"))Assert.That(robot.transform.position.x,Is.LessThan(10));
-                    else Assert.That(robot.transform.position.x,Is.GreaterThan(23));
-                }
+                var data=new SerializedObject(robot);var visual=(SpriteRenderer)data.FindProperty("carVisual").objectReferenceValue;
+                Assert.That(Vector2.Distance(robot.transform.position,visual.transform.position),Is.LessThan(.001f));
+                var mover=(PatrolMover2D)data.FindProperty("mover").objectReferenceValue;
+                var route=(PatrolPath2D)new SerializedObject(mover).FindProperty("path").objectReferenceValue;
+                Vector2 delta=route.GetPoint(1)-route.GetPoint(0);
+                if(robot.name.EndsWith("rampa")){Assert.That(Mathf.Abs(delta.x),Is.GreaterThan(.5f));continue;}
+                Assert.That(Mathf.Abs(delta.x),Is.LessThan(.01f));Assert.That(Mathf.Abs(delta.y),Is.GreaterThan(.5f));
+                if(robot.name.EndsWith("garra"))Assert.That(robot.transform.position.x,Is.LessThan(10));
+                else Assert.That(robot.transform.position.x,Is.GreaterThan(23));
             }
-            finally{if(opened)EditorSceneManager.CloseScene(scene,true);}
         }
 
         [TestCase(true,true,true)]

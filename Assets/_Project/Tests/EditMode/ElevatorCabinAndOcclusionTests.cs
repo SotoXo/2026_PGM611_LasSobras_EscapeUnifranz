@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Reflection;
 using EscapeUNIFRANZ.Core;
+using EscapeUNIFRANZ.EditorTools;
 using EscapeUNIFRANZ.World;
 using NUnit.Framework;
-using UnityEditor.SceneManagement;
 using System.Linq;
 using UnityEngine;
 
@@ -95,25 +95,24 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         [TestCase("Z07_Aula2", "from_elevator")]
         public void AuthoredArrivalsHoldTheFullPlayerFootprint(string name, string spawnId)
         {
-            var bootstrap = EditorSceneManager.OpenPreviewScene("Assets/_Project/Scenes/Bootstrap/Bootstrap.unity");
-            var zone = EditorSceneManager.OpenPreviewScene("Assets/_Project/Scenes/Zones/" + name + ".unity");
-            try
+            Vector2 offset;
+            Vector2 size;
+            using (var bootstrap = SceneInspection.Open("Assets/_Project/Scenes/Bootstrap/Bootstrap.unity"))
             {
-                var footprint = bootstrap.GetRootGameObjects().SelectMany(root =>
+                var footprint = bootstrap.Scene.GetRootGameObjects().SelectMany(root =>
                         root.GetComponentsInChildren<EscapeUNIFRANZ.Player.PlayerMovement2D>(true)).Single()
                     .GetComponent<CapsuleCollider2D>();
-                var spawn = zone.GetRootGameObjects().SelectMany(root =>
-                        root.GetComponentsInChildren<SpawnPoint>(true)).Single(p => p.SpawnId == spawnId);
-                var doors = zone.GetRootGameObjects().SelectMany(root =>
-                    root.GetComponentsInChildren<ElevatorDoorAnimation>(true));
-                var hull = new Bounds(spawn.Position + footprint.offset, footprint.size);
-                Assert.That(doors.Any(door => ElevatorDoorAnimation.IsFullyInside(door.cabinBounds, hull)), Is.True);
+                offset = footprint.offset;
+                size = footprint.size;
             }
-            finally
-            {
-                EditorSceneManager.ClosePreviewScene(zone);
-                EditorSceneManager.ClosePreviewScene(bootstrap);
-            }
+
+            using var zone = SceneInspection.Open("Assets/_Project/Scenes/Zones/" + name + ".unity");
+            var roots = zone.Scene.GetRootGameObjects();
+            var spawn = roots.SelectMany(root => root.GetComponentsInChildren<SpawnPoint>(true))
+                .Single(point => point.SpawnId == spawnId);
+            var doors = roots.SelectMany(root => root.GetComponentsInChildren<ElevatorDoorAnimation>(true));
+            var hull = new Bounds(spawn.Position + offset, size);
+            Assert.That(doors.Any(door => ElevatorDoorAnimation.IsFullyInside(door.cabinBounds, hull)), Is.True);
         }
 
         [Test]
