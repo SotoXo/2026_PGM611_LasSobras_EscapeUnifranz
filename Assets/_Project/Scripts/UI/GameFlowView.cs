@@ -33,6 +33,7 @@ namespace EscapeUNIFRANZ.UI
         [SerializeField] private GameObject loadingRoot;
         [SerializeField] private GameObject pauseRoot;
         [SerializeField] private GameObject controlsRoot;
+        [SerializeField] private GameObject optionsRoot;
         [SerializeField] private GameObject defeatRoot;
         [SerializeField] private GameObject victoryRoot;
         [SerializeField] private GameObject creditsRoot;
@@ -56,6 +57,7 @@ namespace EscapeUNIFRANZ.UI
 
         [Header("Controls")]
         [SerializeField] private Button controlsBackButton;
+        [SerializeField] private Button pauseOptionsButton, optionsBackButton;
 
         [Header("Defeat")]
         [SerializeField] private Button retryButton;
@@ -134,6 +136,8 @@ namespace EscapeUNIFRANZ.UI
             Add(pauseMapButton, controller.OpenMap);
             Add(pauseJournalButton, controller.OpenJournal);
             Add(controlsBackButton, controller.CloseControls);
+            Add(pauseOptionsButton, controller.OpenOptions);
+            Add(optionsBackButton, controller.CloseOptions);
             Add(retryButton, controller.RetryCheckpoint);
             Add(defeatMenuButton, controller.ReturnToMainMenu);
             Add(victoryCreditsButton, controller.OpenCredits);
@@ -159,6 +163,8 @@ namespace EscapeUNIFRANZ.UI
             Remove(pauseMapButton, controller.OpenMap);
             Remove(pauseJournalButton, controller.OpenJournal);
             Remove(controlsBackButton, controller.CloseControls);
+            Remove(pauseOptionsButton, controller.OpenOptions);
+            Remove(optionsBackButton, controller.CloseOptions);
             Remove(retryButton, controller.RetryCheckpoint);
             Remove(defeatMenuButton, controller.ReturnToMainMenu);
             Remove(victoryCreditsButton, controller.OpenCredits);
@@ -177,6 +183,7 @@ namespace EscapeUNIFRANZ.UI
             SetActive(loadingRoot, screen == PresentationScreen.Loading);
             SetActive(pauseRoot, screen == PresentationScreen.Pause);
             SetActive(controlsRoot, screen == PresentationScreen.Controls);
+            SetActive(optionsRoot, screen == PresentationScreen.Options);
             SetActive(defeatRoot, screen == PresentationScreen.Defeat);
             SetActive(victoryRoot, screen == PresentationScreen.Victory);
             SetActive(creditsRoot, screen == PresentationScreen.Credits);
@@ -247,7 +254,7 @@ namespace EscapeUNIFRANZ.UI
 
             // Explicit navigation must skip actions disabled by progression/checkpoint availability.
             Button[] actions = { resumeButton, pauseRestartButton, pauseControlsButton,
-                pauseInventoryButton, pauseMapButton, pauseJournalButton, pauseMenuButton };
+                pauseInventoryButton, pauseMapButton, pauseJournalButton, pauseOptionsButton, pauseMenuButton };
             for (int index = 0; index < actions.Length; index++)
             {
                 Button button = actions[index];
@@ -297,6 +304,9 @@ namespace EscapeUNIFRANZ.UI
                     break;
                 case PresentationScreen.Controls:
                     target = controlsBackButton;
+                    break;
+                case PresentationScreen.Options:
+                    target = optionsBackButton;
                     break;
                 case PresentationScreen.Defeat:
                     target = retryButton;

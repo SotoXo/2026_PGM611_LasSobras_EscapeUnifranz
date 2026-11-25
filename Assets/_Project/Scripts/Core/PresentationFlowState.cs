@@ -135,6 +135,12 @@ namespace EscapeUNIFRANZ.Core
             return Current == PresentationScreen.Controls && SetScreen(controlsReturnScreen);
         }
 
+        public bool OpenOptions() =>
+            Current == PresentationScreen.Pause && SetScreen(PresentationScreen.Options);
+
+        public bool CloseOptions() =>
+            Current == PresentationScreen.Options && SetScreen(PresentationScreen.Pause);
+
         public bool ShowDefeat()
         {
             return Current == PresentationScreen.Gameplay && SetScreen(PresentationScreen.Defeat);

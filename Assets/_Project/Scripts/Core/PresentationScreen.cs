@@ -10,6 +10,7 @@ namespace EscapeUNIFRANZ.Core
         Controls = 5,
         Defeat = 6,
         Victory = 7,
-        Credits = 8
+        Credits = 8,
+        Options = 9
     }
 }

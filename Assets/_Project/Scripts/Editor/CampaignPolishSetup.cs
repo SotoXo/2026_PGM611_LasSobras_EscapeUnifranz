@@ -8,6 +8,7 @@ using EscapeUNIFRANZ.UI;
 using EscapeUNIFRANZ.World;
 using TMPro;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering.Universal;
@@ -55,6 +56,60 @@ namespace EscapeUNIFRANZ.EditorTools
             CampaignReleaseAudit.Run();
             CampaignPerformanceAudit.FinalSnapshot();
             CampaignPerformanceAudit.RenderMenuPreviews();
+        }
+
+        public static void InstallSharedOptions()
+        {
+            var setup = EditorSceneManager.GetSceneManagerSetup();
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+                if (SceneManager.GetSceneAt(i).isDirty) throw new InvalidOperationException("Guarda las escenas abiertas.");
+            var font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(Art + "PirataOne SDF.asset");
+            var plate = AssetDatabase.LoadAssetAtPath<Sprite>(Art + "CreditsPlate.png");
+            try
+            {
+                CampaignReleaseSetup.Edit(CampaignReleaseSetup.MainMenuPath, scene =>
+                {
+                    var menu = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<MainMenuController>(true)).Single();
+                    var data = new SerializedObject(menu);
+                    var card = (GameObject)data.FindProperty("optionsPanel").objectReferenceValue;
+                    data.FindProperty("optionsBackButton").objectReferenceValue =
+                        ConfigureOptions((RectTransform)card.transform, font, plate);
+                    data.ApplyModifiedPropertiesWithoutUndo();
+                });
+                CampaignReleaseSetup.Edit(CampaignReleaseSetup.BootstrapPath, scene =>
+                {
+                    var flow = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<GameFlowView>(true)).Single();
+                    var data = new SerializedObject(flow);
+                    var pause = (GameObject)data.FindProperty("pauseRoot").objectReferenceValue;
+                    var actions = pause.transform.Find("PauseCard/PauseActions");
+                    string[] fields = { "pauseRestartButton", "pauseInventoryButton", "pauseMapButton", "pauseJournalButton" };
+                    for (int i = 0; i < fields.Length; i++)
+                    {
+                        var action = (Button)data.FindProperty(fields[i]).objectReferenceValue;
+                        Place((RectTransform)action.transform, Vector2.one * .5f, Vector2.one * .5f,
+                            new Vector2(0, 155 - i * 94), new Vector2(490, 84));
+                    }
+                    var optionsButton = actions.Find("PauseOptions")?.GetComponent<Button>();
+                    if (optionsButton == null)
+                        optionsButton = Command(actions, "PauseOptions", "Ajustes", font, plate, new Vector2(0, -221), 490);
+                    var overlay = pause.transform.parent.Find("OptionsScreen") as RectTransform;
+                    if (overlay == null) overlay = Rect(pause.transform.parent, "OptionsScreen", Vector2.zero, Vector2.zero);
+                    overlay.anchorMin = Vector2.zero;
+                    overlay.anchorMax = Vector2.one;
+                    overlay.offsetMin = overlay.offsetMax = Vector2.zero;
+                    Ensure<Image>(overlay.gameObject).color = new Color(.012f, .008f, .012f, .92f);
+                    var card = overlay.Find("SharedOptions") as RectTransform ??
+                        Rect(overlay, "SharedOptions", Vector2.zero, Vector2.zero);
+                    var back = ConfigureOptions(card, font, plate);
+                    card.gameObject.SetActive(true);
+                    overlay.gameObject.SetActive(false);
+                    data.FindProperty("optionsRoot").objectReferenceValue = overlay.gameObject;
+                    data.FindProperty("pauseOptionsButton").objectReferenceValue = optionsButton;
+                    data.FindProperty("optionsBackButton").objectReferenceValue = back;
+                    data.ApplyModifiedPropertiesWithoutUndo();
+                });
+            }
+            finally { EditorSceneManager.RestoreSceneManagerSetup(setup); }
         }
 
         private static void CreateMixer()
@@ -279,7 +334,8 @@ namespace EscapeUNIFRANZ.EditorTools
             ClearChildren(card);
             Place(card, new Vector2(.5f, .5f), new Vector2(.5f, .5f), Vector2.zero, new Vector2(1030, 690));
             Ensure<Image>(card.gameObject).color = new Color(.037f, .042f, .052f, .974f);
-            Text(card, "Title", "Opciones", font, new Vector2(0, 281), new Vector2(910, 78), 59).color = Accent;
+            Text(card, "Title", "Ajustes", font, new Vector2(0, 281), new Vector2(910, 78), 59).color = Accent;
+            Ensure<Outline>(card.gameObject).effectColor = new Color32(107, 48, 49, 255);
             Text(card, "AudioHeading", "Sonido", font, new Vector2(-247, 212), new Vector2(410, 48), 40);
             Text(card, "VideoHeading", "Gráficos", font, new Vector2(247, 212), new Vector2(410, 48), 40);
 
@@ -288,21 +344,26 @@ namespace EscapeUNIFRANZ.EditorTools
             view.volumeLabels = new TMP_Text[6];
             for (int i = 0; i < view.volumeSliders.Length; i++)
             {
-                float y = 153 - i * 67;
+                float y = 147 - i * 53;
                 view.volumeLabels[i] = Text(card, "VolumeLabel" + i, "", font,
                     new Vector2(-247, y + 20), new Vector2(360, 33), 29);
                 view.volumeSliders[i] = VolumeSlider(card, "Volume" + i, new Vector2(-247, y - 8));
             }
-            view.flashes = Command(card, "Flashes", "Destellos normales", font, plate, new Vector2(247, 125), 375);
-            view.vsync = Command(card, "VSync", "VSync activado", font, plate, new Vector2(247, 48), 375);
-            view.frameLimit = Command(card, "FrameLimit", "60 FPS", font, plate, new Vector2(247, -29), 375);
+            view.mute = Command(card, "Mute", "Sonido activo", font, plate, new Vector2(-247, -181), 375);
+            view.muteLabel = view.mute.GetComponentInChildren<TMP_Text>(true);
+            view.brightnessLabel = Text(card, "BrightnessLabel", "Brillo 50 %", font,
+                new Vector2(247, 167), new Vector2(360, 33), 29);
+            view.brightness = VolumeSlider(card, "Brightness", new Vector2(247, 135));
+            view.flashes = Command(card, "Flashes", "Destellos normales", font, plate, new Vector2(247, 69), 375);
+            view.vsync = Command(card, "VSync", "VSync activado", font, plate, new Vector2(247, -1), 375);
+            view.frameLimit = Command(card, "FrameLimit", "60 FPS", font, plate, new Vector2(247, -71), 375);
             view.flashLabel = view.flashes.GetComponentInChildren<TMP_Text>(true);
             view.vsyncLabel = view.vsync.GetComponentInChildren<TMP_Text>(true);
             view.frameLimitLabel = view.frameLimit.GetComponentInChildren<TMP_Text>(true);
-            var controls = Text(card, "ControlReference", "WASD / flechas   ·   E para interactuar\nF linterna   ·   G lanzar   ·   Esc pausa",
-                TMP_Settings.defaultFontAsset, new Vector2(247, -127), new Vector2(420, 94), 24);
-            controls.color = Ink;
-            return Command(card, "Back", "Volver", font, plate, new Vector2(0, -268), 360);
+            view.confirmation = Text(card, "Confirmation", "", TMP_Settings.defaultFontAsset,
+                new Vector2(0, -237), new Vector2(900, 30), 24);
+            view.defaults = Command(card, "Defaults", "Restaurar valores", font, plate, new Vector2(-210, -286), 365);
+            return Command(card, "Back", "Volver", font, plate, new Vector2(210, -286), 365);
         }
 
         private static Button ConfigureControls(RectTransform panel, TMP_FontAsset font, Sprite plate)
@@ -321,8 +382,11 @@ namespace EscapeUNIFRANZ.EditorTools
 
         private static Slider VolumeSlider(Transform parent, string name, Vector2 position)
         {
-            var rect = Rect(parent, name, position, new Vector2(370, 13));
-            rect.gameObject.AddComponent<Image>().color = HorrorPalette.Steel;
+            var rect = Rect(parent, name, position, new Vector2(370, 36));
+            rect.gameObject.AddComponent<Image>().color = new Color(1, 1, 1, 0);
+            var track = Rect(rect, "Track", Vector2.zero, new Vector2(370, 7)).gameObject.AddComponent<Image>();
+            track.color = HorrorPalette.Steel;
+            track.raycastTarget = false;
             var area = Rect(rect, "HandleArea", Vector2.zero, new Vector2(345, 14));
             var handle = Rect(area, "Handle", Vector2.zero, new Vector2(24, 23));
             var graphic = handle.gameObject.AddComponent<Image>();

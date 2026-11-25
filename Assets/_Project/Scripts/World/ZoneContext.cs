@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using EscapeUNIFRANZ.Core;
 using EscapeUNIFRANZ.UI;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace EscapeUNIFRANZ.World
 {
@@ -22,6 +23,7 @@ namespace EscapeUNIFRANZ.World
 
         private SpawnPoint[] spawnPoints;
         private readonly List<string> spawnIds = new List<string>();
+        private readonly Dictionary<Light2D, float> ambientLights = new Dictionary<Light2D, float>();
 
         public string ZoneId => zoneId;
         public string DisplayName => string.IsNullOrWhiteSpace(displayName) ? zoneId : displayName;
@@ -57,6 +59,7 @@ namespace EscapeUNIFRANZ.World
                 return false;
             }
 
+            BindAmbientLighting();
             ZoneExitInteractable[] exits = GetComponentsInChildren<ZoneExitInteractable>(true);
             for (int index = 0; index < exits.Length; index++)
             {
@@ -92,6 +95,27 @@ namespace EscapeUNIFRANZ.World
             error = null;
             return true;
         }
+
+        private void BindAmbientLighting()
+        {
+            if (ambientLights.Count != 0) return;
+            foreach (GameObject root in gameObject.scene.GetRootGameObjects())
+                foreach (var light in root.GetComponentsInChildren<Light2D>())
+                    if (light.enabled && light.lightType == Light2D.LightType.Global)
+                        ambientLights.Add(light, light.intensity);
+            if (ambientLights.Count == 0) return;
+            GameOptions.BrightnessChanged += ApplyAmbientLighting;
+            ApplyAmbientLighting();
+        }
+
+        private void ApplyAmbientLighting()
+        {
+            foreach (var entry in ambientLights)
+                if (entry.Key != null)
+                    entry.Key.intensity = GameOptions.AmbientIntensity(entry.Value, GameOptions.Brightness);
+        }
+
+        private void OnDestroy() => GameOptions.BrightnessChanged -= ApplyAmbientLighting;
 
         public static GameFlagId ResolveVisitedFlag(string id)
         {

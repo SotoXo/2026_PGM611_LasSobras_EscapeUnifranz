@@ -113,6 +113,9 @@ namespace EscapeUNIFRANZ.Core
                 case PresentationScreen.Controls:
                     CloseControls();
                     break;
+                case PresentationScreen.Options:
+                    CloseOptions();
+                    break;
             }
         }
 
@@ -281,6 +284,9 @@ namespace EscapeUNIFRANZ.Core
         {
             flow.CloseControls();
         }
+
+        public void OpenOptions() => flow.OpenOptions();
+        public void CloseOptions() => flow.CloseOptions();
 
         public void OpenCredits()
         {
