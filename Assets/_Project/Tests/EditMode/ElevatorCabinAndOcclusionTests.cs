@@ -46,7 +46,8 @@ namespace EscapeUNIFRANZ.Tests.EditMode
                 Assert.That(animation.State, Is.EqualTo(ElevatorState.AwaitingPassenger));
                 Assert.That(animation.doorRenderer.sprite, Is.SameAs(open));
 
-                body.position = Vector2.zero;
+                // Move past the extra boarding depth, including the capsule's rounded ends.
+                body.position = Vector2.down * .08f;
                 Physics2D.SyncTransforms();
                 Assert.That(animation.ShouldBoard(flow), Is.True);
                 Run(animation.PrepareTravel(body));

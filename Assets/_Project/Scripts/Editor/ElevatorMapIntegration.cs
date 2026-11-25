@@ -99,7 +99,7 @@ namespace EscapeUNIFRANZ.EditorTools
 
         public static Texture2D WithoutDoor(Texture2D source, RectInt door, string name = "ObjetosSinPuerta")
         {
-            string folder = "Assets/_Project/Art/Levels/nivel4_aulas/NuevoMapa/Generated";
+            string folder = "Assets/_Project/Art/Levels/nivel2_aulas/NuevoMapa/Generated";
             if (!AssetDatabase.IsValidFolder(folder)) AssetDatabase.CreateFolder(Path.GetDirectoryName(folder).Replace('\\', '/'), "Generated");
             string path = folder + "/" + name + ".asset";
             var pixels = source.GetPixels32(); ClearDoor(pixels, source.width, door);

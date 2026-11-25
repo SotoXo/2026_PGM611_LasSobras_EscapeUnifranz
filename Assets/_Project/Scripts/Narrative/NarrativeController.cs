@@ -98,11 +98,27 @@ namespace EscapeUNIFRANZ.Narrative
             activePuzzle=owner; model=new PuzzleModel(owner.puzzle); selectedPort=null;
             view.ShowPuzzle(owner.puzzle);
         }
+        private System.Action elevatorMenuClosed;
+        public bool ShowElevatorFloors(World.ZoneExitInteractable owner)
+        {
+            if(!Open(GameplayMode.Dialogue))return false;
+            elevatorMenuClosed=owner.CancelFloorSelection;
+            var labels=new string[4];
+            for(int i=0;i<3;i++)labels[i]=World.ZoneExitInteractable.ElevatorLabels[i]+(i==owner.CurrentElevatorFloor?" (piso actual)":"");
+            labels[3]="Salir del selector";
+            view.Options("ASCENSOR · SELECCIONAR PISO","Elige tu destino. Las puertas se cerrarán después de confirmar.",labels,index=>
+            {
+                elevatorMenuClosed=null;Close();
+                if(index==3)owner.CancelFloorSelection();else owner.SelectElevatorFloor(index);
+            });
+            return true;
+        }
+
         public void ShowElevatorInteraction(World.ZoneExitInteractable owner, ElevatorCircuit circuit, bool hasPiece)
         {
             if (!Open(GameplayMode.Puzzle)) return;
             bool repaired = circuit == null;
-            view.Options("ASCENSOR", repaired ? "El ascensor está listo para subir al aula 2." :
+            view.Options("ASCENSOR", repaired ? "El ascensor está listo. Entra hasta el fondo de la cabina para elegir un piso." :
                 "El panel de control necesita reparación.", new[] { "Interactuar con el ascensor", "Volver" }, choice =>
             {
                 if (choice != 0) { Close(); return; }
@@ -162,6 +178,7 @@ namespace EscapeUNIFRANZ.Narrative
             modalOpen=false; activePuzzle=null; model=null; selectedPort=null; view.Hide();
             Time.timeScale=previousTimeScale; Cursor.visible=previousCursor; Cursor.lockState=previousLock;
             if (mode.CurrentMode==modalMode) mode.SetMode(returnMode);
+            var closed=elevatorMenuClosed;elevatorMenuClosed=null;closed?.Invoke();
         }
         private void OnModeChanged(GameplayMode next)
         {

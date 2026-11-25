@@ -18,7 +18,7 @@ namespace EscapeUNIFRANZ.EditorTools
     /// <summary>Imports the authored Aula 2 annex without replacing the shared four-room floor.</summary>
     public static class Aula2MapBuilder
     {
-        private const string Source = "Assets/_Project/Art/Levels/nivel4_aulas/NuevoMapa/";
+        private const string Source = "Assets/_Project/Art/Levels/nivel2_aulas/NuevoMapa/";
         private const string ScenePath = "Assets/_Project/Scenes/Zones/Z07_Aula2.unity";
         private const string CorePath = "Assets/_Project/Scenes/Zones/Z06_NucleoIA.unity";
         private const float Ppu = 32f;
@@ -155,7 +155,7 @@ namespace EscapeUNIFRANZ.EditorTools
                 ElevatorMapIntegration.Configure(elevator, art, elevatorDoor, Ppu, true);
                 var ambient = new GameObject("Ambient_Aula2"); ambient.transform.SetParent(root.transform, false);
                 var light = ambient.AddComponent<Light2D>(); light.lightType = Light2D.LightType.Global;
-                light.intensity = .06f; light.color = new Color(1f, .98f, .95f);
+                light.intensity = .095f; light.color = new Color(.60f, .72f, .90f);
                 light.targetSortingLayers = SortingLayer.layers.Select(l => l.id).ToArray();
                 ValidateWalkable(blocked, Entry, Return);
                 ValidateWalkable(blocked, cabin, Return);
@@ -182,7 +182,7 @@ namespace EscapeUNIFRANZ.EditorTools
                 Aula2TrashBinBuilder.PlaceInAula2();
                 Directory.CreateDirectory("reports");
                 File.WriteAllText("reports/AULA2_MAPA.md", "# Aula 2\n\nMapa independiente: Z07_Aula2.\n" +
-                    "Fuente: nivel4_aulas/NuevoMapa; capas PisoActual, murosActuall y ObjetosActual.\n" +
+                    "Fuente: nivel2_aulas/NuevoMapa; capas PisoActual, murosActuall y ObjetosActual.\n" +
                     "Escala: 32 píxeles por unidad; tamaño: 30 × 18 unidades.\n" +
                     "Acceso principal: ascensor de planta baja tras reparar el circuito. Regreso: ascensor central.\n" +
                     "Colisiones: precisión de un píxel, bases de muebles y geometría compuesta. Robots de Limber y expendedora de Abril junto al acceso.\n" +
@@ -283,7 +283,7 @@ namespace EscapeUNIFRANZ.EditorTools
         private static bool IsHallBench(Rect rect) => rect.width>=20 && rect.width>rect.height*1.7f &&
             (new Rect(296,302,38,22).Overlaps(rect) || new Rect(605,302,38,22).Overlaps(rect));
 
-        private static List<Rect> Furniture(Texture2D texture)
+        internal static List<Rect> Furniture(Texture2D texture)
         {
             var pixels = texture.GetPixels32(); int width = texture.width, height = texture.height;
             var seen = new bool[pixels.Length]; var queue = new Queue<int>(); var rectangles = new List<Rect>();
@@ -313,7 +313,7 @@ namespace EscapeUNIFRANZ.EditorTools
             return rectangles;
         }
 
-        private static bool[,] WalkableMask(bool[,] blocked)
+        internal static bool[,] WalkableMask(bool[,] blocked)
         {
             int width=blocked.GetLength(0),height=blocked.GetLength(1);
             var sum=new int[width+1,height+1]; var result=new bool[width,height];
@@ -408,7 +408,10 @@ namespace EscapeUNIFRANZ.EditorTools
             ValidateWalkable(solidMask,Entry,result+Vector2.down*.4f);return result;
         }
 
-        private static CompositeCollider2D BuildColliders(Transform parent, bool[,] mask, bool outline=false)
+        internal static void UseNavigation(bool[,] blocked, bool[,] walls, Vector2 entry)
+        { solidMask=blocked; wallOnly=walls; walkable=WalkableMask(blocked); Entry=entry; }
+
+        internal static CompositeCollider2D BuildColliders(Transform parent, bool[,] mask, bool outline=false)
         {
             parent.gameObject.AddComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             var composite = parent.gameObject.AddComponent<CompositeCollider2D>();
@@ -430,16 +433,17 @@ namespace EscapeUNIFRANZ.EditorTools
                 paths.Add(new[] {new Vector2(left,bottom),new Vector2(right,bottom),new Vector2(right,top),new Vector2(left,top)});
             }
             var source = new GameObject("PixelRuns"); source.transform.SetParent(parent, false);
-            var polygon = source.AddComponent<PolygonCollider2D>(); polygon.pathCount = paths.Count;
+            var polygon = source.AddComponent<PolygonCollider2D>(); polygon.enabled=false; polygon.pathCount = paths.Count;
             for (int i = 0; i < paths.Count; i++) polygon.SetPath(i, paths[i]);
             polygon.compositeOperation = Collider2D.CompositeOperation.Merge;
+            polygon.enabled=true;
             composite.GenerateGeometry();
             if (composite.pathCount == 0) throw new InvalidOperationException("Aula 2 collision geometry is empty.");
             composite.generationType = CompositeCollider2D.GenerationType.Synchronous;
             return composite;
         }
 
-        private static void ValidateWalkable(bool[,] mask, Vector2 start, Vector2 destination)
+        internal static void ValidateWalkable(bool[,] mask, Vector2 start, Vector2 destination)
         {
             Vector2Int CellAt(Vector2 p) => new Vector2Int(Mathf.FloorToInt(p.x * Ppu / Cell), Mathf.FloorToInt(p.y * Ppu / Cell));
             bool Free(Vector2Int p)
@@ -458,13 +462,13 @@ namespace EscapeUNIFRANZ.EditorTools
             throw new InvalidOperationException("No walkable route in Aula 2 from "+start+" to "+destination+" (source pixel "+new Vector2(destination.x*Ppu,576-destination.y*Ppu)+").");
         }
 
-        private static void Spawn(Transform parent, string id, Vector2 position)
+        internal static void Spawn(Transform parent, string id, Vector2 position)
         {
             var obj = new GameObject("Spawn_" + id); obj.transform.SetParent(parent, false); obj.transform.localPosition = position;
             Set(obj.AddComponent<SpawnPoint>(), "spawnId", id);
         }
 
-        private static GameObject Exit(Transform parent, string label, Vector2 position, string zone, string spawn)
+        internal static GameObject Exit(Transform parent, string label, Vector2 position, string zone, string spawn)
         {
             var obj = new GameObject(label); obj.transform.SetParent(parent, false); obj.transform.localPosition = position;
             var collider = obj.AddComponent<BoxCollider2D>(); collider.isTrigger = true; collider.size = new Vector2(.8f, .8f);
@@ -479,7 +483,7 @@ namespace EscapeUNIFRANZ.EditorTools
             return obj;
         }
 
-        private static void Set(Object obj, string field, object value)
+        internal static void Set(Object obj, string field, object value)
         {
             var serialized = new SerializedObject(obj); var property = serialized.FindProperty(field);
             if (value is string s) property.stringValue = s;

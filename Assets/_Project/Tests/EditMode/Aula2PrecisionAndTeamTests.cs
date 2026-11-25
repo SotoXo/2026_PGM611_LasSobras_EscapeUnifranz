@@ -124,7 +124,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
                 Assert.That(zone.GetComponentsInChildren<CompositeCollider2D>().Count(c=>!c.isTrigger),Is.EqualTo(1));
                 Assert.That(zone.GetComponentsInChildren<CompositeCollider2D>().Count(c=>c.isTrigger),Is.EqualTo(1));
                 var ambient=zone.GetComponentsInChildren<UnityEngine.Rendering.Universal.Light2D>().Single(l=>l.lightType==UnityEngine.Rendering.Universal.Light2D.LightType.Global);
-                Assert.That(ambient.intensity,Is.EqualTo(.06f).Within(.001f));
+                Assert.That(ambient.intensity,Is.EqualTo(.095f).Within(.001f));
             }
             finally{Object.DestroyImmediate(sessionObject);}
         }

@@ -161,7 +161,7 @@ namespace EscapeUNIFRANZ.EditorTools
             data.ApplyModifiedPropertiesWithoutUndo();
             CampaignReleaseSetup.ConfigureMiniAuto(robot, "garra", 0);
             robot.GetComponentInChildren<SpriteRenderer>().sprite = AssetDatabase.LoadAssetAtPath<Sprite>(
-                "Assets/_Project/Art/Levels/nivel4_aulas/NuevoMapa/Generated/Robot_garra.asset");
+                "Assets/_Project/Art/Levels/nivel2_aulas/NuevoMapa/Generated/Robot_garra.asset");
             return robot;
         }
 

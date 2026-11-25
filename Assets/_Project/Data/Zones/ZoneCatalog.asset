@@ -31,3 +31,5 @@ MonoBehaviour:
     scenePath: Assets/_Project/Scenes/Zones/Z07_Aula2.unity
   - zoneId: practica
     scenePath: Assets/_Project/Scenes/Zones/Z00_Practica.unity
+  - zoneId: piso3_aulas
+    scenePath: Assets/_Project/Scenes/Zones/Z08_Piso3Aulas.unity

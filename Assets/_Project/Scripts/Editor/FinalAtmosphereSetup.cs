@@ -89,7 +89,7 @@ namespace EscapeUNIFRANZ.EditorTools
 
             Put(Prop.Rocas, 21.93f, 2.62f, 1.55f, true);
             Put(Prop.Rocas, 12.98f, 4.64f, 1.28f, true);
-            Put(Prop.Rocas, 3.93f, 6.39f, .94f, true);
+            // Keep the small stair landing beside the elevator clear.
             Put(Prop.Aviso, 22.66f, 2.66f, .75f);
             Put(Prop.Papeles, 4.95f, 7.18f, .75f);
             Put(Prop.Grieta, 5.4f, 8.55f, .95f);

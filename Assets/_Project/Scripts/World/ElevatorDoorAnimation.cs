@@ -14,6 +14,8 @@ namespace EscapeUNIFRANZ.World
         public float[] frameSeconds;
         public Rect cabinBounds;
         public Vector2 cabinCenter;
+        [Min(0f)] public float boardingDepth = .12f;
+        public bool entranceAtTop = true;
         public ElevatorState State { get; private set; }
         public bool Boarded => State == ElevatorState.Travelling;
 
@@ -62,17 +64,22 @@ namespace EscapeUNIFRANZ.World
                 if (State == ElevatorState.AwaitingExit) State = ElevatorState.AwaitingPassenger;
             }
             return armed && State == ElevatorState.AwaitingPassenger && !flow.IsTransitioning &&
-                flow.ModeController?.CurrentMode == GameplayMode.Explore && IsFullyInside(cabinBounds, footprint);
+                flow.ModeController?.CurrentMode == GameplayMode.Explore && IsDeepInside(cabinBounds, footprint, boardingDepth, entranceAtTop);
         }
 
         public static bool IsFullyInside(Rect cabin, Bounds footprint, float margin = .015f) =>
             footprint.min.x >= cabin.xMin + margin && footprint.max.x <= cabin.xMax - margin &&
             footprint.min.y >= cabin.yMin + margin && footprint.max.y <= cabin.yMax - margin;
 
+        public static bool IsDeepInside(Rect cabin, Bounds footprint, float depth, bool entranceAtTop=true) =>
+            IsFullyInside(cabin, footprint) && (entranceAtTop
+                ? footprint.max.y <= cabin.yMax - Mathf.Max(.015f, depth)
+                : footprint.min.y >= cabin.yMin + Mathf.Max(.015f, depth));
+
         public IEnumerator PrepareTravel(Rigidbody2D player)
         {
             if (!armed || State != ElevatorState.AwaitingPassenger || player == null ||
-                !IsFullyInside(cabinBounds, GetFootprint(player))) yield break;
+                !IsDeepInside(cabinBounds, GetFootprint(player), boardingDepth, entranceAtTop)) yield break;
             State = ElevatorState.Closing;
             armed = false;
             player.linearVelocity = Vector2.zero;
@@ -127,7 +134,7 @@ namespace EscapeUNIFRANZ.World
             {
                 var barrier = new GameObject("Umbral del ascensor");
                 barrier.transform.SetParent(transform, false);
-                barrier.transform.position = new Vector3(cabinBounds.center.x, cabinBounds.yMax + .05f, transform.position.z);
+                barrier.transform.position = new Vector3(cabinBounds.center.x, entranceAtTop ? cabinBounds.yMax + .05f : cabinBounds.yMin - .05f, transform.position.z);
                 barrier.layer = gameObject.layer;
                 threshold = barrier.AddComponent<BoxCollider2D>();
                 threshold.size = new Vector2(cabinBounds.width + .1f, .10f);

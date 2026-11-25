@@ -1,0 +1,1 @@
+PASS: 278/278 EditMode tests. Elevator floor selector: Planta baja, Piso 2, Piso 3. Extra boarding depth: 0.12 units. Animated third-floor cabin faces south; west corridor connects its landing to the interior. Source scene checksum checked before copying. Results: reports/elevator-floor-selector-verified.xml.

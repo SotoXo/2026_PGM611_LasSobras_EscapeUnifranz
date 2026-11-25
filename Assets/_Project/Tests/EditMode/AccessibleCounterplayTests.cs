@@ -38,7 +38,8 @@ namespace EscapeUNIFRANZ.Tests.EditMode
                 Assert.That(hazard.CanDealContactDamage,Is.False); Assert.That(obj.activeSelf,Is.True);
                 mini.SetOperational(true); Assert.That(hazard.CanDealContactDamage,Is.False,"Restart requires a new telegraph before contact is armed.");
                 mini.DistractAt(new Vector2(2f,1f),5f); Assert.That(mini.State,Is.EqualTo(MobileThreatState.Search));
-                Assert.That(sensor.enabled,Is.False,"A distraction reserves its investigation window instead of instantly reacquiring the player.");
+                Assert.That(sensor.enabled,Is.True,"A distracted robot must still detect the flashlight.");
+                Assert.That(sensor.InvestigatingNoise,Is.True,"Ordinary player gaze must not interrupt the noise investigation.");
                 Assert.That(hazard.CanDealContactDamage,Is.False);
             }
             finally { Object.DestroyImmediate(obj); }

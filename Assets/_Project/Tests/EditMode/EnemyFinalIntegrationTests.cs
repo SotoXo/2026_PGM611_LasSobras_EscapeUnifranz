@@ -58,18 +58,31 @@ namespace EscapeUNIFRANZ.Tests.EditMode
             sensor=child.AddComponent<DetectionSensor2D>();
             var robot=o.AddComponent<MiniAutoController>(); Set(robot,"mover",mover); Set(robot,"sensor",sensor); return robot;
         }
-        [Test] public void CanNoiseDoesNotCancelVisiblePursuit()
+        [Test] public void CanNoiseOverridesPursuitWithoutFlashlight()
         {
             var robot=Robot(out var sensor); var target=Make("visible player",new Vector2(101,100));
             typeof(DetectionSensor2D).GetProperty("CurrentTarget").SetValue(sensor,target.transform);
             robot.DistractAt(new Vector2(98,100),5f);
-            Assert.That(robot.State,Is.EqualTo(MobileThreatState.Patrol)); Assert.That(sensor.HasTarget,Is.True);
+            Assert.That(robot.State,Is.EqualTo(MobileThreatState.Search)); Assert.That(sensor.HasTarget,Is.False);
         }
-        [Test] public void CanInvestigatesOriginAndRejectsImmediateSpam()
+        [Test] public void FlashlightPursuitTakesPriorityOverCanNoise()
+        {
+            var robot=Robot(out var sensor);var target=Make("flashlight player",new Vector2(100,101));
+            var vision=target.AddComponent<EscapeUNIFRANZ.Player.PlayerVisionController>();
+            vision.SetFlashlightState(true,true);Physics2D.SyncTransforms();
+            typeof(DetectionSensor2D).GetProperty("CurrentTarget").SetValue(sensor,target.transform);
+            Assert.That(vision.FlashlightActive,Is.True,"The test flashlight must be on.");
+            Assert.That(vision.IlluminatesPoint(sensor.transform.position,robot.transform),Is.True,"The beam must reach the robot body.");
+            Assert.That(sensor.TargetIlluminatesSensor,Is.True);
+            robot.DistractAt(new Vector2(98,100),5f);
+            Assert.That(sensor.HasTarget,Is.True);
+            Assert.That(sensor.InvestigatingNoise,Is.False);
+        }
+        [Test] public void CanInvestigatesLatestImpactAndResetRestoresPatrol()
         {
             var robot=Robot(out var sensor); var noise=new Vector2(98,100);
             robot.DistractAt(noise,5f); robot.DistractAt(new Vector2(106,100),5f);
-            Assert.That(robot.State,Is.EqualTo(MobileThreatState.Search)); Assert.That(Get(robot,"lastSeen"),Is.EqualTo(noise));
+            Assert.That(robot.State,Is.EqualTo(MobileThreatState.Search)); Assert.That(Get(robot,"lastSeen"),Is.EqualTo(new Vector2(106,100)));
             robot.ResetEncounter(); Assert.That(sensor.enabled,Is.True); Assert.That(robot.State,Is.EqualTo(MobileThreatState.Patrol));
             robot.DistractAt(new Vector2(106,100),5f); Assert.That(Get(robot,"lastSeen"),Is.EqualTo(new Vector2(106,100)));
         }

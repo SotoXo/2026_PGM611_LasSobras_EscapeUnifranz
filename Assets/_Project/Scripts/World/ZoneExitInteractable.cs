@@ -36,6 +36,18 @@ namespace EscapeUNIFRANZ.World
         public ItemData elevatorPiece;
         public ElevatorDoorAnimation elevatorAnimation;
         private bool travelling;
+        private bool floorMenuOpen;
+        public static readonly string[] ElevatorZones={"entrada","aula2","piso3_aulas"};
+        public static readonly string[] ElevatorLabels={"Planta baja","Piso 2 · Aulas","Piso 3 · Aulas"};
+        public static string ElevatorSpawn(int index)=>index==0?"from_aula2_elevator":"from_elevator";
+        public int CurrentElevatorFloor
+        {
+            get
+            {
+                string zone=session?.ActiveZone?.ZoneId;
+                return zone=="hall"||zone=="arca"?0:System.Array.IndexOf(ElevatorZones,zone);
+            }
+        }
         public override bool CanInteract => !travelling && base.CanInteract;
         private ElevatorCircuit circuit;
         private GameState circuitState;
@@ -143,7 +155,7 @@ namespace EscapeUNIFRANZ.World
 
         private void Travel()
         {
-            if (travelling) return;
+            if (travelling || floorMenuOpen) return;
             if (!IsUnlocked)
             {
                 EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorLock);
@@ -177,10 +189,28 @@ namespace EscapeUNIFRANZ.World
                         : "Espera la apertura y entra por completo en la cabina.");
                     return;
                 }
-                StartCoroutine(AnimatedTravel());
+                floorMenuOpen=true;
+                if(session?.GetComponent<NarrativeController>()?.ShowElevatorFloors(this)!=true)floorMenuOpen=false;
                 return;
             }
             BeginTravel();
+        }
+
+        public void CancelFloorSelection()
+        {
+            floorMenuOpen=false;
+            elevatorAnimation?.CancelTravel();
+        }
+
+        public void SelectElevatorFloor(int index)
+        {
+            floorMenuOpen=false;
+            if(index<0||index>=ElevatorZones.Length||index==CurrentElevatorFloor)
+            { CancelFloorSelection();return; }
+            if(!IsUnlocked||sceneFlow==null||sceneFlow.IsTransitioning||elevatorAnimation==null||!elevatorAnimation.ShouldBoard(sceneFlow))return;
+            if(!sceneFlow.CanLoadZone(ElevatorZones[index])){session?.ShowMessage("Este piso no está disponible.");CancelFloorSelection();return;}
+            targetZoneId=ElevatorZones[index];targetSpawnId=ElevatorSpawn(index);
+            StartCoroutine(AnimatedTravel());
         }
 
         private IEnumerator AnimatedTravel()

@@ -1,0 +1,9 @@
+Tres pisos — integración verificada
+Iluminación: ambiente frío RGB (0.60, 0.72, 0.90), intensidad 0.095, linterna principal.
+Piso 3: Z08_Piso3Aulas, mapa 1248x736 a 32 PPU. Tres patrullas en pasillos separados y expendedora contra una pared, con stock independiente de tres latas.
+Acceso: piso 2, escalera inferior derecha [E] Subir al piso 3. Regreso desde el acceso junto al ascensor del piso 3.
+Lanzamiento: alcance máximo 2.2 unidades, limitado por obstáculos.
+Ruido: los robots dentro de 10 unidades investigan la caída hasta llegar; la linterna tiene prioridad. La persecución se mantiene mientras el jugador siga visible o dentro del alcance de búsqueda.
+Compatibilidad: 24 recursos referenciados por escenas antiguas recuperados en Art/Levels/LegacyCampaign; mapas nuevos conservados.
+Verificación: 276/276 pruebas EditMode aprobadas, cero fallos.
+Resultados: reports/three-floor-tests-verified.xml

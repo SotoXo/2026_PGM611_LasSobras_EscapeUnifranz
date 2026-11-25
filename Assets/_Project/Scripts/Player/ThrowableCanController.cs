@@ -20,7 +20,7 @@ namespace EscapeUNIFRANZ.Player
     {
         [SerializeField] private string itemId = "soda";
         [SerializeField] private Sprite canSprite;
-        [SerializeField] private float throwDistance = 4.5f;
+        [SerializeField] private float throwDistance = 2.2f;
         [SerializeField] private float flightSpeed = 9f;
         [SerializeField] private float noiseRadius = 10f;
         [SerializeField] private float distractSeconds = 5f;
@@ -200,8 +200,7 @@ namespace EscapeUNIFRANZ.Player
                 {
                     if (robot == null || !robot.isActiveAndEnabled) continue;
                     Vector2 eye = (Vector2)robot.transform.position + Vector2.up * 0.12f;
-                    if (Vector2.Distance(eye, to) <= noiseRadius &&
-                        DetectionSensor2D.HasLineOfSight(eye, to, ~0, robot.transform, null, hits))
+                    if (Vector2.Distance(eye, to) <= noiseRadius)
                         robot.DistractAt(to, distractSeconds);
                 }
                 if (!spill && robotAffected)

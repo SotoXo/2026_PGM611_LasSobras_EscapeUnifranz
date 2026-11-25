@@ -1839,7 +1839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: EscapeUNIFRANZ.Runtime::EscapeUNIFRANZ.Player.ThrowableCanController
   itemId: soda
   canSprite: {fileID: 21300000, guid: a0fa858e7cd6a5945ae45587a9048758, type: 3}
-  throwDistance: 4.5
+  throwDistance: 2.2
   flightSpeed: 9
   noiseRadius: 10
   distractSeconds: 5

@@ -15,6 +15,6 @@ MonoBehaviour:
   id: hall_admision
   title: "Lista de salida"
   category: "Aviso de admisi\u00f3n \u00b7 escrito a mano"
-  text: "La lista dice que salimos diecisiete. Cont\u00e9 tres en la calle. En el espacio de mi firma hay una huella que ya estaba seca.\n\nLa <b>llave de ARCA</b> sigue en una mesa de la <b>cafeter\u00eda</b>."
+  text: "La lista dice que salimos diecisiete. Cont\u00e9 tres en la calle. En el espacio de mi firma hay una huella que ya estaba seca.\n\nLa <b>llave del torniquete</b> est\u00e1 en <b>Odontolog\u00eda</b>, entre las filas de sillones."
   associatedFlag: 0
   electronic: 0

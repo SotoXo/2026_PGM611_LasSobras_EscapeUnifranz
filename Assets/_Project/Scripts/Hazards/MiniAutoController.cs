@@ -28,6 +28,9 @@ namespace EscapeUNIFRANZ.Hazards
         private bool operational=true;
         private float disabledUntil;
         private float distractionUntil;
+        private bool investigatingCan;
+        private Vector2 canLanding;
+        private float canSearchSeconds;
         private float startupUntil;
         private EscapeUNIFRANZ.UI.EntranceTutorialController tutorial;
         private SpriteRenderer[] bodyVisuals;
@@ -86,6 +89,8 @@ namespace EscapeUNIFRANZ.Hazards
         }
         public void SetOperational(bool value,bool hide=false,float startupSeconds=0f)
         {
+            investigatingCan=false;
+            if (sensor != null) sensor.InvestigatingNoise=false;
             impactTime = -1f;
             if (!hide) EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(value ? EscapeUNIFRANZ.Narrative.AudioCue.RobotRestart : EscapeUNIFRANZ.Narrative.AudioCue.RobotOff);
             operational=value; State=value ? MobileThreatState.Patrol : MobileThreatState.Disabled;
@@ -141,9 +146,10 @@ namespace EscapeUNIFRANZ.Hazards
         }
         public void DistractAt(Vector2 point,float seconds)
         {
-            if (!operational || startupUntil > 0f || Time.time < nextDistractionAt || (sensor != null && sensor.HasTarget)) return;
-            nextDistractionAt=Time.time+Mathf.Max(1f,seconds)+2f;
-            sensor.enabled=false; sensor.ClearTarget(); distractionUntil=Time.time+seconds; visibleTarget=null; lastSeen=point; State=MobileThreatState.Search; transitionAt=Time.time+seconds;
+            if (!operational || startupUntil > 0f || (sensor != null && sensor.TargetIlluminatesSensor)) return;
+            sensor.ClearTarget(); sensor.enabled=true; sensor.InvestigatingNoise=true;
+            investigatingCan=true; canLanding=point; canSearchSeconds=Mathf.Max(1f,seconds);
+            distractionUntil=0f; visibleTarget=null; lastSeen=point; State=MobileThreatState.Search; transitionAt=float.PositiveInfinity;
             Contact(false); mover.Investigate(point,1.4f); feedback?.Show(ThreatVisualState.Alert);
         }
         private void Update()
@@ -151,6 +157,12 @@ namespace EscapeUNIFRANZ.Hazards
             if (mode==null || !mode.AllowsMovement) return;
             if(startupUntil>0) { if(Time.time<startupUntil) return; startupUntil=0; SetOperational(true); }
             if (!operational) { if (disabledUntil>0f && Time.time>=disabledUntil) { disabledUntil=0f; SetOperational(true); } return; }
+            if (investigatingCan)
+            {
+                if (Vector2.Distance(transform.position,canLanding) > .4f) return;
+                investigatingCan=false; sensor.InvestigatingNoise=false;
+                transitionAt=Time.time+canSearchSeconds;
+            }
             if (distractionUntil>0f && Time.time>=distractionUntil) { distractionUntil=0f; sensor.enabled=true; }
             if (mover.IsMoving && Time.time >= nextServoAt)
             {
@@ -162,7 +174,7 @@ namespace EscapeUNIFRANZ.Hazards
             if (visibleTarget!=null && sensor.IsTargetVisible) lastSeen=visibleTarget.position;
             if (State==MobileThreatState.Chase && visibleTarget!=null)
             {
-                if (Time.time < chaseUntil && !mover.RouteBlocked)
+                if (sensor.HasTarget)
                 {
                     if (followingVisibleTarget != sensor.IsTargetVisible) FollowTarget();
                     return;
@@ -195,7 +207,7 @@ namespace EscapeUNIFRANZ.Hazards
             else mover.Investigate(lastSeen, chaseSpeed);
         }
         private void Detected(Transform target)
-        { tutorial?.Offer(EscapeUNIFRANZ.UI.TutorialAction.AvoidThreat); visibleTarget=target; lastSeen=target.position; State=MobileThreatState.Suspicious; transitionAt=Time.time+0.25f; Contact(false); feedback?.Show(ThreatVisualState.Alert); mover.Investigate(lastSeen,0f); }
+        { investigatingCan=false; sensor.InvestigatingNoise=false; distractionUntil=0f; tutorial?.Offer(EscapeUNIFRANZ.UI.TutorialAction.AvoidThreat); visibleTarget=target; lastSeen=target.position; State=MobileThreatState.Suspicious; transitionAt=Time.time+0.25f; Contact(false); feedback?.Show(ThreatVisualState.Alert); mover.Investigate(lastSeen,0f); }
         private void Lost()
         {
             visibleTarget=null; if (!operational) return;
@@ -221,6 +233,7 @@ namespace EscapeUNIFRANZ.Hazards
             movementTime = 0f;
             visibleTarget = null;
             followingVisibleTarget = false;
+            investigatingCan=false; sensor.InvestigatingNoise=false;
             distractionUntil = disabledUntil = startupUntil = nextDistractionAt = chaseUntil = 0f;
             if (mover != null) mover.enabled = operational;
             sensor?.ClearTarget();

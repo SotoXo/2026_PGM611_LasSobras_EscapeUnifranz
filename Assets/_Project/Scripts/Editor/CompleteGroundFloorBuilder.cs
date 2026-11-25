@@ -116,7 +116,7 @@ namespace EscapeUNIFRANZ.EditorTools
                 foreach (Transform t in root.transform)
                 {
                     if (t.name == "ItemVisual_llave")
-                        t.localPosition = Safe(new Vector3(10.8f, 4.65f, t.localPosition.z), area: dentalRoom);
+                        t.localPosition = Safe(new Vector3(10.9f, 3.5f, t.localPosition.z), area: dentalRoom);
                     else if (t.name.StartsWith("ItemVisual_") || t.name.StartsWith("AuthoredLamp_"))
                         t.localPosition = Safe(t.localPosition);
                 }
@@ -328,8 +328,8 @@ namespace EscapeUNIFRANZ.EditorTools
             var lightRoot = zone.transform.Find("MapaCompleto_GlobalLight");
             if (lightRoot == null) { lightRoot = new GameObject("MapaCompleto_GlobalLight").transform; lightRoot.SetParent(zone.transform, false); }
             var fill = EnsureComponent<Light2D>(lightRoot.gameObject);
-            fill.lightType = Light2D.LightType.Global; fill.color = new Color(1f, .98f, .95f);
-            fill.intensity = .06f; fill.enabled = true;
+            fill.lightType = Light2D.LightType.Global; fill.color = new Color(.60f, .72f, .90f);
+            fill.intensity = .095f; fill.enabled = true;
             fill.targetSortingLayers = SortingLayer.layers.Select(l => l.id).ToArray();
         }
 

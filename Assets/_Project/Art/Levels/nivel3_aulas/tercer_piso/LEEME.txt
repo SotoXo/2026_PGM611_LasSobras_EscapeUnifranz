@@ -1,0 +1,30 @@
+Tercer piso de Unifranz en pixel art
+
+1248 × 736 píxeles, con la paleta y los muebles del segundo piso.
+La distribución sigue el plano fotografiado del tercer piso.
+
+tercer_piso.ase contiene exactamente tres capas editables
+Piso, Muros y Objetos.
+Muros incluye puertas, ventanas, escaleras, ascensor y divisiones de baños.
+Objetos contiene pupitres, mesas, camillas, estantes, sanitarios, fotocopiadora y demás muebles.
+
+piso.png, muros.png y objetos.png miden 1248 × 736 px.
+Superponer en ese orden, con el mismo origen, escala y pivote.
+El exterior de los tres PNG es transparente.
+
+mapa_completo.png es la composición transparente a tamaño nativo.
+vista_previa_2x.png es una ampliación de 2 veces sobre fondo oscuro para revisar.
+
+Distribución
+Sala de semiología en el extremo superior izquierdo.
+Aulas alineadas sobre el pasillo central.
+Aula lateral y depósito ARCA en el extremo izquierdo inferior.
+Aula grande, escalera, ascensor, aulas y baños bajo el pasillo central.
+Aulas del ala derecha, fotocopia, escalera y depósito inferior.
+
+El plano tiene reflejos y perspectiva. Los límites se regularizaron para la cuadrícula del mapa.
+Los pupitres de las salas sin mobiliario dibujado y los equipos de semiología se propusieron según el uso de cada sala.
+Los muros crema, las ventanas celestes, los muebles y el piso retoman la estética del segundo piso.
+
+Se verificó que las tres capas recompuestas coinciden con el PNG completo y con la exportación del editable reabierto en LibreSprite.
+Usar filtro de vecino más cercano al importar o ampliar.

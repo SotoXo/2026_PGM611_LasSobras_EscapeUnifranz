@@ -11,7 +11,7 @@ namespace EscapeUNIFRANZ.EditorTools
 {
     public static class Aula2TeamContentBuilder
     {
-        public static void PlaceRobots(ZoneContext zone, Material material)
+        public static void PlaceRobots(ZoneContext zone, Material material, Vector2[] positionsOverride = null, Vector2[] axesOverride = null)
         {
             var root=new GameObject("Robots_Limber_Patrulla").transform;root.SetParent(zone.transform,false);
             var encounter=root.gameObject.AddComponent<EscapeUNIFRANZ.Encounters.EncounterContext>();
@@ -19,13 +19,13 @@ namespace EscapeUNIFRANZ.EditorTools
             encounterData.FindProperty("checkpointSpawnId").stringValue="from_elevator";
             encounterData.ApplyModifiedPropertiesWithoutUndo();
             string[] styles={"garra","rampa","sierra"};
-            Vector2[] designated={new Vector2(5.17f,6.065f),new Vector2(18.40625f,9.34375f),new Vector2(24.04f,8.015f)};
+            Vector2[] designated=positionsOverride ?? new[]{new Vector2(5.17f,6.065f),new Vector2(18.40625f,9.34375f),new Vector2(24.04f,8.015f)};
             for(int i=0;i<styles.Length;i++)
             {
                 Vector2 center=Aula2MapBuilder.FindOpenPosition(designated[i]);
                 var route=new GameObject("Ruta_"+styles[i]);route.transform.SetParent(root,false);
                 var path=route.AddComponent<PatrolPath2D>();var pathData=new SerializedObject(path);var points=pathData.FindProperty("points");points.arraySize=2;
-                Vector2 axis=i==1?Vector2.right:Vector2.up;
+                Vector2 axis=axesOverride != null ? axesOverride[i] : i==1?Vector2.right:Vector2.up;
                 Vector2[] positions={Aula2MapBuilder.PatrolEndAlong(center,-axis),Aula2MapBuilder.PatrolEndAlong(center,axis)};
                 for(int p=0;p<2;p++)
                 {
@@ -54,7 +54,7 @@ namespace EscapeUNIFRANZ.EditorTools
                 data.Update();data.FindProperty("maxHits").intValue=3;data.FindProperty("chaseSpeed").floatValue=1.6f+i*.15f;data.ApplyModifiedPropertiesWithoutUndo();
                 CampaignReleaseSetup.ConfigureMiniAuto(robot,styles[i],i);
                 var visual=obj.transform.Find("CarPixelArt").GetComponent<SpriteRenderer>();
-                string asset="Assets/_Project/Art/Levels/nivel4_aulas/NuevoMapa/Generated/Robot_"+styles[i]+".asset";
+                string asset="Assets/_Project/Art/Levels/nivel2_aulas/NuevoMapa/Generated/Robot_"+styles[i]+".asset";
                 var texture=AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/_Project/Art/Characters/Enemies/MiniAutos/"+styles[i]+"_movimiento.png");
                 var sprite=Sprite.Create(texture,new Rect(0,64,64,64),new Vector2(.5f,0),64,0,SpriteMeshType.FullRect);
                 var existing=AssetDatabase.LoadAssetAtPath<Sprite>(asset);

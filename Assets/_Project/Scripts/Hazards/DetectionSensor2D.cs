@@ -30,6 +30,10 @@ namespace EscapeUNIFRANZ.Hazards
 
         public Transform CurrentTarget { get; private set; }
         public bool HasTarget => CurrentTarget != null;
+        public bool InvestigatingNoise { get; set; }
+        private Transform OwnerTransform => (owner != null ? owner : GetComponentInParent<PatrolMover2D>())?.transform ?? transform;
+        public bool TargetIlluminatesSensor => CurrentTarget != null &&
+            ResolveVision(CurrentTarget)?.IlluminatesPoint(transform.position, OwnerTransform) == true;
         public event Action<Transform> TargetDetected;
         public event Action TargetLost;
         public void Face(Vector2 direction)
@@ -99,6 +103,7 @@ namespace EscapeUNIFRANZ.Hazards
                         (vision.IsLookingAt(transform.position) && vision.CanSeePoint(transform.position, owner != null ? owner.transform : transform)) ||
                         vision.IlluminatesPoint(transform.position, owner != null ? owner.transform : transform);
                 }
+                if (InvestigatingNoise && ResolveVision(player.transform)?.IlluminatesPoint(transform.position, owner != null ? owner.transform : transform) != true) continue;
                 if (!noticed || !ClearLine(player.transform)) continue;
                 visible=player.transform; break;
             }

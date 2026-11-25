@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/Zones/Z00_Practica.unity
     guid: dbf3122733ff02144aa73e6bc91668e5
+  - enabled: 1
+    path: Assets/_Project/Scenes/Zones/Z08_Piso3Aulas.unity
+    guid: bad874cb7aa5f19408ff55ab41506cdf
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
