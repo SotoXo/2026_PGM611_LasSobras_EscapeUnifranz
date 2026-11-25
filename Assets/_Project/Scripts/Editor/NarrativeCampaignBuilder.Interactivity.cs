@@ -96,7 +96,6 @@ namespace EscapeUNIFRANZ.EditorTools
                     Step("entrada_cctv","Evita el robot o corta su energía. Recupera el plano y el código en CCTV.",GameFlagId.EntranceCodeObserved),
                     Step("entrada_codigo","Valida el código observado en el lector del acceso.",GameFlagId.EntranceCodeAccepted),Step("entrada_salir","Abre el acceso y cruza al Hall.")};
                 Inspect(root,geometry,"PC_Recepcion",spawn+new Vector2(.8f,1.8f),"[E] Revisar computadora","SIN CONEXIÓN. El panel de acceso necesita alimentación auxiliar.",false);
-                Inspect(root,geometry,"Armario_Personal",spawn+new Vector2(3.1f,1.4f),"[E] Abrir armario","Armario vacío. Falta la linterna del personal; revisa cerca de recepción.",false);
             }
             if(index==1) Inspect(root,geometry,"Monitor_Comprometido",new Vector2(17,7.5f),"[E] Revisar computadora","Sin conexión con el servidor de admisión.",true);
             if(index==4) Inspect(root,geometry,"Pizarra_Red",new Vector2(12.5f,4.2f),"[E] Examinar pizarra","Alguien marcó SW-02 varias veces. La ruta local está indicada en la nota de topología.",false);

@@ -43,6 +43,7 @@ namespace EscapeUNIFRANZ.World
         private bool CircuitSolved => session?.State.IsWorldItemDiscovered("puzzle", ElevatorCircuit.PuzzleId) == true;
         private bool previousUnlocked;
         private bool statusInitialized;
+        private Color statusColor;
         public void LockForAlarm(float seconds) { alarmLockUntil=Mathf.Max(alarmLockUntil,Time.time+seconds); }
         private void Update()
         {
@@ -53,7 +54,12 @@ namespace EscapeUNIFRANZ.World
                 if (open && !travelling && elevatorAnimation.ShouldBoard(sceneFlow)) Travel();
             }
             Color color = open ? HorrorPalette.Cyan : Time.time < alarmLockUntil ? HorrorPalette.CriticalRed : HorrorPalette.Amber;
-            if(statusIndicator!=null) statusIndicator.color=color; if(statusLight!=null) { statusLight.color=color; statusLight.intensity=.25f; }
+            if (!statusInitialized || statusColor != color)
+            {
+                statusColor = color;
+                if (statusIndicator != null) statusIndicator.color = color;
+                if (statusLight != null) { statusLight.color = color; statusLight.intensity = .25f; }
+            }
             if(statusInitialized && open && !previousUnlocked) EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorUnlock);
             previousUnlocked=open; statusInitialized=true;
         }
@@ -159,6 +165,18 @@ namespace EscapeUNIFRANZ.World
 
             if (elevatorAnimation != null)
             {
+                if (!sceneFlow.CanLoadZone(targetZoneId) || sceneFlow.IsTransitioning)
+                {
+                    session?.ShowMessage("Este piso no está disponible.");
+                    return;
+                }
+                if (!elevatorAnimation.ShouldBoard(sceneFlow))
+                {
+                    session?.ShowMessage(elevatorAnimation.State == ElevatorState.AwaitingExit
+                        ? "Sal de la cabina antes de volver a viajar."
+                        : "Espera la apertura y entra por completo en la cabina.");
+                    return;
+                }
                 StartCoroutine(AnimatedTravel());
                 return;
             }
@@ -169,21 +187,28 @@ namespace EscapeUNIFRANZ.World
         {
             travelling = true;
             var mode = sceneFlow.ModeController;
+            var previousMode = mode != null ? mode.CurrentMode : GameplayMode.Explore;
             mode?.SetMode(GameplayMode.Transition);
             yield return elevatorAnimation.PrepareTravel(sceneFlow.PlayerBody);
             if (!elevatorAnimation.Boarded || !BeginTravel())
             {
                 travelling = false;
                 elevatorAnimation.CancelTravel();
-                mode?.SetMode(GameplayMode.Explore);
+                mode?.SetMode(previousMode);
             }
         }
 
         private bool BeginTravel()
         {
-            if (sceneFlow.GoToZone(targetZoneId, targetSpawnId))
-            { if (doorPanel != null) doorPanel.Open(); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorUnlock); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.DoorOpen); if (optionalAudio!=null && openSound!=null) optionalAudio.PlayOneShot(openSound); onOpened.Invoke(); }
-            else return false;
+            if (!sceneFlow.GoToZone(targetZoneId, targetSpawnId)) return false;
+            if (elevatorAnimation == null)
+            {
+                doorPanel?.Open();
+                ProjectAudioHooks.Emit(AudioCue.DoorUnlock);
+                ProjectAudioHooks.Emit(AudioCue.DoorOpen);
+            }
+            if (optionalAudio != null && openSound != null) optionalAudio.PlayOneShot(openSound);
+            onOpened.Invoke();
             return true;
         }
         protected override void OnRequirementsBlocked(string message)

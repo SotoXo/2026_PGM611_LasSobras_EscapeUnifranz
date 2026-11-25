@@ -1,12 +1,12 @@
 using System.Collections;
 using EscapeUNIFRANZ.Core;
 using EscapeUNIFRANZ.Narrative;
-using EscapeUNIFRANZ.Player;
 using UnityEngine;
 
 namespace EscapeUNIFRANZ.World
 {
-    /// <summary>Plays the authored door frames once, retaining their JSON timing.</summary>
+    public enum ElevatorState { Unavailable, Opening, AwaitingPassenger, Closing, Travelling, Arriving, AwaitingExit }
+
     public sealed class ElevatorDoorAnimation : MonoBehaviour
     {
         public SpriteRenderer doorRenderer;
@@ -14,79 +14,125 @@ namespace EscapeUNIFRANZ.World
         public float[] frameSeconds;
         public Rect cabinBounds;
         public Vector2 cabinCenter;
-        public bool Boarded { get; private set; }
-        private bool armed;
+        public ElevatorState State { get; private set; }
+        public bool Boarded => State == ElevatorState.Travelling;
+
+        private bool armed, available;
         private Coroutine opening;
-        private bool? available;
-        private bool travelling;
+        private Rigidbody2D assessedPlayer;
+        private Collider2D playerFootprint;
+        private BoxCollider2D threshold;
 
         public void SetAvailable(bool value)
         {
-            if (available == value || travelling) return;
+            if (State == ElevatorState.Closing || State == ElevatorState.Travelling ||
+                State == ElevatorState.Arriving || State == ElevatorState.AwaitingExit) return;
+            if (value == available && (State != ElevatorState.Unavailable || threshold != null)) return;
             available = value;
-            if (opening != null) StopCoroutine(opening);
+            StopOpening();
+            if (!value)
+            {
+                State = ElevatorState.Unavailable;
+                Show(0);
+                SetThreshold(true);
+                return;
+            }
+            State = ElevatorState.Opening;
+            SetThreshold(true);
+            ProjectAudioHooks.Emit(AudioCue.DoorOpen);
+            opening = StartCoroutine(OpenForBoarding());
+        }
+
+        private IEnumerator OpenForBoarding()
+        {
+            yield return Play(true);
+            SetThreshold(false);
+            State = ElevatorState.AwaitingPassenger;
             opening = null;
-            if (value) opening = StartCoroutine(Play(true));
-            else Show(0);
         }
 
         public bool ShouldBoard(SceneFlowController flow)
         {
-            if (flow == null || flow.PlayerBody == null || travelling) return false;
-            bool inside = cabinBounds.Contains(flow.PlayerBody.position);
-            if (!inside) armed = true;
-            return inside && armed && !flow.IsTransitioning && flow.ModeController?.CurrentMode == GameplayMode.Explore;
+            if (flow == null || flow.PlayerBody == null) return false;
+            Bounds footprint = GetFootprint(flow.PlayerBody);
+            if (!cabinBounds.Overlaps(Rect.MinMaxRect(footprint.min.x, footprint.min.y, footprint.max.x, footprint.max.y)) &&
+                !cabinBounds.Contains(flow.PlayerBody.position))
+            {
+                armed = true;
+                if (State == ElevatorState.AwaitingExit) State = ElevatorState.AwaitingPassenger;
+            }
+            return armed && State == ElevatorState.AwaitingPassenger && !flow.IsTransitioning &&
+                flow.ModeController?.CurrentMode == GameplayMode.Explore && IsFullyInside(cabinBounds, footprint);
         }
+
+        public static bool IsFullyInside(Rect cabin, Bounds footprint, float margin = .015f) =>
+            footprint.min.x >= cabin.xMin + margin && footprint.max.x <= cabin.xMax - margin &&
+            footprint.min.y >= cabin.yMin + margin && footprint.max.y <= cabin.yMax - margin;
 
         public IEnumerator PrepareTravel(Rigidbody2D player)
         {
-            travelling = true;
-            if (opening != null) StopCoroutine(opening);
-            opening = null;
-            if (frames != null && frames.Length > 0 && doorRenderer != null && doorRenderer.sprite != frames[frames.Length - 1])
-                yield return Play(true);
-            Boarded = false;
-            var movement = player != null ? player.GetComponent<PlayerMovement2D>() : null;
-            bool restoreMovement = movement != null && movement.enabled;
-            if (restoreMovement) movement.enabled = false;
-            try
-            {
-                float startedAt = Time.time;
-                while (player != null && Vector2.Distance(player.position, cabinCenter) > .025f && Time.time - startedAt < 2f)
-                {
-                    player.linearVelocity = Vector2.ClampMagnitude((cabinCenter - player.position) / Mathf.Max(Time.deltaTime, .001f), 2f);
-                    yield return null;
-                }
-            }
-            finally
-            {
-                if (player != null) player.linearVelocity = Vector2.zero;
-                if (restoreMovement && movement != null) movement.enabled = true;
-            }
-            Boarded = player != null && cabinBounds.Contains(player.position) && Vector2.Distance(player.position, cabinCenter) < .08f;
-            if (!Boarded) yield break;
+            if (!armed || State != ElevatorState.AwaitingPassenger || player == null ||
+                !IsFullyInside(cabinBounds, GetFootprint(player))) yield break;
+            State = ElevatorState.Closing;
+            armed = false;
+            player.linearVelocity = Vector2.zero;
+            SetThreshold(true);
             ProjectAudioHooks.Emit(AudioCue.DoorClose);
             yield return Play(false);
+            if (player != null && IsFullyInside(cabinBounds, GetFootprint(player)))
+                State = ElevatorState.Travelling;
         }
 
         public void BeginArrival()
         {
-            travelling = true; armed = false;
-            if (opening != null) StopCoroutine(opening);
-            opening = null; Show(0);
+            StopOpening();
+            State = ElevatorState.Arriving;
+            armed = false;
+            Show(0);
+            SetThreshold(true);
         }
 
         public IEnumerator Arrive()
         {
+            ProjectAudioHooks.Emit(AudioCue.DoorOpen);
             yield return Play(true);
-            available = true; travelling = false; armed = false;
+            available = true;
+            SetThreshold(false);
+            State = ElevatorState.AwaitingExit;
         }
 
         public void CancelTravel()
         {
-            travelling = false;
-            available = doorRenderer != null && frames != null && frames.Length > 0 &&
-                doorRenderer.sprite == frames[frames.Length - 1] ? true : (bool?)null;
+            StopOpening();
+            State = ElevatorState.AwaitingExit;
+            armed = false;
+            if (frames != null) Show(frames.Length - 1);
+            SetThreshold(false);
+        }
+
+        private Bounds GetFootprint(Rigidbody2D player)
+        {
+            if (assessedPlayer != player)
+            {
+                assessedPlayer = player;
+                playerFootprint = player.GetComponent<CapsuleCollider2D>();
+                if (playerFootprint == null) playerFootprint = player.GetComponent<Collider2D>();
+            }
+            return playerFootprint != null ? playerFootprint.bounds : new Bounds(player.position, Vector3.zero);
+        }
+
+        private void SetThreshold(bool closed)
+        {
+            if (threshold == null && closed && Application.isPlaying && cabinBounds.width > 0f)
+            {
+                var barrier = new GameObject("Umbral del ascensor");
+                barrier.transform.SetParent(transform, false);
+                barrier.transform.position = new Vector3(cabinBounds.center.x, cabinBounds.yMax + .05f, transform.position.z);
+                barrier.layer = gameObject.layer;
+                threshold = barrier.AddComponent<BoxCollider2D>();
+                threshold.size = new Vector2(cabinBounds.width + .1f, .10f);
+            }
+            if (threshold != null) threshold.enabled = closed;
         }
 
         private IEnumerator Play(bool open)
@@ -103,12 +149,24 @@ namespace EscapeUNIFRANZ.World
 
         private void Show(int index)
         {
-            if (doorRenderer != null && frames != null && index < frames.Length) doorRenderer.sprite = frames[index];
+            if (doorRenderer != null && frames != null && index >= 0 && index < frames.Length)
+                doorRenderer.sprite = frames[index];
+        }
+
+        private void StopOpening()
+        {
+            if (opening != null) StopCoroutine(opening);
+            opening = null;
         }
 
         private void OnDisable()
         {
-            StopAllCoroutines(); opening = null; available = null; travelling = false; armed = false; Show(0);
+            StopOpening();
+            State = ElevatorState.Unavailable;
+            armed = available = false;
+            SetThreshold(false);
+            Show(0);
         }
     }
 }
+

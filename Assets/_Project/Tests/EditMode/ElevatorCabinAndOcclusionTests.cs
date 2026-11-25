@@ -3,49 +3,64 @@ using System.Reflection;
 using EscapeUNIFRANZ.Core;
 using EscapeUNIFRANZ.World;
 using NUnit.Framework;
+using UnityEditor.SceneManagement;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.TestTools;
-using EscapeUNIFRANZ.Player;
-using EscapeUNIFRANZ.Input;
 
 namespace EscapeUNIFRANZ.Tests.EditMode
 {
     public sealed class ElevatorCabinAndOcclusionTests
     {
-        [UnityTest]
-        public IEnumerator BoardingMovesDisabledPlayerInsideAndDoesNotCloseWhenBlocked()
+        [Test]
+        public void BoardingRequiresTheFullPhysicalFootprintAndLeavesThresholdOpenWhenPartial()
         {
-            yield return new EnterPlayMode();
-            var cabin = new Vector2(-100f, -100f);
-            var actor = new GameObject("BoardingPlayer"); actor.SetActive(false);
-            var body = actor.AddComponent<Rigidbody2D>(); body.gravityScale = 0; body.freezeRotation = true;
-            var feet = actor.AddComponent<CapsuleCollider2D>(); feet.size = new Vector2(.38f, .22f); feet.offset = new Vector2(0, .13f);
-            var input = actor.AddComponent<PlayerInputReader>(); input.enabled = false;
-            var movement = actor.AddComponent<PlayerMovement2D>(); Set(movement, "inputReader", input);
-            actor.SetActive(true); movement.SetMovementEnabled(false); body.position = cabin + Vector2.up * 1.4f;
-            var elevator = new GameObject("BoardingDoor"); var animation = elevator.AddComponent<ElevatorDoorAnimation>();
+            var elevator = new GameObject("Elevator");
+            var player = new GameObject("Player");
             var texture = new Texture2D(4, 2);
             var closed = Sprite.Create(texture, new Rect(0, 0, 2, 2), Vector2.zero);
             var open = Sprite.Create(texture, new Rect(2, 0, 2, 2), Vector2.zero);
-            animation.doorRenderer = elevator.AddComponent<SpriteRenderer>(); animation.doorRenderer.sprite = open;
-            animation.frames = new[] { closed, open }; animation.frameSeconds = new[] { .01f, .01f };
-            animation.cabinBounds = new Rect(cabin + new Vector2(-.4f, -.3f), new Vector2(.8f, .6f)); animation.cabinCenter = cabin;
-            yield return SimulateBoarding(animation, body);
-            Assert.That(animation.Boarded, Is.True, $"Scripted boarding must work with input disabled: position={body.position}, playing={Application.isPlaying}, physics={Physics2D.simulationMode}, simulated={body.simulated}.");
-            Assert.That(Vector2.Distance(body.position, cabin), Is.LessThan(.08f));
-            Assert.That(animation.doorRenderer.sprite, Is.SameAs(closed));
-            body.position = cabin + Vector2.up * 1.4f;
-            var obstruction = new GameObject("BlockedEntrance"); obstruction.transform.position = cabin + Vector2.up * .7f;
-            obstruction.AddComponent<BoxCollider2D>().size = new Vector2(2f, .2f); Physics2D.SyncTransforms();
-            yield return SimulateBoarding(animation, body);
-            Assert.That(animation.Boarded, Is.False, "A blocked passenger must never close the door or begin travel.");
-            Assert.That(animation.doorRenderer.sprite, Is.SameAs(open));
-            animation.CancelTravel(); animation.SetAvailable(true);
-            Assert.That(animation.doorRenderer.sprite, Is.SameAs(open), "Cancelling blocked boarding must keep the doors open.");
-            Object.Destroy(actor); Object.Destroy(elevator); Object.Destroy(obstruction);
-            Object.Destroy(closed); Object.Destroy(open); Object.Destroy(texture);
-            yield return null;
-            yield return new ExitPlayMode();
+            try
+            {
+                var body = player.AddComponent<Rigidbody2D>();
+                var feet = player.AddComponent<CapsuleCollider2D>();
+                feet.size = new Vector2(.38f, .22f);
+                feet.offset = new Vector2(0, .13f);
+                var flow = player.AddComponent<SceneFlowController>();
+                Set(flow, "playerBody", body);
+                Set(flow, "gameplayMode", player.AddComponent<GameplayModeController>());
+                var animation = elevator.AddComponent<ElevatorDoorAnimation>();
+                animation.doorRenderer = elevator.AddComponent<SpriteRenderer>();
+                animation.frames = new[] { closed, open };
+                animation.cabinBounds = new Rect(-.4f, -.3f, .8f, .7f);
+                animation.BeginArrival();
+                Run(animation.Arrive());
+
+                body.position = new Vector2(0, .9f);
+                Physics2D.SyncTransforms();
+                Assert.That(animation.ShouldBoard(flow), Is.False);
+                body.position = new Vector2(0, .28f);
+                Physics2D.SyncTransforms();
+                Assert.That(animation.cabinBounds.Contains(body.position), Is.True);
+                Assert.That(animation.ShouldBoard(flow), Is.False);
+                Run(animation.PrepareTravel(body));
+                Assert.That(animation.State, Is.EqualTo(ElevatorState.AwaitingPassenger));
+                Assert.That(animation.doorRenderer.sprite, Is.SameAs(open));
+
+                body.position = Vector2.zero;
+                Physics2D.SyncTransforms();
+                Assert.That(animation.ShouldBoard(flow), Is.True);
+                Run(animation.PrepareTravel(body));
+                Assert.That(animation.Boarded, Is.True);
+                Assert.That(animation.doorRenderer.sprite, Is.SameAs(closed));
+            }
+            finally
+            {
+                Object.DestroyImmediate(player);
+                Object.DestroyImmediate(elevator);
+                Object.DestroyImmediate(closed);
+                Object.DestroyImmediate(open);
+                Object.DestroyImmediate(texture);
+            }
         }
 
         [Test]
@@ -76,6 +91,31 @@ namespace EscapeUNIFRANZ.Tests.EditMode
             finally { Object.DestroyImmediate(elevator); Object.DestroyImmediate(actor); Object.DestroyImmediate(closed); Object.DestroyImmediate(open); Object.DestroyImmediate(texture); }
         }
 
+        [TestCase("Z00_Entrada", "from_aula2_elevator")]
+        [TestCase("Z07_Aula2", "from_elevator")]
+        public void AuthoredArrivalsHoldTheFullPlayerFootprint(string name, string spawnId)
+        {
+            var bootstrap = EditorSceneManager.OpenPreviewScene("Assets/_Project/Scenes/Bootstrap/Bootstrap.unity");
+            var zone = EditorSceneManager.OpenPreviewScene("Assets/_Project/Scenes/Zones/" + name + ".unity");
+            try
+            {
+                var footprint = bootstrap.GetRootGameObjects().SelectMany(root =>
+                        root.GetComponentsInChildren<EscapeUNIFRANZ.Player.PlayerMovement2D>(true)).Single()
+                    .GetComponent<CapsuleCollider2D>();
+                var spawn = zone.GetRootGameObjects().SelectMany(root =>
+                        root.GetComponentsInChildren<SpawnPoint>(true)).Single(p => p.SpawnId == spawnId);
+                var doors = zone.GetRootGameObjects().SelectMany(root =>
+                    root.GetComponentsInChildren<ElevatorDoorAnimation>(true));
+                var hull = new Bounds(spawn.Position + footprint.offset, footprint.size);
+                Assert.That(doors.Any(door => ElevatorDoorAnimation.IsFullyInside(door.cabinBounds, hull)), Is.True);
+            }
+            finally
+            {
+                EditorSceneManager.ClosePreviewScene(zone);
+                EditorSceneManager.ClosePreviewScene(bootstrap);
+            }
+        }
+
         [Test]
         public void FurnitureOcclusionIgnoresTransparentPixelsAndBackgroundSprites()
         {
@@ -102,27 +142,6 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         private static void Run(IEnumerator coroutine)
         {
             while (coroutine.MoveNext()) if (coroutine.Current is IEnumerator child) Run(child);
-        }
-        private static IEnumerator SimulateBoarding(ElevatorDoorAnimation animation, Rigidbody2D body)
-        {
-            // EditMode's EnterPlayMode runner does not advance automatic 2D
-            // physics consistently. Drive actual collision simulation explicitly.
-            var previous = Physics2D.simulationMode;
-            Physics2D.simulationMode = SimulationMode2D.Script;
-            try
-            {
-                var boarding = animation.PrepareTravel(body);
-                while (boarding.MoveNext())
-                {
-                    if (boarding.Current is IEnumerator child) Run(child);
-                    else
-                    {
-                        Assert.That(Physics2D.Simulate(.02f), Is.True);
-                        yield return null;
-                    }
-                }
-            }
-            finally { Physics2D.simulationMode = previous; }
         }
     }
 }

@@ -199,7 +199,7 @@ namespace EscapeUNIFRANZ.Core
         {
             if (!PresentationFlowState.CanPause(
                 flow.Current,
-                sceneFlow != null && sceneFlow.IsTransitioning,
+                sceneFlow != null && sceneFlow.IsTransitioning || gameplayMode?.CurrentMode == GameplayMode.Transition,
                 outcomeTransition != null))
             {
                 return;
