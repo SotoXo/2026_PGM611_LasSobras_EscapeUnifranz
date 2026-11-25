@@ -31,6 +31,13 @@ namespace EscapeUNIFRANZ.Player
         private PlayerVisualController visual;
         private float nextThrowAt;
         private readonly List<RaycastHit2D> hits = new List<RaycastHit2D>();
+        public const string EmptyCanItemId = "empty_can";
+        public static string ChooseCan(GameState state)
+        {
+            if(state==null)return null;
+            if((state.SelectedItemId=="soda"||state.SelectedItemId==EmptyCanItemId)&&state.HasItem(state.SelectedItemId))return state.SelectedItemId;
+            return state.HasItem(EmptyCanItemId) ? EmptyCanItemId : state.HasItem("soda") ? "soda" : null;
+        }
 
         private void Awake() { visual = GetComponentInChildren<PlayerVisualController>(true); }
 
@@ -50,7 +57,7 @@ namespace EscapeUNIFRANZ.Player
             if (session == null || session.State == null || mode == null || !mode.AllowsInteraction) return;
 
             nextThrowAt = Time.time + cooldownSeconds;
-            if (!session.State.HasItem(itemId))
+            if (ChooseCan(session.State) == null)
             {
                 session.ShowMessage("No tienes nada que lanzar. Recoge una lata de la expendedora.");
                 return;
@@ -75,13 +82,16 @@ namespace EscapeUNIFRANZ.Player
             Vector2 dir = Facing();
             Vector2 origin = (Vector2)transform.position + Vector2.up * 0.12f;
             float distance = throwDistance;
+            MiniAutoController hitRobot = null;
 
             var filter = ContactFilter2D.noFilter; filter.useTriggers = false;
+            hits.Clear();
             Physics2D.CircleCast(origin, 0.07f, dir, filter, hits, throwDistance);
             foreach (var hit in hits)
             {
                 if (hit.collider == null || hit.collider.transform.IsChildOf(transform)) continue;
-                distance = Mathf.Min(distance, Mathf.Max(0f, hit.distance - 0.08f));
+                float stop = Mathf.Max(0f, hit.distance - 0.08f);
+                if (stop < distance) { distance = stop; hitRobot = hit.collider.GetComponentInParent<MiniAutoController>(); }
             }
 
             if (distance < 0.2f)
@@ -90,13 +100,14 @@ namespace EscapeUNIFRANZ.Player
                 return;
             }
 
-            if (!session.State.TryUseItem(itemId)) return;
+            string thrownItem=ChooseCan(session.State);
+            if (thrownItem==null || !session.State.TryUseItem(thrownItem)) return;
             if (visual != null) visual.PlayAction(PlayerVisualController.ActionPose.Throw);
             ProjectAudioHooks.Emit(AudioCue.CanThrow);
-            StartCoroutine(Fly(origin, origin + dir * distance, distance));
+            StartCoroutine(Fly(origin, origin + dir * distance, distance, hitRobot, thrownItem==itemId));
         }
 
-        private IEnumerator Fly(Vector2 from, Vector2 to, float distance)
+        private IEnumerator Fly(Vector2 from, Vector2 to, float distance, MiniAutoController hitRobot, bool spill)
         {
             var can = new GameObject("LataLanzada");
             var zone = FindFirstObjectByType<ZoneContext>();
@@ -118,8 +129,8 @@ namespace EscapeUNIFRANZ.Player
 
             try
             {
-                Vector2 previousGround=from;
-                float duration = Mathf.Max(0.15f, distance / Mathf.Max(.1f,flightSpeed)), t = 0f;
+                float duration = Mathf.Max(0.15f, distance / Mathf.Max(0.1f, flightSpeed)), t = 0f;
+                Vector2 previousGround = from;
                 while (t < 1f)
                 {
                     if (can == null) yield break;
@@ -127,14 +138,27 @@ namespace EscapeUNIFRANZ.Player
                     t += Time.deltaTime / duration;
                     float k = Mathf.Clamp01(t);
                     Vector2 ground = Vector2.Lerp(from, to, k);
-                    Vector2 segment=ground-previousGround;
-                    var filter=ContactFilter2D.noFilter; filter.useTriggers=false;
-                    Physics2D.CircleCast(previousGround,.07f,segment.normalized,filter,hits,segment.magnitude);
-                    float allowed=segment.magnitude;
-                    foreach(var hit in hits) if(hit.collider!=null && !hit.transform.IsChildOf(transform) && !hit.transform.IsChildOf(can.transform))
-                        allowed=Mathf.Min(allowed,Mathf.Max(0f,hit.distance-.08f));
-                    if(allowed < segment.magnitude) {to=previousGround+segment.normalized*allowed;break;}
-                    previousGround=ground;
+                    Vector2 step = ground - previousGround;
+                    if (step.sqrMagnitude > .000001f)
+                    {
+                        var flightFilter = ContactFilter2D.noFilter; flightFilter.useTriggers = false;
+                        hits.Clear();
+                        Physics2D.CircleCast(previousGround, .07f, step.normalized, flightFilter, hits, step.magnitude);
+                        RaycastHit2D nearest = default;
+                        foreach (var hit in hits)
+                        {
+                            if (hit.collider == null || hit.transform.IsChildOf(transform) ||
+                                hit.transform.IsChildOf(can.transform)) continue;
+                            if (nearest.collider == null || hit.distance < nearest.distance) nearest = hit;
+                        }
+                        if (nearest.collider != null)
+                        {
+                            to = previousGround + step.normalized * Mathf.Max(0f, nearest.distance - 0.08f);
+                            hitRobot = nearest.collider.GetComponentInParent<MiniAutoController>();
+                            break;
+                        }
+                    }
+                    previousGround = ground;
                     float height = Mathf.Sin(k * Mathf.PI);
                     can.transform.position = ground + Vector2.up * height * 0.6f;
                     can.transform.rotation = Quaternion.Euler(0f, 0f, 720f * k);
@@ -152,15 +176,18 @@ namespace EscapeUNIFRANZ.Player
                 shadow.transform.position = to;
                 shadow.transform.localScale = new Vector3(0.45f, 0.2f, 1f);
                 shadowRenderer.sortingOrder = sr.sortingOrder - 1;
-                var trigger = can.AddComponent<BoxCollider2D>(); trigger.isTrigger = true; trigger.size = new Vector2(0.8f, 0.8f);
-                var pickup = can.AddComponent<ThrownCanPickup>(); pickup.itemId = itemId; pickup.BindSession(session);
-
                 // Golpe, polvo y distracción ocurren en el instante del impacto.
                 ProjectAudioHooks.EmitAt(AudioCue.CanImpact, to);
                 InteractionFx.Puff(to, new Color(0.8f, 0.8f, 0.8f, 1f));
+                bool robotAffected = false;
+                if (hitRobot != null && Vector2.Distance(hitRobot.transform.position, to) < .7f &&
+                    DetectionSensor2D.HasLineOfSight(to, hitRobot.transform.position, ~0, can.transform, hitRobot.transform, hits))
+                    robotAffected = ApplyRobotImpact(hitRobot, spill);
+                if (spill) CanSpill2D.Create(to, can.transform.parent, mode, robotAffected ? hitRobot : null);
                 foreach (var dog in FindObjectsByType<RobotDogEncounterController>(FindObjectsSortMode.None))
-                    if ((dog.UnitPosition-to).sqrMagnitude <= noiseRadius*noiseRadius && DetectionSensor2D.HasLineOfSight(dog.UnitPosition,to,~0,dog.UnitTransform,null,hits))
-                        dog.DistractAt(to,distractSeconds);
+                    if ((dog.UnitPosition - to).sqrMagnitude <= noiseRadius * noiseRadius &&
+                        DetectionSensor2D.HasLineOfSight(dog.UnitPosition, to, ~0, dog.UnitTransform, null, hits))
+                        dog.DistractAt(to, distractSeconds);
                 foreach (var robot in FindObjectsByType<MiniAutoController>(FindObjectsSortMode.None))
                 {
                     Vector2 eye = (Vector2)robot.transform.position + Vector2.up * 0.12f;
@@ -168,6 +195,13 @@ namespace EscapeUNIFRANZ.Player
                         DetectionSensor2D.HasLineOfSight(eye, to, ~0, robot.transform, null, hits))
                         robot.DistractAt(to, distractSeconds);
                 }
+                if (!spill && robotAffected)
+                {
+                    Destroy(can); // An empty can is spent when it successfully damages a robot.
+                    yield break;
+                }
+                var trigger = can.AddComponent<BoxCollider2D>(); trigger.isTrigger = true; trigger.size = new Vector2(0.8f, 0.8f);
+                var pickup = can.AddComponent<ThrownCanPickup>(); pickup.itemId = EmptyCanItemId; pickup.BindSession(session);
 
                 // Pequeño rebote solo visual (sin sonido extra) para que el golpe se sienta.
                 const float bounceSeconds = 0.22f;
@@ -186,6 +220,13 @@ namespace EscapeUNIFRANZ.Player
             {
                 if (shadow != null) Destroy(shadow);
             }
+        }
+        public static bool ApplyRobotImpact(MiniAutoController robot,bool full)
+        {
+            if(robot==null)return false;
+            if(!full)return robot.ReceiveCanHit();
+            if(!robot.CanBeStunned)return false;
+            robot.SuspendFor(CanSpill2D.StunSeconds);return true;
         }
     }
 }

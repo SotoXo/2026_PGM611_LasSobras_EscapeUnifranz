@@ -20,6 +20,25 @@ namespace EscapeUNIFRANZ.Core
         [SerializeField] private List<GameFlagId> completedFlags = new List<GameFlagId>();
         [SerializeField] private List<string> discoveredWorldItems = new List<string>();
         [SerializeField] private List<string> carriedItems = new List<string>();
+        public const int MaximumLives = 5;
+        [SerializeField] private int lives = MaximumLives;
+        [SerializeField] private bool livesInitialized;
+        public int Lives => livesInitialized ? Mathf.Clamp(lives,0,MaximumLives) : MaximumLives;
+        public event Action LivesChanged;
+        public bool LoseLife()
+        {
+            if (Lives == 0) return false;
+            lives = Lives - 1;
+            livesInitialized = true;
+            LivesChanged?.Invoke();
+            return true;
+        }
+        public void RestoreLives()
+        {
+            lives = MaximumLives;
+            livesInitialized = true;
+            LivesChanged?.Invoke();
+        }
 
         public string CurrentZoneId => currentZoneId;
         public string CurrentSpawnId => currentSpawnId;

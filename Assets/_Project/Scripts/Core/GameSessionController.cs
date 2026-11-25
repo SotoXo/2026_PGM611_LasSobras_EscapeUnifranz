@@ -31,6 +31,7 @@ namespace EscapeUNIFRANZ.Core
         private GameState state;
         private bool saveDirty;
         private float retrySaveAt;
+        private float nextContactDamageAt;
 
         public GameState State => state;
         public ObjectiveController Objectives => objectiveController;
@@ -55,7 +56,25 @@ namespace EscapeUNIFRANZ.Core
 
         public void StartNewGame() => BindState(new GameState());
 
-        public void RestoreState(GameState savedState) => BindState(savedState);
+        public void RestoreState(GameState savedState)
+        {
+            if (savedState != null && savedState.Lives == 0) savedState.RestoreLives();
+            BindState(savedState);
+        }
+        public void RestoreLives() { nextContactDamageAt=0;state?.RestoreLives(); }
+        public bool RequestContactDamage(EncounterContext encounter, string reason) =>
+            RequestContactDamage(encounter, reason, out _);
+
+        internal bool RequestContactDamage(EncounterContext encounter, string reason, out bool lifeLost)
+        {
+            lifeLost = state != null && Time.time >= nextContactDamageAt &&
+                (sceneFlow == null || sceneFlow.ModeController.AllowsMovement) && state.LoseLife();
+            if (!lifeLost) return false;
+            nextContactDamageAt = Time.time + 1.5f;
+            EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.AttackImpact);
+            if (state.Lives > 0) { ShowMessage("VIDAS: "+state.Lives+" / 5"); return false; }
+            return RequestDefeat(encounter,reason);
+        }
 
         private void BindState(GameState next)
         {
@@ -63,9 +82,11 @@ namespace EscapeUNIFRANZ.Core
             state = next;
             saveDirty = false;
             retrySaveAt = 0f;
+            nextContactDamageAt = 0f;
             state.CheckpointChanged += OnCheckpointChanged;
             state.FlagChanged += OnFlagChanged;
             state.InventoryChanged += MarkSaveDirty;
+            state.LivesChanged += MarkSaveDirty;
             state.MapKnowledgeChanged += MarkSaveDirty;
             state.LocationChanged += MarkSaveDirty;
             objectiveController?.Bind(state);
@@ -140,6 +161,7 @@ namespace EscapeUNIFRANZ.Core
             state.CheckpointChanged -= OnCheckpointChanged;
             state.FlagChanged -= OnFlagChanged;
             state.InventoryChanged -= MarkSaveDirty;
+            state.LivesChanged -= MarkSaveDirty;
             state.MapKnowledgeChanged -= MarkSaveDirty;
             state.LocationChanged -= MarkSaveDirty;
         }

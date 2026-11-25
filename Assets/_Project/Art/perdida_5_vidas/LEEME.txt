@@ -1,0 +1,29 @@
+Animación de pérdida de cinco vidas
+
+160 × 72 píxeles por fotograma. 32 fotogramas.
+Secuencia de cinco corazones hasta cero y mensaje PERDISTE.
+El ciclo GIF vuelve al principio para visualizarlo.
+
+perdida_5_vidas.ase incluye tres capas editables
+Panel, Corazones y Texto.
+Puedes ocultar Panel para mostrar los corazones y el contador directamente sobre el juego.
+
+Etiquetas de animación
+Cinco vidas, cuadro 0.
+Perder vida 1, cuadros 1–6.
+Perder vida 2, cuadros 7–12.
+Perder vida 3, cuadros 13–18.
+Perder vida 4, cuadros 19–24.
+Perder vida 5, cuadros 25–30.
+Derrota, cuadro 31.
+Los números empiezan en cero. LibreSprite los muestra a partir de uno.
+
+sprites.png mide 1280 × 288 px y tiene ocho columnas y cuatro filas.
+Cada celda mide 160 × 72 px. Leer de izquierda a derecha y luego hacia abajo.
+sprites.json incluye las posiciones, duraciones y etiquetas.
+animacion.gif conserva el tamaño original.
+vista_previa_3x.gif muestra los píxeles ampliados.
+5_vidas.png y 0_vidas.png son los estados inicial y final.
+
+Al implementar la derrota, reproducir la secuencia una vez y mantener el último cuadro.
+Usar filtro de vecino más cercano para preservar el pixel art.

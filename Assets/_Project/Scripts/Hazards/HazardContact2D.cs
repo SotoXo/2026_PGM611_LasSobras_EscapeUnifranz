@@ -79,12 +79,15 @@ namespace EscapeUNIFRANZ.Hazards
                 return;
             }
 
-            if (encounter != null && encounter.RequestRespawn(defeatReason))
+            if (encounter != null)
             {
-                armed = false;
-                GetComponentInParent<MiniAutoController>()?.PlayImpact();
-                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotAlert,transform.position);
-                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.Emit(EscapeUNIFRANZ.Narrative.AudioCue.AttackImpact);
+                if (encounter.RequestContactDamage(defeatReason, out bool lifeLost))
+                    armed = false;
+                if (lifeLost)
+                {
+                    GetComponentInParent<MiniAutoController>()?.PlayImpact();
+                    EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotAlert, transform.position);
+                }
             }
         }
 

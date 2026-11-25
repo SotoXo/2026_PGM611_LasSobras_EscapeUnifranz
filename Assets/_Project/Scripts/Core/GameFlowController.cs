@@ -269,6 +269,7 @@ namespace EscapeUNIFRANZ.Core
             {
                 flow.FailLoading();
             }
+            else session.RestoreLives();
         }
 
         public void OpenControls()

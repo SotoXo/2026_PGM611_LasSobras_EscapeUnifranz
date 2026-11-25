@@ -50,6 +50,11 @@ namespace EscapeUNIFRANZ.Encounters
 
             return false;
         }
+        public bool RequestContactDamage(string reason, out bool lifeLost)
+        {
+            lifeLost = false;
+            return initialized && !IsCompleted && runtime.Session.RequestContactDamage(this, reason, out lifeLost);
+        }
 
         public void ResetLocalState()
         {

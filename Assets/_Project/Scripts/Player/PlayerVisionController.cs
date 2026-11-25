@@ -41,6 +41,17 @@ namespace EscapeUNIFRANZ.Player
         private bool lastBeam;
         private float nextEmitterCheck;
         public bool FlashlightActive => flashlightEquipped && flashlightOn && Time.time>=interferenceUntil;
+        public bool IsLookingAt(Vector2 point, float range = 2.8f) =>
+            EscapeUNIFRANZ.Hazards.DetectionSensor2D.IsInField(transform.position, point,
+                DirectionVector(CurrentDirection), range, 80f);
+        public bool IlluminatesPoint(Vector2 point, Transform target = null)
+        {
+            if (!FlashlightActive) return false;
+            Vector2 origin = forwardLight != null ? forwardLight.transform.position : transform.position;
+            return EscapeUNIFRANZ.Hazards.DetectionSensor2D.IsInField(origin, point,
+                DirectionVector(CurrentDirection), forwardRange, forwardAngle) &&
+                EscapeUNIFRANZ.Hazards.DetectionSensor2D.HasLineOfSight(origin, point, ~0, transform, target, emitterHits);
+        }
         private readonly List<RaycastHit2D> emitterHits=new List<RaycastHit2D>();
         public void SetFlashlightEquipped(bool equipped) { SetFlashlightState(equipped,equipped); }
         public void SetFlashlightState(bool owned,bool on) { flashlightEquipped=owned; flashlightOn=on; ApplyLightSettings(); }

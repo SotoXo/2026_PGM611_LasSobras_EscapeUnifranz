@@ -37,11 +37,36 @@ namespace EscapeUNIFRANZ.Hazards
         private float nextServoAt;
         [SerializeField, Min(0.1f)] private float reactionSeconds = 0.65f;
         [SerializeField, Min(1f)] private float maxChaseSeconds = 9f;
+        [SerializeField, Min(0)] private int maxHits;
         private float chaseUntil, nextDistractionAt;
         private bool operationalBeforeSuspend;
+        private bool followingVisibleTarget;
+        private int hitsRemaining;
+        private bool destroyedByHits;
+        private float nextHitAt;
+        public int HitsRemaining => hitsRemaining;
+        public bool CanBeStunned => operational && !destroyedByHits && startupUntil <= 0f && isActiveAndEnabled;
+        public bool ReceiveCanHit()
+        {
+            if (maxHits <= 0 || destroyedByHits || (!operational && disabledUntil <= 0f) || Time.time < nextHitAt) return false;
+            nextHitAt = Time.time + .6f;
+            hitsRemaining = Mathf.Max(0, hitsRemaining - 1);
+            wear = hitsRemaining <= 1 ? MiniAutoWear.Heavy : MiniAutoWear.Light;
+            if (hitsRemaining == 0)
+            {
+                destroyedByHits = true;
+                disabledUntil = 0f;
+                SetOperational(false);
+                impactTime = 0f;
+                gameObject.SetActive(false);
+            }
+            else SuspendFor(3f);
+            return true;
+        }
 
         private void Awake()
         {
+            hitsRemaining = maxHits;
             if (carVisual != null)
                 spriteSet = MiniAutoSpriteSet.Create(movementArt, verticalArt, impactArt);
 
@@ -79,7 +104,7 @@ namespace EscapeUNIFRANZ.Hazards
         {
             bool wasOperational = operational;
             if (disabledUntil<=0f) operationalBeforeSuspend=operational;
-            disabledUntil = Time.time + Mathf.Max(1f, seconds);
+            disabledUntil = Mathf.Max(disabledUntil,Time.time + Mathf.Max(1f, seconds));
             SetOperational(false);
             if (wasOperational && spriteSet != null)
                 impactTime = 0f;
@@ -134,16 +159,40 @@ namespace EscapeUNIFRANZ.Hazards
             }
             if (sensor.transform!=mover.transform && mover.Facing.sqrMagnitude>0f)
                 sensor.transform.localRotation=Quaternion.Euler(0f,0f,Vector2.SignedAngle(Vector2.up,mover.Facing));
-            if (visibleTarget!=null) lastSeen=visibleTarget.position;
-            if (State==MobileThreatState.Chase && visibleTarget!=null) { if (Time.time < chaseUntil && !mover.RouteBlocked) return; sensor.ClearTarget(); sensor.enabled=false; distractionUntil=Time.time+chaseSeconds; }
+            if (visibleTarget!=null && sensor.IsTargetVisible) lastSeen=visibleTarget.position;
+            if (State==MobileThreatState.Chase && visibleTarget!=null)
+            {
+                if (Time.time < chaseUntil && !mover.RouteBlocked)
+                {
+                    if (followingVisibleTarget != sensor.IsTargetVisible) FollowTarget();
+                    return;
+                }
+                sensor.ClearTarget();
+                sensor.enabled = false;
+                distractionUntil = Time.time + chaseSeconds;
+            }
             if (Time.time<transitionAt) return;
             if (State==MobileThreatState.Suspicious && visibleTarget!=null)
             { State=MobileThreatState.Alert; transitionAt=Time.time+reactionSeconds; feedback?.Show(ThreatVisualState.Alert); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotAlert, transform.position); if (optionalAudio!=null && alertSound!=null) optionalAudio.PlayOneShot(alertSound); }
             else if (State==MobileThreatState.Alert && visibleTarget!=null)
-            { State=MobileThreatState.Chase; chaseUntil=Time.time+maxChaseSeconds; Contact(true); feedback?.Show(ThreatVisualState.Attack); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotChase, transform.position); EscapeUNIFRANZ.Narrative.ProjectAudioHooks.AlertMusic(EscapeUNIFRANZ.Narrative.AudioCue.MusicChase, 6f); mover.SetChaseTarget(visibleTarget,chaseSpeed); }
+            {
+                State = MobileThreatState.Chase;
+                chaseUntil = Time.time + maxChaseSeconds;
+                Contact(true);
+                feedback?.Show(ThreatVisualState.Attack);
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.EmitAt(EscapeUNIFRANZ.Narrative.AudioCue.RobotChase, transform.position);
+                EscapeUNIFRANZ.Narrative.ProjectAudioHooks.AlertMusic(EscapeUNIFRANZ.Narrative.AudioCue.MusicChase, 6f);
+                FollowTarget();
+            }
             else if (State==MobileThreatState.Search)
             { State=MobileThreatState.Return; Contact(false); feedback?.Show(ThreatVisualState.Patrol); mover.ResumePatrol(); transitionAt=Time.time+0.5f; }
             else if (State==MobileThreatState.Return) State=MobileThreatState.Patrol;
+        }
+        private void FollowTarget()
+        {
+            followingVisibleTarget = sensor.IsTargetVisible;
+            if (followingVisibleTarget) mover.SetChaseTarget(visibleTarget, chaseSpeed);
+            else mover.Investigate(lastSeen, chaseSpeed);
         }
         private void Detected(Transform target)
         { tutorial?.Offer(EscapeUNIFRANZ.UI.TutorialAction.AvoidThreat); visibleTarget=target; lastSeen=target.position; State=MobileThreatState.Suspicious; transitionAt=Time.time+0.25f; Contact(false); feedback?.Show(ThreatVisualState.Alert); mover.Investigate(lastSeen,0f); }
@@ -155,10 +204,23 @@ namespace EscapeUNIFRANZ.Hazards
         }
         public void ResetEncounter()
         {
+            if (destroyedByHits)
+            {
+                destroyedByHits = false;
+                gameObject.SetActive(true);
+                SetOperational(true);
+            }
+            else if (disabledUntil > 0f)
+            {
+                SetOperational(operationalBeforeSuspend);
+            }
+            hitsRemaining = maxHits;
+            nextHitAt = 0f;
+            if (maxHits > 0) wear = MiniAutoWear.Healthy;
             impactTime = -1f;
             movementTime = 0f;
             visibleTarget = null;
-            if (disabledUntil > 0f) operational = operationalBeforeSuspend;
+            followingVisibleTarget = false;
             distractionUntil = disabledUntil = startupUntil = nextDistractionAt = chaseUntil = 0f;
             if (mover != null) mover.enabled = operational;
             sensor?.ClearTarget();

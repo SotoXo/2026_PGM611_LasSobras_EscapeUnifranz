@@ -1,0 +1,29 @@
+Lata naranja cayendo y derramándose
+
+Referencia de color y diseño
+bebidas_compra_04_64.png, lata naranja con franja clara.
+La lata se adaptó a un sprite independiente de 6 × 8 px para animar el giro.
+El líquido se representó como refresco naranja.
+
+Lienzo fijo de 64 × 64 px por fotograma, con fondo transparente.
+28 fotogramas. Las coordenadas permanecen alineadas durante la animación.
+
+lata_derrame.ase contiene tres capas editables
+Charco, Lata y Salpicaduras.
+
+Etiquetas con índices desde cero
+Caida, 0–7.
+Impacto, 8–12.
+Derrame, 13–23.
+Reposo, 24–27.
+
+sprites.png mide 448 × 256 px, con 7 columnas y 4 filas.
+Cada celda mide 64 × 64 px.
+sprites.json incluye posiciones, duraciones y etiquetas.
+animacion.gif conserva el tamaño original.
+vista_previa_5x.gif amplía la animación para revisar.
+derrame_final.png es el estado final.
+
+Reproducir una vez al caer la lata y mantener el cuadro final si el charco debe persistir.
+Los GIF se repiten para la vista previa.
+Usar filtro de vecino más cercano al ampliar el sprite.

@@ -19,6 +19,38 @@ namespace EscapeUNIFRANZ.Tests.EditMode
             Assert.That(state.HasActiveFlashlight, Is.False);
         }
 
+        [Test]
+        public void FlashlightRevealsForwardTargetButNeverThroughWallsOrWhenOff()
+        {
+            var player=new GameObject("VisionAwarenessTest");
+            var wall=new GameObject("OpaqueWall");
+            try
+            {
+                player.transform.position=new Vector2(200,200);
+                player.AddComponent<PlayerMovement2D>();
+                player.AddComponent<PlayerVisualController>();
+                var vision=player.AddComponent<PlayerVisionController>();
+                vision.ApplyLightConfiguration();
+                Vector2 ahead=new Vector2(200,197);
+                vision.SetFlashlightState(true,false);
+                Assert.That(vision.IlluminatesPoint(ahead),Is.False);
+                vision.SetFlashlightState(true,true);
+                Assert.That(vision.IlluminatesPoint(ahead),Is.True);
+                Assert.That(vision.IlluminatesPoint(new Vector2(200,203)),Is.False);
+                wall.transform.position=new Vector2(200,198.5f);
+                wall.AddComponent<BoxCollider2D>().size=new Vector2(2,.2f);
+                Physics2D.SyncTransforms();
+                Assert.That(vision.IlluminatesPoint(ahead),Is.False);
+                Assert.That(vision.IsLookingAt(new Vector2(200,198)),Is.True);
+                Assert.That(vision.IsLookingAt(new Vector2(200,202)),Is.False);
+            }
+            finally
+            {
+                Object.DestroyImmediate(wall);Object.DestroyImmediate(player);
+                Physics2D.SyncTransforms();
+            }
+        }
+
         [TestCase(PlayerVisualController.FacingDirection.Front, 180f)]
         [TestCase(PlayerVisualController.FacingDirection.Back, 0f)]
         [TestCase(PlayerVisualController.FacingDirection.Left, 90f)]
