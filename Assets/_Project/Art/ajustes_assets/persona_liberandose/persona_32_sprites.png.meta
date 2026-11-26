@@ -1,0 +1,1378 @@
+fileFormatVersion: 2
+guid: 0187feafc6c39bc45995c7da3956bcbe
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3848806806812064072
+    second: persona_32_sprites_0
+  - first:
+      213: -5432153331541819158
+    second: persona_32_sprites_1
+  - first:
+      213: -7182525994478607855
+    second: persona_32_sprites_2
+  - first:
+      213: 7043915461428608004
+    second: persona_32_sprites_3
+  - first:
+      213: -3292385786324358097
+    second: persona_32_sprites_4
+  - first:
+      213: -5203011948622704611
+    second: persona_32_sprites_5
+  - first:
+      213: 5736648574260583829
+    second: persona_32_sprites_6
+  - first:
+      213: -5149544052246936425
+    second: persona_32_sprites_7
+  - first:
+      213: -8954856585056108386
+    second: persona_32_sprites_8
+  - first:
+      213: 7910299054955040161
+    second: persona_32_sprites_9
+  - first:
+      213: -3640111595344882448
+    second: persona_32_sprites_10
+  - first:
+      213: 5533975116437898129
+    second: persona_32_sprites_11
+  - first:
+      213: 3374461280739541352
+    second: persona_32_sprites_12
+  - first:
+      213: 9108187577967292483
+    second: persona_32_sprites_13
+  - first:
+      213: -1345100005916411590
+    second: persona_32_sprites_14
+  - first:
+      213: 8068854548962935076
+    second: persona_32_sprites_15
+  - first:
+      213: 2873829391463297045
+    second: persona_32_sprites_16
+  - first:
+      213: -5704214474940036788
+    second: persona_32_sprites_17
+  - first:
+      213: 2287337785062283958
+    second: persona_32_sprites_18
+  - first:
+      213: 5779417589754182485
+    second: persona_32_sprites_19
+  - first:
+      213: -3917101353576210550
+    second: persona_32_sprites_20
+  - first:
+      213: 4252493077370894036
+    second: persona_32_sprites_21
+  - first:
+      213: -4185872797067333584
+    second: persona_32_sprites_22
+  - first:
+      213: -7948675563374345831
+    second: persona_32_sprites_23
+  - first:
+      213: 7280344525075685124
+    second: persona_32_sprites_24
+  - first:
+      213: 219003004960415839
+    second: persona_32_sprites_25
+  - first:
+      213: 3996871504225117789
+    second: persona_32_sprites_26
+  - first:
+      213: 476812863875819604
+    second: persona_32_sprites_27
+  - first:
+      213: 4297477145408148009
+    second: persona_32_sprites_28
+  - first:
+      213: -5767008864059546992
+    second: persona_32_sprites_29
+  - first:
+      213: -3580815689522717959
+    second: persona_32_sprites_30
+  - first:
+      213: 3553610561557163097
+    second: persona_32_sprites_31
+  - first:
+      213: 4110133883335629848
+    second: persona_32_sprites_32
+  - first:
+      213: -6342657410011985447
+    second: persona_32_sprites_33
+  - first:
+      213: -1696180798170911821
+    second: persona_32_sprites_34
+  - first:
+      213: -8585016497555224738
+    second: persona_32_sprites_35
+  - first:
+      213: -630277472262131405
+    second: persona_32_sprites_36
+  - first:
+      213: 5341954081403426909
+    second: persona_32_sprites_37
+  - first:
+      213: -6115498055964305978
+    second: persona_32_sprites_38
+  - first:
+      213: 7736130603433849147
+    second: persona_32_sprites_39
+  - first:
+      213: 5108824236001109008
+    second: persona_32_sprites_40
+  - first:
+      213: -4148725320912032618
+    second: persona_32_sprites_41
+  - first:
+      213: -2493407458222404547
+    second: persona_32_sprites_42
+  - first:
+      213: -5456846482046401168
+    second: persona_32_sprites_43
+  - first:
+      213: 6100803634820930717
+    second: persona_32_sprites_44
+  - first:
+      213: 4328884369810841992
+    second: persona_32_sprites_45
+  - first:
+      213: -8818952973960457262
+    second: persona_32_sprites_46
+  - first:
+      213: 7049575680064998637
+    second: persona_32_sprites_47
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: persona_32_sprites_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 160
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84973212665b96530800000000000000
+      internalID: 3848806806812064072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_1
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 160
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae0cef3635d1d94b0800000000000000
+      internalID: -5432153331541819158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_2
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 160
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 112e715a9aa825c90800000000000000
+      internalID: -7182525994478607855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_3
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 160
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40c755abac301c160800000000000000
+      internalID: 7043915461428608004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_4
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 160
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2c679632981f42d0800000000000000
+      internalID: -3292385786324358097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_5
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 160
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d101b3013303bc7b0800000000000000
+      internalID: -5203011948622704611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_6
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 160
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59d9d06fb7bac9f40800000000000000
+      internalID: 5736648574260583829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_7
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 160
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 794889ac7f42988b0800000000000000
+      internalID: -5149544052246936425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_8
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 128
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e90c9297165f9b380800000000000000
+      internalID: -8954856585056108386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_9
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 128
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ad04b5741707cd60800000000000000
+      internalID: 7910299054955040161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_10
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 128
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f410b84ac9bb7dc0800000000000000
+      internalID: -3640111595344882448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_11
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 128
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 193c1235c01accc40800000000000000
+      internalID: 5533975116437898129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_12
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 128
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8614acaf7ae74de20800000000000000
+      internalID: 3374461280739541352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_13
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 128
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 340bd5c4858c66e70800000000000000
+      internalID: 9108187577967292483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_14
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 128
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a39f9f7dbae355de0800000000000000
+      internalID: -1345100005916411590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_15
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 128
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4210b3f26745aff60800000000000000
+      internalID: 8068854548962935076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_16
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 97
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5103f37fa94e1e720800000000000000
+      internalID: 2873829391463297045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_17
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 97
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c49ce82482f86d0b0800000000000000
+      internalID: -5704214474940036788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_18
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 97
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ba57ffb8914ebf10800000000000000
+      internalID: 2287337785062283958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_19
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 97
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55b31fd5dad943050800000000000000
+      internalID: 5779417589754182485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_20
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 97
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8f53e69219a3a9c0800000000000000
+      internalID: -3917101353576210550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_21
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 97
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d6ff765ce3e30b30800000000000000
+      internalID: 4252493077370894036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_22
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 97
+        width: 28
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 030b4d76edac8e5c0800000000000000
+      internalID: -4185872797067333584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_23
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 97
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9918e3260b1a0b190800000000000000
+      internalID: -7948675563374345831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_24
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 65
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40f989bc5caf80560800000000000000
+      internalID: 7280344525075685124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_25
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 65
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f50a86b921e0a0300800000000000000
+      internalID: 219003004960415839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_26
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 65
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d56283ee47db77730800000000000000
+      internalID: 3996871504225117789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_27
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 65
+        width: 26
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 458a7aff5cafd9600800000000000000
+      internalID: 476812863875819604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_28
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 65
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 922996ad1b4b3ab30800000000000000
+      internalID: 4297477145408148009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_29
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 65
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 092a3393ef777ffa0800000000000000
+      internalID: -5767008864059546992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_30
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 64
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fa5ad33a136e4ec0800000000000000
+      internalID: -3580815689522717959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_31
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 64
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95ce0b75af5f05130800000000000000
+      internalID: 3553610561557163097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_32
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 31
+        width: 26
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81c548f8df02a0930800000000000000
+      internalID: 4110133883335629848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_33
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 31
+        width: 26
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d98c30c0ba5af7a0800000000000000
+      internalID: -6342657410011985447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_34
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 31
+        width: 26
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bb2f220d84f578e0800000000000000
+      internalID: -1696180798170911821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_35
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 31
+        width: 26
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e574a581bf4ebd880800000000000000
+      internalID: -8585016497555224738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_36
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 31
+        width: 26
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33172e37afdc047f0800000000000000
+      internalID: -630277472262131405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_37
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 31
+        width: 26
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d58df742fee622a40800000000000000
+      internalID: 5341954081403426909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_38
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 31
+        width: 26
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c5d7ad5be2612ba0800000000000000
+      internalID: -6115498055964305978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_39
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 31
+        width: 26
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b31f3b9cbc14c5b60800000000000000
+      internalID: 7736130603433849147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_40
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 0
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 014a0ce239036e640800000000000000
+      internalID: 5108824236001109008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_41
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 0
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69cae503d44cc66c0800000000000000
+      internalID: -4148725320912032618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_42
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 0
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3c085c9023a56dd0800000000000000
+      internalID: -2493407458222404547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_43
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 0
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 075c8c349036544b0800000000000000
+      internalID: -5456846482046401168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_44
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 0
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9cd9e915986aa450800000000000000
+      internalID: 6100803634820930717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_45
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 0
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 881e0502669431c30800000000000000
+      internalID: 4328884369810841992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_46
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 0
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d35638bef8cc9580800000000000000
+      internalID: -8818952973960457262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: persona_32_sprites_47
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 0
+        width: 26
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: decc1831bbf15d160800000000000000
+      internalID: 7049575680064998637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      persona_32_sprites_0: 3848806806812064072
+      persona_32_sprites_1: -5432153331541819158
+      persona_32_sprites_10: -3640111595344882448
+      persona_32_sprites_11: 5533975116437898129
+      persona_32_sprites_12: 3374461280739541352
+      persona_32_sprites_13: 9108187577967292483
+      persona_32_sprites_14: -1345100005916411590
+      persona_32_sprites_15: 8068854548962935076
+      persona_32_sprites_16: 2873829391463297045
+      persona_32_sprites_17: -5704214474940036788
+      persona_32_sprites_18: 2287337785062283958
+      persona_32_sprites_19: 5779417589754182485
+      persona_32_sprites_2: -7182525994478607855
+      persona_32_sprites_20: -3917101353576210550
+      persona_32_sprites_21: 4252493077370894036
+      persona_32_sprites_22: -4185872797067333584
+      persona_32_sprites_23: -7948675563374345831
+      persona_32_sprites_24: 7280344525075685124
+      persona_32_sprites_25: 219003004960415839
+      persona_32_sprites_26: 3996871504225117789
+      persona_32_sprites_27: 476812863875819604
+      persona_32_sprites_28: 4297477145408148009
+      persona_32_sprites_29: -5767008864059546992
+      persona_32_sprites_3: 7043915461428608004
+      persona_32_sprites_30: -3580815689522717959
+      persona_32_sprites_31: 3553610561557163097
+      persona_32_sprites_32: 4110133883335629848
+      persona_32_sprites_33: -6342657410011985447
+      persona_32_sprites_34: -1696180798170911821
+      persona_32_sprites_35: -8585016497555224738
+      persona_32_sprites_36: -630277472262131405
+      persona_32_sprites_37: 5341954081403426909
+      persona_32_sprites_38: -6115498055964305978
+      persona_32_sprites_39: 7736130603433849147
+      persona_32_sprites_4: -3292385786324358097
+      persona_32_sprites_40: 5108824236001109008
+      persona_32_sprites_41: -4148725320912032618
+      persona_32_sprites_42: -2493407458222404547
+      persona_32_sprites_43: -5456846482046401168
+      persona_32_sprites_44: 6100803634820930717
+      persona_32_sprites_45: 4328884369810841992
+      persona_32_sprites_46: -8818952973960457262
+      persona_32_sprites_47: 7049575680064998637
+      persona_32_sprites_5: -5203011948622704611
+      persona_32_sprites_6: 5736648574260583829
+      persona_32_sprites_7: -5149544052246936425
+      persona_32_sprites_8: -8954856585056108386
+      persona_32_sprites_9: 7910299054955040161
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

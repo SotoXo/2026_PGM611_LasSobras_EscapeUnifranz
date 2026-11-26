@@ -12,6 +12,7 @@ namespace EscapeUNIFRANZ.Map
         [SerializeField] private Image accentPrimary;
         [SerializeField] private Image accentSecondary;
         private bool shapeConfigured;
+        public Sprite[] pixelIcons;
         private MinimapMarkerKind displayedKind;
         private MinimapExitState displayedExitState;
 
@@ -51,6 +52,15 @@ namespace EscapeUNIFRANZ.Map
 
         private void ConfigureShape(MinimapMarkerKind kind, MinimapExitState exitState)
         {
+            int index=(int)kind;
+            if(pixelIcons!=null&&index<pixelIcons.Length&&pixelIcons[index]!=null)
+            {
+                background.sprite=pixelIcons[index];background.color=ColorFor(kind,exitState);
+                background.rectTransform.localRotation=Quaternion.identity;background.rectTransform.sizeDelta=new Vector2(16,16);
+                if(accentPrimary!=null)accentPrimary.gameObject.SetActive(false);
+                if(accentSecondary!=null)accentSecondary.gameObject.SetActive(false);
+                return;
+            }
             RectTransform baseRect = background.rectTransform;
             RectTransform firstRect = accentPrimary != null ? accentPrimary.rectTransform : null;
             RectTransform secondRect = accentSecondary != null ? accentSecondary.rectTransform : null;

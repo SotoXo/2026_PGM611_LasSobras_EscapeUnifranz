@@ -1,0 +1,962 @@
+fileFormatVersion: 2
+guid: bf13cea07f2ff5e4b92a19581d33382e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1156720356193325192
+    second: derecha_sprites_0
+  - first:
+      213: 213688985053621475
+    second: derecha_sprites_1
+  - first:
+      213: -748067211314943656
+    second: derecha_sprites_2
+  - first:
+      213: -3825240203910400121
+    second: derecha_sprites_3
+  - first:
+      213: -6177622196154521177
+    second: derecha_sprites_4
+  - first:
+      213: 909611087312574849
+    second: derecha_sprites_5
+  - first:
+      213: -1549724009649286193
+    second: derecha_sprites_6
+  - first:
+      213: -7791582787499711146
+    second: derecha_sprites_7
+  - first:
+      213: 4577157808236048834
+    second: derecha_sprites_8
+  - first:
+      213: -783090142058538410
+    second: derecha_sprites_9
+  - first:
+      213: -8257414834320598741
+    second: derecha_sprites_10
+  - first:
+      213: -2246011977143639419
+    second: derecha_sprites_11
+  - first:
+      213: 3637629948745909241
+    second: derecha_sprites_12
+  - first:
+      213: 426046202666609265
+    second: derecha_sprites_13
+  - first:
+      213: 898853186716466945
+    second: derecha_sprites_14
+  - first:
+      213: 1025949419147137993
+    second: derecha_sprites_15
+  - first:
+      213: 4124428298558919434
+    second: derecha_sprites_16
+  - first:
+      213: -6273327463664013001
+    second: derecha_sprites_17
+  - first:
+      213: -5480329886487086664
+    second: derecha_sprites_18
+  - first:
+      213: 178341134526030685
+    second: derecha_sprites_19
+  - first:
+      213: 7312662649946350717
+    second: derecha_sprites_20
+  - first:
+      213: 5166857027181780315
+    second: derecha_sprites_21
+  - first:
+      213: 8039747391313658400
+    second: derecha_sprites_22
+  - first:
+      213: 8938112799379524428
+    second: derecha_sprites_23
+  - first:
+      213: -5851250422318059339
+    second: derecha_sprites_24
+  - first:
+      213: -6273641199415296657
+    second: derecha_sprites_25
+  - first:
+      213: 7282868874035030333
+    second: derecha_sprites_26
+  - first:
+      213: -4001530527378279733
+    second: derecha_sprites_27
+  - first:
+      213: -9168930607215777976
+    second: derecha_sprites_28
+  - first:
+      213: 1820744124340794194
+    second: derecha_sprites_29
+  - first:
+      213: 5145172113598335433
+    second: derecha_sprites_30
+  - first:
+      213: 5577125294420356945
+    second: derecha_sprites_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: derecha_sprites_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 73
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87f22a0f6f082ffe0800000000000000
+      internalID: -1156720356193325192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 73
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ece88eeffc27f200800000000000000
+      internalID: 213688985053621475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_2
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 73
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 859a471b5d45e95f0800000000000000
+      internalID: -748067211314943656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_3
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 72
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 787b0613d440aeac0800000000000000
+      internalID: -3825240203910400121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_4
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 71
+        width: 25
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a924a1d75da44aa0800000000000000
+      internalID: -6177622196154521177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_5
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 72
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 189d50fe6769f9c00800000000000000
+      internalID: 909611087312574849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_6
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 73
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc3d5f859364e7ae0800000000000000
+      internalID: -1549724009649286193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_7
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 73
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65528018cbcbed390800000000000000
+      internalID: -7791582787499711146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_8
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 41
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c1b0d896c4558f30800000000000000
+      internalID: 4577157808236048834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_9
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 41
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65a9d7f2aa7e125f0800000000000000
+      internalID: -783090142058538410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_10
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 41
+        width: 25
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b29974535f4c76d80800000000000000
+      internalID: -8257414834320598741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_11
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 41
+        width: 25
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 582a415b10094d0e0800000000000000
+      internalID: -2246011977143639419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_12
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 41
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f382575a257b7230800000000000000
+      internalID: 3637629948745909241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_13
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 41
+        width: 25
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17ae8d793ce99e500800000000000000
+      internalID: 426046202666609265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_14
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 41
+        width: 25
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10f7673063e597c00800000000000000
+      internalID: 898853186716466945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_15
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 41
+        width: 25
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c398cd9f87ec3e00800000000000000
+      internalID: 1025949419147137993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_16
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 8
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a035c257fa9ec3930800000000000000
+      internalID: 4124428298558919434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_17
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 22
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 731ba98c8e9a0f8a0800000000000000
+      internalID: -6273327463664013001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_18
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 9
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b9faf71105f1f3b0800000000000000
+      internalID: -5480329886487086664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_19
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 22
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d53a3442158997200800000000000000
+      internalID: 178341134526030685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_20
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 8
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d74a15c9febcb7560800000000000000
+      internalID: 7312662649946350717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_21
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 22
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5d966e471d54b740800000000000000
+      internalID: 5166857027181780315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_22
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 9
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 022cf1fe7abe29f60800000000000000
+      internalID: 8039747391313658400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_23
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 22
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4b83612c3e8a0c70800000000000000
+      internalID: 8938112799379524428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_24
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 8
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b0b0edfdbe2ccea0800000000000000
+      internalID: -5851250422318059339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_25
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 22
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6d789c719c8fe8a0800000000000000
+      internalID: -6273641199415296657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_26
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 9
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d396b9697a2f11560800000000000000
+      internalID: 7282868874035030333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_27
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 22
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc27cb5bf25b778c0800000000000000
+      internalID: -4001530527378279733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_28
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 8
+        width: 32
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84762ba113a61c080800000000000000
+      internalID: -9168930607215777976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_29
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 22
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25376366225944910800000000000000
+      internalID: 1820744124340794194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_30
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 9
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c9464be6c2576740800000000000000
+      internalID: 5145172113598335433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: derecha_sprites_31
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 22
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15f65c908ede56d40800000000000000
+      internalID: 5577125294420356945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      derecha_sprites_0: -1156720356193325192
+      derecha_sprites_1: 213688985053621475
+      derecha_sprites_10: -8257414834320598741
+      derecha_sprites_11: -2246011977143639419
+      derecha_sprites_12: 3637629948745909241
+      derecha_sprites_13: 426046202666609265
+      derecha_sprites_14: 898853186716466945
+      derecha_sprites_15: 1025949419147137993
+      derecha_sprites_16: 4124428298558919434
+      derecha_sprites_17: -6273327463664013001
+      derecha_sprites_18: -5480329886487086664
+      derecha_sprites_19: 178341134526030685
+      derecha_sprites_2: -748067211314943656
+      derecha_sprites_20: 7312662649946350717
+      derecha_sprites_21: 5166857027181780315
+      derecha_sprites_22: 8039747391313658400
+      derecha_sprites_23: 8938112799379524428
+      derecha_sprites_24: -5851250422318059339
+      derecha_sprites_25: -6273641199415296657
+      derecha_sprites_26: 7282868874035030333
+      derecha_sprites_27: -4001530527378279733
+      derecha_sprites_28: -9168930607215777976
+      derecha_sprites_29: 1820744124340794194
+      derecha_sprites_3: -3825240203910400121
+      derecha_sprites_30: 5145172113598335433
+      derecha_sprites_31: 5577125294420356945
+      derecha_sprites_4: -6177622196154521177
+      derecha_sprites_5: 909611087312574849
+      derecha_sprites_6: -1549724009649286193
+      derecha_sprites_7: -7791582787499711146
+      derecha_sprites_8: 4577157808236048834
+      derecha_sprites_9: -783090142058538410
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

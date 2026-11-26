@@ -1,0 +1,33 @@
+Cangrejo plateado con nuevas acciones en las cuatro direcciones
+Lienzo de 128 × 128 px por cuadro.
+El cuerpo conserva su tamaño anterior y tiene un margen de 16 px alrededor para la extensión de las pinzas.
+
+cangrejo.ase contiene 176 cuadros, 28 etiquetas y cuatro capas.
+Cada carpeta de dirección contiene 44 cuadros y siete acciones
+Reposo, ataques individuales, ataque con ambas, cerrar pinzas, extender y golpear el piso, correr rápido.
+
+Dentro de cada dirección, índices desde cero
+Reposo 0–3.
+Ataque pinza 1 4–7.
+Ataque pinza 2 8–11.
+Ataque ambas 12–15.
+Cerrar pinzas 16–23.
+Extender y golpear el piso 24–35.
+Correr rápido 36–43.
+
+Cada dirección tiene tres subcarpetas para las nuevas acciones.
+Cada subcarpeta contiene su propio editable, PNG, JSON y GIF.
+Cerrar tiene 8 cuadros. Golpe de piso tiene 12 cuadros. Carrera tiene 8 cuadros a 55 ms por cuadro.
+El momento de contacto del golpe está en el cuadro local 6.
+Los GIF ampliados de la carpeta principal muestran la dirección frontal.
+
+Direcciones en el editable general
+Abajo 0–43.
+Izquierda 44–87.
+Derecha 88–131.
+Arriba 132–175.
+
+El sprite continúa plateado, con cables rojos y azules.
+Los PNG conservan transparencia.
+Usar filtro de vecino más cercano al ampliar.
+Los GIF son vistas previas de cada secuencia.

@@ -1,0 +1,23 @@
+Persona atada, liberándose y hablando
+
+Se tomó como base el personaje de chompa azul, pantalón gris y lentes.
+48 cuadros de 64 × 64 px con fondo transparente.
+persona_liberandose.ase contiene Personaje, Cuerda y Burbuja.
+
+Etiquetas con índices desde cero
+Atada 0–5.
+Forcejear 6–15.
+Desatar 16–23.
+Levantarse 24–31.
+Libre 32–35.
+Hablar 36–47.
+
+La cuerda se afloja, se abre y queda en el suelo.
+La persona se levanta y mueve la boca al hablar, con puntos suspensivos en su burbuja.
+sprites.png mide 512 × 384 px, ocho columnas y seis filas.
+Cada celda mide 64 × 64.
+persona_32.ase, persona_32_sprites.png y persona_32.json contienen el recorte del actor a 32 × 32 px.
+La esquina del recorte es x=16,y=32 de la escena.
+animacion.gif muestra el tamaño nativo. vista_previa.gif amplía cinco veces.
+
+Reproducir las fases de liberación una vez y repetir Hablar para diálogo continuo.

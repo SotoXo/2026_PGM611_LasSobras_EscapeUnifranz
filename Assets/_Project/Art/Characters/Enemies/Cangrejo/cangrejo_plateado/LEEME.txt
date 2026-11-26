@@ -1,0 +1,28 @@
+Cangrejo mecánico plateado con cables
+96 × 96 px por cuadro, con transparencia.
+
+cangrejo_plateado.ase contiene 64 cuadros y 16 etiquetas.
+Cuatro capas editables, Cables, Blindaje y patas, Pinzas e Impacto.
+
+Direcciones en el documento principal
+Abajo, cuadros 0–15.
+Izquierda, cuadros 16–31.
+Derecha, cuadros 32–47.
+Arriba, cuadros 48–63.
+
+Cada dirección contiene cuatro cuadros por acción
+Reposo, Ataque pinza 1, Ataque pinza 2 y Ataque ambas.
+Cada carpeta de dirección incluye editable propio, hoja PNG, JSON y GIF.
+Los ataques laterales avanzan hacia izquierda o derecha y los de arriba se proyectan hacia la parte superior del cuadro.
+
+sprites.png principal mide 768 × 768 px, 8 columnas y 8 filas.
+Cada carpeta tiene una hoja de 1536 × 96 px, 16 cuadros en una fila.
+Las etiquetas permiten activar cada ataque independientemente del reposo.
+
+Los colores del blindaje son plateados y gris azulado.
+Los cables visibles son rojos y azules.
+direcciones_3x.png muestra abajo e izquierda en la fila superior, derecha y arriba en la inferior.
+ataques_frente_4x.gif muestra los ataques de la vista frontal ampliados.
+
+Usar filtro de vecino más cercano al ampliar e importar.
+Los GIF reúnen las acciones para su vista previa.

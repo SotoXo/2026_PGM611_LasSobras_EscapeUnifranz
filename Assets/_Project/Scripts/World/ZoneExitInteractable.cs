@@ -37,8 +37,8 @@ namespace EscapeUNIFRANZ.World
         public ElevatorDoorAnimation elevatorAnimation;
         private bool travelling;
         private bool floorMenuOpen;
-        public static readonly string[] ElevatorZones={"entrada","aula2","piso3_aulas"};
-        public static readonly string[] ElevatorLabels={"Planta baja","Piso 2 · Aulas","Piso 3 · Aulas"};
+        public static readonly string[] ElevatorZones={"entrada","aula2","piso3_aulas","piso4_aulas","piso5_aulas"};
+        public static readonly string[] ElevatorLabels={"Planta baja","Piso 2 · Aulas","Piso 3 · Aulas","Piso 4 · Aulas","Piso 5 · Aulas"};
         public static string ElevatorSpawn(int index)=>index==0?"from_aula2_elevator":"from_elevator";
         public int CurrentElevatorFloor
         {

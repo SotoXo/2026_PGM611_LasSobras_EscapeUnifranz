@@ -1,0 +1,12 @@
+Piso2_editable.ase — editable de LibreSprite
+Lienzo: 960 x 576 píxeles, RGBA, un fotograma.
+Capas independientes, de abajo hacia arriba:
+Suelo -> PisoActual.png
+Muros -> murosActuall.png
+Objetos -> ObjetosActual.png
+
+Abre el archivo .ase en LibreSprite y guarda allí tus cambios.
+Para llevarlos al juego, exporta cada capa con su nombre PNG original en esta carpeta, manteniendo el mismo tamaño y origen.
+No exportes las otras capas visibles dentro de cada PNG individual.
+Si mueves paredes u objetos, también será necesario actualizar las colisiones del mapa en Unity.
+La creación del editable no modificó los PNG originales.

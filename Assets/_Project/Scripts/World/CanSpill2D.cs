@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using EscapeUNIFRANZ.Core;
+using EscapeUNIFRANZ.Encounters;
 using EscapeUNIFRANZ.Hazards;
 using EscapeUNIFRANZ.Interaction;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace EscapeUNIFRANZ.World
         private float age;
         public const float Lifetime=20f;
         public const float StunSeconds=4f;
-        public static CanSpill2D Create(Vector2 point,Transform parent,GameplayModeController mode,MiniAutoController alreadyHit=null)
+        public static CanSpill2D Create(Vector2 point,Transform parent,GameplayModeController mode,MiniAutoController alreadyHit=null,MechanicalCrabController crabHit=null)
         {
             var obj=new GameObject("DerrameDeRefresco");obj.transform.SetParent(parent,true);obj.transform.position=point;
             obj.transform.localScale=new Vector3(1.4f,.65f,1);
@@ -25,6 +26,7 @@ namespace EscapeUNIFRANZ.World
             renderer.sortingLayerName="Decals";renderer.sortingOrder=5;renderer.color=new Color(.65f,.28f,.07f,.8f);
             var spill=obj.AddComponent<CanSpill2D>();spill.mode=mode;spill.visual=renderer;
             if(alreadyHit!=null)spill.affected.Add(alreadyHit.GetInstanceID());
+            if(crabHit!=null)spill.affected.Add(crabHit.GetInstanceID());
             return spill;
         }
         public bool TryAffect(MiniAutoController robot)
@@ -39,7 +41,17 @@ namespace EscapeUNIFRANZ.World
         {
             // A vision sensor reaching the puddle is not a wheel touching the liquid.
             if(!other.isTrigger || other.GetComponent<HazardContact2D>()!=null)
+            {
                 TryAffect(other.GetComponentInParent<MiniAutoController>());
+                TryAffectCrab(other.GetComponentInParent<MechanicalCrabController>());
+            }
+        }
+        public bool TryAffectCrab(MechanicalCrabController crab)
+        {
+            if(crab==null||(mode!=null&&!mode.AllowsMovement)||!crab.CanBeStunned||affected.Contains(crab.GetInstanceID()))return false;
+            if(Vector2.Distance(GetComponent<CircleCollider2D>().ClosestPoint(crab.transform.position),crab.transform.position)>.3f)return false;
+            if(!DetectionSensor2D.HasLineOfSight(transform.position,crab.transform.position,~0,transform,crab.transform))return false;
+            affected.Add(crab.GetInstanceID());crab.SuspendFor(StunSeconds);return true;
         }
         private void OnTriggerStay2D(Collider2D other)=>OnTriggerEnter2D(other);
         private void Update()

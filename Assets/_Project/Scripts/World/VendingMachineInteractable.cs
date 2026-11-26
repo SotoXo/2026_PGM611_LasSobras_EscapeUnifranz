@@ -98,7 +98,7 @@ namespace EscapeUNIFRANZ.World
         {
             phase = Phase.Dispensing;
 
-            ProjectAudioHooks.EmitAt(AudioCue.ElectronicDoor, transform.position);
+            ProjectAudioHooks.EmitAt(AudioCue.VendingDispense, transform.position);
 
             int frames = purchaseFrames != null ? purchaseFrames.Length : 0;
             int landing = landingFrame >= 0

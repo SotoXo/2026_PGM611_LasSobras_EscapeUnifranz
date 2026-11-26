@@ -1,0 +1,17 @@
+Cangrejo plateado corriendo de frente y de espaldas
+
+adelante, vista frontal orientada hacia abajo en el mapa.
+atras, vista de espaldas orientada hacia arriba en el mapa.
+Ambas son carreras rápidas de 8 cuadros a 55 ms por cuadro.
+El ciclo completo dura 440 ms y está preparado para repetirse.
+
+Cada carpeta contiene
+Editable LibreSprite con una etiqueta propia.
+sprites.png, tira de 1024 × 128 px con ocho celdas de 128 × 128.
+sprites.json, posiciones y duraciones.
+correr.gif, vista a tamaño original.
+vista_previa_3x.gif, ampliación para revisar.
+
+Lienzo transparente de 128 × 128 px, alineado con las demás acciones del cangrejo.
+Los cables acompañan el movimiento y las patas alternan el apoyo.
+Usar filtro de vecino más cercano al ampliar.

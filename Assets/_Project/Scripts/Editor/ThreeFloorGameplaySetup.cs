@@ -49,15 +49,15 @@ namespace EscapeUNIFRANZ.EditorTools
                 var material=AssetDatabase.LoadAssetAtPath<Material>("Assets/_Project/Art/Levels/GroupWorldLit.mat");
                 var floor=Import("piso.png");var walls=Import("muros.png");var objects=Import("objetos.png");
                 // Replace the painted third-floor lift with the same animated doors as floor 2.
-                var liftDoor=new RectInt(532,182,44,32);
-                walls=ElevatorMapIntegration.WithoutDoor(walls,new RectInt(532,166,44,48),"Piso3MurosSinPuerta");
-                // Connect the southern lift landing to the west interior corridor.
-                walls=ElevatorMapIntegration.WithoutDoor(walls,new RectInt(198,136,24,48),"Piso3MurosSinPuerta");
+                var liftDoor=new RectInt(532,210,44,32);
+                walls=ElevatorMapIntegration.WithoutDoor(walls,new RectInt(532,210,44,48),"Piso3MurosSinPuerta");
+
+                
                 if(floor.width!=1248||floor.height!=736)throw new InvalidOperationException("Unexpected third floor dimensions.");
                 Draw(art,"Piso",floor,new Rect(0,0,1248,736),material,"Ground");
                 for(int y=0;y<736;y+=8)Draw(art,"Muros_"+y,walls,new Rect(0,y,1248,8),material,"World");
                 var furniture=Aula2MapBuilder.Furniture(objects);
-                furniture.RemoveAll(r=>r.width<24&&new Rect(210,172,21,26).Overlaps(r));
+                
                 for(int i=0;i<furniture.Count;i++)
                 {
                     var renderer=Draw(art,"Objeto_"+i,objects,furniture[i],material,"World");
@@ -84,12 +84,10 @@ namespace EscapeUNIFRANZ.EditorTools
                     Clear(blocked,wallMask,(int)p.x-10,(int)p.y-5,20,12);
                 foreach(var p in new[]{new Vector2(192,333),new Vector2(192,530),new Vector2(977,478),new Vector2(939,548),new Vector2(939,651)})
                     Clear(blocked,wallMask,(int)p.x-5,(int)p.y-10,12,20);
-                for(int y=liftDoor.y-16;y<liftDoor.yMax;y++)for(int x=liftDoor.x;x<liftDoor.xMax;x++)
-                {blocked[x,y]=false;wallMask[x,y]=false;}
-                for(int y=136;y<184;y++)for(int x=198;x<222;x++)
+                for(int y=liftDoor.y;y<liftDoor.yMax+16;y++)for(int x=liftDoor.x;x<liftDoor.xMax;x++)
                 {blocked[x,y]=false;wallMask[x,y]=false;}
                 // Arrival is on the open landing in front of the authored lift.
-                Vector2 arrival=Pixel(554,583);
+                Vector2 arrival=Pixel(554,468);
                 Aula2MapBuilder.UseNavigation(blocked,wallMask,arrival);
                 Debug.Log("PISO3: navigation mask ready.");
                 arrival=Aula2MapBuilder.FindOpenPosition(arrival);
@@ -101,9 +99,9 @@ namespace EscapeUNIFRANZ.EditorTools
                 Debug.Log("PISO3: shadow outlines ready.");
                 var caster=shadows.gameObject.AddComponent<ShadowCaster2D>();caster.castingOption=ShadowCaster2D.ShadowCastingOptions.CastAndSelfShadow;caster.trimEdge=0;
                 var shadowData=new SerializedObject(caster);shadowData.FindProperty("m_ShadowShape2DProvider").managedReferenceValue=new StaticWallShadowProvider();shadowData.ApplyModifiedPropertiesWithoutUndo();
-                var elevator=Aula2MapBuilder.Exit(root.transform,"Ascensor · Elegir piso",Pixel(554,570),"aula2","from_elevator").GetComponent<ZoneExitInteractable>();
+                var elevator=Aula2MapBuilder.Exit(root.transform,"Ascensor · Elegir piso",Pixel(554,480),"aula2","from_elevator").GetComponent<ZoneExitInteractable>();
                 ElevatorMapIntegration.Configure(elevator,art,liftDoor,Ppu,true);
-                elevator.elevatorAnimation.entranceAtTop=false;
+                elevator.elevatorAnimation.entranceAtTop=true;
                 var frame=elevator.elevatorAnimation.frames[0];
                 elevator.elevatorAnimation.doorRenderer.transform.localScale=new Vector3(liftDoor.width/frame.rect.width,liftDoor.height/frame.rect.height,1);
                 Aula2MapBuilder.Spawn(root.transform,"from_elevator",elevator.elevatorAnimation.cabinCenter);
@@ -115,6 +113,7 @@ namespace EscapeUNIFRANZ.EditorTools
                     Aula2MapBuilder.ValidateWalkable(blocked,arrival,positions[i]);
                 }
                 Aula2TeamContentBuilder.PlaceRobots(zone,material,positions,new[]{Vector2.right,Vector2.up,Vector2.up});
+                MechanicalCrabBuilder.Place(zone,material);
                 var machine=Object.Instantiate(template,root.transform);machine.name="Expendedora_Piso3";
                 machine.transform.position=Aula2MapBuilder.FindMachinePosition(Pixel(800,300));
                 var machineData=new SerializedObject(machine.GetComponent<VendingMachineInteractable>());

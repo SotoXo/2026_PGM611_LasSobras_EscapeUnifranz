@@ -6,6 +6,16 @@ namespace EscapeUNIFRANZ.Narrative
     public sealed partial class NarrativeController
     {
         private string inspectingItem;
+        public void CraftMine()
+        {
+            if(EscapeUNIFRANZ.World.MineInventoryController.TryCraft(state)){ProjectAudioHooks.Emit(AudioCue.ObjectUsed);session.ShowMessage("Mina fabricada con una batería y una caja de electrónica.");}
+            InventoryPage();
+        }
+        public void PlaceMine()
+        {
+            Close();var controller=EscapeUNIFRANZ.World.MineInventoryController.Instance;
+            controller?.TryPlace(session,FindFirstObjectByType<EscapeUNIFRANZ.Core.SceneFlowController>());
+        }
         private bool examiningItem;
         private float pickupToastUntil,inventoryExplanationUntil;
         public void ShowInventory()

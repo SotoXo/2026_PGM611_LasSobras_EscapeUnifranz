@@ -1,0 +1,24 @@
+Interfaz de terror con óxido y sangre
+
+Paneles de 640 × 352 px
+Metal corroído, placas, remaches, arañazos, manchas, goteos y una huella de mano.
+Dos variantes de ventana con sus dos botones vacíos.
+Botones ubicados en x=96,y=276 y x=352,y=276.
+Cada botón mide 208 × 38 px.
+
+Botones independientes
+Normal, hover y presionado, cada uno como PNG.
+botones.ase conserva los tres estados etiquetados.
+Hoja PNG y JSON incluidos.
+
+Carga
+barra.ase, 24 cuadros de 384 × 32 px.
+ruedita.ase, 12 cuadros de 128 × 80 px, con el texto loading y una rueda metálica oxidada.
+pantalla_carga.ase, composición animada de 480 × 160 px, 24 cuadros.
+Las tres incluyen GIF, hoja PNG y JSON.
+
+Los paneles y botones están vacíos para incorporar el texto en el juego.
+El texto loading aparece en los elementos de carga.
+La textura se concentra en bordes y zonas laterales para mantener espacio para el contenido.
+Los PNG conservan transparencia exterior y los editables permiten cambiar los píxeles en LibreSprite.
+Usar vecino más cercano al ampliar para conservar el aspecto pixelado.

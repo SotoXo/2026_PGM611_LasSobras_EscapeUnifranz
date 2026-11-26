@@ -1,0 +1,9 @@
+{
+ "mapa": "piso_decoracion",
+ "habitacion": "cuarto vacio grande del lado derecho",
+ "origen_superior_izquierdo": {"x": 968, "y": 220},
+ "ancho_cuadro": 224,
+ "alto_cuadro": 288,
+ "fotogramas": 24,
+ "coordenadas": "pixeles desde la esquina superior izquierda del mapa, con Y hacia abajo"
+}

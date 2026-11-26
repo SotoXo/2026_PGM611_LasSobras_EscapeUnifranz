@@ -1,0 +1,227 @@
+{ "frames": [
+   {
+    "filename": "barra 0.ase",
+    "frame": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 1.ase",
+    "frame": { "x": 384, "y": 0, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 2.ase",
+    "frame": { "x": 768, "y": 0, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 3.ase",
+    "frame": { "x": 1152, "y": 0, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 4.ase",
+    "frame": { "x": 1536, "y": 0, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 5.ase",
+    "frame": { "x": 1920, "y": 0, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 6.ase",
+    "frame": { "x": 0, "y": 32, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 7.ase",
+    "frame": { "x": 384, "y": 32, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 8.ase",
+    "frame": { "x": 768, "y": 32, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 9.ase",
+    "frame": { "x": 1152, "y": 32, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 10.ase",
+    "frame": { "x": 1536, "y": 32, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 11.ase",
+    "frame": { "x": 1920, "y": 32, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 12.ase",
+    "frame": { "x": 0, "y": 64, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 13.ase",
+    "frame": { "x": 384, "y": 64, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 14.ase",
+    "frame": { "x": 768, "y": 64, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 15.ase",
+    "frame": { "x": 1152, "y": 64, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 16.ase",
+    "frame": { "x": 1536, "y": 64, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 17.ase",
+    "frame": { "x": 1920, "y": 64, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 18.ase",
+    "frame": { "x": 0, "y": 96, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 19.ase",
+    "frame": { "x": 384, "y": 96, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 20.ase",
+    "frame": { "x": 768, "y": 96, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 21.ase",
+    "frame": { "x": 1152, "y": 96, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 22.ase",
+    "frame": { "x": 1536, "y": 96, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "barra 23.ase",
+    "frame": { "x": 1920, "y": 96, "w": 384, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 384, "h": 32 },
+    "sourceSize": { "w": 384, "h": 32 },
+    "duration": 650
+   }
+ ],
+ "meta": {
+  "app": "https://github.com/LibreSprite/LibreSprite/",
+  "version": "1.1-dev",
+  "image": "C:\\Users\\victus\\Documents\\Codex\\2026-10-20\\di\\outputs\\ui_terror_oxidada\\carga\\barra_sprites.png",
+  "format": "RGBA8888",
+  "size": { "w": 2304, "h": 128 },
+  "scale": "1"
+ }
+}

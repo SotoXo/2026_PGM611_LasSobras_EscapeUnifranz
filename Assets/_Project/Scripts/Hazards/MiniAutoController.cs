@@ -48,6 +48,12 @@ namespace EscapeUNIFRANZ.Hazards
         private bool destroyedByHits;
         private float nextHitAt;
         public int HitsRemaining => hitsRemaining;
+        public void ReceiveMineHit(){if(destroyedByHits)return;hitsRemaining=0;destroyedByHits=true;disabledUntil=0;SetOperational(false);gameObject.SetActive(false);}
+        public void RespondToCamera(Vector2 point)
+        {
+            if(!CanBeStunned||State==MobileThreatState.Chase)return;
+            DistractAt(point,4f);sensor.InvestigatingNoise=false;mover.Investigate(point,chaseSpeed);
+        }
         public bool CanBeStunned => operational && !destroyedByHits && startupUntil <= 0f && isActiveAndEnabled;
         public bool ReceiveCanHit()
         {

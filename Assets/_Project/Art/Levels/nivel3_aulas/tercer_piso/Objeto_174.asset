@@ -9,11 +9,11 @@ Sprite:
   m_Name: 
   m_Rect:
     serializedVersion: 2
-    x: 162
-    y: 481
-    width: 14
-    height: 35
-  m_Offset: {x: -7, y: -17.5}
+    x: 872
+    y: 570
+    width: 17
+    height: 22
+  m_Offset: {x: -8.5, y: -11}
   m_Border: {x: 0, y: 0, z: 0, w: 0}
   m_PixelsToUnits: 32
   m_Pivot: {x: 0, y: 0}
@@ -102,18 +102,18 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0000000000008c3f000000000000e03e00008c3f000000000000000000000000000000000000e03e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000000000303f000000000000083f0000303f000000000000000000000000000000000000083f00000000000000000000000000000000000000000000000000000000000000000000000000000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
-      x: 162
-      y: 481
-      width: 14
-      height: 35
+      x: 872
+      y: 570
+      width: 17
+      height: 22
     textureRectOffset: {x: 0, y: 0}
     atlasRectOffset: {x: -1, y: -1}
     settingsRaw: 0
-    uvTransform: {x: 32, y: 162, z: 32, w: 481}
+    uvTransform: {x: 32, y: 872, z: 32, w: 570}
     downscaleMultiplier: 1
   m_AtlasRD:
     serializedVersion: 3
@@ -193,18 +193,18 @@ Sprite:
         format: 0
         dimension: 0
       m_DataSize: 80
-      _typelessdata: 0000000000008c3f000000000000e03e00008c3f000000000000000000000000000000000000e03e00000000000000000000000000000000000000000000000000000000000000000000000000000000
+      _typelessdata: 000000000000303f000000000000083f0000303f000000000000000000000000000000000000083f00000000000000000000000000000000000000000000000000000000000000000000000000000000
     m_Bindpose: []
     textureRect:
       serializedVersion: 2
-      x: 162
-      y: 481
-      width: 14
-      height: 35
+      x: 872
+      y: 570
+      width: 17
+      height: 22
     textureRectOffset: {x: 0, y: 0}
     atlasRectOffset: {x: -1, y: -1}
     settingsRaw: 0
-    uvTransform: {x: 32, y: 162, z: 32, w: 481}
+    uvTransform: {x: 32, y: 872, z: 32, w: 570}
     downscaleMultiplier: 1
   m_PhysicsShape: []
   m_Bones: []

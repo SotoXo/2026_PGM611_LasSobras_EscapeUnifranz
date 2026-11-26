@@ -41,7 +41,7 @@ namespace EscapeUNIFRANZ.World
             }
             State = ElevatorState.Opening;
             SetThreshold(true);
-            ProjectAudioHooks.Emit(AudioCue.DoorOpen);
+            ProjectAudioHooks.Emit(AudioCue.ElevatorOpen);
             opening = StartCoroutine(OpenForBoarding());
         }
 
@@ -87,13 +87,13 @@ namespace EscapeUNIFRANZ.World
             ProjectAudioHooks.Emit(AudioCue.DoorClose);
             yield return Play(false);
             if (player != null && IsFullyInside(cabinBounds, GetFootprint(player)))
-                State = ElevatorState.Travelling;
+                { State = ElevatorState.Travelling; ProjectAudioHooks.Emit(AudioCue.ElevatorTravel); }
         }
 
         public void BeginArrival()
         {
             StopOpening();
-            State = ElevatorState.Arriving;
+            State = ElevatorState.Arriving; ProjectAudioHooks.Emit(AudioCue.ElevatorArrive);
             armed = false;
             Show(0);
             SetThreshold(true);
@@ -101,7 +101,7 @@ namespace EscapeUNIFRANZ.World
 
         public IEnumerator Arrive()
         {
-            ProjectAudioHooks.Emit(AudioCue.DoorOpen);
+            ProjectAudioHooks.Emit(AudioCue.ElevatorOpen);
             yield return Play(true);
             available = true;
             SetThreshold(false);

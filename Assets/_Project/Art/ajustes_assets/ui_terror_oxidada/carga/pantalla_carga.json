@@ -1,0 +1,227 @@
+{ "frames": [
+   {
+    "filename": "pantalla_carga 0.ase",
+    "frame": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 1.ase",
+    "frame": { "x": 480, "y": 0, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 2.ase",
+    "frame": { "x": 960, "y": 0, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 3.ase",
+    "frame": { "x": 1440, "y": 0, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 4.ase",
+    "frame": { "x": 1920, "y": 0, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 5.ase",
+    "frame": { "x": 2400, "y": 0, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 6.ase",
+    "frame": { "x": 0, "y": 160, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 7.ase",
+    "frame": { "x": 480, "y": 160, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 8.ase",
+    "frame": { "x": 960, "y": 160, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 9.ase",
+    "frame": { "x": 1440, "y": 160, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 10.ase",
+    "frame": { "x": 1920, "y": 160, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 11.ase",
+    "frame": { "x": 2400, "y": 160, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 12.ase",
+    "frame": { "x": 0, "y": 320, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 13.ase",
+    "frame": { "x": 480, "y": 320, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 14.ase",
+    "frame": { "x": 960, "y": 320, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 15.ase",
+    "frame": { "x": 1440, "y": 320, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 16.ase",
+    "frame": { "x": 1920, "y": 320, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 17.ase",
+    "frame": { "x": 2400, "y": 320, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 18.ase",
+    "frame": { "x": 0, "y": 480, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 19.ase",
+    "frame": { "x": 480, "y": 480, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 20.ase",
+    "frame": { "x": 960, "y": 480, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 21.ase",
+    "frame": { "x": 1440, "y": 480, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 22.ase",
+    "frame": { "x": 1920, "y": 480, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 100
+   },
+   {
+    "filename": "pantalla_carga 23.ase",
+    "frame": { "x": 2400, "y": 480, "w": 480, "h": 160 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 480, "h": 160 },
+    "sourceSize": { "w": 480, "h": 160 },
+    "duration": 650
+   }
+ ],
+ "meta": {
+  "app": "https://github.com/LibreSprite/LibreSprite/",
+  "version": "1.1-dev",
+  "image": "C:\\Users\\victus\\Documents\\Codex\\2026-10-20\\di\\outputs\\ui_terror_oxidada\\carga\\pantalla_carga_sprites.png",
+  "format": "RGBA8888",
+  "size": { "w": 2880, "h": 640 },
+  "scale": "1"
+ }
+}

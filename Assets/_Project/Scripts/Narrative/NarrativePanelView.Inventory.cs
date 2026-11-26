@@ -85,6 +85,8 @@ namespace EscapeUNIFRANZ.Narrative
                 InvButton(inventoryRoot, "Examine", "boton_menu_normal", 748, 432, 152, 44, "EXAMINAR", examine, 18);
             }
             else InvLabel(inventoryRoot, "Empty", "No llevas objetos en esta categoría.", 606, 230, 276, 130, 22);
+            if(EscapeUNIFRANZ.World.MineInventoryController.CanCraft(state))InvButton(inventoryRoot,"CraftMine","boton_menu_normal",592,470,146,26,"FABRICAR MINA",()=>controller.CraftMine(),16);
+            if(current!=null&&current.id=="crafted_mine")InvButton(inventoryRoot,"PlaceMine","boton_menu_normal",750,470,146,26,"COLOCAR MINA",()=>controller.PlaceMine(),16);
             inventoryFeedback = InvLabel(inventoryRoot, "Feedback", Application.isMobilePlatform ? "Toca una casilla para revisar su contenido" : "Selecciona un objeto · Esc para cerrar", 100, 500, 816, 30, 15);
             if (pages > 1)
             {

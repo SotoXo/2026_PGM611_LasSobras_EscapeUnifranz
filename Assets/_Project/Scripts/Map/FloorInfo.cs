@@ -8,11 +8,13 @@ namespace EscapeUNIFRANZ.Map
             switch (zoneId)
             {
                 case "entrada": case "hall": case "arca": return 0;
-                case "piso2": return 1;
+                case "piso2": case "aula2": return 1;
+                case "piso4_aulas": return 3;
+                case "piso5_aulas": return 4;
                 default: return 2; // piso3, lab_software, nucleo_ia, aula2
             }
         }
 
-        public static string NameOf(int floor) => floor <= 0 ? "PLANTA BAJA" : floor == 1 ? "PISO 2" : "PISO 3";
+        public static string NameOf(int floor) => floor <= 0 ? "PLANTA BAJA" : "PISO "+(floor+1);
     }
 }

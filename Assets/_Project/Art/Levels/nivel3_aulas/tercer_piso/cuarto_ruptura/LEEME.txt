@@ -1,0 +1,34 @@
+Cuarto vacío agrietándose, rompiéndose y expulsando cables
+
+Se animó el cuarto grande vacío del ala derecha, encima del aula inferior derecha.
+La animación sigue el mapa guía de piso_decoracion.
+24 fotogramas de 224 × 288 px.
+
+cuarto_ruptura.ase contiene cuatro capas editables
+Grietas, Huecos, Escombros y Cables.
+El fondo es transparente para superponerlo al mapa.
+
+Etiquetas con índices desde cero
+Sin dano 0.
+Agrietarse 1–7.
+Romperse 8–15.
+Salir cables 16–23.
+
+sprites.png tiene seis columnas y cuatro filas de cuadros de 224 × 288 px.
+La hoja mide 1344 × 1152 px.
+sprites.json incluye las posiciones, duraciones y etiquetas.
+
+Colocar la esquina superior izquierda en x=968, y=220 del mapa de 1248 × 736 px.
+colocacion.json contiene el mismo dato.
+El cuadro inicial de la animación es transparente.
+El mapa guía conserva su decoración inicial durante la vista previa.
+
+vista_previa.gif muestra la secuencia sobre el cuarto real del mapa.
+vista_previa_2x.gif amplía los píxeles.
+efecto_transparente.gif permite revisar el efecto aislado.
+estado_00.png, estado_07.png, estado_15.png y estado_23.png son las etapas transparentes.
+Los archivos vista_estado muestran las mismas etapas sobre la habitación.
+
+Reproducir una vez y mantener el último cuadro para conservar el suelo roto y los cables.
+Los GIF se repiten como vista previa.
+Usar filtro de vecino más cercano al ampliar.

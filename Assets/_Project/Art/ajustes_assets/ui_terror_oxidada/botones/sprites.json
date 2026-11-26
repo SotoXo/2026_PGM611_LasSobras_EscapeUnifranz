@@ -1,0 +1,38 @@
+{ "frames": [
+   {
+    "filename": "botones 0.ase",
+    "frame": { "x": 0, "y": 0, "w": 208, "h": 38 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 38 },
+    "sourceSize": { "w": 208, "h": 38 },
+    "duration": 100
+   },
+   {
+    "filename": "botones 1.ase",
+    "frame": { "x": 208, "y": 0, "w": 208, "h": 38 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 38 },
+    "sourceSize": { "w": 208, "h": 38 },
+    "duration": 100
+   },
+   {
+    "filename": "botones 2.ase",
+    "frame": { "x": 416, "y": 0, "w": 208, "h": 38 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 208, "h": 38 },
+    "sourceSize": { "w": 208, "h": 38 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://github.com/LibreSprite/LibreSprite/",
+  "version": "1.1-dev",
+  "image": "C:\\Users\\victus\\Documents\\Codex\\2026-10-20\\di\\outputs\\ui_terror_oxidada\\botones\\sprites.png",
+  "format": "RGBA8888",
+  "size": { "w": 624, "h": 38 },
+  "scale": "1"
+ }
+}

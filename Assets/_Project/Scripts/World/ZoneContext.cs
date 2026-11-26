@@ -102,6 +102,7 @@ namespace EscapeUNIFRANZ.World
             }
 
             session.BindZonePresentation(this);
+            EscapeUNIFRANZ.Narrative.ProjectAudioHooks.SetFloorAmbience(EscapeUNIFRANZ.Map.FloorInfo.FloorOf(zoneId));
             error = null;
             return true;
         }

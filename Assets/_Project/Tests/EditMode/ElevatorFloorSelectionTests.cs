@@ -26,7 +26,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
         [Test]
         public void AllDestinationsContainAnAnimatedCabinAndTheArrivalSpawn()
         {
-            string[] scenes={"Z00_Entrada","Z07_Aula2","Z08_Piso3Aulas"};
+            string[] scenes={"Z00_Entrada","Z07_Aula2","Z08_Piso3Aulas","Z09_Piso4Aulas","Z10_Piso5Aulas"};
             for(int i=0;i<scenes.Length;i++)
             using(var inspection=SceneInspection.Open("Assets/_Project/Scenes/Zones/"+scenes[i]+".unity"))
             {
@@ -34,7 +34,7 @@ namespace EscapeUNIFRANZ.Tests.EditMode
                 Assert.That(zone.ZoneId,Is.EqualTo(ZoneExitInteractable.ElevatorZones[i]));
                 var lift=zone.GetComponentsInChildren<ZoneExitInteractable>().Single(e=>e.elevatorAnimation!=null);
                 var animation=lift.elevatorAnimation;
-                Assert.That(animation.entranceAtTop,Is.EqualTo(i!=2));
+                Assert.That(animation.entranceAtTop,Is.True);
                 var spawn=zone.GetComponentsInChildren<SpawnPoint>().Single(s=>s.SpawnId==ZoneExitInteractable.ElevatorSpawn(i));
                 Assert.That(animation.cabinBounds.Contains(spawn.Position),Is.True);
                 Assert.That(animation.frames.Length,Is.EqualTo(10));

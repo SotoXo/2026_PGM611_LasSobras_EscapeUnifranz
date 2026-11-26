@@ -1,0 +1,1066 @@
+fileFormatVersion: 2
+guid: ecf7f3af0403e5341adbf9ab432eb9f2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5465428486062422454
+    second: superior_sprites_0
+  - first:
+      213: 1814798824633267630
+    second: superior_sprites_1
+  - first:
+      213: -1964921982760886695
+    second: superior_sprites_2
+  - first:
+      213: -9188785375883843324
+    second: superior_sprites_3
+  - first:
+      213: 8584273062705371597
+    second: superior_sprites_4
+  - first:
+      213: -6177787268149079273
+    second: superior_sprites_5
+  - first:
+      213: 6776747684416919501
+    second: superior_sprites_6
+  - first:
+      213: 91298402443795260
+    second: superior_sprites_7
+  - first:
+      213: -6298597591868851015
+    second: superior_sprites_8
+  - first:
+      213: -5450896903765852360
+    second: superior_sprites_9
+  - first:
+      213: 6323291987772664563
+    second: superior_sprites_10
+  - first:
+      213: -7389426240996390601
+    second: superior_sprites_11
+  - first:
+      213: 2743011914108471010
+    second: superior_sprites_12
+  - first:
+      213: 8245310196128196787
+    second: superior_sprites_13
+  - first:
+      213: -65073629968983591
+    second: superior_sprites_14
+  - first:
+      213: -8340375010582567714
+    second: superior_sprites_15
+  - first:
+      213: -7003708049443366493
+    second: superior_sprites_16
+  - first:
+      213: 2135916592922139762
+    second: superior_sprites_17
+  - first:
+      213: -5116673829564524128
+    second: superior_sprites_18
+  - first:
+      213: 3660672736060037428
+    second: superior_sprites_19
+  - first:
+      213: 983179875566921374
+    second: superior_sprites_20
+  - first:
+      213: 1144867484038967231
+    second: superior_sprites_21
+  - first:
+      213: -9112553516558510996
+    second: superior_sprites_22
+  - first:
+      213: -6267421707035821888
+    second: superior_sprites_23
+  - first:
+      213: 4043086789361908287
+    second: superior_sprites_24
+  - first:
+      213: -1131570954125492437
+    second: superior_sprites_25
+  - first:
+      213: 543531675117477827
+    second: superior_sprites_26
+  - first:
+      213: 1578620408629453999
+    second: superior_sprites_27
+  - first:
+      213: 971140320597156522
+    second: superior_sprites_28
+  - first:
+      213: -2450670333189500384
+    second: superior_sprites_29
+  - first:
+      213: -8670113494688034665
+    second: superior_sprites_30
+  - first:
+      213: 2688909173717377567
+    second: superior_sprites_31
+  - first:
+      213: 8187561173193629671
+    second: superior_sprites_32
+  - first:
+      213: 7755848627276631652
+    second: superior_sprites_33
+  - first:
+      213: 7339629596721656952
+    second: superior_sprites_34
+  - first:
+      213: -8905570103378629942
+    second: superior_sprites_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: superior_sprites_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 103
+        width: 18
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b93d01404a19db40800000000000000
+      internalID: 5465428486062422454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_1
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 102
+        width: 18
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea5ff017ae57f2910800000000000000
+      internalID: 1814798824633267630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 102
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95e5e260ed13bb4e0800000000000000
+      internalID: -1964921982760886695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_3
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 102
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 409a3298260ea7080800000000000000
+      internalID: -9188785375883843324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_4
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 103
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc9128d7ed6712770800000000000000
+      internalID: 8584273062705371597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_5
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 103
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7131b000637144aa0800000000000000
+      internalID: -6177787268149079273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_6
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 103
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc71f1e3d18db0e50800000000000000
+      internalID: 6776747684416919501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_7
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 103
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3b193ec96b544100800000000000000
+      internalID: 91298402443795260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_8
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 71
+        width: 18
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bcb6819cd2e698a0800000000000000
+      internalID: -6298597591868851015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_9
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 71
+        width: 19
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83f72c765268a54b0800000000000000
+      internalID: -5450896903765852360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_10
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 71
+        width: 19
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fa63468f88d0c750800000000000000
+      internalID: 6323291987772664563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_11
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 71
+        width: 19
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 739c5731cfb737990800000000000000
+      internalID: -7389426240996390601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_12
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 71
+        width: 18
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e689138dc2211620800000000000000
+      internalID: 2743011914108471010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_13
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 71
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b8a02710f93d6270800000000000000
+      internalID: 8245310196128196787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_14
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 71
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d91479d0efc81ff0800000000000000
+      internalID: -65073629968983591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_15
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 71
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed46ea8fd19014c80800000000000000
+      internalID: -8340375010582567714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_16
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 39
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a95262e2a4ddce90800000000000000
+      internalID: -7003708049443366493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_17
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 38
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27c9cfe13dc44ad10800000000000000
+      internalID: 2135916592922139762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_18
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 38
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a9d445e24cedf8b0800000000000000
+      internalID: -5116673829564524128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_19
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 38
+        width: 18
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 439d0d755725dc230800000000000000
+      internalID: 3660672736060037428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_20
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 39
+        width: 32
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e96aa7143e4f4ad00800000000000000
+      internalID: 983179875566921374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_21
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 50
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbfa90539e263ef00800000000000000
+      internalID: 1144867484038967231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_22
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 39
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c641bc86bd4b98180800000000000000
+      internalID: -9112553516558510996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_23
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 50
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c8be86e925a509a0800000000000000
+      internalID: -6267421707035821888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_24
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 39
+        width: 32
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3abdf3830eeb1830800000000000000
+      internalID: 4043086789361908287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_25
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 50
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2f3339663adb40f0800000000000000
+      internalID: -1131570954125492437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_26
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 39
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cfdc83cd230b8700800000000000000
+      internalID: 543531675117477827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_27
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 50
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa46a83d5e268e510800000000000000
+      internalID: 1578620408629453999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7
+        width: 32
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa2a04ce9fe2a7d00800000000000000
+      internalID: 971140320597156522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_29
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 18
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 022d6a0f0587dfdd0800000000000000
+      internalID: -2450670333189500384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_30
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 7
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7909cca76b19da780800000000000000
+      internalID: -8670113494688034665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_31
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 18
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f12a6b4a5ace05520800000000000000
+      internalID: 2688909173717377567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_32
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 7
+        width: 32
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ef9cf8e18f00a170800000000000000
+      internalID: 8187561173193629671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_33
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 18
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46e4688fb3f42ab60800000000000000
+      internalID: 7755848627276631652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_34
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 7
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 874b98f2b3a9bd560800000000000000
+      internalID: 7339629596721656952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: superior_sprites_35
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 18
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aca27c9bc2f096480800000000000000
+      internalID: -8905570103378629942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      superior_sprites_0: 5465428486062422454
+      superior_sprites_1: 1814798824633267630
+      superior_sprites_10: 6323291987772664563
+      superior_sprites_11: -7389426240996390601
+      superior_sprites_12: 2743011914108471010
+      superior_sprites_13: 8245310196128196787
+      superior_sprites_14: -65073629968983591
+      superior_sprites_15: -8340375010582567714
+      superior_sprites_16: -7003708049443366493
+      superior_sprites_17: 2135916592922139762
+      superior_sprites_18: -5116673829564524128
+      superior_sprites_19: 3660672736060037428
+      superior_sprites_2: -1964921982760886695
+      superior_sprites_20: 983179875566921374
+      superior_sprites_21: 1144867484038967231
+      superior_sprites_22: -9112553516558510996
+      superior_sprites_23: -6267421707035821888
+      superior_sprites_24: 4043086789361908287
+      superior_sprites_25: -1131570954125492437
+      superior_sprites_26: 543531675117477827
+      superior_sprites_27: 1578620408629453999
+      superior_sprites_28: 971140320597156522
+      superior_sprites_29: -2450670333189500384
+      superior_sprites_3: -9188785375883843324
+      superior_sprites_30: -8670113494688034665
+      superior_sprites_31: 2688909173717377567
+      superior_sprites_32: 8187561173193629671
+      superior_sprites_33: 7755848627276631652
+      superior_sprites_34: 7339629596721656952
+      superior_sprites_35: -8905570103378629942
+      superior_sprites_4: 8584273062705371597
+      superior_sprites_5: -6177787268149079273
+      superior_sprites_6: 6776747684416919501
+      superior_sprites_7: 91298402443795260
+      superior_sprites_8: -6298597591868851015
+      superior_sprites_9: -5450896903765852360
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

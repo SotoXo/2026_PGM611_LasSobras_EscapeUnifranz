@@ -18,7 +18,35 @@ namespace EscapeUNIFRANZ.EditorTools
         private const string Ui = Root + "Art/UI/PixelUI/";
         private const string Deco = Root + "Art/Environment/Decoration/";
         private const string FontAssetPath = Ui + "PixelTerror 5x7 SDF.asset";
-        private static readonly string[] Zones = { "Z00_Entrada", "Z01_Hall", "Z02_ARCA", "Z03_Piso2", "Z04_Piso3", "Z05_LabSoftware", "Z06_NucleoIA", "Z07_Aula2" };
+        private static readonly string[] Zones = { "Z00_Entrada", "Z01_Hall", "Z02_ARCA", "Z03_Piso2", "Z04_Piso3", "Z05_LabSoftware", "Z06_NucleoIA", "Z07_Aula2", "Z08_Piso3Aulas" };
+
+        public static void InstallAll()
+        {
+            ImportArt();
+            if(AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontAssetPath)==null)CreateFont();
+            BindAudio();
+            var scene=EditorSceneManager.OpenScene(Root+"Scenes/Bootstrap/Bootstrap.unity",OpenSceneMode.Single);
+            foreach(var image in Object.FindObjectsByType<Image>(FindObjectsInactive.Include,FindObjectsSortMode.None))
+                if(image.name=="Minimap"){image.sprite=AssetDatabase.LoadAssetAtPath<Sprite>(Ui+"minimap_frame.png");image.type=Image.Type.Sliced;foreach(var text in image.GetComponentsInChildren<TMP_Text>(true))text.font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontAssetPath);EditorUtility.SetDirty(image);}
+            foreach(var marker in Object.FindObjectsByType<EscapeUNIFRANZ.Map.MinimapMarkerView>(FindObjectsInactive.Include,FindObjectsSortMode.None))
+            {marker.pixelIcons=new[]{"exit","objective","checkpoint","threat","point","point","threat"}.Select(n=>AssetDatabase.LoadAssetAtPath<Sprite>(Ui+"icon_"+n+".png")).ToArray();EditorUtility.SetDirty(marker);}
+            EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();Debug.Log("ABRIL_INTEGRATION_OK");
+        }
+
+        public static void KeepMinimapAndAudio()
+        {
+            foreach(string name in Zones)
+            {
+                var scene=EditorSceneManager.OpenScene(Root+"Scenes/Zones/"+name+".unity",OpenSceneMode.Single);
+                foreach(var zone in Object.FindObjectsByType<ZoneContext>(FindObjectsInactive.Include,FindObjectsSortMode.None))
+                {
+                    var decoration=zone.transform.Find("Decoración_Capa");
+                    if(decoration!=null)Object.DestroyImmediate(decoration.gameObject);
+                }
+                EditorSceneManager.SaveScene(scene);
+            }
+            BindAudio();AssetDatabase.SaveAssets();Debug.Log("ABRIL_ONLY_MINIMAP_AUDIO_OK");
+        }
 
         [MenuItem("Escape UNIFRANZ/Abril/1 - Importar pixel art")]
         public static void ImportArt()
@@ -124,6 +152,7 @@ namespace EscapeUNIFRANZ.EditorTools
                 var sc = holder.GetComponent<DecorationScatterer>() ?? holder.AddComponent<DecorationScatterer>();
                 int floor = EscapeUNIFRANZ.Map.FloorInfo.FloorOf(zone.ZoneId);
                 sc.sprites = sprites; sc.area = zone.MinimapBounds; sc.seed = 100 + System.Array.IndexOf(Zones, zoneName);
+                sc.litMaterial=AssetDatabase.LoadAssetAtPath<Material>(Root+"Art/Levels/GroupWorldLit.mat");
                 sc.count = floor == 0 ? 45 : floor == 1 ? 55 : 65;
                 EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene);
             }

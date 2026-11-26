@@ -1,0 +1,2626 @@
+fileFormatVersion: 2
+guid: 944c249b6554d774c85d0e8cc5283c18
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7176225470217905810
+    second: ruedita_sprites_0
+  - first:
+      213: 7804553324233972384
+    second: ruedita_sprites_1
+  - first:
+      213: 2008320892197359941
+    second: ruedita_sprites_2
+  - first:
+      213: 2125413773150301721
+    second: ruedita_sprites_3
+  - first:
+      213: -7958063998112026800
+    second: ruedita_sprites_4
+  - first:
+      213: 226874464067313503
+    second: ruedita_sprites_5
+  - first:
+      213: 280545519506952891
+    second: ruedita_sprites_6
+  - first:
+      213: -3055290089836487098
+    second: ruedita_sprites_7
+  - first:
+      213: -3715896262059610893
+    second: ruedita_sprites_8
+  - first:
+      213: -7767465005143190116
+    second: ruedita_sprites_9
+  - first:
+      213: 4838310628618237286
+    second: ruedita_sprites_10
+  - first:
+      213: 5568580728956454242
+    second: ruedita_sprites_11
+  - first:
+      213: 6830758874454887739
+    second: ruedita_sprites_12
+  - first:
+      213: -3447868281676213365
+    second: ruedita_sprites_13
+  - first:
+      213: -3871674155150748561
+    second: ruedita_sprites_14
+  - first:
+      213: -4208254968850523374
+    second: ruedita_sprites_15
+  - first:
+      213: -3311854186696342652
+    second: ruedita_sprites_16
+  - first:
+      213: -2734389076520359090
+    second: ruedita_sprites_17
+  - first:
+      213: 2268846485165375204
+    second: ruedita_sprites_18
+  - first:
+      213: 3178285283355049806
+    second: ruedita_sprites_19
+  - first:
+      213: -114187870388188230
+    second: ruedita_sprites_20
+  - first:
+      213: -5001531205833149113
+    second: ruedita_sprites_21
+  - first:
+      213: -276387933189293121
+    second: ruedita_sprites_22
+  - first:
+      213: -6188943001545156396
+    second: ruedita_sprites_23
+  - first:
+      213: -9083440301866215892
+    second: ruedita_sprites_24
+  - first:
+      213: 3163151151435348747
+    second: ruedita_sprites_25
+  - first:
+      213: -555445592984167409
+    second: ruedita_sprites_26
+  - first:
+      213: -733284076264324591
+    second: ruedita_sprites_27
+  - first:
+      213: 4656785874815112411
+    second: ruedita_sprites_28
+  - first:
+      213: 4690103392948366151
+    second: ruedita_sprites_29
+  - first:
+      213: -5727414649174382571
+    second: ruedita_sprites_30
+  - first:
+      213: -7464784755764022619
+    second: ruedita_sprites_31
+  - first:
+      213: -8351709134726564827
+    second: ruedita_sprites_32
+  - first:
+      213: 6293925914417808761
+    second: ruedita_sprites_33
+  - first:
+      213: 5811267262658841851
+    second: ruedita_sprites_34
+  - first:
+      213: -9163159177017950923
+    second: ruedita_sprites_35
+  - first:
+      213: 4564306889095553848
+    second: ruedita_sprites_36
+  - first:
+      213: -143808146779359674
+    second: ruedita_sprites_37
+  - first:
+      213: 1099615998215138750
+    second: ruedita_sprites_38
+  - first:
+      213: 7480903465161761915
+    second: ruedita_sprites_39
+  - first:
+      213: -5375379062375076819
+    second: ruedita_sprites_40
+  - first:
+      213: -4442221454724102958
+    second: ruedita_sprites_41
+  - first:
+      213: -5244489378045442611
+    second: ruedita_sprites_42
+  - first:
+      213: -4488551681366105885
+    second: ruedita_sprites_43
+  - first:
+      213: 8951282823367459793
+    second: ruedita_sprites_44
+  - first:
+      213: -4864006281428414899
+    second: ruedita_sprites_45
+  - first:
+      213: -6697299930598641462
+    second: ruedita_sprites_46
+  - first:
+      213: -5256281950196227742
+    second: ruedita_sprites_47
+  - first:
+      213: -473676240440594943
+    second: ruedita_sprites_48
+  - first:
+      213: 5927605190978375607
+    second: ruedita_sprites_49
+  - first:
+      213: 2376382555978758934
+    second: ruedita_sprites_50
+  - first:
+      213: 4155993258654597118
+    second: ruedita_sprites_51
+  - first:
+      213: -5884874331803214388
+    second: ruedita_sprites_52
+  - first:
+      213: -2472383926806385542
+    second: ruedita_sprites_53
+  - first:
+      213: -2780365008061410255
+    second: ruedita_sprites_54
+  - first:
+      213: 5476535932148900548
+    second: ruedita_sprites_55
+  - first:
+      213: 4658443634765936714
+    second: ruedita_sprites_56
+  - first:
+      213: 3577552775910469689
+    second: ruedita_sprites_57
+  - first:
+      213: 4758407144782038045
+    second: ruedita_sprites_58
+  - first:
+      213: -6197079348413208128
+    second: ruedita_sprites_59
+  - first:
+      213: -581503618513990257
+    second: ruedita_sprites_60
+  - first:
+      213: 4554064072132494859
+    second: ruedita_sprites_61
+  - first:
+      213: -4562646794991310044
+    second: ruedita_sprites_62
+  - first:
+      213: -3822898130992965908
+    second: ruedita_sprites_63
+  - first:
+      213: 6640157684872682619
+    second: ruedita_sprites_64
+  - first:
+      213: 4679810664455144947
+    second: ruedita_sprites_65
+  - first:
+      213: -7342956433438203626
+    second: ruedita_sprites_66
+  - first:
+      213: 5197237938022046387
+    second: ruedita_sprites_67
+  - first:
+      213: 5109486802895010728
+    second: ruedita_sprites_68
+  - first:
+      213: -3924914835051695502
+    second: ruedita_sprites_69
+  - first:
+      213: 7907751260400141602
+    second: ruedita_sprites_70
+  - first:
+      213: -6174962075283927316
+    second: ruedita_sprites_71
+  - first:
+      213: -3033107131938904347
+    second: ruedita_sprites_72
+  - first:
+      213: -8412790745742443750
+    second: ruedita_sprites_73
+  - first:
+      213: -3710962984655457523
+    second: ruedita_sprites_74
+  - first:
+      213: -847204045464715134
+    second: ruedita_sprites_75
+  - first:
+      213: -530693317949743412
+    second: ruedita_sprites_76
+  - first:
+      213: 8645832904570606310
+    second: ruedita_sprites_77
+  - first:
+      213: -5087410028480688366
+    second: ruedita_sprites_78
+  - first:
+      213: 6112967151730190901
+    second: ruedita_sprites_79
+  - first:
+      213: 7735315886805422734
+    second: ruedita_sprites_80
+  - first:
+      213: -8756597075950944270
+    second: ruedita_sprites_81
+  - first:
+      213: 4203986300008863720
+    second: ruedita_sprites_82
+  - first:
+      213: -3548921536753148952
+    second: ruedita_sprites_83
+  - first:
+      213: -5776876847147458548
+    second: ruedita_sprites_84
+  - first:
+      213: 3878962724222343065
+    second: ruedita_sprites_85
+  - first:
+      213: -8667156985838139087
+    second: ruedita_sprites_86
+  - first:
+      213: -642146853655998556
+    second: ruedita_sprites_87
+  - first:
+      213: 6193058811708640977
+    second: ruedita_sprites_88
+  - first:
+      213: -4863416808824889744
+    second: ruedita_sprites_89
+  - first:
+      213: -4162756967554980273
+    second: ruedita_sprites_90
+  - first:
+      213: -7682413481103597278
+    second: ruedita_sprites_91
+  - first:
+      213: 4335740715762811456
+    second: ruedita_sprites_92
+  - first:
+      213: -6512199888345192274
+    second: ruedita_sprites_93
+  - first:
+      213: -3523049086225899459
+    second: ruedita_sprites_94
+  - first:
+      213: 6573424130297073327
+    second: ruedita_sprites_95
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ruedita_sprites_0
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 108
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e691d83c4fce86c90800000000000000
+      internalID: -7176225470217905810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_1
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 108
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0aa5f89e5e75f4c60800000000000000
+      internalID: 7804553324233972384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_2
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 108
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5415b6ef53dfedb10800000000000000
+      internalID: 2008320892197359941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_3
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 108
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91ea855d09cfe7d10800000000000000
+      internalID: 2125413773150301721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_4
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 108
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05f25b415f64f8190800000000000000
+      internalID: -7958063998112026800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_5
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 108
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5fd65f7f15062300800000000000000
+      internalID: 226874464067313503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_6
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 89
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb21a81e9a2b4e300800000000000000
+      internalID: 280545519506952891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_7
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64e5685d9dd6995d0800000000000000
+      internalID: -3055290089836487098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_8
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fc2cbd890c7e6cc0800000000000000
+      internalID: -3715896262059610893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_9
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 89
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c95992b4bbb643490800000000000000
+      internalID: -7767465005143190116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_10
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 89
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66579cbd1e1252340800000000000000
+      internalID: 4838310628618237286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_11
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 265098c5ba2974d40800000000000000
+      internalID: 5568580728956454242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_12
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3d0b32610bbbce50800000000000000
+      internalID: 6830758874454887739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_13
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 89
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b835a5eb016b620d0800000000000000
+      internalID: -3447868281676213365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_14
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f64dd207edc054ac0800000000000000
+      internalID: -3871674155150748561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_15
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21b5461f6664995c0800000000000000
+      internalID: -4208254968850523374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_16
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 89
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48303160a2ee902d0800000000000000
+      internalID: -3311854186696342652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_17
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 89
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4bab405f9f7d0ad0800000000000000
+      internalID: -2734389076520359090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_18
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4eefc2e7bdf8c7f10800000000000000
+      internalID: 2268846485165375204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_19
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4fba3d30a98b1c20800000000000000
+      internalID: 3178285283355049806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_20
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 89
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abb8ad3acb25a6ef0800000000000000
+      internalID: -114187870388188230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_21
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 745b8471eddf69ab0800000000000000
+      internalID: -5001531205833149113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_22
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbb3c0e93a21a2cf0800000000000000
+      internalID: -276387933189293121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_23
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 89
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d8d2c961257c1aa0800000000000000
+      internalID: -6188943001545156396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_24
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 89
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c261ccceb2321f180800000000000000
+      internalID: -9083440301866215892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_25
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0bfb209635c5eb20800000000000000
+      internalID: 3163151151435348747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_26
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0c5f121d29aa48f0800000000000000
+      internalID: -555445592984167409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_27
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 89
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11280da840ad2d5f0800000000000000
+      internalID: -733284076264324591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_28
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd45967941a30a040800000000000000
+      internalID: 4656785874815112411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_29
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74baa88cf28961140800000000000000
+      internalID: 4690103392948366151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_30
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 89
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 518a792c8b22480b0800000000000000
+      internalID: -5727414649174382571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_31
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 89
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a23fe390d1c76890800000000000000
+      internalID: -7464784755764022619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_32
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 524fc3d8ac4c81c80800000000000000
+      internalID: -8351709134726564827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_33
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 975cf73c544885750800000000000000
+      internalID: 6293925914417808761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_34
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 89
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfc03a539c4c5a050800000000000000
+      internalID: 5811267262658841851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_35
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53dfb79e64be5d080800000000000000
+      internalID: -9163159177017950923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_36
+      rect:
+        serializedVersion: 2
+        x: 558
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 833a862deeca75f30800000000000000
+      internalID: 4564306889095553848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_37
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 89
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 646b86f9047110ef0800000000000000
+      internalID: -143808146779359674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_38
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 89
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebd23f2acee924f00800000000000000
+      internalID: 1099615998215138750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_39
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b74a4f7e01281d760800000000000000
+      internalID: 7480903465161761915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_40
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2caf060931d665b0800000000000000
+      internalID: -5375379062375076819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_41
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 89
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d40d817f1f0a52c0800000000000000
+      internalID: -4442221454724102958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_42
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc5ca4972b4d737b0800000000000000
+      internalID: -5244489378045442611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_43
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e0e034f60675b1c0800000000000000
+      internalID: -4488551681366105885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_44
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 89
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d38fda4d48593c70800000000000000
+      internalID: 8951282823367459793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_45
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 89
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4ec032ce049f7cb0800000000000000
+      internalID: -4864006281428414899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_46
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac07b6a62396e03a0800000000000000
+      internalID: -6697299930598641462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_47
+      rect:
+        serializedVersion: 2
+        x: 734
+        y: 89
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 261a14f4a6fed07b0800000000000000
+      internalID: -5256281950196227742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_48
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 28
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10eeefd08f92d69f0800000000000000
+      internalID: -473676240440594943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_49
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 28
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bf0701f385134250800000000000000
+      internalID: 5927605190978375607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_50
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 28
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61b7c83185b9af020800000000000000
+      internalID: 2376382555978758934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_51
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 28
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eff760f69dd0da930800000000000000
+      internalID: 4155993258654597118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_52
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 28
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccd1e0189f9b45ea0800000000000000
+      internalID: -5884874331803214388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_53
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 28
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7ce156fae350bdd0800000000000000
+      internalID: -2472383926806385542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_54
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 9
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 134d29491c82a69d0800000000000000
+      internalID: -2780365008061410255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_55
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c2e5631a60900c40800000000000000
+      internalID: 5476535932148900548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_56
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a483768edcd16a040800000000000000
+      internalID: 4658443634765936714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_57
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 9
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9303b558b4506a130800000000000000
+      internalID: 3577552775910469689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_58
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 9
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d140a694612490240800000000000000
+      internalID: 4758407144782038045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_59
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c9ebe88a2d8ff9a0800000000000000
+      internalID: -6197079348413208128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_60
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8d8ed63a851ee7f0800000000000000
+      internalID: -581503618513990257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_61
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 9
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0683d72529433f30800000000000000
+      internalID: 4554064072132494859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_62
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42be7f4f9e83ea0c0800000000000000
+      internalID: -4562646794991310044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_63
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce6d8a9876652fac0800000000000000
+      internalID: -3822898130992965908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_64
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 9
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7c9a6bbb34962c50800000000000000
+      internalID: 6640157684872682619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_65
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 9
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f50fee210702f040800000000000000
+      internalID: 4679810664455144947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_66
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6112fb74704981a90800000000000000
+      internalID: -7342956433438203626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_67
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3badcf45e5c402840800000000000000
+      internalID: 5197237938022046387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_68
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 9
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ab7a1f0d2b88e640800000000000000
+      internalID: 5109486802895010728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_69
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 272351ba0c6e789c0800000000000000
+      internalID: -3924914835051695502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_70
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2254c40dfd9fdbd60800000000000000
+      internalID: 7907751260400141602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_71
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 9
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cee413975b02e4aa0800000000000000
+      internalID: -6174962075283927316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_72
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 9
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e6e313322d38e5d0800000000000000
+      internalID: -3033107131938904347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_73
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1bf35eb363cf3b80800000000000000
+      internalID: -8412790745742443750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_74
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d03fcf4b3d2008cc0800000000000000
+      internalID: -3710962984655457523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_75
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 9
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2804dc9c8602e34f0800000000000000
+      internalID: -847204045464715134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_76
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cce9ee23d3992a8f0800000000000000
+      internalID: -530693317949743412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_77
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e29058183b2cf770800000000000000
+      internalID: 8645832904570606310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_78
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 9
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21f06a98883e569b0800000000000000
+      internalID: -5087410028480688366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_79
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 9
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53a62829c3f95d450800000000000000
+      internalID: 6112967151730190901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_80
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e82197ac0dc595b60800000000000000
+      internalID: 7735315886805422734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_81
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ff38b69a515a7680800000000000000
+      internalID: -8756597075950944270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_82
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 9
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e713a4244f875a30800000000000000
+      internalID: 4203986300008863720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_83
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8eb58125aa2bfbec0800000000000000
+      internalID: -3548921536753148952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_84
+      rect:
+        serializedVersion: 2
+        x: 558
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c00e89e5d1964dfa0800000000000000
+      internalID: -5776876847147458548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_85
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 9
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 997114acb08d4d530800000000000000
+      internalID: 3878962724222343065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_86
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 9
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 139829654a218b780800000000000000
+      internalID: -8667156985838139087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_87
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4af033eb6d2a617f0800000000000000
+      internalID: -642146853655998556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_88
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1de0ff05d2a22f550800000000000000
+      internalID: 6193058811708640977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_89
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 9
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07e145b0e2ca18cb0800000000000000
+      internalID: -4863416808824889744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_90
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f466a9ed79aea36c0800000000000000
+      internalID: -4162756967554980273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_91
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 221e52164a5926590800000000000000
+      internalID: -7682413481103597278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_92
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 9
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0428d319535ab2c30800000000000000
+      internalID: 4335740715762811456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_93
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 9
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea8a8d464b400a5a0800000000000000
+      internalID: -6512199888345192274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_94
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d30ad31a58d9b1fc0800000000000000
+      internalID: -3523049086225899459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ruedita_sprites_95
+      rect:
+        serializedVersion: 2
+        x: 734
+        y: 9
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fae86544b6e793b50800000000000000
+      internalID: 6573424130297073327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ruedita_sprites_0: -7176225470217905810
+      ruedita_sprites_1: 7804553324233972384
+      ruedita_sprites_10: 4838310628618237286
+      ruedita_sprites_11: 5568580728956454242
+      ruedita_sprites_12: 6830758874454887739
+      ruedita_sprites_13: -3447868281676213365
+      ruedita_sprites_14: -3871674155150748561
+      ruedita_sprites_15: -4208254968850523374
+      ruedita_sprites_16: -3311854186696342652
+      ruedita_sprites_17: -2734389076520359090
+      ruedita_sprites_18: 2268846485165375204
+      ruedita_sprites_19: 3178285283355049806
+      ruedita_sprites_2: 2008320892197359941
+      ruedita_sprites_20: -114187870388188230
+      ruedita_sprites_21: -5001531205833149113
+      ruedita_sprites_22: -276387933189293121
+      ruedita_sprites_23: -6188943001545156396
+      ruedita_sprites_24: -9083440301866215892
+      ruedita_sprites_25: 3163151151435348747
+      ruedita_sprites_26: -555445592984167409
+      ruedita_sprites_27: -733284076264324591
+      ruedita_sprites_28: 4656785874815112411
+      ruedita_sprites_29: 4690103392948366151
+      ruedita_sprites_3: 2125413773150301721
+      ruedita_sprites_30: -5727414649174382571
+      ruedita_sprites_31: -7464784755764022619
+      ruedita_sprites_32: -8351709134726564827
+      ruedita_sprites_33: 6293925914417808761
+      ruedita_sprites_34: 5811267262658841851
+      ruedita_sprites_35: -9163159177017950923
+      ruedita_sprites_36: 4564306889095553848
+      ruedita_sprites_37: -143808146779359674
+      ruedita_sprites_38: 1099615998215138750
+      ruedita_sprites_39: 7480903465161761915
+      ruedita_sprites_4: -7958063998112026800
+      ruedita_sprites_40: -5375379062375076819
+      ruedita_sprites_41: -4442221454724102958
+      ruedita_sprites_42: -5244489378045442611
+      ruedita_sprites_43: -4488551681366105885
+      ruedita_sprites_44: 8951282823367459793
+      ruedita_sprites_45: -4864006281428414899
+      ruedita_sprites_46: -6697299930598641462
+      ruedita_sprites_47: -5256281950196227742
+      ruedita_sprites_48: -473676240440594943
+      ruedita_sprites_49: 5927605190978375607
+      ruedita_sprites_5: 226874464067313503
+      ruedita_sprites_50: 2376382555978758934
+      ruedita_sprites_51: 4155993258654597118
+      ruedita_sprites_52: -5884874331803214388
+      ruedita_sprites_53: -2472383926806385542
+      ruedita_sprites_54: -2780365008061410255
+      ruedita_sprites_55: 5476535932148900548
+      ruedita_sprites_56: 4658443634765936714
+      ruedita_sprites_57: 3577552775910469689
+      ruedita_sprites_58: 4758407144782038045
+      ruedita_sprites_59: -6197079348413208128
+      ruedita_sprites_6: 280545519506952891
+      ruedita_sprites_60: -581503618513990257
+      ruedita_sprites_61: 4554064072132494859
+      ruedita_sprites_62: -4562646794991310044
+      ruedita_sprites_63: -3822898130992965908
+      ruedita_sprites_64: 6640157684872682619
+      ruedita_sprites_65: 4679810664455144947
+      ruedita_sprites_66: -7342956433438203626
+      ruedita_sprites_67: 5197237938022046387
+      ruedita_sprites_68: 5109486802895010728
+      ruedita_sprites_69: -3924914835051695502
+      ruedita_sprites_7: -3055290089836487098
+      ruedita_sprites_70: 7907751260400141602
+      ruedita_sprites_71: -6174962075283927316
+      ruedita_sprites_72: -3033107131938904347
+      ruedita_sprites_73: -8412790745742443750
+      ruedita_sprites_74: -3710962984655457523
+      ruedita_sprites_75: -847204045464715134
+      ruedita_sprites_76: -530693317949743412
+      ruedita_sprites_77: 8645832904570606310
+      ruedita_sprites_78: -5087410028480688366
+      ruedita_sprites_79: 6112967151730190901
+      ruedita_sprites_8: -3715896262059610893
+      ruedita_sprites_80: 7735315886805422734
+      ruedita_sprites_81: -8756597075950944270
+      ruedita_sprites_82: 4203986300008863720
+      ruedita_sprites_83: -3548921536753148952
+      ruedita_sprites_84: -5776876847147458548
+      ruedita_sprites_85: 3878962724222343065
+      ruedita_sprites_86: -8667156985838139087
+      ruedita_sprites_87: -642146853655998556
+      ruedita_sprites_88: 6193058811708640977
+      ruedita_sprites_89: -4863416808824889744
+      ruedita_sprites_9: -7767465005143190116
+      ruedita_sprites_90: -4162756967554980273
+      ruedita_sprites_91: -7682413481103597278
+      ruedita_sprites_92: 4335740715762811456
+      ruedita_sprites_93: -6512199888345192274
+      ruedita_sprites_94: -3523049086225899459
+      ruedita_sprites_95: 6573424130297073327
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

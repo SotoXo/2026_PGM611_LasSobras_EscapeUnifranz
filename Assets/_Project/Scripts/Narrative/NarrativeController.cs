@@ -103,13 +103,14 @@ namespace EscapeUNIFRANZ.Narrative
         {
             if(!Open(GameplayMode.Dialogue))return false;
             elevatorMenuClosed=owner.CancelFloorSelection;
-            var labels=new string[4];
-            for(int i=0;i<3;i++)labels[i]=World.ZoneExitInteractable.ElevatorLabels[i]+(i==owner.CurrentElevatorFloor?" (piso actual)":"");
-            labels[3]="Salir del selector";
+            int count=World.ZoneExitInteractable.ElevatorZones.Length;
+            var labels=new string[count+1];
+            for(int i=0;i<count;i++)labels[i]=World.ZoneExitInteractable.ElevatorLabels[i]+(i==owner.CurrentElevatorFloor?" (piso actual)":"");
+            labels[count]="Salir del selector";
             view.Options("ASCENSOR · SELECCIONAR PISO","Elige tu destino. Las puertas se cerrarán después de confirmar.",labels,index=>
             {
                 elevatorMenuClosed=null;Close();
-                if(index==3)owner.CancelFloorSelection();else owner.SelectElevatorFloor(index);
+                if(index==count)owner.CancelFloorSelection();else owner.SelectElevatorFloor(index);
             });
             return true;
         }

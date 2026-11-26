@@ -83,6 +83,7 @@ namespace EscapeUNIFRANZ.Player
             Vector2 origin = (Vector2)transform.position + Vector2.up * 0.12f;
             float distance = throwDistance;
             MiniAutoController hitRobot = null;
+            MechanicalCrabController hitCrab=null;
 
             var filter = ContactFilter2D.noFilter; filter.useTriggers = false;
             hits.Clear();
@@ -91,7 +92,7 @@ namespace EscapeUNIFRANZ.Player
             {
                 if (hit.collider == null || hit.collider.transform.IsChildOf(transform)) continue;
                 float stop = Mathf.Max(0f, hit.distance - 0.08f);
-                if (stop < distance) { distance = stop; hitRobot = hit.collider.GetComponentInParent<MiniAutoController>(); }
+                if (stop < distance) { distance = stop; hitRobot = hit.collider.GetComponentInParent<MiniAutoController>();hitCrab=hit.collider.GetComponentInParent<MechanicalCrabController>(); }
             }
 
             if (distance < 0.2f)
@@ -105,10 +106,10 @@ namespace EscapeUNIFRANZ.Player
             if (thrownItem==null || !session.State.TryUseItem(thrownItem)) return;
             if (visual != null) visual.PlayAction(PlayerVisualController.ActionPose.Throw);
             ProjectAudioHooks.Emit(AudioCue.CanThrow);
-            StartCoroutine(Fly(origin, origin + dir * distance, distance, hitRobot, thrownItem, selected));
+            StartCoroutine(Fly(origin, origin + dir * distance, distance, hitRobot, thrownItem, selected,hitCrab));
         }
 
-        private IEnumerator Fly(Vector2 from, Vector2 to, float distance, MiniAutoController hitRobot, string thrownItem, bool selected)
+        private IEnumerator Fly(Vector2 from, Vector2 to, float distance, MiniAutoController hitRobot, string thrownItem, bool selected,MechanicalCrabController hitCrab)
         {
             bool spill = thrownItem == itemId;
             var can = new GameObject("LataLanzada");
@@ -158,6 +159,7 @@ namespace EscapeUNIFRANZ.Player
                         {
                             to = previousGround + step.normalized * Mathf.Max(0f, nearest.distance - 0.08f);
                             hitRobot = nearest.collider.GetComponentInParent<MiniAutoController>();
+                            hitCrab=nearest.collider.GetComponentInParent<MechanicalCrabController>();
                             break;
                         }
                     }
@@ -186,8 +188,10 @@ namespace EscapeUNIFRANZ.Player
                 if (hitRobot != null && Vector2.Distance(hitRobot.transform.position, to) < .7f &&
                     DetectionSensor2D.HasLineOfSight(to, hitRobot.transform.position, ~0, can.transform, hitRobot.transform, hits))
                     robotAffected = ApplyRobotImpact(hitRobot, spill);
+                if(hitCrab!=null&&Vector2.Distance(hitCrab.transform.position,to)<1.2f&&DetectionSensor2D.HasLineOfSight(to,hitCrab.transform.position,~0,can.transform,hitCrab.transform,hits))
+                    robotAffected=ApplyCrabImpact(hitCrab,spill);
                 if (robotAffected && session.IsPractice) session.Tutorial?.PracticeCanHit(spill, selected);
-                if (spill) CanSpill2D.Create(to, can.transform.parent, mode, robotAffected ? hitRobot : null);
+                if (spill) CanSpill2D.Create(to, can.transform.parent, mode, robotAffected ? hitRobot : null,robotAffected?hitCrab:null);
                 IReadOnlyList<RobotDogEncounterController> dogs = zone != null ? zone.RobotDogs :
                     FindObjectsByType<RobotDogEncounterController>(FindObjectsSortMode.None);
                 foreach (var dog in dogs)
@@ -236,6 +240,13 @@ namespace EscapeUNIFRANZ.Player
             if(!full)return robot.ReceiveCanHit();
             if(!robot.CanBeStunned)return false;
             robot.SuspendFor(CanSpill2D.StunSeconds);return true;
+        }
+        public static bool ApplyCrabImpact(MechanicalCrabController crab,bool full)
+        {
+            if(crab==null)return false;
+            if(!full)return crab.ReceiveCanHit();
+            if(!crab.CanBeStunned)return false;
+            crab.SuspendFor(CanSpill2D.StunSeconds);return true;
         }
     }
 }

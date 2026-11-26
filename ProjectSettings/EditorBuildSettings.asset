@@ -41,6 +41,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/Zones/Z08_Piso3Aulas.unity
     guid: bad874cb7aa5f19408ff55ab41506cdf
+  - enabled: 1
+    path: Assets/_Project/Scenes/Zones/Z09_Piso4Aulas.unity
+    guid: d3e19b56b84447e49b36ee65d4179eb2
+  - enabled: 1
+    path: Assets/_Project/Scenes/Zones/Z10_Piso5Aulas.unity
+    guid: 8ec5afca6929ed3488903124a6de70ff
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

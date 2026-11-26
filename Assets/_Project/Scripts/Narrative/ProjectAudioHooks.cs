@@ -20,7 +20,8 @@ namespace EscapeUNIFRANZ.Narrative
         InventoryOpen, InventoryClose, MapOpen, MapClose, FlashlightOn, FlashlightOff, ObjectUsed, ObjectError, Checkpoint,
         ElectricBuzz, LightRestore, TutorialNotification,
         CanThrow, CanImpact, FrancisBroadcast, FrancisFarewell,
-        MenuFocus, PaperOpen, TerminalOpen, MusicDiscovery, MusicVictory, MusicDefeat, AttackImpact
+        MenuFocus, PaperOpen, TerminalOpen, MusicDiscovery, MusicVictory, MusicDefeat, AttackImpact,
+        ElevatorOpen, ElevatorTravel, ElevatorArrive, VendingDispense, AmbienceFloor0, AmbienceFloor1, AmbienceFloor2
     }
 
     [Serializable]
@@ -39,6 +40,14 @@ namespace EscapeUNIFRANZ.Narrative
         public AudioMixerGroup musicBus, ambienceBus, sfxBus, uiBus, voicesBus;
 
         private static ProjectAudioHooks instance;
+        private AudioSource floorAmbience;
+        public static void SetFloorAmbience(int floor)
+        {
+            if(instance==null||!instance.catalog.TryGetValue((AudioCue)((int)AudioCue.AmbienceFloor0+Mathf.Clamp(floor,0,2)),out var binding))return;
+            if(instance.floorAmbience==null){var obj=new GameObject("Ambiente del piso");obj.transform.SetParent(instance.transform,false);instance.floorAmbience=obj.AddComponent<AudioSource>();instance.floorAmbience.loop=true;instance.floorAmbience.outputAudioMixerGroup=instance.ambienceBus;}
+            if(instance.floorAmbience.clip==binding.clip&&instance.floorAmbience.isPlaying)return;
+            instance.floorAmbience.clip=binding.clip;instance.floorAmbience.volume=binding.volume;instance.floorAmbience.Play();
+        }
         private readonly Dictionary<AudioCue, AudioCueBinding> catalog = new();
         private readonly Dictionary<AudioCue, AudioSource> beds = new();
         private Vector3 bedGains = Vector3.one;
